@@ -21,5 +21,10 @@ public class GameManager : MonoBehaviour {
         {
             recording = true;
         }
-	}
+    }
+
+    public void SetRecordingStatus(bool isEnabled)
+    {
+        recording = isEnabled;
+    }
 }
