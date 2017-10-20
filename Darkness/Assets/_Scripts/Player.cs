@@ -12,6 +12,10 @@ public class Player : MonoBehaviour
     public float range = 2f;
     private Rigidbody rb;
     private RaycastHit hit;
+    private Color itemStartColor;
+    private Renderer itemRenderer;
+    private Color itemColor;
+
 
     // Use this for initialization
     void Start()
@@ -23,6 +27,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.DrawRay(transform.position, transform.rotation * Vector3.forward, Color.cyan);
         MovePlayer();
         ChangeDirectionOnClick();
     }
@@ -54,14 +59,47 @@ public class Player : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Checks to see if the player is facing an item
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    public bool IsFacingItem(GameObject item)
+    private void FixedUpdate()
     {
-        return Physics.Raycast(transform.position, transform.forward, range);
+        IsFacingItem();
+    }
+
+    /// <summary>
+    /// Checks to see if the player is facing an item and sets the items color to red if it is
+    /// </summary>
+    public void IsFacingItem()
+    {
+
+        Ray r = new Ray(transform.position, transform.rotation * Vector3.forward);
+        RaycastHit hit;
+
+        //Checks if we hit an item within our range and excluding the Spawner Layer maks
+        if (Physics.Raycast(r, out hit, range, 9) && hit.collider.gameObject.GetComponent<Item>())
+        {
+            //Debug.DrawLine(r.origin, hit.point);
+            //Debug.Log(hit.collider.gameObject.name);
+
+            //set the item renderer stored locally
+            itemRenderer = hit.collider.gameObject.GetComponent<Renderer>();
+
+            //set the color to red
+            if (itemRenderer.material.color != Color.red && itemRenderer.gameObject.GetComponent<Item>().pickedUp == false)
+            {
+                Debug.Log("changing colors");
+                itemColor = itemRenderer.material.color;
+                itemRenderer.material.color = Color.red;
+                itemRenderer.gameObject.GetComponent<Item>().canPickUp = true;
+            }
+        }
+        //otherwise we set the color back to the Item's startColor
+        else
+        {
+            if(itemRenderer != null)
+            {
+                itemRenderer.material = itemRenderer.gameObject.GetComponent<Item>().startColor;
+                itemRenderer.gameObject.GetComponent<Item>().canPickUp = false;
+            }
+        }
     }
 
     /// <summary>

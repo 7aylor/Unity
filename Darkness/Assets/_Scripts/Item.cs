@@ -4,32 +4,47 @@ using UnityEngine;
 
 public class Item : MonoBehaviour {
 
+    public Material[] colors;
+    public GameObject explosion;
+    public Material startColor;
+    public bool canPickUp = false;
+    public bool pickedUp = false;
+
     private Player player;
     private Renderer r;
     private Color highlight = Color.red;
-    private Material startColor;
-    public Material[] colors;
-    private bool canPickUp = false;
-    private bool pickedUp = false;
     private Rigidbody rb;
     private float lockedY = 1;
 
 
-    void Awake () {
+    void Start () {
         r = GetComponent<Renderer>();
         player = FindObjectOfType<Player>();
         rb = GetComponent<Rigidbody>();
-        SetRandomColor();
-	}
+
+        //Checks to see if we are in the first training level to spawn one type of color
+        //for each item
+        if (LevelManager.instance.GetCurrentSceneIndex() == 1)
+        {
+            Debug.Log("Color set");
+            ColorController c = FindObjectOfType<ColorController>();
+            startColor = c.startColor;
+            r.material = startColor;
+        }
+        else
+        {
+            SetRandomColor();
+        }
+    }
 
     private void Update()
     {
         //rotate the item for visual effect
         transform.Rotate(new Vector3(0.5f, 0.5f, 0.5f));
 
-        PlayerInRange();
         PickUpItem();
     }
+
 
     /// <summary>
     /// Used on start to choose a random color for the item.
@@ -58,8 +73,7 @@ public class Item : MonoBehaviour {
                 canPickUp = false;
                 r.material = startColor;
                 rb.velocity = Vector3.zero;
-                transform.position = player.transform.position;
-                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z + 1.5f);
+                PositionPickedUpItem();
             }
             else if (pickedUp == true)
             {
@@ -70,23 +84,15 @@ public class Item : MonoBehaviour {
     }
 
     /// <summary>
-    /// Checks if the player is in range of the item and allows you to pick up and drop items
+    /// Places a newly picked up item right in front of the Player
     /// </summary>
-    private void PlayerInRange()
+    private void PositionPickedUpItem()
     {
-
-        if (pickedUp == false && player.IsFacingItem(this.gameObject) 
-            && Vector3.Distance(player.transform.position, transform.position) < player.range)
-        {
-            canPickUp = true;
-            r.material.color = highlight;
-        }
-        else
-        {
-            canPickUp = false;
-            r.material = startColor;
-        }
+        transform.position = player.transform.position;
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z + 1.5f);
+        rb.velocity = Vector3.zero;
     }
+
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -94,8 +100,21 @@ public class Item : MonoBehaviour {
 
         if (collisionItem != null && collisionItem.startColor == startColor) {
             FindObjectOfType<VignetteController>().CombineItemsEvent();
+
+            ParticleSystemRenderer psr = explosion.GetComponent<ParticleSystemRenderer>();
+            psr.material = startColor;
+
+            Instantiate(explosion, transform.position, Quaternion.identity);
             Destroy(collisionItem);
             Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if(pickedUp == true && collision.gameObject.tag == "Wall")
+        {
+            Invoke("PositionPickedUpItem", 1f);
         }
     }
 }
