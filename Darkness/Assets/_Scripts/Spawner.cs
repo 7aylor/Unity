@@ -47,10 +47,8 @@ public class Spawner : MonoBehaviour {
         if (itemDocked == false && timeSinceLastSpawn >= timeBetweenSpawns)
         {
             timeSinceLastSpawn = 0f;
-            dockedItem = Instantiate(item);
+            dockedItem = Instantiate(item, new Vector3(transform.position.x, 1, transform.position.z), Quaternion.identity, transform);
             dockedItem.name = "item";
-            dockedItem.transform.parent = gameObject.transform;
-            dockedItem.transform.position = new Vector3(transform.position.x, 1, transform.position.z);
         }
     }
 
@@ -64,7 +62,6 @@ public class Spawner : MonoBehaviour {
         {
             light.SetLightColor(dockedItem.GetComponent<Renderer>().material.color);
         }
-
     }
 
     /// <summary>

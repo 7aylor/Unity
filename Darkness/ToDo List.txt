@@ -1,8 +1,11 @@
--Finish between level menus
+-Finish between level menus (Win Screen)
+-Add tutorial text instructions
 -Design new levels increasing in difficulty (procedural generation?)
 
--Add particle effects on destroy and on all Items
--On levels with fewer item colors, make them randomly choose the colors they use
--Fix odd physics when running into walls or Items //Fixed
 -Add multi Item inventory and way to rotate which items are first
--Fix bug when running into wall and Item goes haywire
+
+
+-On levels with fewer item colors, make them randomly choose the colors they use //Mostly Fixed
+-Fix bug when running into wall and Item goes haywire //Fixed
+-Add particle effects on destroy and on all Items //Finished
+-Fix raycast selecting multiple objects // Finished
