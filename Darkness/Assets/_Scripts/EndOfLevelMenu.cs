@@ -9,21 +9,21 @@ using UnityEngine.EventSystems;
 /// Class needed to inherit from IPointerEnterHandler and IPointerExitHandler from the 
 /// UnityEngine.EventSystems namespace so it can manually track mouse pointer events
 /// </summary>
-public class WinMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class EndOfLevelMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private Player player;
 
 	// Use this for initialization
 	void Start () {
         player = GameObject.FindObjectOfType<Player>();
-        EnableWinMenu(false);
+        EnableMenu(false);
 	}
 	
     /// <summary>
     /// Allows outside access to activate and deactivate gameObject
     /// </summary>
     /// <param name="enabled"></param>
-    public void EnableWinMenu(bool enabled)
+    public void EnableMenu(bool enabled)
     {
         gameObject.SetActive(enabled);
     }
@@ -36,6 +36,7 @@ public class WinMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         player.canTurn = false;
     }
+
     /// <summary>
     /// detects if the mouse has stopped hovering over the gameObject
     /// </summary>
@@ -43,7 +44,4 @@ public class WinMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         player.canTurn = true;
     }
-
-
-
 }

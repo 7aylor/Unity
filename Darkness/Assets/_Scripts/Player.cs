@@ -10,11 +10,13 @@ public class Player : MonoBehaviour
     public List<GameObject> pickedUpItems;
     public bool canTurn = true;
     public float range = 2f;
+    public float sprintSpeed;
     private Rigidbody rb;
     private RaycastHit hit;
     private Color itemStartColor;
     private Renderer itemRenderer;
     private Color itemColor;
+    
 
 
     // Use this for initialization
@@ -110,7 +112,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftShift) && Input.GetAxis("Vertical") > 0)
         {
-            return 20f;
+            return sprintSpeed;
         }
         else
         {

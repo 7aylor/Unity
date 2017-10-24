@@ -8,7 +8,8 @@ public class VignetteController : MonoBehaviour {
 
     private PostProcessingBehaviour behaviour;
     private VignetteModel.Settings vSettings;
-    public WinMenu winMenu;
+    public EndOfLevelMenu winMenu;
+    public EndOfLevelMenu loseMenu;
     public float vignetteStartIntensity;
 
     private float intensity;
@@ -18,8 +19,7 @@ public class VignetteController : MonoBehaviour {
     private float stage3 = 0.75f;
     private float stage4 = 1.5f;
     private float gameOver = 2.5f;
-
-
+    private Timer timer;
 
     // Use this for initialization
     void Start () {
@@ -29,6 +29,8 @@ public class VignetteController : MonoBehaviour {
 
         vSettings.intensity = vignetteStartIntensity;
         intensity = vSettings.intensity;
+
+        timer = FindObjectOfType<Timer>();
     }
 	
 	// Update is called once per frame
@@ -36,7 +38,6 @@ public class VignetteController : MonoBehaviour {
         SetVignetteIntensityChangeRate();
         StartCoroutine("IncreaseVignetteIntensity", intensity + vignetteIntensityChangeRate);
     }
-
 
     /// <summary>
     /// Updates the intensity of the vignette and applies to the Post Processing Behaviour
@@ -79,7 +80,7 @@ public class VignetteController : MonoBehaviour {
         if(intensity < stage1)
         {
             vignetteIntensityChangeRate = 0f;
-            winMenu.EnableWinMenu(true);
+            winMenu.EnableMenu(true);
         }
         else if(intensity >= stage1 && intensity < stage2)
         {
@@ -100,6 +101,8 @@ public class VignetteController : MonoBehaviour {
         else
         {
             vignetteIntensityChangeRate = 5f;
+            timer.count = false;
+            loseMenu.EnableMenu(true);
         }
     }
 
