@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 
@@ -12,10 +13,20 @@ using UnityEngine.EventSystems;
 public class EndOfLevelMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private Player player;
+    private Text timerText;
 
 	// Use this for initialization
 	void Start () {
         player = GameObject.FindObjectOfType<Player>();
+        
+        foreach(Transform child in transform)
+        {
+            if(child.gameObject.name == "Time Message")
+            {
+                timerText = child.gameObject.GetComponent<Text>();
+            }
+        }
+
         EnableMenu(false);
 	}
 	
@@ -43,5 +54,21 @@ public class EndOfLevelMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void OnPointerExit(PointerEventData eventData)
     {
         player.canTurn = true;
+    }
+
+    /// <summary>
+    /// Updates the time text to reflect the amount of time it took to beat the level
+    /// </summary>
+    /// <param name="time"></param>
+    public void UpdateWinMenuTimerText(int time)
+    {
+        if(timerText != null)
+        {
+            timerText.text = "You beat this level in " + time.ToString() + " seconds!";
+        }
+        else
+        {
+            timerText.text = "";
+        }
     }
 }

@@ -5,20 +5,22 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour {
 
-    private Text timer;
+    private Text timerText;
     public bool count = true;
+    public int timeInSeconds = 0;
 
 
 	// Use this for initialization
 	void Start () {
-        timer = GetComponent<Text>();
+        timerText = GetComponent<Text>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
         if(count == true)
         {
-            timer.text = Mathf.Round(Time.timeSinceLevelLoad).ToString();
+            timeInSeconds = (int)Mathf.Round(Time.timeSinceLevelLoad);
+            timerText.text = timeInSeconds.ToString();
         }
 	}
 }

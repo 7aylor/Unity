@@ -80,6 +80,8 @@ public class VignetteController : MonoBehaviour {
         if(intensity < stage1)
         {
             vignetteIntensityChangeRate = 0f;
+            timer.count = false;
+            winMenu.UpdateWinMenuTimerText(timer.timeInSeconds);
             winMenu.EnableMenu(true);
         }
         else if(intensity >= stage1 && intensity < stage2)
