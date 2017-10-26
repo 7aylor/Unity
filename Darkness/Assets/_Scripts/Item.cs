@@ -24,7 +24,7 @@ public class Item : MonoBehaviour {
 
         //Checks to see if we are in the first training level to spawn one type of color
         //for each item
-        if (LevelManager.instance.GetCurrentSceneIndex() == 1)
+        if (LevelManager.instance.GetCurrentSceneName() == "Level_01")
         {
             Debug.Log("Color set");
             ColorController c = FindObjectOfType<ColorController>();

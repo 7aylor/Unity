@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,6 +23,24 @@ public class LevelManager : MonoBehaviour {
         }
 
         DontDestroyOnLoad(gameObject);
+
+        for(int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+        {
+            string sceneName = System.IO.Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(i));
+
+            if (sceneName.Contains("Level_"))
+            {
+                Debug.Log(sceneName);
+                if (!sceneName.Contains("1") && PlayerPrefs.HasKey(sceneName + "_Enabled") == false)
+                {
+                    PlayerPrefs.SetString(sceneName + "_Enabled", "False");
+                }
+                if (PlayerPrefs.HasKey(sceneName + "_HighScore") == false)
+                {
+                    PlayerPrefs.SetInt(sceneName + "_HighScore", Int32.MaxValue);
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -58,10 +77,19 @@ public class LevelManager : MonoBehaviour {
     /// <summary>
     /// Allows outside access to get the current scene index
     /// </summary>
-    /// <returns></returns>
+    /// <returns>index of the current scene in the build index</returns>
     public int GetCurrentSceneIndex()
     {
         return SceneManager.GetActiveScene().buildIndex;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>name of the current scene</returns>
+    public string GetCurrentSceneName()
+    {
+        return SceneManager.GetActiveScene().name;
     }
 
 }

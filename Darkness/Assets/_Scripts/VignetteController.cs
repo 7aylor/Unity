@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PostProcessing;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class VignetteController : MonoBehaviour {
 
@@ -83,6 +84,27 @@ public class VignetteController : MonoBehaviour {
             timer.count = false;
             winMenu.UpdateWinMenuTimerText(timer.timeInSeconds);
             winMenu.EnableMenu(true);
+
+            string currentSceneName = LevelManager.instance.GetCurrentSceneName();
+
+            //Enable the level for level select and check for high score
+            PlayerPrefs.SetString(currentSceneName + "_Enabled", "True");
+
+            if(PlayerPrefs.GetInt(currentSceneName + "_HighScore") != 0 &&
+               PlayerPrefs.GetInt(currentSceneName + "_HighScore") > timer.timeInSeconds)
+            {
+                //enable record menu
+                foreach(Transform obj in winMenu.transform)
+                {
+                    if (obj.gameObject.name == "Record Time")
+                    {
+                        obj.GetComponent<Text>().enabled = true;
+                    }
+                }
+
+                //set high score
+                PlayerPrefs.SetInt(currentSceneName + "_HighScore", timer.timeInSeconds);
+            }
         }
         else if(intensity >= stage1 && intensity < stage2)
         {
