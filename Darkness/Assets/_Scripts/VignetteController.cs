@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PostProcessing;
@@ -85,13 +86,16 @@ public class VignetteController : MonoBehaviour {
             winMenu.UpdateWinMenuTimerText(timer.timeInSeconds);
             winMenu.EnableMenu(true);
 
+            //Get current scene name and next scene name to unlock next level
             string currentSceneName = LevelManager.instance.GetCurrentSceneName();
+            string nextSceneName = currentSceneName.Substring(0, currentSceneName.Length - 1);
+            nextSceneName += (char)(Convert.ToInt32(currentSceneName[currentSceneName.Length - 1]) + 1);
 
             //Enable the level for level select and check for high score
-            PlayerPrefs.SetString(currentSceneName + "_Enabled", "True");
+            PlayerPrefs.SetString(nextSceneName + "_Enabled", "True");
 
-            if(PlayerPrefs.GetInt(currentSceneName + "_HighScore") != 0 &&
-               PlayerPrefs.GetInt(currentSceneName + "_HighScore") > timer.timeInSeconds)
+            if(PlayerPrefs.GetInt(currentSceneName + "_BestTime") != 0 &&
+               PlayerPrefs.GetInt(currentSceneName + "_BestTime") > timer.timeInSeconds)
             {
                 //enable record menu
                 foreach(Transform obj in winMenu.transform)
@@ -103,7 +107,7 @@ public class VignetteController : MonoBehaviour {
                 }
 
                 //set high score
-                PlayerPrefs.SetInt(currentSceneName + "_HighScore", timer.timeInSeconds);
+                PlayerPrefs.SetInt(currentSceneName + "_BestTime", timer.timeInSeconds);
             }
         }
         else if(intensity >= stage1 && intensity < stage2)

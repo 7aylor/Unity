@@ -1,10 +1,10 @@
--Finish between level menus (Win Screen)
--Add tutorial text instructions
--Persistent Data https://gamedevelopment.tutsplus.com/tutorials/how-to-save-and-load-your-players-progress-in-unity--cms-20934
--Level Selection Menu
--Best scores for each level
-
+-Fix UI Scaling issues
 -Design new levels increasing in difficulty (procedural generation?)
+
+
+-Add tutorial text instructions
+-Pause Menu
+-Mouse Cursor (Thanks to ApothicTV)
 -Add multi Item inventory and way to rotate which items are first
 
 
@@ -14,7 +14,7 @@
 -Add particle effects on destroy and on all Items //Finished
 -Fix raycast selecting multiple objects // Finished
 -Timer //Finished
-
-
-Level_01_Enabled
-Level_01_HighScore
+-Persistent Data https://gamedevelopment.tutsplus.com/tutorials/how-to-save-and-load-your-players-progress-in-unity--cms-20934 //Finished
+-Level Selection Menu //Finished
+-Best scores for each level //Finished
+-Fix continue issue (not being able to play current unbeaten level) //finished

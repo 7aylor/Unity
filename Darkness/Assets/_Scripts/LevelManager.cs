@@ -30,14 +30,13 @@ public class LevelManager : MonoBehaviour {
 
             if (sceneName.Contains("Level_"))
             {
-                Debug.Log(sceneName);
                 if (!sceneName.Contains("1") && PlayerPrefs.HasKey(sceneName + "_Enabled") == false)
                 {
                     PlayerPrefs.SetString(sceneName + "_Enabled", "False");
                 }
-                if (PlayerPrefs.HasKey(sceneName + "_HighScore") == false)
+                if (PlayerPrefs.HasKey(sceneName + "_BestTime") == false)
                 {
-                    PlayerPrefs.SetInt(sceneName + "_HighScore", Int32.MaxValue);
+                    PlayerPrefs.SetInt(sceneName + "_BestTime", Int32.MaxValue);
                 }
             }
         }

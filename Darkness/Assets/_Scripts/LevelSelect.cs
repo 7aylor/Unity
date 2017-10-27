@@ -12,19 +12,12 @@ public class LevelSelect : MonoBehaviour {
 	void Start () {
         button = GetComponent<Button>();
 
+        //check if the level has been beaten and disable/change to red if it hasn't been beaten
         if(gameObject.name != "Level_01" && PlayerPrefs.GetString(gameObject.name + "_Enabled") == "False")
         {
             button.gameObject.GetComponent<Image>().color = Color.red;
             button.enabled = false;
         }
-
-        Debug.Log(PlayerPrefs.HasKey("Level_01_HighScore"));
-        Debug.Log(PlayerPrefs.GetInt("Level_01_HighScore"));
-
-
-        //PlayerPrefs.SetInt("Level_01_HighScore", 100);
-
-
     }
 	
 }
