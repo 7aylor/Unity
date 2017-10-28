@@ -16,7 +16,7 @@ public class VignetteController : MonoBehaviour {
 
     private float intensity;
     private float vignetteIntensityChangeRate = 0.01f;
-    private float stage1 = 0.1f;
+    private float stage1 = 0.15f;
     private float stage2 = 0.35f;
     private float stage3 = 0.75f;
     private float stage4 = 1.5f;

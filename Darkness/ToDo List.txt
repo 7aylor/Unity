@@ -1,4 +1,4 @@
--Fix UI Scaling issues
+
 -Design new levels increasing in difficulty (procedural generation?)
 
 
@@ -18,3 +18,4 @@
 -Level Selection Menu //Finished
 -Best scores for each level //Finished
 -Fix continue issue (not being able to play current unbeaten level) //finished
+-Fix UI Scaling issues //Finished
