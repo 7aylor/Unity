@@ -11,7 +11,7 @@ public class LevelManager : MonoBehaviour {
     /// </summary>
     public static LevelManager instance;
 
-    private void Start()
+    private void Awake()
     {
         if (instance == null)
         {
