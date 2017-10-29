@@ -13,7 +13,7 @@ public class LevelManager : MonoBehaviour {
 
     private void Start()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
@@ -23,8 +23,12 @@ public class LevelManager : MonoBehaviour {
         }
 
         DontDestroyOnLoad(gameObject);
+        InitPlayerPrefs();
+    }
 
-        for(int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+    private static void InitPlayerPrefs()
+    {
+        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
         {
             string sceneName = System.IO.Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(i));
 
