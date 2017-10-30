@@ -13,6 +13,8 @@ public class VignetteController : MonoBehaviour {
     public EndOfLevelMenu winMenu;
     public EndOfLevelMenu loseMenu;
     public float vignetteStartIntensity;
+    public AudioClip successSound;
+    public AudioClip failureSound;
 
     private float intensity;
     private float vignetteIntensityChangeRate = 0.01f;
@@ -22,9 +24,13 @@ public class VignetteController : MonoBehaviour {
     private float stage4 = 1.5f;
     private float gameOver = 2.5f;
     private Timer timer;
+    private bool endMenuSoundPlayed;
 
     // Use this for initialization
     void Start () {
+
+        endMenuSoundPlayed = false;
+
         //read more of this https://github.com/Unity-Technologies/PostProcessing/wiki/(v1)-Runtime-post-processing-modification
         behaviour = GetComponent<PostProcessingBehaviour>();
         vSettings = behaviour.profile.vignette.settings;
@@ -86,6 +92,13 @@ public class VignetteController : MonoBehaviour {
             winMenu.UpdateWinMenuTimerText(timer.timeInSeconds);
             winMenu.EnableMenu(true);
 
+            if (endMenuSoundPlayed == false)
+            {
+                AudioSource.PlayClipAtPoint(successSound, Vector3.zero);
+            }
+
+            endMenuSoundPlayed = true;
+
             //Get current scene name and next scene name to unlock next level
             string currentSceneName = LevelManager.instance.GetCurrentSceneName();
             string nextSceneName = currentSceneName.Substring(0, currentSceneName.Length - 1);
@@ -131,7 +144,13 @@ public class VignetteController : MonoBehaviour {
             vignetteIntensityChangeRate = 5f;
             timer.count = false;
             loseMenu.EnableMenu(true);
+
+            if (endMenuSoundPlayed == false)
+            {
+                AudioSource.PlayClipAtPoint(failureSound, Vector3.zero);
+            }
+
+            endMenuSoundPlayed = true;
         }
     }
-
 }
