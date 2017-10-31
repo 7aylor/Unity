@@ -39,12 +39,13 @@ public class VignetteController : MonoBehaviour {
         intensity = vSettings.intensity;
 
         timer = FindObjectOfType<Timer>();
+
+        StartCoroutine("IncreaseVignetteIntensity", intensity + vignetteIntensityChangeRate);
     }
 	
 	// Update is called once per frame
 	void Update () {
         SetVignetteIntensityChangeRate();
-        StartCoroutine("IncreaseVignetteIntensity", intensity + vignetteIntensityChangeRate);
     }
 
     /// <summary>
@@ -152,5 +153,27 @@ public class VignetteController : MonoBehaviour {
 
             endMenuSoundPlayed = true;
         }
+    }
+
+    public void SetVignetteIntensityChangeRate(float newRate)
+    {
+        vignetteIntensityChangeRate = newRate;
+    }
+
+    public float GetVignetteIntensityChangeRate()
+    {
+        return vignetteIntensityChangeRate;
+    }
+
+    public void PauseVignetteIntensity()
+    {
+        Debug.Log("Paused CoRoutine");
+        StopCoroutine("IncreaseVignetteIntensity");
+    }
+
+    public void ResumeVignetteIntensity()
+    {
+        Debug.Log("Resumed CoRoutine");
+        StartCoroutine("IncreaseVignetteIntensity", intensity + vignetteIntensityChangeRate);
     }
 }
