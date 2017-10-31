@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     private Color itemStartColor;
     private Renderer itemRenderer;
     private Color itemColor;
+    private AudioSource audioSource;
     
 
 
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
         pickedUpItems = new List<GameObject>();
     }
 
@@ -91,6 +93,7 @@ public class Player : MonoBehaviour
                 itemColor = itemRenderer.material.color;
                 itemRenderer.material.color = Color.red;
                 itemRenderer.gameObject.GetComponent<Item>().canPickUp = true;
+                audioSource.Play();
             }
         }
         //otherwise we set the color back to the Item's startColor

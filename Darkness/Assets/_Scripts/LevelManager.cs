@@ -26,6 +26,9 @@ public class LevelManager : MonoBehaviour {
         InitPlayerPrefs();
     }
 
+    /// <summary>
+    /// Initializes the best time and enabled PlayerPrefs when you first launch the game
+    /// </summary>
     private static void InitPlayerPrefs()
     {
         for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)

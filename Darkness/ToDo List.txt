@@ -1,13 +1,14 @@
+Only things left:
 
--Design new levels increasing in difficulty (procedural generation?)
-
-
--Add tutorial text instructions
 -Pause Menu
+-Help Menu
+-Fine tuning gameplay
+
 -Mouse Cursor (Thanks to ApothicTV)
+
+
+
 -Add multi Item inventory and way to rotate which items are first
-
-
 
 -On levels with fewer item colors, make them randomly choose the colors they use //Mostly Fixed
 -Fix bug when running into wall and Item goes haywire //Fixed

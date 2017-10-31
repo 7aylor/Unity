@@ -9,18 +9,21 @@ public class Item : MonoBehaviour {
     public Material startColor;
     public bool canPickUp = false;
     public bool pickedUp = false;
+    public AudioClip combine, pickup, drop;
 
     private Player player;
     private Renderer r;
     private Color highlight = Color.red;
     private Rigidbody rb;
     private float lockedY = 1;
+    private AudioSource audioSource;
 
 
     void Start () {
         r = GetComponent<Renderer>();
         player = FindObjectOfType<Player>();
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
 
         //Checks to see if we are in the first training level to spawn one type of color
         //for each item
@@ -74,11 +77,15 @@ public class Item : MonoBehaviour {
                 r.material = startColor;
                 rb.velocity = Vector3.zero;
                 PositionPickedUpItem();
+                audioSource.clip = pickup;
+                audioSource.Play();
             }
             else if (pickedUp == true)
             {
                 gameObject.transform.parent = null;
                 pickedUp = false;
+                audioSource.clip = drop;
+                audioSource.Play();
             }
         }
     }
@@ -104,10 +111,29 @@ public class Item : MonoBehaviour {
             ParticleSystemRenderer psr = explosion.GetComponent<ParticleSystemRenderer>();
             psr.material = startColor;
 
+            audioSource.clip = combine;
+
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+
             Instantiate(explosion, transform.position, Quaternion.identity);
-            Destroy(collisionItem);
-            Destroy(gameObject);
+
+            gameObject.GetComponent<MeshRenderer>().enabled = false;
+            collision.gameObject.GetComponent<MeshRenderer>().enabled = false;
+            gameObject.GetComponent<ParticleSystem>().Stop();
+            collision.gameObject.GetComponent<ParticleSystem>().Stop();
+
+            StartCoroutine(DestroyItems(collision.gameObject, gameObject, audioSource.clip.length));
         }
+    }
+
+    private IEnumerator DestroyItems(GameObject thisItem, GameObject collisionItem, float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        Destroy(collisionItem);
+        Destroy(thisItem);
     }
 
     private void OnCollisionExit(Collision collision)
