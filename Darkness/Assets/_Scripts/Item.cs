@@ -122,6 +122,8 @@ public class Item : MonoBehaviour {
 
             gameObject.GetComponent<MeshRenderer>().enabled = false;
             collision.gameObject.GetComponent<MeshRenderer>().enabled = false;
+            gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            collision.gameObject.GetComponent<Rigidbody>().isKinematic = true;
             gameObject.GetComponent<ParticleSystem>().Stop();
             collision.gameObject.GetComponent<ParticleSystem>().Stop();
 

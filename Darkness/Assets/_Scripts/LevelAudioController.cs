@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class LevelAudioController : MonoBehaviour {
 
-    public static LevelAudioController instance;
+ //   public static LevelAudioController instance;
 
-	// Use this for initialization
-	void Start () {
-		if(instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Debug.Log("Destroyed Audio Controller");
-            Destroy(gameObject);
-        }
+	//// Use this for initialization
+	//void Start () {
+	//	if(instance == null)
+ //       {
+ //           instance = this;
+ //       }
+ //       else
+ //       {
+ //           Debug.Log("Destroyed Audio Controller");
+ //           Destroy(gameObject);
+ //       }
 
-        DontDestroyOnLoad(gameObject);
-	}
+ //       DontDestroyOnLoad(gameObject);
+	//}
 
     private void Update()
     {

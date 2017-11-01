@@ -12,9 +12,9 @@ public class VignetteController : MonoBehaviour {
     private VignetteModel.Settings vSettings;
     public EndOfLevelMenu winMenu;
     public EndOfLevelMenu loseMenu;
-    public float vignetteStartIntensity;
     public AudioClip successSound;
     public AudioClip failureSound;
+    public float vignetteStartIntensity;
 
     private float intensity;
     private float vignetteIntensityChangeRate = 0.01f;
@@ -40,7 +40,7 @@ public class VignetteController : MonoBehaviour {
 
         timer = FindObjectOfType<Timer>();
 
-        StartCoroutine("IncreaseVignetteIntensity", intensity + vignetteIntensityChangeRate);
+        StartCoroutine("IncreaseVignetteIntensity");
     }
 	
 	// Update is called once per frame
@@ -52,13 +52,15 @@ public class VignetteController : MonoBehaviour {
     /// Updates the intensity of the vignette and applies to the Post Processing Behaviour
     /// </summary>
     /// <param name="newIntensity"></param>
-    private IEnumerator IncreaseVignetteIntensity(float newIntensity)
+    private IEnumerator IncreaseVignetteIntensity()
     {
-        while(vSettings.intensity < newIntensity) // initial is better than new intensity
+        float newIntensity = intensity + vignetteIntensityChangeRate;
+        while (vSettings.intensity < newIntensity) // initial is better than new intensity
         {
             vSettings.intensity += (vignetteIntensityChangeRate / 10);
             behaviour.profile.vignette.settings = vSettings;
             intensity = vSettings.intensity;
+            newIntensity = intensity + vignetteIntensityChangeRate;
             yield return new WaitForSeconds(0.1f);
         }  
     } 
@@ -126,23 +128,23 @@ public class VignetteController : MonoBehaviour {
         }
         else if(intensity >= stage1 && intensity < stage2)
         {
-            vignetteIntensityChangeRate = 0.00075f;
+            vignetteIntensityChangeRate = 0.005f; //0.00075f
         }
         else if(intensity >= stage2 && intensity < stage3)
         {
-            vignetteIntensityChangeRate = 0.001f;
+            vignetteIntensityChangeRate = 0.0075f; //0.001f
         }
         else if (intensity >= stage3 && intensity < stage4)
         {
-            vignetteIntensityChangeRate = 0.005f;
+            vignetteIntensityChangeRate = 0.01f; //0.005f
         }
         else if (intensity >= stage4 && intensity < gameOver)
         {
-            vignetteIntensityChangeRate = 0.01f;
+            vignetteIntensityChangeRate = 0.05f; //0.01f
         }
         else
         {
-            vignetteIntensityChangeRate = 5f;
+            vignetteIntensityChangeRate = 50f;
             timer.count = false;
             loseMenu.EnableMenu(true);
 
@@ -155,25 +157,39 @@ public class VignetteController : MonoBehaviour {
         }
     }
 
-    public void SetVignetteIntensityChangeRate(float newRate)
-    {
-        vignetteIntensityChangeRate = newRate;
-    }
-
-    public float GetVignetteIntensityChangeRate()
-    {
-        return vignetteIntensityChangeRate;
-    }
-
+    /// <summary>
+    /// Pauses the currently running Coroutine
+    /// </summary>
     public void PauseVignetteIntensity()
     {
         Debug.Log("Paused CoRoutine");
         StopCoroutine("IncreaseVignetteIntensity");
     }
 
+    /// <summary>
+    /// Resumes the coroutine
+    /// </summary>
     public void ResumeVignetteIntensity()
     {
         Debug.Log("Resumed CoRoutine");
-        StartCoroutine("IncreaseVignetteIntensity", intensity + vignetteIntensityChangeRate);
+        StartCoroutine("IncreaseVignetteIntensity");
+    }
+
+    /// <summary>
+    /// Getter to see if player has beaten this level
+    /// </summary>
+    /// <returns>bool hasWon</returns>
+    public bool HasWon()
+    {
+        return intensity < stage1;
+    }
+
+    /// <summary>
+    /// Getter to see if the player has lost this level
+    /// </summary>
+    /// <returns>bool hasLost</returns>
+    public bool HasLost()
+    {
+        return intensity >= gameOver;
     }
 }

@@ -11,18 +11,28 @@ public class PauseController : MonoBehaviour {
     private Player player;
     private VignetteController vignette;
     private float vChangeRate = 0;
+    private GameObject levelLabel;
+
 
 	// Use this for initialization
 	void Start () {
+        levelLabel = GameObject.Find("Level Label");
+
+        if(levelLabel != null)
+        {
+            levelLabel.GetComponent<Text>().text = LevelManager.instance.GetCurrentSceneName().Replace('_', ' ');
+        }
+
         pauseMenu.SetActive(false);
         audioSource = GetComponent<AudioSource>();
         player = GameObject.FindObjectOfType<Player>();
         vignette = GameObject.FindObjectOfType<VignetteController>();
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetButtonDown("Pause"))
+        if (Input.GetButtonDown("Pause") && vignette.HasLost() == false && vignette.HasWon() == false)
         {
             if (isPaused == false)
             {
