@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 98756650a17e0574e87b7462cdb061d9
+timeCreated: 1510004804
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: SimpleLife
+  fontNames:
+  - SimpleLife
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
