@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Card_Passive
+  - Card_Active
+  - Market_Deck
   layers:
   - Default
   - TransparentFX
