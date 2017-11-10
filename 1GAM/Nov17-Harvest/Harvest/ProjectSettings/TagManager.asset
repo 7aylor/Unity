@@ -7,6 +7,7 @@ TagManager:
   - Card_Passive
   - Card_Active
   - Market_Deck
+  - Market_Card
   layers:
   - Default
   - TransparentFX

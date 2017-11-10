@@ -6,30 +6,40 @@ public class BuyCard : MonoBehaviour
 {
     private GameObject child;
     private Market market;
+    private Gold goldInBank;
 
     void Start()
     {
-        child = transform.GetChild(0).gameObject;
+        child = transform.gameObject;
         market = FindObjectOfType<Market>();
+        goldInBank = FindObjectOfType<Gold>();
     }
 
-    public void Buy()
+    public void Buy(int costOfCard)
     {
         //check for adequate gold
-
-        //check for an open slot in the respective hand
-
-        //delete card from market
-
-        if(gameObject.tag != "Market_Deck")
+        if (goldInBank.canBuy(costOfCard))
         {
-            Destroy(child);
+            //check for an open slot in the respective hand
+
+            //if the object we clicked is not the market deck
+            if (gameObject.tag != "Market_Deck")
+            {
+                market.ShiftCardsForward(gameObject);
+            }
+            //if we do click on the market deck, spawn a random and assign it to the proper hand
+            else
+            {
+
+            }
+
+            //update the amount of gold in the bank after we buy a card
+            goldInBank.SetGoldAmount(goldInBank.GetGoldAmount() - costOfCard);
         }
-
-        //move other cards to new positions
-        market.ShiftCardsForwad();
-
-        //draw new card from deck
+        else
+        {
+            //tell user they can't afford this card
+        }
     }
 
 
