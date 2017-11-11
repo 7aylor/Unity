@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114448348018295388}
   m_Layer: 0
   m_Name: Bank
-  m_TagString: Untagged
+  m_TagString: Card_Passive
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

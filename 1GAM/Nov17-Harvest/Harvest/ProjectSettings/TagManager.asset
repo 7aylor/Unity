@@ -8,6 +8,8 @@ TagManager:
   - Card_Active
   - Market_Deck
   - Market_Card
+  - Hand_Passive
+  - Hand_Active
   layers:
   - Default
   - TransparentFX

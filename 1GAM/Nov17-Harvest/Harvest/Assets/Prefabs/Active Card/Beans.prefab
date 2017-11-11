@@ -9,31 +9,31 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1425694935365066}
+  m_RootGameObject: {fileID: 1433936812983760}
   m_IsPrefabParent: 1
---- !u!1 &1425694935365066
+--- !u!1 &1433936812983760
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 224626109111084552}
-  - component: {fileID: 222394666476949824}
-  - component: {fileID: 114563345743190586}
+  - component: {fileID: 224447752638847016}
+  - component: {fileID: 222198421903355374}
+  - component: {fileID: 114752337669132824}
   m_Layer: 0
-  m_Name: Corn
-  m_TagString: Untagged
+  m_Name: Beans
+  m_TagString: Card_Active
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &114563345743190586
+--- !u!114 &114752337669132824
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1425694935365066}
+  m_GameObject: {fileID: 1433936812983760}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
@@ -47,7 +47,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: f1a760341fce5994686196594771cb71, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 58a594e9cdce8354c90f0256cb276d1c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -55,18 +55,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!222 &222394666476949824
+--- !u!222 &222198421903355374
 CanvasRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1425694935365066}
---- !u!224 &224626109111084552
+  m_GameObject: {fileID: 1433936812983760}
+--- !u!224 &224447752638847016
 RectTransform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1425694935365066}
+  m_GameObject: {fileID: 1433936812983760}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}

@@ -32,7 +32,7 @@ public class Market : MonoBehaviour {
     /// <returns>Returns a random gameobject from the Passive/Active Card prefabs</returns>
     public GameObject DealRandomCard()
     {
-        return cards[Random.Range(0, cards.Length - 1)];
+        return cards[Random.Range(0, cards.Length)];
     }
 
     /// <summary>
@@ -87,7 +87,7 @@ public class Market : MonoBehaviour {
     /// Checks the image sprite name on the card object and sets the proper tag
     /// </summary>
     /// <param name="card"></param>
-    private void AssignMarketCardTag(GameObject card)
+    public void AssignMarketCardTag(GameObject card)
     {
         Image cardImage = card.GetComponent<Image>();
 

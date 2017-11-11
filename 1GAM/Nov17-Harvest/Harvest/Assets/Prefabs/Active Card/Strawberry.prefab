@@ -9,31 +9,31 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1214472535740366}
+  m_RootGameObject: {fileID: 1030061629547312}
   m_IsPrefabParent: 1
---- !u!1 &1214472535740366
+--- !u!1 &1030061629547312
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 224939071482164346}
-  - component: {fileID: 222417452081269598}
-  - component: {fileID: 114088027891366790}
+  - component: {fileID: 224161278047798170}
+  - component: {fileID: 222529973352087422}
+  - component: {fileID: 114129800368978944}
   m_Layer: 0
-  m_Name: Irrigation
-  m_TagString: Untagged
+  m_Name: Strawberry
+  m_TagString: Card_Active
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &114088027891366790
+--- !u!114 &114129800368978944
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1214472535740366}
+  m_GameObject: {fileID: 1030061629547312}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
@@ -47,7 +47,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 029ac1d8b0be36a41be98289c5fe3939, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 14e566e714fa02a4ba666ddac7312eee, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -55,18 +55,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!222 &222417452081269598
+--- !u!222 &222529973352087422
 CanvasRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1214472535740366}
---- !u!224 &224939071482164346
+  m_GameObject: {fileID: 1030061629547312}
+--- !u!224 &224161278047798170
 RectTransform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1214472535740366}
+  m_GameObject: {fileID: 1030061629547312}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
