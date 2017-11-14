@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class Hand : MonoBehaviour
 {
     private int cardCount;
     private List<GameObject> cards = new List<GameObject>();
+    public bool CardSelected { get; set; }
+    private string selectedCard = "";
 
     // Use this for initialization
     void Start()
     {
+        CardSelected = false;
         cardCount = 0;
         GetHandCardSlots();
     }
@@ -54,7 +58,23 @@ public class Hand : MonoBehaviour
         {
             cardCount = 0;
         }
-
     }
 
+    public bool CanSelectCard(GameObject obj)
+    {
+        string name = obj.GetComponent<Image>().sprite.name;
+
+        if (CardSelected == false || name == selectedCard)
+        {
+            selectedCard = name;
+            return true;
+        }
+        else if (name != selectedCard)
+        {
+            return false;
+        }
+
+        return false;
+    }
+    
 }

@@ -9,7 +9,6 @@ public class HighlightTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private Color startColor;
     private Image image;
     private Color32 newColor;
-    //private bool canHighlight = false;
 
     private void Start()
     {
@@ -18,16 +17,52 @@ public class HighlightTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         newColor = new Color32(197, 88, 83, 255);
     }
 
+    /// <summary>
+    /// Highlights tile when mouse hovers over it, if applicable
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(image.sprite != null)// && canHighlight == true)
+        //if there is a sprite on the object and it's not a default image
+        if (image.sprite != null && !image.sprite.name.Contains("Default"))
         {
+            Hand hand = gameObject.transform.parent.GetComponent<Hand>();
+            PlayspaceTile tile = gameObject.GetComponent<PlayspaceTile>();
+            BuyCard marketCard = gameObject.GetComponent<BuyCard>();
+
+            //if the object is part of a hand and there is a card selected, don't highlight
+            if (hand != null && (hand.CardSelected == true))
+            {
+                return;
+            }
+            else if(hand == null && tile != null && tile.CanHighlight == false)
+            {
+                return;
+            }
+
+
             image.color = newColor;
         }
     }
 
+    /// <summary>
+    /// Removes highlight after mouse cursor stops hovering
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnPointerExit(PointerEventData eventData)
     {
+        Card thisCard = GetComponent<Card>();
+
+        //if the object is a card and it is selected, don't remove highlight
+        if(thisCard != null)
+        {
+            if (thisCard.isSelected)
+            {
+                return;
+            }
+
+        }
+
         image.color = startColor;
     }
 }
