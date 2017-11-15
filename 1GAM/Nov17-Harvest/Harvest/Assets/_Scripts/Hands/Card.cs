@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Card : MonoBehaviour {
 
     private Hand hand;
-    public bool isSelected = false;
+    public bool isSelected = false; //
 
 	// Use this for initialization
 	void Start () {
@@ -29,6 +29,7 @@ public class Card : MonoBehaviour {
             hand.CardSelected = true;
             isSelected = true;
             SetCanHighlightPlayspaceTiles(true);
+            SetCanHighlightMarketTiles(false);
             GetComponent<Image>().color = Color.red;
         }
         else
@@ -36,9 +37,10 @@ public class Card : MonoBehaviour {
             //if we can select the card and we've clicked it, remove the highlight and remove card being selected from hand
             if (hand.CanSelectCard(gameObject))
             {
-                SetCanHighlightPlayspaceTiles(false);
                 hand.CardSelected = false;
                 isSelected = false;
+                SetCanHighlightPlayspaceTiles(false);
+                SetCanHighlightMarketTiles(true);
                 GetComponent<Image>().color = Color.white;
             }
         }
@@ -51,6 +53,18 @@ public class Card : MonoBehaviour {
     public void SetCanHighlightPlayspaceTiles(bool canHighlight)
     {
         foreach(PlayspaceTile tile in FindObjectsOfType<PlayspaceTile>())
+        {
+            tile.CanHighlight = canHighlight;
+        }
+    }
+
+    /// <summary>
+    /// Loops through all tiles in the market and sets the CanHighlight property
+    /// </summary>
+    /// <param name="canHighlight"></param>
+    public void SetCanHighlightMarketTiles(bool canHighlight)
+    {
+        foreach (MarketTile tile in FindObjectsOfType<MarketTile>())
         {
             tile.CanHighlight = canHighlight;
         }

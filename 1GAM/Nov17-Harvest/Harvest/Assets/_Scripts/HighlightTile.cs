@@ -28,18 +28,24 @@ public class HighlightTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         {
             Hand hand = gameObject.transform.parent.GetComponent<Hand>();
             PlayspaceTile tile = gameObject.GetComponent<PlayspaceTile>();
-            BuyCard marketCard = gameObject.GetComponent<BuyCard>();
+            MarketTile marketCard = gameObject.GetComponent<MarketTile>();
 
             //if the object is part of a hand and there is a card selected, don't highlight
             if (hand != null && (hand.CardSelected == true))
             {
                 return;
             }
-            else if(hand == null && tile != null && tile.CanHighlight == false)
+            else if(hand == null)
             {
-                return;
+                if (marketCard != null && marketCard.CanHighlight == false)
+                {
+                    return;
+                }
+                if (tile != null && tile.CanHighlight == false)
+                {
+                    return;
+                }
             }
-
 
             image.color = newColor;
         }

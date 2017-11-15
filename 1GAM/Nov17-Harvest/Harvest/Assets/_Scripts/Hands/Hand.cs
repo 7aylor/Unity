@@ -9,7 +9,7 @@ public class Hand : MonoBehaviour
     private int cardCount;
     private List<GameObject> cards = new List<GameObject>();
     public bool CardSelected { get; set; }
-    private string selectedCard = "";
+    public string selectedCard = "";
 
     // Use this for initialization
     void Start()
@@ -17,12 +17,6 @@ public class Hand : MonoBehaviour
         CardSelected = false;
         cardCount = 0;
         GetHandCardSlots();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     /// <summary>
@@ -45,10 +39,12 @@ public class Hand : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// deals with changing the image of the hand's card to the clicked market card's image 
+    /// </summary>
+    /// <param name="newCard"></param>
     public void AddCardToHand(GameObject newCard)
     {
-        Debug.Log("Added Card to Hand");
-
         Image cardImage = newCard.GetComponent<Image>();
         cards[cardCount].GetComponent<Image>().sprite = cardImage.sprite;
 
@@ -60,6 +56,11 @@ public class Hand : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// determinds if we can select a card from the hand
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
     public bool CanSelectCard(GameObject obj)
     {
         string name = obj.GetComponent<Image>().sprite.name;

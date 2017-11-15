@@ -9,40 +9,49 @@ public class BuyCard : MonoBehaviour
     private GameObject child;
     private Market market;
     private Gold goldInBank;
+    private Hand activeHand;
 
     void Start()
     {
         child = transform.gameObject;
         market = FindObjectOfType<Market>();
         goldInBank = FindObjectOfType<Gold>();
+        activeHand = GameObject.FindGameObjectWithTag("Hand_Active").GetComponent<Hand>();
     }
 
+    /// <summary>
+    /// Functionality to buy a card from the market
+    /// </summary>
+    /// <param name="costOfCard"></param>
     public void Buy(int costOfCard)
     {
-        //check for adequate gold
-        if (goldInBank.canBuy(costOfCard))
+        if(activeHand.CardSelected == false)
         {
-            GameObject newCard = gameObject;
-            if (costOfCard == costOfDeckCard)
+            //check for adequate gold 
+            if (goldInBank.canBuy(costOfCard))
             {
-                newCard = market.DealRandomCard();
-                market.AssignMarketCardTag(newCard);
-                gameObject.tag = newCard.tag;
-            }
+                GameObject newCard = gameObject;
+                if (costOfCard == costOfDeckCard)
+                {
+                    newCard = market.DealRandomCard();
+                    market.AssignMarketCardTag(newCard);
+                    gameObject.tag = newCard.tag;
+                }
 
-            //check for an open slot in the respective hand
-            if (gameObject.tag == "Card_Active")
-            {
-                HandleHand("Hand_Active", costOfCard, newCard);
+                //check for an open slot in the respective hand
+                if (gameObject.tag == "Card_Active")
+                {
+                    HandleHand("Hand_Active", costOfCard, newCard);
+                }
+                else if (gameObject.tag == "Card_Passive")
+                {
+                    HandleHand("Hand_Passive", costOfCard, newCard);
+                }
             }
-            else if(gameObject.tag == "Card_Passive")
+            else
             {
-                HandleHand("Hand_Passive", costOfCard, newCard);
+                //tell user they can't afford this card
             }
-        }
-        else
-        {
-            //tell user they can't afford this card
         }
     }
 
