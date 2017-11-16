@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BuyCard : MonoBehaviour
 {
@@ -71,7 +72,7 @@ public class BuyCard : MonoBehaviour
             //if the hand is not full, add card to hand, shift market cards, update gold
             if (hand != null)// && hand.IsFull() == false)
             {
-                hand.AddCardToHand(cardToAdd);
+                hand.AddCardToHand(cardToAdd.GetComponent<Image>());
                 goldInBank.SetGoldAmount(goldInBank.GetGoldAmount() - costOfCard);
 
                 if(costOfCard != costOfDeckCard)

@@ -3,22 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Image))]
 public class PlayspaceTile : MonoBehaviour {
 
     public bool CanHighlight { get; set; }
-    private GameObject[] cards;
-    private List<Image> images = new List<Image>();
-    private Hand hand;
+    private Image tileImage;
+    private GameObject[] marketCards;
+    private List<Image> possibleActiveImages = new List<Image>();
+    private Hand activeHand;
 
 	// Use this for initialization
 	void Start () {
-        cards = GameObject.FindObjectOfType<Market>().cards;
+        marketCards = GameObject.FindObjectOfType<Market>().cards;
 
-        foreach(GameObject card in cards){
-            images.Add(card.GetComponent<Image>());
+        //finds the active in slot 1 of the game objects
+        activeHand = GameObject.FindObjectsOfType<Hand>()[1];
+        tileImage = GetComponent<Image>();
+        foreach(GameObject card in marketCards){
+            possibleActiveImages.Add(card.GetComponent<Image>());
         }
 
-        hand = FindObjectOfType<Hand>();
         CanHighlight = false;
 	}
 
@@ -27,18 +31,33 @@ public class PlayspaceTile : MonoBehaviour {
     /// </summary>
     public void PlaceCard()
     {
-        Debug.Log("Place Card called outside if " + CanHighlight + " " + hand.CardSelected + " " + hand.selectedCard);
-        if (CanHighlight == true)//&& hand.CardSelected == true)
+        if (CanHighlight == true && CanPlaceCardHere() == true)
         {
-            Debug.Log("Place Card called");
-            //Check the tile image to make sure we can place a new tile here
-            foreach(Image image in images)
+            //finds the image we want to place on the selected tile
+            foreach(Image image in possibleActiveImages)
             {
-                if(image.sprite.name == hand.selectedCard)
+                //places the image on the tile
+                if(image.sprite.name == activeHand.selectedCard)
                 {
                     gameObject.GetComponent<Image>().sprite = image.sprite;
+                    activeHand.RemoveCardFromHand();
+                    break;
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// checks if we can place a card on this tile
+    /// </summary>
+    /// <returns></returns>
+    private bool CanPlaceCardHere()
+    {
+        if(tileImage.sprite.name != "Grass")
+        {
+            return false;
+        }
+
+        return true;
     }
 }

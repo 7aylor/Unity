@@ -9,11 +9,13 @@ public class Hand : MonoBehaviour
     private int cardCount;
     private List<GameObject> cards = new List<GameObject>();
     public bool CardSelected { get; set; }
-    public string selectedCard = "";
+    public string selectedCard;
+    public GameObject defaultImage;
 
     // Use this for initialization
     void Start()
     {
+        selectedCard = "";
         CardSelected = false;
         cardCount = 0;
         GetHandCardSlots();
@@ -43,9 +45,8 @@ public class Hand : MonoBehaviour
     /// deals with changing the image of the hand's card to the clicked market card's image 
     /// </summary>
     /// <param name="newCard"></param>
-    public void AddCardToHand(GameObject newCard)
+    public void AddCardToHand(Image cardImage)
     {
-        Image cardImage = newCard.GetComponent<Image>();
         cards[cardCount].GetComponent<Image>().sprite = cardImage.sprite;
 
         cardCount++;
@@ -53,6 +54,27 @@ public class Hand : MonoBehaviour
         if(cardCount >= 5)
         {
             cardCount = 0;
+        }
+    }
+
+    /// <summary>
+    /// Removes an item from the hand and deselects it as well.
+    /// </summary>
+    public void RemoveCardFromHand()
+    {
+        foreach(GameObject obj in cards)
+        {
+            Image objImage = obj.GetComponent<Image>();
+            if (objImage.sprite.name == selectedCard)
+            {
+                Card objCard = obj.GetComponent<Card>();
+                objImage.sprite = defaultImage.GetComponent<Image>().sprite;
+                objCard.isSelected = false;
+                CardSelected = false;
+                objCard.CardClicked();
+                selectedCard = "";
+                break;
+            }
         }
     }
 
@@ -67,11 +89,14 @@ public class Hand : MonoBehaviour
 
         if (CardSelected == false || name == selectedCard)
         {
+            Debug.Log("Can select card returns true, selected card name is: " + selectedCard);
             selectedCard = name;
             return true;
         }
         else if (name != selectedCard)
         {
+            Debug.Log("Can select card returns false");
+            selectedCard = "";
             return false;
         }
 
