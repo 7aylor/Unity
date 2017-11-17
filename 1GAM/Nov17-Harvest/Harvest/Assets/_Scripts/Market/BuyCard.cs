@@ -11,6 +11,7 @@ public class BuyCard : MonoBehaviour
     private Market market;
     private Gold goldInBank;
     private Hand activeHand;
+    private ActionPointManager apm;
 
     void Start()
     {
@@ -18,6 +19,7 @@ public class BuyCard : MonoBehaviour
         market = FindObjectOfType<Market>();
         goldInBank = FindObjectOfType<Gold>();
         activeHand = GameObject.FindGameObjectWithTag("Hand_Active").GetComponent<Hand>();
+        apm = GameObject.FindObjectOfType<ActionPointManager>();
     }
 
     /// <summary>
@@ -28,8 +30,8 @@ public class BuyCard : MonoBehaviour
     {
         if(activeHand.CardSelected == false)
         {
-            //check for adequate gold 
-            if (goldInBank.canBuy(costOfCard))
+            //check for adequate gold and Action points
+            if (goldInBank.canBuy(costOfCard) && apm.GetActionPointsAvailable() > 0)
             {
                 GameObject newCard = gameObject;
                 if (costOfCard == costOfDeckCard)
@@ -48,10 +50,12 @@ public class BuyCard : MonoBehaviour
                 {
                     HandleHand("Hand_Passive", costOfCard, newCard);
                 }
+
+                apm.UseActionPoint();
             }
             else
             {
-                //tell user they can't afford this card
+                //tell user they can't afford this card or don't have enough AP
             }
         }
     }
