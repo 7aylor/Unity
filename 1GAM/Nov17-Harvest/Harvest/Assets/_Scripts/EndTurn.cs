@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class EndTurn : MonoBehaviour {
 
-    private ActionPointManager apm;
     private SeasonSlider slider;
 
 	// Use this for initialization
 	void Start () {
-        apm = GameObject.FindObjectOfType<ActionPointManager>();
         slider = GameObject.FindObjectOfType<SeasonSlider>();
 	}
 
@@ -18,7 +16,7 @@ public class EndTurn : MonoBehaviour {
     /// </summary>
     public void EndTurnAndReset()
     {
-        apm.ResetActionPoints();
+        ActionPointManager.instance.ResetActionPoints();
         slider.IncreaseSeasonSlider();
     }
 }

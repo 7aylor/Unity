@@ -24,7 +24,7 @@ public class HighlightTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void OnPointerEnter(PointerEventData eventData)
     {
         //if there is a sprite on the object and it's not a default image
-        if (image.sprite != null && !image.sprite.name.Contains("Default"))
+        if (image.sprite != null && !image.sprite.name.Contains("Default") && ActionPointManager.instance.GetActionPointsAvailable() > 0)
         {
             Hand hand = gameObject.transform.parent.GetComponent<Hand>();
             PlayspaceTile tile = gameObject.GetComponent<PlayspaceTile>();

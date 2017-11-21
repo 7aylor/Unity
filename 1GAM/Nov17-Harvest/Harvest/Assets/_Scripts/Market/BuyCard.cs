@@ -50,12 +50,18 @@ public class BuyCard : MonoBehaviour
                 {
                     HandleHand("Hand_Passive", costOfCard, newCard);
                 }
-
-                apm.UseActionPoint();
             }
             else
             {
                 //tell user they can't afford this card or don't have enough AP
+                if (goldInBank.GetGoldAmount() <= 0)
+                {
+                    Console.instance.WriteToConsole("Not enough gold");
+                }
+                else if(ActionPointManager.instance.GetActionPointsAvailable() <= 0)
+                {
+                    Console.instance.WriteToConsole("Not enough AP");
+                }
             }
         }
     }
@@ -74,16 +80,21 @@ public class BuyCard : MonoBehaviour
             Hand hand = handObj.GetComponent<Hand>();
 
             //if the hand is not full, add card to hand, shift market cards, update gold
-            if (hand != null)// && hand.IsFull() == false)
+            if (hand != null && hand.IsFull() == false)
             {
                 hand.AddCardToHand(cardToAdd.GetComponent<Image>());
                 goldInBank.SetGoldAmount(goldInBank.GetGoldAmount() - costOfCard);
+                apm.UseActionPoint();
 
-                if(costOfCard != costOfDeckCard)
+                if (costOfCard != costOfDeckCard)
                 {
                     market.ShiftCardsForward(gameObject);
                 }
-
+            }
+            else if(hand.IsFull() == true)
+            {
+                //prompt player to pick card in respective hand to replace
+                Console.instance.WriteToConsole("Hand is full. Choose a card to replace.");
             }
         }
         //if no tag is found, throw exception

@@ -12,11 +12,6 @@ public class Card : MonoBehaviour {
 	void Start () {
         hand = gameObject.transform.parent.GetComponent<Hand>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     /// <summary>
     /// Handles how to deal with a card being clicked from the Active Hand

@@ -11,6 +11,7 @@ public class PlayspaceTile : MonoBehaviour {
     private GameObject[] marketCards;
     private List<Image> possibleActiveImages = new List<Image>();
     private Hand activeHand;
+    private ActionPointManager apm;
 
 	// Use this for initialization
 	void Start () {
@@ -23,6 +24,8 @@ public class PlayspaceTile : MonoBehaviour {
             possibleActiveImages.Add(card.GetComponent<Image>());
         }
 
+        apm = GameObject.FindObjectOfType<ActionPointManager>();
+
         CanHighlight = false;
 	}
 
@@ -31,7 +34,7 @@ public class PlayspaceTile : MonoBehaviour {
     /// </summary>
     public void PlaceCard()
     {
-        if (CanHighlight == true && CanPlaceCardHere() == true)
+        if (CanHighlight == true && CanPlaceCardHere() == true && apm.GetActionPointsAvailable() > 0)
         {
             //finds the image we want to place on the selected tile
             foreach(Image image in possibleActiveImages)
@@ -41,6 +44,7 @@ public class PlayspaceTile : MonoBehaviour {
                 {
                     gameObject.GetComponent<Image>().sprite = image.sprite;
                     activeHand.RemoveCardFromHand();
+                    apm.UseActionPoint();
                     break;
                 }
             }

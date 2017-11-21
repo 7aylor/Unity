@@ -8,6 +8,7 @@ public class Hand : MonoBehaviour
 {
     private int cardCount;
     private List<GameObject> cards = new List<GameObject>();
+    private ActionPointManager apm;
     public bool CardSelected { get; set; }
     public string selectedCard;
     public GameObject defaultImage;
@@ -15,6 +16,7 @@ public class Hand : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        apm = GameObject.FindObjectOfType<ActionPointManager>();
         selectedCard = "";
         CardSelected = false;
         cardCount = 0;
@@ -51,10 +53,10 @@ public class Hand : MonoBehaviour
 
         cardCount++;
 
-        if(cardCount >= 5)
-        {
-            cardCount = 0;
-        }
+        //if(cardCount >= 5)
+        //{
+        //    cardCount = 0;
+        //}
     }
 
     /// <summary>
@@ -73,6 +75,7 @@ public class Hand : MonoBehaviour
                 CardSelected = false;
                 objCard.CardClicked();
                 selectedCard = "";
+                cardCount--;
                 break;
             }
         }
@@ -87,19 +90,22 @@ public class Hand : MonoBehaviour
     {
         string name = obj.GetComponent<Image>().sprite.name;
 
-        if (CardSelected == false || name == selectedCard)
+        if(apm.GetActionPointsAvailable() > 0)
         {
-            Debug.Log("Can select card returns true, selected card name is: " + selectedCard);
-            selectedCard = name;
-            return true;
+            if (CardSelected == false || name == selectedCard)
+            {
+                Debug.Log("Can select card returns true, selected card name is: " + selectedCard);
+                selectedCard = name;
+                return true;
+            }
+            else if (name != selectedCard)
+            {
+                Debug.Log("Can select card returns false");
+                selectedCard = "";
+                return false;
+            }
         }
-        else if (name != selectedCard)
-        {
-            Debug.Log("Can select card returns false");
-            selectedCard = "";
-            return false;
-        }
-
+        
         return false;
     }
     

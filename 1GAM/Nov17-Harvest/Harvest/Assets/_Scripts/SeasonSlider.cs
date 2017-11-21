@@ -35,5 +35,4 @@ public class SeasonSlider : MonoBehaviour {
         //triggers a season change. Lots to calculate
         slider.value = 0;
     }
-
 }

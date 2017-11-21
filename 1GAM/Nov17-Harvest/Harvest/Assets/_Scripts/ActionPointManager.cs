@@ -8,17 +8,33 @@ public class ActionPointManager : MonoBehaviour {
     private int actionPointsAvailable;
     private int startActionPoints;
     private Text text;
+    private EndTurn endTurnButton;
+    private Color32 highlightColor = new Color32(255, 146, 146, 255);
 
-	// Use this for initialization
-	void Start () {
+    //singleton
+    public static ActionPointManager instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(instance);
+        }
+
+        DontDestroyOnLoad(instance);
+    }
+
+    // Use this for initialization
+    void Start () {
         text = GetComponent<Text>();
         startActionPoints = 2;
         actionPointsAvailable = startActionPoints;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+        endTurnButton = GameObject.FindObjectOfType<EndTurn>();
+        endTurnButton.GetComponent<Button>().enabled = false;
 	}
 
     /// <summary>
@@ -30,7 +46,24 @@ public class ActionPointManager : MonoBehaviour {
         {
             actionPointsAvailable--;
             text.text = actionPointsAvailable.ToString();
+            if(actionPointsAvailable == 0)
+            {
+                SetEndTurnButton(true, Color.red, highlightColor);
+            }
+            else
+            {
+                SetEndTurnButton(false, Color.white, Color.white);
+            }
         }
+    }
+
+    private void SetEndTurnButton(bool enabled, Color color, Color highlight)
+    {
+        endTurnButton.GetComponent<Button>().enabled = enabled;
+        ColorBlock c = endTurnButton.GetComponent<Button>().colors;
+        c.normalColor = color;
+        c.highlightedColor = highlight;
+        endTurnButton.GetComponent<Button>().colors = c;
     }
 
     /// <summary>
@@ -49,6 +82,7 @@ public class ActionPointManager : MonoBehaviour {
     {
         actionPointsAvailable = startActionPoints;
         text.text = actionPointsAvailable.ToString();
+        SetEndTurnButton(false, Color.white, Color.white);
     }
 
 }
