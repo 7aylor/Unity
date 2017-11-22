@@ -64,4 +64,19 @@ public class Card : MonoBehaviour {
             tile.CanHighlight = canHighlight;
         }
     }
+
+    /// <summary>
+    /// Loops through all tiles in the market and sets the CanHighlight property
+    /// </summary>
+    /// <param name="canHighlight"></param>
+    public void SetCanHighlightActiveHandTiles(bool canHighlight)
+    {
+        foreach (Card card in FindObjectsOfType<Card>())
+        {
+            if(card.transform.parent.tag == "Hand_Active")
+            {
+                //card.
+            }
+        }
+    }
 }

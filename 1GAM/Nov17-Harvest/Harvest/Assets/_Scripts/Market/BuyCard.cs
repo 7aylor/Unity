@@ -94,7 +94,9 @@ public class BuyCard : MonoBehaviour
             else if(hand.IsFull() == true)
             {
                 //prompt player to pick card in respective hand to replace
-                Console.instance.WriteToConsole("Hand is full. Choose a card to replace.");
+                Console.instance.WriteToConsole(hand.name + " is full.");
+
+
             }
         }
         //if no tag is found, throw exception

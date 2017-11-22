@@ -21,14 +21,28 @@ public class SetUpPlayspace : MonoBehaviour {
         }
 
         //assigns the house and lake sprites to a random cell
-        cells[GetUniqueCellIndex()].GetComponent<Image>().sprite = house.GetComponent<Image>().sprite;
-        cells[GetUniqueCellIndex()].GetComponent<Image>().sprite = lake.GetComponent<Image>().sprite;
+
+        int houseIndex = GetUniqueCellIndex();
+        indexes.Add(houseIndex);
+        cells[houseIndex].GetComponent<Image>().sprite = house.GetComponent<Image>().sprite;
+
+        int lakeIndex = GetUniqueCellIndex();
+        indexes.Add(lakeIndex);
+        cells[lakeIndex].GetComponent<Image>().sprite = lake.GetComponent<Image>().sprite;
 
         //assigns obstacles ***May need to edit with the addition of more levels***
-        foreach(GameObject obstacle in obstacles)
+
+        int numObstacles = Random.Range(1, (LevelManager.instance.GetCurrentSceneIndex() * obstacles.Length));
+        Debug.Log(numObstacles);
+
+        for (int i = 0; i < numObstacles; i++)
         {
             int index = GetUniqueCellIndex();
-            cells[index].GetComponent<Image>().sprite = obstacle.GetComponent<Image>().sprite;
+            indexes.Add(index);
+
+            int obstacleIndex = Random.Range(0, obstacles.Length);
+
+            cells[index].GetComponent<Image>().sprite = obstacles[obstacleIndex].GetComponent<Image>().sprite;
         }
 
     }

@@ -53,6 +53,8 @@ public class Hand : MonoBehaviour
 
         cardCount++;
 
+        Debug.Log("Card Count: " + cardCount);
+
         //if(cardCount >= 5)
         //{
         //    cardCount = 0;
@@ -64,25 +66,40 @@ public class Hand : MonoBehaviour
     /// </summary>
     public void RemoveCardFromHand()
     {
-        foreach(GameObject obj in cards)
+        foreach(GameObject card in cards)
         {
-            Image objImage = obj.GetComponent<Image>();
-            if (objImage.sprite.name == selectedCard)
+            Image cardImage = card.GetComponent<Image>();
+            if (cardImage.sprite.name == selectedCard)
             {
-                Card objCard = obj.GetComponent<Card>();
-                objImage.sprite = defaultImage.GetComponent<Image>().sprite;
+                Card objCard = card.GetComponent<Card>();
+                objCard.CardClicked();
+
+                int index = cards.IndexOf(card);
+
                 objCard.isSelected = false;
                 CardSelected = false;
-                objCard.CardClicked();
                 selectedCard = "";
                 cardCount--;
+                Debug.Log("Card Count: " + cardCount);
+
+                //loop from the card that is selected to the end and shift the images to the left one space
+                if (index < 4)
+                {
+                    for(int i = index; i < cards.Count - 1; i++)
+                    {
+                        cards[i].GetComponent<Image>().sprite = cards[i + 1].GetComponent<Image>().sprite;
+                    }
+                    //sets the last card tile to the default Active Hand image
+                    cards[cards.Count - 1].GetComponent<Image>().sprite = defaultImage.GetComponent<Image>().sprite;
+                }
+
                 break;
             }
         }
     }
 
     /// <summary>
-    /// determinds if we can select a card from the hand
+    /// determines if we can select a card from the hand
     /// </summary>
     /// <param name="obj"></param>
     /// <returns></returns>
