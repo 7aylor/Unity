@@ -7,11 +7,14 @@ public class Market : MonoBehaviour {
 
     public GameObject[] cards;
     private List<GameObject> marketCards = new List<GameObject>();
+    private GameObject passiveHand;
 
     // Use this for initialization
     void Start () {
         GetMarketCardSlots();
         SpawnMarketCardImages();
+        passiveHand = GameObject.FindGameObjectWithTag("Hand_Passive").gameObject;
+        Debug.Log(passiveHand.name);
     }
 
     /// <summary>
@@ -30,10 +33,39 @@ public class Market : MonoBehaviour {
     /// Gets a random card to deal
     /// </summary>
     /// <returns>Returns a random gameobject from the Passive/Active Card prefabs</returns>
-    public GameObject DealRandomCard()
+    private GameObject DealRandomCard()
     {
         return cards[Random.Range(0, cards.Length)];
     }
+
+    /// <summary>
+    /// checks to see if a given passive card is in play already
+    /// </summary>
+    /// <param name="cardName"></param>
+    /// <returns></returns>
+    public bool passiveCardInPlay(string cardName)
+    {
+        //loop through the passive hand to check if this card is play
+        foreach(Transform card in passiveHand.transform)
+        {
+            if(card.GetComponent<Image>().name == cardName)
+            {
+                return true;
+            }
+        }
+
+        //loop through the market and check if this card is in the market
+        foreach(Transform marketCard in transform)
+        {
+            if(marketCard.GetComponent<Image>().name == cardName)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
     /// <summary>
     /// Shifts the cards up dependings which card was just removed
@@ -47,9 +79,9 @@ public class Market : MonoBehaviour {
         int shiftIndex = 0;
 
         //finds the index of the market card that was just removed
-        foreach(GameObject card in marketCards)
+        foreach (GameObject card in marketCards)
         {
-            if(card == clickedObj)
+            if (card == clickedObj)
             {
                 shiftIndex = counter;
                 break;
@@ -58,7 +90,7 @@ public class Market : MonoBehaviour {
         }
 
         //moves the cards forward based off of their position in the market, then sets the tag based off of the card type
-        while(counter < marketCards.Count - 1)
+        while (counter < marketCards.Count - 1)
         {
             marketCards[counter].transform.GetComponent<Image>().sprite = marketCards[counter + 1].transform.GetComponent<Image>().sprite;
             AssignMarketCardTag(marketCards[counter]);
@@ -66,10 +98,24 @@ public class Market : MonoBehaviour {
         }
 
         //if they are the last position in the market, spawn a random card *****May need to adjust based off of season and card number limits*****
-        marketCards[2].transform.GetComponent<Image>().sprite = DealRandomCard().GetComponent<Image>().sprite;
+        GameObject newCard = DealRandomCardUniquePassives();
+
+        marketCards[2].transform.GetComponent<Image>().sprite = newCard.GetComponent<Image>().sprite;
 
         //set tag of the last card based off of card type
         AssignMarketCardTag(marketCards[counter]);
+    }
+
+    public GameObject DealRandomCardUniquePassives()
+    {
+        GameObject newCard = DealRandomCard();
+        while (passiveCardInPlay(newCard.GetComponent<Image>().name) == true)
+        {
+            Debug.Log("re-roll passive card");
+            newCard = DealRandomCard();
+        }
+
+        return newCard;
     }
 
     /// <summary>

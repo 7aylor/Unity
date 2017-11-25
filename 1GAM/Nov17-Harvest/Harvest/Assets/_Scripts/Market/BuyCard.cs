@@ -11,6 +11,7 @@ public class BuyCard : MonoBehaviour
     private Market market;
     private Gold goldInBank;
     private Hand activeHand;
+    private PassiveCardHandler passiveHand;
     private ActionPointManager apm;
 
     void Start()
@@ -19,6 +20,7 @@ public class BuyCard : MonoBehaviour
         market = FindObjectOfType<Market>();
         goldInBank = FindObjectOfType<Gold>();
         activeHand = GameObject.FindGameObjectWithTag("Hand_Active").GetComponent<Hand>();
+        passiveHand = GameObject.FindGameObjectWithTag("Hand_Passive").GetComponent<PassiveCardHandler>();
         apm = GameObject.FindObjectOfType<ActionPointManager>();
     }
 
@@ -34,9 +36,12 @@ public class BuyCard : MonoBehaviour
             if (goldInBank.canBuy(costOfCard) && apm.GetActionPointsAvailable() > 0)
             {
                 GameObject newCard = gameObject;
+
+                //deals with the deck card (face down card)
                 if (costOfCard == costOfDeckCard)
                 {
-                    newCard = market.DealRandomCard();
+                    newCard = market.DealRandomCardUniquePassives();
+                    passiveHand.HandleCard(newCard);
                     market.AssignMarketCardTag(newCard);
                     gameObject.tag = newCard.tag;
                 }
@@ -54,7 +59,7 @@ public class BuyCard : MonoBehaviour
             else
             {
                 //tell user they can't afford this card or don't have enough AP
-                if (goldInBank.GetGoldAmount() <= 0)
+                if (goldInBank.GetGoldAmount() < costOfCard)
                 {
                     Console.instance.WriteToConsole("Not enough gold");
                 }
@@ -83,6 +88,8 @@ public class BuyCard : MonoBehaviour
             if (hand != null && hand.IsFull() == false)
             {
                 hand.AddCardToHand(cardToAdd.GetComponent<Image>());
+                Debug.Log(passiveHand);
+                passiveHand.HandleCard(cardToAdd);
                 goldInBank.SetGoldAmount(goldInBank.GetGoldAmount() - costOfCard);
                 apm.UseActionPoint();
 
@@ -93,10 +100,8 @@ public class BuyCard : MonoBehaviour
             }
             else if(hand.IsFull() == true)
             {
-                //prompt player to pick card in respective hand to replace
+                //tell player the hand is full
                 Console.instance.WriteToConsole(hand.name + " is full.");
-
-
             }
         }
         //if no tag is found, throw exception

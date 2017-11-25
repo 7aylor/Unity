@@ -85,4 +85,12 @@ public class ActionPointManager : MonoBehaviour {
         SetEndTurnButton(false, Color.white, Color.white);
     }
 
+    /// <summary>
+    /// Increase the action points by 2
+    /// </summary>
+    public void IncreaseStartActionPoints()
+    {
+        Debug.Log("increased action points");
+        startActionPoints += 2;
+    }
 }

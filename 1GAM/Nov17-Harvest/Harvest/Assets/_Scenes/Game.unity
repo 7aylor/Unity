@@ -8236,6 +8236,7 @@ GameObject:
   - component: {fileID: 1187810766}
   - component: {fileID: 1187810765}
   - component: {fileID: 1187810768}
+  - component: {fileID: 1187810769}
   m_Layer: 5
   m_Name: Passive Hand
   m_TagString: Hand_Passive
@@ -8335,6 +8336,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedCard: 
   defaultImage: {fileID: 0}
+--- !u!114 &1187810769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1187810763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 317d78c97fe459e40a1eb13c075a7d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1202815309
 GameObject:
   m_ObjectHideFlags: 0
