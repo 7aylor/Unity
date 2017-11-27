@@ -90,7 +90,15 @@ public class ActionPointManager : MonoBehaviour {
     /// </summary>
     public void IncreaseStartActionPoints()
     {
-        Debug.Log("increased action points");
         startActionPoints += 2;
+    }
+
+    /// <summary>
+    /// gets the starting action points
+    /// </summary>
+    /// <returns></returns>
+    public int GetStartActionPoints()
+    {
+        return startActionPoints;
     }
 }

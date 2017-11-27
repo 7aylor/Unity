@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,35 +10,50 @@ public class PassiveCardHandler : MonoBehaviour {
     /// Handles the passive hand card functionality
     /// </summary>
     /// <param name="card"></param>
-    public void HandleCard(GameObject card)
+    public void HandleCard(string cardName)
     {
-        string cardName = card.GetComponent<Image>().sprite.name;
 
         switch (cardName)
         {
             case "Bank":
-
-                break;
-            case "Bulldozer":
-
+                HandleBank();
                 break;
             case "Family":
                 HandleFamily();
                 break;
             case "Fertilizer":
-
+                HandleFertilizer();
                 break;
             case "Irrigation":
-
+                HandleIrrigation();
                 break;
             default:
                 break;
         }
     }
 
-    private void HandleFamily()
+    private void HandleBank()
     {
-        ActionPointManager.instance.IncreaseStartActionPoints();
+        GoldManager.instance.SetGoldAmount(GoldManager.instance.GetGoldAmount() + 3);
     }
 
+    private void HandleFamily()
+    {
+        if(ActionPointManager.instance.GetStartActionPoints() < 4)
+        {
+            ActionPointManager.instance.IncreaseStartActionPoints();
+        }
+        
+        GoldManager.instance.SetGoldAmount(GoldManager.instance.GetGoldAmount() - 2);
+    }
+
+    private void HandleFertilizer()
+    {
+
+    }
+
+    private void HandleIrrigation()
+    {
+
+    }
 }

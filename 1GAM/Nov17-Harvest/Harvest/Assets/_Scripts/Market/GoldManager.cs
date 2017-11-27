@@ -3,11 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Gold : MonoBehaviour {
+public class GoldManager : MonoBehaviour {
 
     public int startingGold = 100;
     private int gold;
     private Text text;
+
+    //singleton
+    public static GoldManager instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(instance);
+        }
+
+        DontDestroyOnLoad(instance);
+    }
 
     private void Start()
     {
