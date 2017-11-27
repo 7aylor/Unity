@@ -6,10 +6,16 @@ using UnityEngine.UI;
 public class SeasonSlider : MonoBehaviour {
 
     private Slider slider;
+    private CanvasBackground background;
+    private SeasonText seasonText;
+    private Market market;
 
 	// Use this for initialization
 	void Start () {
         slider = GetComponent<Slider>();
+        background = GameObject.FindObjectOfType<CanvasBackground>();
+        seasonText = GameObject.FindObjectOfType<SeasonText>();
+        market = GameObject.FindObjectOfType<Market>();
 	}
 
     /// <summary>
@@ -34,5 +40,10 @@ public class SeasonSlider : MonoBehaviour {
     {
         //triggers a season change. Lots to calculate
         slider.value = 0;
+        background.ChangeBackgroundImage();
+        seasonText.changeSeasonText();
+        market.SpawnMarketCardImages();
+
+        //trigger gold harvest
     }
 }

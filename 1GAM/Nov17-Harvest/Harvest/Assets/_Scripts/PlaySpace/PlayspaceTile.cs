@@ -12,6 +12,7 @@ public class PlayspaceTile : MonoBehaviour {
     private List<Image> possibleActiveImages = new List<Image>();
     private Hand activeHand;
     private ActionPointManager apm;
+    private ActiveCardHandler ach;
 
 	// Use this for initialization
 	void Start () {
@@ -25,6 +26,7 @@ public class PlayspaceTile : MonoBehaviour {
         }
 
         apm = GameObject.FindObjectOfType<ActionPointManager>();
+        ach = GameObject.FindObjectOfType<ActiveCardHandler>();
 
         CanHighlight = false;
 	}
@@ -42,8 +44,16 @@ public class PlayspaceTile : MonoBehaviour {
                 //places the image on the tile
                 if(image.sprite.name == activeHand.selectedCard)
                 {
-                    gameObject.GetComponent<Image>().sprite = image.sprite;
                     activeHand.RemoveCardFromHand();
+                    ach.HandleCard(image.sprite.name);
+                    if(image.sprite.name != "Bulldozer")
+                    {
+                        gameObject.GetComponent<Image>().sprite = image.sprite;
+                    }
+                    else
+                    {
+                        gameObject.GetComponent<Image>().sprite = GameObject.Find("Dirt").GetComponent<Image>().sprite;
+                    }
                     apm.UseActionPoint();
                     break;
                 }
@@ -57,11 +67,27 @@ public class PlayspaceTile : MonoBehaviour {
     /// <returns></returns>
     private bool CanPlaceCardHere()
     {
-        if(tileImage.sprite.name != "Grass")
+        string name = tileImage.sprite.name;
+
+        Debug.Log("Selected Card: " + activeHand.selectedCard);
+        Debug.Log("Image name: " + name);
+
+        if (activeHand.selectedCard == "Bulldozer" && name != "House" && name != "Lake" && name != "Grass")
+        {
+            return true;
+        }
+        else if (name != "Grass" && name != "Dirt" && activeHand.selectedCard != "Bulldozer")
         {
             return false;
         }
-
-        return true;
+        else if((name == "Grass" || name == "Dirt") && activeHand.selectedCard != "Bulldozer")
+        {
+            return true;
+        }
+        else
+        {
+            Debug.Log("Else called");
+            return false;
+        }
     }
 }

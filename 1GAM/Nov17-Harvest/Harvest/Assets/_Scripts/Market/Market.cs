@@ -12,19 +12,18 @@ public class Market : MonoBehaviour {
     // Use this for initialization
     void Start () {
         GetMarketCardSlots();
-        SpawnMarketCardImages();
         passiveHand = GameObject.FindGameObjectWithTag("Hand_Passive").gameObject;
-        Debug.Log(passiveHand.name);
+        SpawnMarketCardImages();
     }
 
     /// <summary>
     /// Loops through all Market slots and spawns Random card images, then sets the proper tag on the gameObject
     /// </summary>
-    private void SpawnMarketCardImages()
+    public void SpawnMarketCardImages()
     {
         foreach(GameObject card in marketCards)
         {
-            card.GetComponent<Image>().sprite = DealRandomCard().GetComponent<Image>().sprite;
+            card.GetComponent<Image>().sprite = DealRandomCardUniquePassives().GetComponent<Image>().sprite;
             AssignMarketCardTag(card);
         }
     }
@@ -43,12 +42,12 @@ public class Market : MonoBehaviour {
     /// </summary>
     /// <param name="cardName"></param>
     /// <returns></returns>
-    public bool passiveCardInPlay(string cardName)
+    private bool passiveCardInPlay(string cardName)
     {
         //loop through the passive hand to check if this card is play
         foreach(Transform card in passiveHand.transform)
         {
-            if(card.GetComponent<Image>().name == cardName)
+            if(card.GetComponent<Image>().sprite.name == cardName)
             {
                 return true;
             }
@@ -57,7 +56,7 @@ public class Market : MonoBehaviour {
         //loop through the market and check if this card is in the market
         foreach(Transform marketCard in transform)
         {
-            if(marketCard.GetComponent<Image>().name == cardName)
+            if(marketCard.GetComponent<Image>().sprite.name == cardName)
             {
                 return true;
             }
@@ -109,10 +108,12 @@ public class Market : MonoBehaviour {
     public GameObject DealRandomCardUniquePassives()
     {
         GameObject newCard = DealRandomCard();
-        while (passiveCardInPlay(newCard.GetComponent<Image>().name) == true)
+        string cardName = newCard.GetComponent<Image>().sprite.name;
+
+        while (passiveCardInPlay(cardName) == true)
         {
-            Debug.Log("re-roll passive card");
             newCard = DealRandomCard();
+            cardName = newCard.GetComponent<Image>().sprite.name;
         }
 
         return newCard;

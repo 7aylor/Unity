@@ -10,9 +10,4 @@ public class MarketTile : MonoBehaviour {
     void Start () {
         CanHighlight = true;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

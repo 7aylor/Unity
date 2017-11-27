@@ -83,7 +83,7 @@ public class Hand : MonoBehaviour
                 Debug.Log("Card Count: " + cardCount);
 
                 //loop from the card that is selected to the end and shift the images to the left one space
-                if (index < 4)
+                if (index <= 4)
                 {
                     for(int i = index; i < cards.Count - 1; i++)
                     {

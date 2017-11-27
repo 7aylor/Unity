@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class HandType {
 
-    public static List<string> ActiveHandType = new List<string>{ "Apple", "Beans", "Broccoli", "Cauliflower", "Corn", "Leek", "Onion", "Pumpkin", "Strawberry", "Well", "Wheat" };
-    public static List<string> PassiveHandType = new List<string> { "Bank", "Bulldozer", "Family", "Irrigation", "Fertilizer" };
+    public static List<string> ActiveHandType = new List<string>{ "Apple", "Beans", "Broccoli", "Bulldozer", "Cauliflower", "Corn", "House", "Leek", "Onion", "Pumpkin", "Strawberry", "Well", "Wheat" };
+    public static List<string> PassiveHandType = new List<string> { "Bank", "Family", "Irrigation", "Fertilizer" };
 
 }

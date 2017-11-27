@@ -11,6 +11,7 @@ TagManager:
   - Hand_Passive
   - Hand_Active
   - Obstacle
+  - Playspace
   layers:
   - Default
   - TransparentFX

@@ -35,11 +35,13 @@ public class BuyCard : MonoBehaviour
             //check for adequate gold and Action points
             if (goldInBank.canBuy(costOfCard) && apm.GetActionPointsAvailable() > 0)
             {
+                //make a copy of the gameobject and store it in newcard so that we can edit on the fly if needed
                 GameObject newCard = gameObject;
 
                 //deals with the deck card (face down card)
                 if (costOfCard == costOfDeckCard)
                 {
+                    //ensure the new card isn't a passive that is in play
                     newCard = market.DealRandomCardUniquePassives();
                     passiveHand.HandleCard(newCard);
                     market.AssignMarketCardTag(newCard);
@@ -88,7 +90,6 @@ public class BuyCard : MonoBehaviour
             if (hand != null && hand.IsFull() == false)
             {
                 hand.AddCardToHand(cardToAdd.GetComponent<Image>());
-                Debug.Log(passiveHand);
                 passiveHand.HandleCard(cardToAdd);
                 goldInBank.SetGoldAmount(goldInBank.GetGoldAmount() - costOfCard);
                 apm.UseActionPoint();

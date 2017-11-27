@@ -25,6 +25,7 @@ public class Card : MonoBehaviour {
             isSelected = true;
             SetCanHighlightPlayspaceTiles(true);
             SetCanHighlightMarketTiles(false);
+            GameObject.FindObjectOfType<Garbage>().CanHighlight = true;
             GetComponent<Image>().color = Color.red;
         }
         else
@@ -36,6 +37,7 @@ public class Card : MonoBehaviour {
                 isSelected = false;
                 SetCanHighlightPlayspaceTiles(false);
                 SetCanHighlightMarketTiles(true);
+                GameObject.FindObjectOfType<Garbage>().CanHighlight = false;
                 GetComponent<Image>().color = Color.white;
             }
         }

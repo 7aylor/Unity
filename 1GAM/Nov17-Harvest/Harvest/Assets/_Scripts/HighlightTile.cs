@@ -29,6 +29,7 @@ public class HighlightTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             Hand hand = gameObject.transform.parent.GetComponent<Hand>();
             PlayspaceTile tile = gameObject.GetComponent<PlayspaceTile>();
             MarketTile marketCard = gameObject.GetComponent<MarketTile>();
+            Garbage garbage = gameObject.GetComponent<Garbage>();
 
             //if the object is part of a hand and there is a card selected, don't highlight
             if (hand != null && (hand.CardSelected == true))
@@ -42,6 +43,10 @@ public class HighlightTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                     return;
                 }
                 if (tile != null && tile.CanHighlight == false)
+                {
+                    return;
+                }
+                if (garbage != null && garbage.CanHighlight == false)
                 {
                     return;
                 }

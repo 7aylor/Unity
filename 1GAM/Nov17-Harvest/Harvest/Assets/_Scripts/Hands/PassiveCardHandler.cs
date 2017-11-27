@@ -30,6 +30,8 @@ public class PassiveCardHandler : MonoBehaviour {
             case "Irrigation":
 
                 break;
+            default:
+                break;
         }
     }
 
