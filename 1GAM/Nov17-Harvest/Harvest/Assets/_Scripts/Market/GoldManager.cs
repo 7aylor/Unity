@@ -30,6 +30,7 @@ public class GoldManager : MonoBehaviour {
     {
         gold = startingGold;
         text = GetComponent<Text>();
+        text.text = startingGold.ToString();
     }
 
     /// <summary>
