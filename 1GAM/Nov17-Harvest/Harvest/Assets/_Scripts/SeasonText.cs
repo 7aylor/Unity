@@ -35,4 +35,13 @@ public class SeasonText : MonoBehaviour {
 
     }
 
+    /// <summary>
+    /// returns the current season string
+    /// </summary>
+    /// <returns></returns>
+    public string GetCurrentSeason()
+    {
+        return currentSeason;
+    }
+
 }
