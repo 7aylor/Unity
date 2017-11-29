@@ -28,6 +28,7 @@ public class CanvasBackground : MonoBehaviour {
         }
         else
         {
+            //***********Need to create the end of game the fires off here
             throw new System.Exception("background image out of bounds");
         }
     }
