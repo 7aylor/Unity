@@ -8,8 +8,9 @@ public class SetUpPlayspace : MonoBehaviour {
     List<GameObject> cells = new List<GameObject>();
     public GameObject house;
     public GameObject lake;
+    public GameObject deer;
     public GameObject[] obstacles;
-    private List<int> indexes = new List<int>();
+    private List<int> indexes = new List<int>(); //holds currently used indexes in the playspace
 
 	// Use this for initialization
 	void Start () {
@@ -29,6 +30,10 @@ public class SetUpPlayspace : MonoBehaviour {
         int lakeIndex = GetUniqueCellIndex();
         indexes.Add(lakeIndex);
         cells[lakeIndex].GetComponent<Image>().sprite = lake.GetComponent<Image>().sprite;
+
+        int deerIndex = GetUniqueCellIndex();
+        indexes.Add(deerIndex);
+        cells[deerIndex].GetComponent<Image>().sprite = deer.GetComponent<Image>().sprite;
 
         //assigns obstacles ***May need to edit with the addition of more levels***
 

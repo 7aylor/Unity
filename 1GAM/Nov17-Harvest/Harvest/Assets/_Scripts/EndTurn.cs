@@ -7,11 +7,13 @@ public class EndTurn : MonoBehaviour {
 
     private SeasonSlider slider;
     private GameObject passiveHand;
+    private DeerMovement dm;
 
-	// Use this for initialization
+	//Use this for initialization
 	void Start () {
         slider = GameObject.FindObjectOfType<SeasonSlider>();
         passiveHand = GameObject.FindGameObjectWithTag("Hand_Passive");
+        dm = GameObject.FindObjectOfType<DeerMovement>();
 	}
 
     /// <summary>
@@ -34,5 +36,7 @@ public class EndTurn : MonoBehaviour {
         }
         ActionPointManager.instance.ResetActionPoints();
         slider.IncreaseSeasonSlider();
+
+        dm.MoveDeer();
     }
 }

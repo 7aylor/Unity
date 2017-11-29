@@ -117,6 +117,9 @@ public class Harvest : MonoBehaviour {
     /// </summary>
     private void GetNeighbors()
     {
+        //clear neighbors
+        neighbors.Clear();
+
         //index is middle of grid
         if(!onTop && !onBot && !onLeft && !onRight)
         {
@@ -258,7 +261,16 @@ public class Harvest : MonoBehaviour {
             //left
             neighbors.Add(transform.parent.GetChild(index - 5).gameObject.GetComponent<Image>().sprite.name);
         }
+    }
 
+    /// <summary>
+    /// returns the neighbors list of a given cell
+    /// </summary>
+    /// <returns></returns>
+    public List<string> FindNeighbors()
+    {
+        GetNeighbors();
+        return neighbors;
     }
 
 }

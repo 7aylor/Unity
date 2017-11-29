@@ -10556,6 +10556,7 @@ GameObject:
   - component: {fileID: 1422262234}
   - component: {fileID: 1422262237}
   - component: {fileID: 1422262238}
+  - component: {fileID: 1422262239}
   m_Layer: 5
   m_Name: Play Space
   m_TagString: Playspace
@@ -10710,6 +10711,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   house: {fileID: 1158849313087460, guid: 2089100ebfea4814dbad3211a442b388, type: 2}
   lake: {fileID: 1157621747774962, guid: cd7bd18f21b455b438a165c3401907af, type: 2}
+  deer: {fileID: 1604532265289528, guid: 18660e10429c4184a97f11b0190d14f1, type: 2}
   obstacles:
   - {fileID: 1998656725034798, guid: cdadd8788c294fe4cb59df24047c3ac5, type: 2}
   - {fileID: 1881272632514030, guid: d33ee4e1d0743334b848e888f33baad1, type: 2}
@@ -10725,6 +10727,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 355957bb7dc39c542b3a506025730ede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1422262239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1422262232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 672a9ebb931de874b9d8f0223f0fc411, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deer: {fileID: 1604532265289528, guid: 18660e10429c4184a97f11b0190d14f1, type: 2}
+  grass: {fileID: 1157621747774962, guid: 8f60fbc7b9d9ed240959376382308df0, type: 2}
 --- !u!1 &1437452499
 GameObject:
   m_ObjectHideFlags: 0
