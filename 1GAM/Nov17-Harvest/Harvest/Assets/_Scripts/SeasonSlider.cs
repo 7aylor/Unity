@@ -5,12 +5,20 @@ using UnityEngine.UI;
 
 public class SeasonSlider : MonoBehaviour {
 
+    public Text CropsHarvested;
+    public Text CropsInSeason;
+    public Text CropsEaten;
+    public Text TotalGoldEarned;
+    public Text HighestEarningCrop;
+    public GameObject SeasonSummary;
+
     private Slider slider;
     private CanvasBackground background;
     private SeasonText seasonText;
     private Market market;
     private GoldManager gold;
     private HarvestController hc;
+    private DeerMovement deer;
 
 	// Use this for initialization
 	void Start () {
@@ -20,6 +28,7 @@ public class SeasonSlider : MonoBehaviour {
         market = GameObject.FindObjectOfType<Market>();
         gold = GameObject.FindObjectOfType<GoldManager>();
         hc = GameObject.FindObjectOfType<HarvestController>();
+        deer = hc.GetComponent<DeerMovement>();
 	}
 
     /// <summary>
@@ -42,8 +51,9 @@ public class SeasonSlider : MonoBehaviour {
     /// </summary>
     private void ResetSeasonSlider()
     {
+        int goldEarned = gold.GetGoldAmount();
         //get the total gold harvest for this season
-        gold.SetGoldAmount(gold.GetGoldAmount() + hc.GetSeasonsHarvest());
+        gold.SetGoldAmount(goldEarned + hc.GetSeasonsHarvest());
 
         //check if we are in the final season
         if (seasonText.GetCurrentSeason() == "Fall")
@@ -52,6 +62,18 @@ public class SeasonSlider : MonoBehaviour {
         }
 
         //triggers a season change. Lots to calculate
+
+        //update the season summary stuff
+        SeasonSummary.SetActive(true);
+        CropsHarvested.text = hc.GetNumberOfCropsHarvested().ToString();
+        CropsEaten.text = deer.NumCropsEaten.ToString();
+        //crops in season
+        CropsInSeason.text = hc.CropsInSeason.ToString();
+
+        TotalGoldEarned.text = hc.GetSeasonsHarvest().ToString();
+        HighestEarningCrop.text = hc.GetHighestEarnedCrop() + " " + hc.GetHighestEarnedCropAmount();
+
+        //update UI elements
         slider.value = 0;
         background.ChangeBackgroundImage();
         seasonText.changeSeasonText();

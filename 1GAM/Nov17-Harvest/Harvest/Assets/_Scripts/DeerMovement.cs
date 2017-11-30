@@ -9,9 +9,8 @@ public class DeerMovement : MonoBehaviour {
     public GameObject deer;
     public GameObject grass;
     private int index;
-    //private Dictionary<int, string> neighbors;
-    //private OrderedDictionary neighbors = new OrderedDictionary();
     private List<Neighbor> neighbors = new List<Neighbor>();
+    public int NumCropsEaten { get; set; }
 
     private bool onTop;
     private bool onBot;
@@ -20,6 +19,7 @@ public class DeerMovement : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        NumCropsEaten = 0;
     }
 
     public void MoveDeer()
@@ -40,6 +40,8 @@ public class DeerMovement : MonoBehaviour {
         Debug.Log(moveIndex);
         transform.GetChild(moveIndex).GetComponent<Image>().sprite = deer.GetComponent<Image>().sprite;
         transform.GetChild(index).GetComponent<Image>().sprite = grass.GetComponent<Image>().sprite;
+
+
     }
 
     /// <summary>
@@ -54,8 +56,18 @@ public class DeerMovement : MonoBehaviour {
             rand = Random.Range(0, neighbors.Count);
 
         } while (HandType.Obstacles.Contains(neighbors[rand].name));
-        
+
+        CheckForCropsEaten(neighbors[rand].name);
+
         return neighbors[rand].cellIndex;
+    }
+
+    private void CheckForCropsEaten(string tileName)
+    {
+        if (HandType.Crops.ContainsKey(tileName))
+        {
+            NumCropsEaten++;
+        }
     }
 
     /// <summary>

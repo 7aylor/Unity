@@ -13,10 +13,12 @@ public class Harvest : MonoBehaviour {
     private bool onLeft;
     private bool onRight;
     private string spriteName;
+    private HarvestController hc;
 
     private void Start()
     {
         index = gameObject.transform.GetSiblingIndex();
+        hc = transform.parent.GetComponent<HarvestController>();
         onTop = index % 5 == 0;
         onBot = index % 5 == 4;
         onLeft = index < 5;
@@ -40,6 +42,8 @@ public class Harvest : MonoBehaviour {
         spriteName = GetComponent<Image>().sprite.name;
         GetNeighbors();
 
+        Debug.Log(season);
+
         if (HandType.Crops.ContainsKey(spriteName))
         {
             string currSeason = "";
@@ -52,6 +56,7 @@ public class Harvest : MonoBehaviour {
             {
                 goldYeilded *= 5;
                 logger += " in season, ";
+                hc.CropsInSeason++;
             }
 
             //is Fertilizer in play? this needs to be inside the check for water source
