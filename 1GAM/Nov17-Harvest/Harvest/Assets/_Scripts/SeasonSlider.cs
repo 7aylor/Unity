@@ -10,6 +10,7 @@ public class SeasonSlider : MonoBehaviour {
     public Text CropsEaten;
     public Text TotalGoldEarned;
     public Text HighestEarningCrop;
+    public Text SeasonSummaryText;
     public GameObject SeasonSummary;
 
     private Slider slider;
@@ -65,6 +66,7 @@ public class SeasonSlider : MonoBehaviour {
 
         //update the season summary stuff
         SeasonSummary.SetActive(true);
+        SeasonSummaryText.text = seasonText.GetCurrentSeason() + " Summary";
         CropsHarvested.text = hc.GetNumberOfCropsHarvested().ToString();
         CropsEaten.text = deer.NumCropsEaten.ToString();
         //crops in season

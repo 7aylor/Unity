@@ -35,31 +35,73 @@ public class DeerMovement : MonoBehaviour {
 
         GetNeighbors();
 
-        int moveIndex = GetUniqueCellIndex();
+        int moveIndex = GetUniqueCellIndex(index);
 
-        Debug.Log(moveIndex);
         transform.GetChild(moveIndex).GetComponent<Image>().sprite = deer.GetComponent<Image>().sprite;
-        transform.GetChild(index).GetComponent<Image>().sprite = grass.GetComponent<Image>().sprite;
-
-
+        if(moveIndex != index)
+        {
+            transform.GetChild(index).GetComponent<Image>().sprite = grass.GetComponent<Image>().sprite;
+        }
     }
 
     /// <summary>
     /// Gets a unique index of a cell that is not in use
     /// </summary>
     /// <returns></returns>
-    private int GetUniqueCellIndex()
+    private int GetUniqueCellIndex(int index)
     {
         int rand;
+        int rollCount = 0; //protects against cases where the dear has nowhere to move and crashes the program
+
         do
         {
             rand = Random.Range(0, neighbors.Count);
+            rollCount++;
 
-        } while (HandType.Obstacles.Contains(neighbors[rand].name));
+            if(rollCount >= 5)
+            {
+                return index;
+            }
+        }
+        //check that the desired move index does not have an obstacle and the fence is not in play
+        while (HandType.Obstacles.Contains(neighbors[rand].name) || CheckForFence(neighbors[rand].name));
 
         CheckForCropsEaten(neighbors[rand].name);
 
+
         return neighbors[rand].cellIndex;
+    }
+
+    /// <summary>
+    /// Checks if a fence is in play and then protects the crops
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    private bool CheckForFence(string name)
+    {
+        //get passivehand and check for fence
+        GameObject passiveHand = GameObject.FindGameObjectWithTag("Hand_Passive");
+        bool fenceInPlay = false;
+
+        foreach(Transform card in passiveHand.transform)
+        {
+            string spriteName = card.GetComponent<Image>().sprite.name;
+            if(spriteName == "Fence")
+            {
+                Debug.Log("Fence is in play");
+                fenceInPlay = true;
+            }
+        }
+
+        if(fenceInPlay && HandType.Crops.ContainsKey(name))
+        {
+            Console.instance.WriteToConsole("Your Fence protected you against the pesky Deer!");
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private void CheckForCropsEaten(string tileName)
