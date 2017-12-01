@@ -31,12 +31,15 @@ public class SetUpPlayspace : MonoBehaviour {
         indexes.Add(lakeIndex);
         cells[lakeIndex].GetComponent<Image>().sprite = lake.GetComponent<Image>().sprite;
 
-        int deerIndex = GetUniqueCellIndex();
-        indexes.Add(deerIndex);
-        cells[deerIndex].GetComponent<Image>().sprite = deer.GetComponent<Image>().sprite;
+        for(int i = 0; i < GameManager.instance.DiffIndex; i++)
+        {
+            int deerIndex = GetUniqueCellIndex();
+            indexes.Add(deerIndex);
+            cells[deerIndex].GetComponent<Image>().sprite = deer.GetComponent<Image>().sprite;
+        }
+        
 
         //assigns obstacles ***May need to edit with the addition of more levels***
-
         int numObstacles = Random.Range(GameManager.instance.DiffIndex * 2, (GameManager.instance.DiffIndex * obstacles.Length));
         Debug.Log("Number of Obstacles: " + numObstacles);
 
@@ -66,5 +69,4 @@ public class SetUpPlayspace : MonoBehaviour {
 
         return rand;
     }
-
 }

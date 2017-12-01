@@ -29,18 +29,16 @@ public class DeerMovement : MonoBehaviour {
             if(cell.GetComponent<Image>().sprite.name == "Deer")
             {
                 index = cell.GetSiblingIndex();
-                break;
+                GetNeighbors();
+
+                int moveIndex = GetUniqueCellIndex(index);
+
+                transform.GetChild(moveIndex).GetComponent<Image>().sprite = deer.GetComponent<Image>().sprite;
+                if (moveIndex != index)
+                {
+                    transform.GetChild(index).GetComponent<Image>().sprite = grass.GetComponent<Image>().sprite;
+                }
             }
-        }
-
-        GetNeighbors();
-
-        int moveIndex = GetUniqueCellIndex(index);
-
-        transform.GetChild(moveIndex).GetComponent<Image>().sprite = deer.GetComponent<Image>().sprite;
-        if(moveIndex != index)
-        {
-            transform.GetChild(index).GetComponent<Image>().sprite = grass.GetComponent<Image>().sprite;
         }
     }
 

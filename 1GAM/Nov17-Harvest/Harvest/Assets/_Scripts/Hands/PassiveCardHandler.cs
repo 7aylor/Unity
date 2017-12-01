@@ -34,7 +34,7 @@ public class PassiveCardHandler : MonoBehaviour {
 
     private void HandleBank()
     {
-        GoldManager.instance.SetGoldAmount(GoldManager.instance.GetGoldAmount() + 3);
+        GoldManager.instance.SetGoldAmount(GoldManager.instance.GetGoldAmount() + 5);
     }
 
     private void HandleFamily()
@@ -44,7 +44,7 @@ public class PassiveCardHandler : MonoBehaviour {
             ActionPointManager.instance.IncreaseStartActionPoints();
         }
         
-        GoldManager.instance.SetGoldAmount(GoldManager.instance.GetGoldAmount() - 2);
+        //GoldManager.instance.SetGoldAmount(GoldManager.instance.GetGoldAmount() - 2);
     }
 
     private void HandleFertilizer()

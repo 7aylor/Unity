@@ -49,10 +49,12 @@ public class PlayspaceTile : MonoBehaviour {
                     if(image.sprite.name != "Bulldozer")
                     {
                         gameObject.GetComponent<Image>().sprite = image.sprite;
+                        Console.instance.WriteToConsole("Played " + image.sprite.name);
                     }
                     else
                     {
                         gameObject.GetComponent<Image>().sprite = GameObject.Find("Dirt").GetComponent<Image>().sprite;
+                        Console.instance.WriteToConsole("Bulldozer destroyed an obstacle");
                     }
                     apm.UseActionPoint();
                     break;

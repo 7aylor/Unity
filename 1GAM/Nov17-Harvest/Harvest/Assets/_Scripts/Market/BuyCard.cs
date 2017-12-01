@@ -97,6 +97,8 @@ public class BuyCard : MonoBehaviour
                 GoldManager.instance.SetGoldAmount(GoldManager.instance.GetGoldAmount() - costOfCard);
                 apm.UseActionPoint();
 
+                Console.instance.WriteToConsole("Bought " + cardToAdd.GetComponent<Image>().sprite.name);
+
                 if (costOfCard != costOfDeckCard)
                 {
                     market.ShiftCardsForward(gameObject);

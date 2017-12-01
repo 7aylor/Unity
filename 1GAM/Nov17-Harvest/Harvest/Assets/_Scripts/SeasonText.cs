@@ -25,6 +25,24 @@ public class SeasonText : MonoBehaviour {
         if(currentSeasonIndex < seasons.Length)
         {
             currentSeason = seasons[currentSeasonIndex];
+
+            if(currentSeason == "Winter")
+            {
+                seasonText.color = Color.blue;
+            }
+            if (currentSeason == "Spring")
+            {
+                seasonText.color = Color.green;
+            }
+            if (currentSeason == "Summer")
+            {
+                seasonText.color = Color.yellow;
+            }
+            if (currentSeason == "Fall")
+            {
+                seasonText.color = Color.white;
+            }
+
             seasonText.text = currentSeason;
             currentSeasonIndex++;
         }

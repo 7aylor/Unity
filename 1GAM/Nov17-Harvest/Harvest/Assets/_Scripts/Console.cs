@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Console : MonoBehaviour {
 
     private Text text;
+    bool running = false;
 
     //singleton
     public static Console instance;
@@ -42,8 +43,13 @@ public class Console : MonoBehaviour {
 
     private IEnumerator WaitToClearConsole()
     {
+        running = true;
         yield return new WaitForSeconds(2f);
-        ClearConsole();
+        running = false;
+        if(running == false)
+        {
+            ClearConsole();
+        }
     }
 
 }
