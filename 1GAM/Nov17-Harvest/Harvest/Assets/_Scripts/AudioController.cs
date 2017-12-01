@@ -9,7 +9,7 @@ public class AudioController : MonoBehaviour {
     private int songIndex;
 
     public AudioClip[] songs;
-    public static AudioController instance;
+    public static AudioController instance = null;
 
     private void Awake()
     {
@@ -17,12 +17,12 @@ public class AudioController : MonoBehaviour {
         {
             instance = this;
         }
-        else
+        else if (instance != this)
         {
-            Destroy(instance);
+            Destroy(gameObject);
         }
 
-        DontDestroyOnLoad(instance);
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour {
 
-    public static LevelManager instance;
+    public static LevelManager instance = null;
 
     private void Awake()
     {
@@ -13,12 +13,12 @@ public class LevelManager : MonoBehaviour {
         {
             instance = this;
         }
-        else
+        else if (instance != this)
         {
-            Destroy(instance);
+            Destroy(gameObject);
         }
 
-        DontDestroyOnLoad(instance);
+        DontDestroyOnLoad(gameObject);
     }
 
     public int GetCurrentSceneIndex()

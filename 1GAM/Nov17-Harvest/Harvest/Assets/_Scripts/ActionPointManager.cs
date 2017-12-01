@@ -57,7 +57,7 @@ public class ActionPointManager : MonoBehaviour {
         }
     }
 
-    private void SetEndTurnButton(bool enabled, Color color, Color highlight)
+    public void SetEndTurnButton(bool enabled, Color color, Color highlight)
     {
         endTurnButton.GetComponent<Button>().enabled = enabled;
         ColorBlock c = endTurnButton.GetComponent<Button>().colors;

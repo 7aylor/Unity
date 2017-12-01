@@ -55,6 +55,11 @@ public class BuyCard : MonoBehaviour
                 {
                     HandleHand("Hand_Passive", costOfCard, newCard);
                 }
+
+                if (GoldManager.instance.GetGoldAmount() <= 5)
+                {
+                    ActionPointManager.instance.SetEndTurnButton(true, Color.red, Color.red);
+                }
             }
             else
             {

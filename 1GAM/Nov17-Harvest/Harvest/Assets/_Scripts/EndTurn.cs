@@ -38,5 +38,10 @@ public class EndTurn : MonoBehaviour {
         slider.IncreaseSeasonSlider();
 
         dm.MoveDeer();
+
+        if (GoldManager.instance.GetGoldAmount() <= 5)
+        {
+            ActionPointManager.instance.SetEndTurnButton(true, Color.red, Color.red);
+        }
     }
 }

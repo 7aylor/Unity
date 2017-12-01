@@ -37,5 +37,13 @@ public class Console : MonoBehaviour {
     public void WriteToConsole(string consoleText)
     {
         text.text = consoleText;
+        StartCoroutine("WaitToClearConsole");
     }
+
+    private IEnumerator WaitToClearConsole()
+    {
+        yield return new WaitForSeconds(2f);
+        ClearConsole();
+    }
+
 }

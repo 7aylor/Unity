@@ -9,7 +9,7 @@ public class Goals : MonoBehaviour {
     public Text goal;
 
     // Use this for initialization
-    void Start () {
+    void Awake () {
         difficulty.text = GameManager.instance.Diff.ToString().ToUpper();
 
         DefineGoals();
@@ -21,14 +21,17 @@ public class Goals : MonoBehaviour {
         if(GameManager.instance.Diff == GameManager.difficulty.easy)
         {
             GameManager.instance.GoldGoal = Random.Range(500, 1000);
+            GameManager.instance.DiffIndex = 1;
         }
         if (GameManager.instance.Diff == GameManager.difficulty.medium)
         {
             GameManager.instance.GoldGoal = Random.Range(1000, 1500);
+            GameManager.instance.DiffIndex = 2;
         }
         if (GameManager.instance.Diff == GameManager.difficulty.hard)
         {
             GameManager.instance.GoldGoal = Random.Range(1500, 2000);
+            GameManager.instance.DiffIndex = 3;
         }
     }
 }

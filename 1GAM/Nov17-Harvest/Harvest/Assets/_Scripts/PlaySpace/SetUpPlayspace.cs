@@ -37,8 +37,8 @@ public class SetUpPlayspace : MonoBehaviour {
 
         //assigns obstacles ***May need to edit with the addition of more levels***
 
-        int numObstacles = Random.Range(1, (LevelManager.instance.GetCurrentSceneIndex() * obstacles.Length));
-        Debug.Log(numObstacles);
+        int numObstacles = Random.Range(GameManager.instance.DiffIndex * 2, (GameManager.instance.DiffIndex * obstacles.Length));
+        Debug.Log("Number of Obstacles: " + numObstacles);
 
         for (int i = 0; i < numObstacles; i++)
         {

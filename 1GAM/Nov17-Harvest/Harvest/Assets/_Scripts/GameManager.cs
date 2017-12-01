@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-    public static GameManager instance;
+    public static GameManager instance = null;
 
     public enum difficulty { easy, medium, hard}
     public difficulty Diff { get; set; }
     public int GoldGoal { get; set; }
+    public int DiffIndex { get; set; }
 
     private void Awake()
     {
@@ -16,17 +17,18 @@ public class GameManager : MonoBehaviour {
         {
             instance = this;
         }
-        else
+        else if (instance != this)
         {
-            Destroy(instance);
+            Destroy(gameObject);
         }
 
-        DontDestroyOnLoad(instance);
+        DontDestroyOnLoad(gameObject);
     }
 
     // Use this for initialization
     void Start () {
         Diff = difficulty.easy;
+        DiffIndex = 1;
 	}
 
 
