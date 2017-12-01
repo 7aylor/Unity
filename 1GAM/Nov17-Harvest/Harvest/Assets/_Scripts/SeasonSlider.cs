@@ -12,6 +12,7 @@ public class SeasonSlider : MonoBehaviour {
     public Text HighestEarningCrop;
     public Text SeasonSummaryText;
     public GameObject SeasonSummary;
+    public GameSummary gameSummary;
 
     private Slider slider;
     private CanvasBackground background;
@@ -20,6 +21,7 @@ public class SeasonSlider : MonoBehaviour {
     private GoldManager gold;
     private HarvestController hc;
     private DeerMovement deer;
+    private SeasonSymbol symbols;
 
 	// Use this for initialization
 	void Start () {
@@ -30,7 +32,8 @@ public class SeasonSlider : MonoBehaviour {
         gold = GameObject.FindObjectOfType<GoldManager>();
         hc = GameObject.FindObjectOfType<HarvestController>();
         deer = hc.GetComponent<DeerMovement>();
-	}
+        symbols = GameObject.FindObjectOfType<SeasonSymbol>();
+    }
 
     /// <summary>
     /// Increases the season slider and calculates if the slider needs to be reset
@@ -59,7 +62,8 @@ public class SeasonSlider : MonoBehaviour {
         //check if we are in the final season
         if (seasonText.GetCurrentSeason() == "Fall")
         {
-            //End of the game
+            gameSummary.gameObject.SetActive(true);
+            gameSummary.CalculateGameSummary();
         }
 
         //triggers a season change. Lots to calculate
@@ -79,6 +83,7 @@ public class SeasonSlider : MonoBehaviour {
         slider.value = 0;
         background.ChangeBackgroundImage();
         seasonText.changeSeasonText();
+        symbols.UpdateSeasonSymbol();
         market.SpawnMarketCardImages();
 
     }

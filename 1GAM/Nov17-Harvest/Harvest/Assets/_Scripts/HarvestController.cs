@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class HarvestController : MonoBehaviour {
 
     public int CropsInSeason { get; set; }
+    public int TotalGoldEarned { get; private set; }
     private Harvest[] tiles;
     private int highestEarningCropVal;
     private string highEarningCropName;
@@ -13,6 +14,7 @@ public class HarvestController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         tiles = FindObjectsOfType<Harvest>();
+        TotalGoldEarned = 0;
         ResetHighestEarnedCrop();
 	}
 
@@ -33,6 +35,8 @@ public class HarvestController : MonoBehaviour {
 
             gold += moneyCrop;
         }
+
+        TotalGoldEarned += gold;
 
         return gold;
     }
