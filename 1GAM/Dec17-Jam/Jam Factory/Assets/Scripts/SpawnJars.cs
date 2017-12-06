@@ -5,17 +5,21 @@ using UnityEngine;
 public class SpawnJars : MonoBehaviour {
 
     public GameObject jar;
+    public bool CanSpawnJars { get; set; }
 
     private float timeSinceLastSpawn = 0;
 
 	// Use this for initialization
 	void Start () {
-        
+        CanSpawnJars = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        HandleSpawnJars();
+        if(CanSpawnJars == true)
+        {
+            HandleSpawnJars();
+        }
 	}
 
     private void HandleSpawnJars()
