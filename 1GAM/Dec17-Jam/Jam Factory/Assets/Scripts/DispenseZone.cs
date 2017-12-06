@@ -24,6 +24,7 @@ public class DispenseZone : MonoBehaviour {
         //stop the spawner from spawning
         spawner.CanSpawnJars = false;
 
+        Debug.Log("Triggered");
 
         foreach(Jar jar in FindObjectsOfType<Jar>())
         {

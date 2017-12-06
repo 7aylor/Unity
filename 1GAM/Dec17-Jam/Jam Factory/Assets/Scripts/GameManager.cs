@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
 
     private bool clicked = false;
     private float speed = 1f;
-    private float spawnSpeed = 3;
+    private float spawnSpeed = 2;
     private float timeToPause = 0.5f; //TODO: create method to decrease this when hitting a checkpoint
 
     public static GameManager instance = null;

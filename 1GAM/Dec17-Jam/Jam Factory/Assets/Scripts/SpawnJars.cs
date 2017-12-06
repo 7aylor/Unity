@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnJars : MonoBehaviour {
 
-    public GameObject jar;
+    public GameObject[] jars;
     public bool CanSpawnJars { get; set; }
 
     private float timeSinceLastSpawn = 0;
@@ -27,7 +27,7 @@ public class SpawnJars : MonoBehaviour {
         if(timeSinceLastSpawn >= GameManager.instance.GetSpawnSpeed())
         {
             timeSinceLastSpawn = 0;
-            Instantiate(jar, transform, false);
+            Instantiate(jars[Random.Range(0, jars.Length)], transform, false);
         }
         else
         {
