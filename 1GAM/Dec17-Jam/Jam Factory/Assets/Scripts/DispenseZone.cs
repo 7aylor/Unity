@@ -19,23 +19,25 @@ public class DispenseZone : MonoBehaviour {
     /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //reset the timer
-        timer = 0;
-        //stop the spawner from spawning
-        spawner.CanSpawnJars = false;
-
-        Debug.Log("Triggered");
-
-        foreach(Jar jar in FindObjectsOfType<Jar>())
+        Debug.Log("Triggered " + collision.name);
+        if (collision.GetComponent<Jar>())
         {
-            if(jar.tag != "Dispensed")
-            {
-                jar.StopJar();
-            }
-        }
+            //reset the timer
+            timer = 0;
+            //stop the spawner from spawning
+            spawner.CanSpawnJars = false;
 
-        //start the timer
-        StartCoroutine("StartTimer");
+            foreach (Jar jar in FindObjectsOfType<Jar>())
+            {
+                if (jar.tag != "Dispensed")
+                {
+                    jar.StopJar();
+                }
+            }
+
+            //start the timer
+            StartCoroutine("StartTimer");
+        }
     }
 
     /// <summary>

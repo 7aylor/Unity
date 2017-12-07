@@ -41,9 +41,23 @@ public class Jar : MonoBehaviour {
         jarStopped = true;
     }
 
+    /// <summary>
+    /// allows the jar to continue moving
+    /// </summary>
     public void StartJar()
     {
         jarStopped = false;
     }
 
+    /// <summary>
+    /// When jam goes in the jar, parent the jam to the jar
+    /// </summary>
+    /// <param name="collision"></param>
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Jam")
+        {
+            collision.gameObject.transform.SetParent(transform);
+        }
+    }
 }
