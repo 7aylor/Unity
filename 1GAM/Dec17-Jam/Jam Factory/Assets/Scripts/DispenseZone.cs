@@ -20,7 +20,7 @@ public class DispenseZone : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Triggered " + collision.name);
-        if (collision.GetComponent<Jar>())
+        if (collision.GetComponent<Jar>() && collision.isTrigger == true)
         {
             //reset the timer
             timer = 0;

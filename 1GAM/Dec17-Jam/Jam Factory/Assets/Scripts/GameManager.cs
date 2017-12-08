@@ -6,12 +6,12 @@ public class GameManager : MonoBehaviour {
 
     public Texture2D cursor0;
     public Texture2D cursor1;
-    
 
     private bool clicked = false;
     private float speed = 1f;
     private float spawnSpeed = 2;
     private float timeToPause = 0.5f; //TODO: create method to decrease this when hitting a checkpoint
+    private int numLives = 5;
 
     public static GameManager instance = null;
 
@@ -67,6 +67,16 @@ public class GameManager : MonoBehaviour {
     public float GetTimeToPause()
     {
         return timeToPause;
+    }
+
+    public void DecreaseLives()
+    {
+        numLives--;
+    }
+
+    public int GetNumLives()
+    {
+        return numLives;
     }
 
 }
