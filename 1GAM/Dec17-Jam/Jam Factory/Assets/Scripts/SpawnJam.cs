@@ -35,6 +35,23 @@ public class SpawnJam : MonoBehaviour {
     {
         GameObject j = Instantiate(jam, transform);
         j.GetComponent<SpriteRenderer>().color = jamColors[jamIndex];
+
+        switch (jamIndex)
+        {
+            case 0:
+                j.name = "Strawberry";
+                break;
+            case 1:
+                j.name = "Raspberry";
+                break;
+            case 2:
+                j.name = "Grape";
+                break;
+
+            //case 3:
+            //    j.name = "BlackberryJam";
+            //    break;
+        }
     }
 
     public void ChangeJamType(int index)

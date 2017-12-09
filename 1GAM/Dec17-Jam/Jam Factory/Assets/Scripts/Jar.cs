@@ -60,4 +60,32 @@ public class Jar : MonoBehaviour {
             collision.gameObject.transform.SetParent(transform);
         }
     }
+
+    /// <summary>
+    /// looks through all jam objects in the jar and returns the number of correct jam objects in the jar
+    /// </summary>
+    /// <returns></returns>
+    public float CalculateJamProportion()
+    {
+        int correctJamCount = 0;
+
+        Debug.Log(gameObject.tag);
+
+        //Loops through all children (jam objects) in the jar
+        foreach(Transform t in transform)
+        {
+            //removes the word jar from the end of the name of the jar and stores it in newName
+            string newName = gameObject.name.Replace("jar", "");
+
+            //if the tag of the jar contains the name of the 
+            if (newName.Contains(t.name))
+            {
+                correctJamCount++;
+            }
+        }
+
+        //Debug.Log("Jar proportion: " + correctJamCount + "/" + transform.childCount + " " + (float)(correctJamCount / transform.childCount));
+
+        return (float)(correctJamCount/transform.childCount);
+    }
 }

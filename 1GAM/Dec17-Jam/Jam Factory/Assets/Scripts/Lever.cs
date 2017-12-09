@@ -37,8 +37,6 @@ public class Lever : MonoBehaviour {
 
         leverPressure = Mathf.Abs(transform.position.y - topY);
         spawnInterval = DetermineFrameDelay();
-
-        print("Frame delay " + spawnInterval);
     }
 
     /// <summary>

@@ -10,8 +10,10 @@ public class GameManager : MonoBehaviour {
     private bool clicked = false;
     private float speed = 1f;
     private float spawnSpeed = 2;
-    private float timeToPause = 0.5f; //TODO: create method to decrease this when hitting a checkpoint
+    private float timeToPause = 2f; //TODO: create method to decrease this when hitting a checkpoint
     private int numLives = 5;
+    private int jamWasted = 0;
+
 
     public static GameManager instance = null;
 
@@ -38,6 +40,14 @@ public class GameManager : MonoBehaviour {
 	}
 
     private void Update()
+    {
+        HandleMouseCursorOnClick();
+    }
+
+    /// <summary>
+    /// update the cursor image when you click
+    /// </summary>
+    private void HandleMouseCursorOnClick()
     {
         if (Input.GetMouseButton(0))
         {
@@ -77,6 +87,23 @@ public class GameManager : MonoBehaviour {
     public int GetNumLives()
     {
         return numLives;
+    }
+
+    public void IncreaseJamWasted()
+    {
+        if(jamWasted < 100)
+        {
+            jamWasted++;
+        }
+        else
+        {
+            jamWasted = 0;
+        }
+    }
+
+    public int GetJamWasted()
+    {
+        return jamWasted;
     }
 
 }

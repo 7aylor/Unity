@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 60046007901174874}
   m_Layer: 0
   m_Name: Grape Jar
-  m_TagString: Untagged
+  m_TagString: GrapeJam
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
