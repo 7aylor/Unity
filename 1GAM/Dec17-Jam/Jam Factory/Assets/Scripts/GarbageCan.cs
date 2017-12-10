@@ -6,10 +6,12 @@ using UnityEngine.UI;
 public class GarbageCan : MonoBehaviour {
 
     private LifeManager lifeManager;
+    private NotifiationManager notificationManager;
 
     private void Start()
     {
         lifeManager = GameObject.FindObjectOfType<LifeManager>();
+        notificationManager = GameManager.FindObjectOfType<NotifiationManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -20,7 +22,8 @@ public class GarbageCan : MonoBehaviour {
             GameManager.instance.IncreaseJamWasted();
             if(GameManager.instance.GetJamWasted() == 100)
             {
-                lifeManager.LoseLife("-1 Life! Stop wasting Jam!");
+                lifeManager.LoseLife();
+                notificationManager.UpdateNotificationText("-1 Life! Stop wasting Jam!");
 
                 foreach(Transform t in collision.transform.parent.transform)
                 {

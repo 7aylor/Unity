@@ -20,9 +20,8 @@ public class LifeManager : MonoBehaviour {
     /// <summary>
     /// Destroys a life and removes it from the list of lives
     /// </summary>
-    public void LoseLife(string notification)
+    public void LoseLife()
     {
-        
         Destroy(lives[lives.Count - 1]);
         lives.RemoveAt(lives.Count - 1);
         GameManager.instance.DecreaseLives();
@@ -33,14 +32,6 @@ public class LifeManager : MonoBehaviour {
             Debug.Log("Loading end game");
             LevelManager.instance.LoadScene("EndMenu");
         }
-
-        lifeLossNotificationText.text = notification;
-        StartCoroutine("ClearNotification");
     }
 
-    private IEnumerator ClearNotification()
-    {
-        yield return new WaitForSeconds(2);
-        lifeLossNotificationText.text = "";
-    }
 }

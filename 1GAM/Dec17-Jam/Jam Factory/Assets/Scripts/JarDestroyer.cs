@@ -5,12 +5,16 @@ using UnityEngine;
 public class JarDestroyer : MonoBehaviour {
 
     private LifeManager lifeManager;
+    private PointManager pointManager;
+    private NotifiationManager notificationManager;
 
     private int jarFull = 80;
 
     private void Start()
     {
         lifeManager = FindObjectOfType<LifeManager>();
+        pointManager = FindObjectOfType<PointManager>();
+        notificationManager = FindObjectOfType<NotifiationManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -24,16 +28,21 @@ public class JarDestroyer : MonoBehaviour {
 
             collision.GetComponent<Jar>().CalculateJamProportion();
 
-            //check how full the jar is and if most of the jam is the correct type
+            //check how full the jar is
             if (collision.transform.childCount < (jarFull * 0.75f))
             {
-                lifeManager.LoseLife("-1 Life! We can't ship a jar with no jam in it!");
-                //prompt the user telling them what they did wrong
+                lifeManager.LoseLife();
+                notificationManager.UpdateNotificationText("-1 Life! We can't sell a jar with no jam in it!");
             }
-            else if(collision.GetComponent<Jar>().CalculateJamProportion() < 0.75f)
+            //if most of the jam is the correct type
+            else if (collision.gameObject.GetComponent<Jar>().CalculateJamProportion() < 0.75f)
             {
-                lifeManager.LoseLife("-1 Life! It's not hard to fill a jar with the right kind of jam!");
-                //prompt the user telling them what they did wrong
+                lifeManager.LoseLife();
+                notificationManager.UpdateNotificationText("-1 Life! It's not hard to fill a jar with the right kind of jam!");
+            }
+            else
+            {
+                pointManager.IncreasePoints();
             }
         }
     }
