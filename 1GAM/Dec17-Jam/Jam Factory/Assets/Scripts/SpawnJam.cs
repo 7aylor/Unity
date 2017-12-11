@@ -25,10 +25,10 @@ public class SpawnJam : MonoBehaviour {
         {
             ChangeJamType(2);
         }
-        //if (Input.GetButton("Blackberry"))
-        //{
-        //    ChangeJamType(3);
-        //}
+        if (Input.GetButton("Peach"))
+        {
+            ChangeJamType(3);
+        }
     }
 
     public void DispenseJam()
@@ -47,10 +47,9 @@ public class SpawnJam : MonoBehaviour {
             case 2:
                 j.name = "Grape";
                 break;
-
-            //case 3:
-            //    j.name = "BlackberryJam";
-            //    break;
+            case 3:
+                j.name = "Peach";
+                break;
         }
     }
 

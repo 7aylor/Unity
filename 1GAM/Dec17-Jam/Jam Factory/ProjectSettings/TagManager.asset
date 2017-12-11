@@ -9,6 +9,7 @@ TagManager:
   - GrapeJam
   - RaspberryJam
   - StrawberryJam
+  - PeachJam
   layers:
   - Default
   - TransparentFX
