@@ -37,6 +37,8 @@ public class DispenseZone : MonoBehaviour {
             //start the timer
             StartCoroutine("StartTimer");
         }
+
+
     }
 
     /// <summary>

@@ -14,12 +14,21 @@ public class GarbageCan : MonoBehaviour {
         notificationManager = GameManager.FindObjectOfType<NotifiationManager>();
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, transform.position + (transform.up * 50));
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Jam")
+        if(collision.CompareTag("Jam") || collision.CompareTag("Dispensed"))
         {
             //Destroy(collision.gameObject);
             GameManager.instance.IncreaseJamWasted();
+
+            collision.gameObject.transform.SetParent(transform);
+
             if(GameManager.instance.GetJamWasted() == 100)
             {
                 lifeManager.LoseLife();
@@ -27,7 +36,10 @@ public class GarbageCan : MonoBehaviour {
 
                 foreach(Transform t in collision.transform.parent.transform)
                 {
-                    Destroy(t.gameObject);
+                    if (t.CompareTag("Jam") || t.CompareTag("Dispensed"))
+                    {
+                        Destroy(t.gameObject);
+                    } 
                 }
                 //prompt the user telling them what they did wrong
             }

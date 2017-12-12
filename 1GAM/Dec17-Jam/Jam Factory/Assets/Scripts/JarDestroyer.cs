@@ -5,15 +5,13 @@ using UnityEngine;
 public class JarDestroyer : MonoBehaviour {
 
     private LifeManager lifeManager;
-    private PointManager pointManager;
     private NotifiationManager notificationManager;
 
-    private int jarFull = 80;
+    private int jarFull = 70;
 
     private void Start()
     {
         lifeManager = FindObjectOfType<LifeManager>();
-        pointManager = FindObjectOfType<PointManager>();
         notificationManager = FindObjectOfType<NotifiationManager>();
     }
 
@@ -40,9 +38,14 @@ public class JarDestroyer : MonoBehaviour {
                 lifeManager.LoseLife();
                 notificationManager.UpdateNotificationText("-1 Life! It's not hard to fill a jar with the right kind of jam!");
             }
+            else if (collision.gameObject.transform.GetChild(3).gameObject.activeSelf == false)
+            {
+                lifeManager.LoseLife();
+                notificationManager.UpdateNotificationText("-1 Life! Jam is getting everywhere! Put a lid on it!");
+            }
             else
             {
-                pointManager.IncreasePoints();
+                PointManager.instance.IncreasePoints();
             }
         }
     }

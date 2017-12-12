@@ -10,6 +10,7 @@ TagManager:
   - RaspberryJam
   - StrawberryJam
   - PeachJam
+  - Lid
   layers:
   - Default
   - TransparentFX

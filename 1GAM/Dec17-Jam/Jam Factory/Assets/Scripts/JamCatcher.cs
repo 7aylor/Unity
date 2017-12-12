@@ -14,7 +14,7 @@ public class JamCatcher : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        collision.transform.SetParent(garbageCan.transform);
+        //collision.transform.SetParent(garbageCan.transform);
         collision.transform.position = jamCatcherSpawner.transform.position;
     }
 

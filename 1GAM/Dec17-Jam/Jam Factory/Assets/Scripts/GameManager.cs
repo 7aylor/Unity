@@ -8,12 +8,12 @@ public class GameManager : MonoBehaviour {
     public Texture2D cursor1;
 
     private bool clicked = false;
-    private float speed = 1f;
-    private float spawnSpeed = 2;
+    private float jarSpeed = 1f;
+    private float spawnSpeed = 5f;
     private float timeToPause = 2f; //TODO: create method to decrease this when hitting a checkpoint
     private int numLives = 5;
     private int jamWasted = 0;
-
+    private bool canChangeSpeeds = false;
 
     public static GameManager instance = null;
 
@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour {
     private void Update()
     {
         HandleMouseCursorOnClick();
+        ManageSpeeds();
     }
 
     /// <summary>
@@ -64,9 +65,10 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    #region getters and setters
     public float GetSpeed()
     {
-        return speed;
+        return jarSpeed;
     }
 
     public float GetSpawnSpeed()
@@ -106,4 +108,21 @@ public class GameManager : MonoBehaviour {
         return jamWasted;
     }
 
+    public void SetCanChangeSpeed(bool changed)
+    {
+        canChangeSpeeds = changed;
+    }
+    #endregion
+
+    private void ManageSpeeds()
+    {
+        int points = PointManager.instance.GetPoints();
+        if (canChangeSpeeds == true && points > 1 && points % 5 == 0 && points <= 30)
+        {
+            spawnSpeed -= 0.5f;
+            jarSpeed += 0.5f;
+            timeToPause -= 0.1f;
+            canChangeSpeeds = false;
+        }
+    }
 }
