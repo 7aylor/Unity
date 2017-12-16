@@ -10,6 +10,14 @@ public class SpawnJam : MonoBehaviour {
     public int jamIndex;
     public Sprite[] images;
     public GameObject jamIndicator;
+    private bool canChangeJam;
+    private NotifiationManager notificationManager;
+
+    private void Start()
+    {
+        notificationManager = FindObjectOfType<NotifiationManager>();
+        canChangeJam = false;
+    }
 
     private void Update()
     {
@@ -17,18 +25,22 @@ public class SpawnJam : MonoBehaviour {
         {
             ChangeJamType(0);
         }
-        if (Input.GetButton("Raspberry"))
+        else if (Input.GetButton("Raspberry"))
         {
             ChangeJamType(1);
         }
-        if (Input.GetButton("Grapes"))
+        else if (Input.GetButton("Grapes"))
         {
             ChangeJamType(2);
         }
-        if (Input.GetButton("Peach"))
+        else if (Input.GetButton("Peach"))
         {
             ChangeJamType(3);
         }
+        //else if()
+        //{
+        //    notificationManager.UpdateNotificationText("Please wait for old Jam Type to be cleared");
+        //}
     }
 
     public void DispenseJam()
