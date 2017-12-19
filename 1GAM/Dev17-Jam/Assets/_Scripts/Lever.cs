@@ -9,8 +9,7 @@ public class Lever : MonoBehaviour {
     public float topY;
     public float botY;
     private float leverPressure = 0;
-    private bool leverDown = false;
-
+    public static bool leverDown = false;
     private float spawnInterval = 0.3f;
     private float lastSpawned = 0;
 

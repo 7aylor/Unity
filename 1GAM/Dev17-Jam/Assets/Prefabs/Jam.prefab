@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212908935153836234}
   - component: {fileID: 50549338852230710}
   - component: {fileID: 58103930338995958}
+  - component: {fileID: 114436389621460360}
   m_Layer: 0
   m_Name: Jam
   m_TagString: Jam
@@ -77,6 +78,17 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.08
+--- !u!114 &114436389621460360
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1592406961769542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd37b69889474854e960395a59b73d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212908935153836234
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -7,36 +7,53 @@ public class SpawnJam : MonoBehaviour {
 
     public Color[] jamColors;
     public GameObject jam;
-    public int jamIndex;
+    public static int jamIndex = 0;
+    public static int prevJamIndex = jamIndex;
     public Sprite[] images;
     public GameObject jamIndicator;
     private bool canChangeJam;
     private NotifiationManager notificationManager;
+    private float switchDelay = 1f;
+    private float timeSinceLastSwitch = 0f;
+    private JamDestroyer jamDestroyer;
 
     private void Start()
     {
+        jamDestroyer = FindObjectOfType<JamDestroyer>();
         notificationManager = FindObjectOfType<NotifiationManager>();
         canChangeJam = false;
     }
 
     private void Update()
     {
-        if (Input.GetButton("Strawberry"))
+        ///May need to remove this stuff
+        timeSinceLastSwitch += Time.deltaTime;
+
+        if(timeSinceLastSwitch > switchDelay)
         {
-            ChangeJamType(0);
+            if (Input.GetButton("Strawberry"))
+            {
+                ChangeJamType(0);
+            }
+            else if (Input.GetButton("Raspberry"))
+            {
+                ChangeJamType(1);
+            }
+            else if (Input.GetButton("Grapes"))
+            {
+                ChangeJamType(2);
+            }
+            else if (Input.GetButton("Peach"))
+            {
+                ChangeJamType(3);
+            }
+            timeSinceLastSwitch = 0;
         }
-        else if (Input.GetButton("Raspberry"))
+        else
         {
-            ChangeJamType(1);
+            Debug.Log("Time Delay to switch jam type not yet expired");
         }
-        else if (Input.GetButton("Grapes"))
-        {
-            ChangeJamType(2);
-        }
-        else if (Input.GetButton("Peach"))
-        {
-            ChangeJamType(3);
-        }
+        
         //else if()
         //{
         //    notificationManager.UpdateNotificationText("Please wait for old Jam Type to be cleared");
@@ -47,6 +64,7 @@ public class SpawnJam : MonoBehaviour {
     {
         GameObject j = Instantiate(jam, transform);
         j.GetComponent<SpriteRenderer>().color = jamColors[jamIndex];
+        j.GetComponent<Jam>().JamIndex = jamIndex;
 
         switch (jamIndex)
         {
@@ -65,9 +83,13 @@ public class SpawnJam : MonoBehaviour {
         }
     }
 
-    public void ChangeJamType(int index)
+    public virtual void ChangeJamType(int index)
     {
+        prevJamIndex = jamIndex;
         jamIndex = index;
         jamIndicator.GetComponent<Image>().sprite = images[index];
+        //jamDestroyer.EnableCollider();
     }
+
+
 }
