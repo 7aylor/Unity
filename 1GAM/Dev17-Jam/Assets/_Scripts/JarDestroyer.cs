@@ -6,7 +6,7 @@ public class JarDestroyer : MonoBehaviour {
 
     private LifeManager lifeManager;
     private NotifiationManager notificationManager;
-
+    
     private int jarFull = 70;
 
     private void Start()
