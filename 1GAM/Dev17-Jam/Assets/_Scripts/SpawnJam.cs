@@ -13,8 +13,6 @@ public class SpawnJam : MonoBehaviour {
     public GameObject jamIndicator;
     private bool canChangeJam;
     private NotifiationManager notificationManager;
-    private float switchDelay = 1f;
-    private float timeSinceLastSwitch = 0f;
     private JamDestroyer jamDestroyer;
 
     private void Start()
@@ -26,11 +24,6 @@ public class SpawnJam : MonoBehaviour {
 
     private void Update()
     {
-        ///May need to remove this stuff
-        timeSinceLastSwitch += Time.deltaTime;
-
-        if(timeSinceLastSwitch > switchDelay)
-        {
             if (Input.GetButton("Strawberry"))
             {
                 ChangeJamType(0);
@@ -47,12 +40,6 @@ public class SpawnJam : MonoBehaviour {
             {
                 ChangeJamType(3);
             }
-            timeSinceLastSwitch = 0;
-        }
-        else
-        {
-            Debug.Log("Time Delay to switch jam type not yet expired");
-        }
         
         //else if()
         //{

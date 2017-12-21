@@ -7,11 +7,13 @@ public class GarbageCan : MonoBehaviour {
 
     private LifeManager lifeManager;
     private NotifiationManager notificationManager;
+    private Animator animator;
 
     private void Start()
     {
         lifeManager = GameObject.FindObjectOfType<LifeManager>();
         notificationManager = GameManager.FindObjectOfType<NotifiationManager>();
+        animator = FindObjectOfType<BossAnimator>().GetComponent<Animator>();
     }
 
     private void OnDrawGizmosSelected()
@@ -32,6 +34,7 @@ public class GarbageCan : MonoBehaviour {
             if(GameManager.instance.GetJamWasted() == 100)
             {
                 lifeManager.LoseLife();
+                animator.SetTrigger("Angry");
                 notificationManager.UpdateNotificationText("-1 Life! Stop wasting Jam!");
 
                 foreach(Transform t in collision.transform.parent.transform)

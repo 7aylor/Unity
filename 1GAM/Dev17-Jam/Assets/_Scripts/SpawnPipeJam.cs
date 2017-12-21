@@ -23,15 +23,11 @@ public class SpawnPipeJam : SpawnJam {
         {
             jamCount++;
             base.DispenseJam();
-
-
-
         }
 	}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Collided");
         canSpawnJam = false;
     }
 
