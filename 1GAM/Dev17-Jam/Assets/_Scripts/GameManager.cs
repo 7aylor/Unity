@@ -122,6 +122,12 @@ public class GameManager : MonoBehaviour {
             spawnSpeed -= 0.5f;
             jarSpeed += 0.5f;
             timeToPause -= 0.1f;
+
+            foreach(ConveyorBelt c in FindObjectsOfType<ConveyorBelt>())
+            {
+                c.ChangePlaySpeed(0.1f);
+            }
+
             canChangeSpeeds = false;
         }
     }
