@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour {
     void Start () {
         Cursor.SetCursor(cursor0, new Vector2(0,0), CursorMode.Auto); //0.325f, 0.99f
         Cursor.visible = true;
+        InitHighScore();
 	}
 
     private void Update()
@@ -130,5 +131,23 @@ public class GameManager : MonoBehaviour {
 
             canChangeSpeeds = false;
         }
+    }
+
+    public void SetHighScore(int newScore)
+    {
+        PlayerPrefs.SetInt("HighScore", newScore);
+    }
+
+    private void InitHighScore()
+    {
+        if (PlayerPrefs.HasKey("HighScore") == false)
+        {
+            PlayerPrefs.SetInt("HighScore", 0);
+        }
+    }
+
+    public int GetHighScore()
+    {
+        return PlayerPrefs.GetInt("HighScore");
     }
 }

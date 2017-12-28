@@ -41,6 +41,7 @@ public class PointManager : MonoBehaviour {
     public void IncreasePoints()
     {
         points++;
+        ComputeHighScore();
         GameManager.instance.SetCanChangeSpeed(true);
         pointText.text = points.ToString();
         notificationManager.UpdateNotificationText("+1 jars filled. Hey, great job filling the jar!");
@@ -49,5 +50,17 @@ public class PointManager : MonoBehaviour {
     public int GetPoints()
     {
         return points;
+    }
+
+    /// <summary>
+    /// Checks if the in game score is higher than the highest score
+    /// on this device and sets it if it is
+    /// </summary>
+    private void ComputeHighScore()
+    {
+        if (points > GameManager.instance.GetHighScore())
+        {
+            GameManager.instance.SetHighScore(points);
+        }
     }
 }
