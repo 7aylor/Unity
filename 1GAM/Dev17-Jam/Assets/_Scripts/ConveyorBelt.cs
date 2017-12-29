@@ -17,4 +17,14 @@ public class ConveyorBelt : MonoBehaviour {
     {
         animatorPlaySpeed += deltaSpeed;
     }
+
+    public void PauseConveyorBelt()
+    {
+        animator.speed = 0;
+    }
+
+    public void UnpauseConveyorBelt()
+    {
+        animator.speed = animatorPlaySpeed;
+    }
 }

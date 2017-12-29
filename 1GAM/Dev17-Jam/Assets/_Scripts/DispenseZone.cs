@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DispenseZone : MonoBehaviour {
 
+    public ConveyorBelt leftBelt;
     private float timer = 0;
     private SpawnJars spawner;
 
@@ -34,6 +35,8 @@ public class DispenseZone : MonoBehaviour {
                 }
             }
 
+            leftBelt.PauseConveyorBelt();
+
             //start the timer
             StartCoroutine("StartTimer");
         }
@@ -57,6 +60,9 @@ public class DispenseZone : MonoBehaviour {
         {
             jar.StartJar();
         }
+
+        leftBelt.UnpauseConveyorBelt();
+
 
         spawner.CanSpawnJars = true;
     }
