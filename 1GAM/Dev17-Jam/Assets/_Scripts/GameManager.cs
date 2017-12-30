@@ -117,20 +117,24 @@ public class GameManager : MonoBehaviour {
 
     private void ManageSpeeds()
     {
-        int points = PointManager.instance.GetPoints();
-        if (canChangeSpeeds == true && points > 1 && points % 5 == 0 && points <= 30)
+        if (PointManager.instance != null)
         {
-            spawnSpeed -= 0.5f;
-            jarSpeed += 0.5f;
-            timeToPause -= 0.1f;
-
-            foreach(ConveyorBelt c in FindObjectsOfType<ConveyorBelt>())
+            int points = PointManager.instance.GetPoints();
+            if (canChangeSpeeds == true && points > 1 && points % 5 == 0 && points <= 30)
             {
-                c.ChangePlaySpeed(0.1f);
-            }
+                spawnSpeed -= 0.5f;
+                jarSpeed += 0.5f;
+                timeToPause -= 0.1f;
 
-            canChangeSpeeds = false;
+                foreach (ConveyorBelt c in FindObjectsOfType<ConveyorBelt>())
+                {
+                    c.ChangePlaySpeed(0.1f);
+                }
+
+                canChangeSpeeds = false;
+            }
         }
+
     }
 
     public void SetHighScore(int newScore)
@@ -149,5 +153,10 @@ public class GameManager : MonoBehaviour {
     public int GetHighScore()
     {
         return PlayerPrefs.GetInt("HighScore");
+    }
+
+    public void ResetLives()
+    {
+        numLives = 5;
     }
 }

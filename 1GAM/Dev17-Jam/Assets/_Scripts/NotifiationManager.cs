@@ -31,6 +31,11 @@ public class NotifiationManager : MonoBehaviour {
     private IEnumerator ClearNotification()
     {
         yield return new WaitForSeconds(delayToClear);
+        if(GameManager.instance.GetNumLives() <= 0)
+        {
+            GameManager.instance.ResetLives();
+            LevelManager.instance.LoadScene("EndMenu");
+        }
         notificationText.text = "";
     }
 }

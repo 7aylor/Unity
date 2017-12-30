@@ -8,9 +8,12 @@ public class LifeManager : MonoBehaviour {
     public Text lifeLossNotificationText;
 
     private List<GameObject> lives = new List<GameObject>();
+    private NotifiationManager notificationManager;
+
 
     private void Start()
     {
+        notificationManager = FindObjectOfType<NotifiationManager>();
         foreach(Transform life in transform)
         {
             lives.Add(life.gameObject);
@@ -29,8 +32,10 @@ public class LifeManager : MonoBehaviour {
         if(GameManager.instance.GetNumLives() <= 0)
         {
             //TODO: Deal with losing the game, Maybe create some kind of fade or prompt to view the stats or try again?
-            Debug.Log("Loading end game");
-            LevelManager.instance.LoadScene("EndMenu");
+            //Debug.Log("Loading end game");
+            //LevelManager.instance.LoadScene("EndMenu");
+            notificationManager.UpdateNotificationText("That's it! You're fired!");
+
         }
     }
 

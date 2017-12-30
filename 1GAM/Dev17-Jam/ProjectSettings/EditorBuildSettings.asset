@@ -6,11 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/StartMenu.unity
+    path: Assets/_Scenes/StartMenu.unity
     guid: ab11875d89d3b244cb562e19618dc0bb
   - enabled: 1
-    path: Assets/Scenes/JamFactory.unity
+    path: Assets/_Scenes/JamFactory.unity
     guid: 1d43c653dbcfabe4489dedbce2e73e0c
   - enabled: 1
-    path: Assets/Scenes/EndMenu.unity
+    path: Assets/_Scenes/EndMenu.unity
     guid: 3d8c1f2771817e345a47f17c70200535
