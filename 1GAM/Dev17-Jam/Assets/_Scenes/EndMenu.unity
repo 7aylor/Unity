@@ -618,7 +618,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1245229200}
+      - m_Target: {fileID: 114458670933908808, guid: 8b4b607bef7a2014ba1e7f9c62edf95f,
+          type: 2}
         m_MethodName: LoadScene
         m_Mode: 5
         m_Arguments:
@@ -780,12 +781,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8b4b607bef7a2014ba1e7f9c62edf95f, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &1245229200 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114458670933908808, guid: 8b4b607bef7a2014ba1e7f9c62edf95f,
-    type: 2}
-  m_PrefabInternal: {fileID: 1245229199}
-  m_Script: {fileID: 11500000, guid: 136792097cd3e8a4fafd1de9cd1eee7a, type: 3}
 --- !u!1 &1249205005
 GameObject:
   m_ObjectHideFlags: 0
@@ -887,7 +882,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1cf24c86fd3e8624487946727dd3b27e, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.01
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1045,7 +1040,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1245229200}
+      - m_Target: {fileID: 114458670933908808, guid: 8b4b607bef7a2014ba1e7f9c62edf95f,
+          type: 2}
         m_MethodName: LoadScene
         m_Mode: 5
         m_Arguments:
