@@ -8,12 +8,14 @@ public class JarDestroyer : MonoBehaviour {
     private NotifiationManager notificationManager;
     private Animator animator;
     private int jarFull = 70;
+    private BossSounds boss;
 
     private void Start()
     {
         lifeManager = FindObjectOfType<LifeManager>();
         notificationManager = FindObjectOfType<NotifiationManager>();
         animator = FindObjectOfType<BossAnimator>().GetComponent<Animator>();
+        boss = FindObjectOfType<BossSounds>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -33,6 +35,7 @@ public class JarDestroyer : MonoBehaviour {
                 lifeManager.LoseLife();
                 animator.SetTrigger("Angry");
                 notificationManager.UpdateNotificationText("-1 Life! We can't sell a jar with no jam in it!");
+                boss.PlayAngrySounds();
             }
             //if most of the jam is the correct type
             else if (collision.gameObject.GetComponent<Jar>().CalculateJamProportion() < 0.75f)
@@ -40,6 +43,7 @@ public class JarDestroyer : MonoBehaviour {
                 lifeManager.LoseLife();
                 animator.SetTrigger("Angry");
                 notificationManager.UpdateNotificationText("-1 Life! It's not hard to fill a jar with the right kind of jam!");
+                boss.PlayAngrySounds();
             }
             //if the jar doesn't have a lid
             else if (collision.gameObject.transform.GetChild(3).gameObject.activeSelf == false)
@@ -47,11 +51,13 @@ public class JarDestroyer : MonoBehaviour {
                 lifeManager.LoseLife();
                 animator.SetTrigger("Angry");
                 notificationManager.UpdateNotificationText("-1 Life! Jam is getting everywhere! Put a lid on it!");
+                boss.PlayAngrySounds();
             }
             else
             {
                 animator.SetTrigger("Happy");
                 PointManager.instance.IncreasePoints();
+                boss.PlayHappySounds();
             }
         }
     }

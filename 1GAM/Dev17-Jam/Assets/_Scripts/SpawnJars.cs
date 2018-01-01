@@ -11,7 +11,7 @@ public class SpawnJars : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        CanSpawnJars = true;
+        CanSpawnJars = false;
 	}
 	
 	// Update is called once per frame

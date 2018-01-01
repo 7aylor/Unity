@@ -14,29 +14,31 @@ public class SpawnJam : MonoBehaviour {
     private bool canChangeJam;
     private NotifiationManager notificationManager;
     private JamDestroyer jamDestroyer;
+    private AudioSource clicker;
 
     private void Start()
     {
         jamDestroyer = FindObjectOfType<JamDestroyer>();
         notificationManager = FindObjectOfType<NotifiationManager>();
         canChangeJam = false;
+        clicker = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
-            if (Input.GetButton("Strawberry"))
+            if (Input.GetButtonDown("Strawberry"))
             {
                 ChangeJamType(0);
             }
-            else if (Input.GetButton("Raspberry"))
+            else if (Input.GetButtonDown("Raspberry"))
             {
                 ChangeJamType(1);
             }
-            else if (Input.GetButton("Grapes"))
+            else if (Input.GetButtonDown("Grapes"))
             {
                 ChangeJamType(2);
             }
-            else if (Input.GetButton("Peach"))
+            else if (Input.GetButtonDown("Peach"))
             {
                 ChangeJamType(3);
             }
@@ -75,6 +77,7 @@ public class SpawnJam : MonoBehaviour {
         prevJamIndex = jamIndex;
         jamIndex = index;
         jamIndicator.GetComponent<Image>().sprite = images[index];
+        clicker.Play();
         //jamDestroyer.EnableCollider();
     }
 

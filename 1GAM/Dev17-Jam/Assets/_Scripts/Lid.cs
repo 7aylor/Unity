@@ -14,15 +14,9 @@ public class Lid : MonoBehaviour {
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log("Lid collision");
         if(collision.gameObject.tag == "Dispensed")
         {
-            Debug.Log("Lid collision with Jam");
-            //collision.gameObject.transform.position = jamCatcherSpawner.transform.position;
-            //collision.transform.SetParent(garbageCan.transform);
-
             collision.gameObject.transform.position = jamCatcherSpawner.transform.position;
-            //collision.transform.SetParent(null);
         }
     }
 

@@ -11,6 +11,7 @@ TagManager:
   - StrawberryJam
   - PeachJam
   - Lid
+  - NoSplat
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - NoSplat
   - 
   - 
   - 
