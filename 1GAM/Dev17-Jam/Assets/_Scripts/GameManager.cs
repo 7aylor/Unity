@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
     private bool clicked = false;
     private float jarSpeed = 1f;
     private float spawnSpeed = 5f;
-    private float timeToPause = 2f; //TODO: create method to decrease this when hitting a checkpoint
+    private float timeToPause = 2f;
     private int numLives = 5;
     private int jamWasted = 0;
     private bool canChangeSpeeds = false;
@@ -120,10 +120,10 @@ public class GameManager : MonoBehaviour {
         if (PointManager.instance != null)
         {
             int points = PointManager.instance.GetPoints();
-            if (canChangeSpeeds == true && points > 1 && points % 5 == 0 && points <= 30)
+            if (canChangeSpeeds == true && points > 1 && points % 5 == 0 && points <= 50)
             {
-                spawnSpeed -= 0.5f;
-                jarSpeed += 0.5f;
+                spawnSpeed -= 0.25f;
+                jarSpeed += 0.25f;
                 timeToPause -= 0.1f;
 
                 foreach (ConveyorBelt c in FindObjectsOfType<ConveyorBelt>())

@@ -24,7 +24,7 @@ public class SpawnJars : MonoBehaviour {
 
     private void HandleSpawnJars()
     {
-        if(timeSinceLastSpawn >= GameManager.instance.GetSpawnSpeed())
+        if(timeSinceLastSpawn > GameManager.instance.GetSpawnSpeed())
         {
             timeSinceLastSpawn = 0;
             Instantiate(jars[Random.Range(0, jars.Length)], transform, false);

@@ -12,6 +12,12 @@ public class Lever : MonoBehaviour {
     public static bool leverDown = false;
     private float spawnInterval = 0.3f;
     private float lastSpawned = 0;
+    private JamDispenser jamDispenser;
+
+    private void Start()
+    {
+        jamDispenser = FindObjectOfType<JamDispenser>();
+    }
 
 
     private void Update()
@@ -29,6 +35,7 @@ public class Lever : MonoBehaviour {
     void OnMouseDrag()
     {
         leverDown = true;
+        jamDispenser.PlayDispenseAnimation(true);
 
         float y = Camera.main.ScreenToWorldPoint(Input.mousePosition).y;
         y = Mathf.Clamp(y, botY, topY);
@@ -44,6 +51,7 @@ public class Lever : MonoBehaviour {
     private void OnMouseUp()
     {
         leverDown = false;
+        jamDispenser.PlayDispenseAnimation(false);
         leverPressure = 0;
         transform.position = new Vector3(transform.position.x, topY, 0);
     }
@@ -52,18 +60,22 @@ public class Lever : MonoBehaviour {
     {
         if(leverPressure <= 0.5)
         {
+            jamDispenser.SetPlaySpeed(0.5f);
             return 0.15f;
         }
         else if (leverPressure > 0.5 && leverPressure < 1)
         {
+            jamDispenser.SetPlaySpeed(0.65f);
             return 0.1f;
         }
         else if (leverPressure > 1 && leverPressure < 1.25)
         {
+            jamDispenser.SetPlaySpeed(0.85f);
             return 0.05f;
         }
         else
         {
+            jamDispenser.SetPlaySpeed(1f);
             return 0.01f;
         }
     }
