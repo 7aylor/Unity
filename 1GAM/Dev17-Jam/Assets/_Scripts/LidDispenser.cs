@@ -44,6 +44,7 @@ public class LidDispenser : MonoBehaviour {
             if(jarComponent.gameObject.tag == "Lid")
             {
                 jarComponent.gameObject.SetActive(true);
+                jarComponent.GetComponent<AudioSource>().Play();
                 lidButtonComponent.interactable = false;
                 return;
             }

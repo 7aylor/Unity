@@ -9,6 +9,7 @@ public class LifeManager : MonoBehaviour {
 
     private List<GameObject> lives = new List<GameObject>();
     private NotifiationManager notificationManager;
+    private JamAudio jamAudio;
 
 
     private void Start()
@@ -18,6 +19,8 @@ public class LifeManager : MonoBehaviour {
         {
             lives.Add(life.gameObject);
         }
+
+        jamAudio = FindObjectOfType<JamAudio>();
     }
 
     /// <summary>
@@ -36,6 +39,11 @@ public class LifeManager : MonoBehaviour {
             //LevelManager.instance.LoadScene("EndMenu");
             notificationManager.UpdateNotificationText("That's it! You're fired!");
 
+        }
+        if(GameManager.instance.GetNumLives() == 1)
+        {
+            Debug.Log("1 Life");
+            jamAudio.LastLifeSong();
         }
     }
 

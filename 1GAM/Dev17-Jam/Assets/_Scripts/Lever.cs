@@ -13,12 +13,17 @@ public class Lever : MonoBehaviour {
     private float spawnInterval = 0.3f;
     private float lastSpawned = 0;
     private JamDispenser jamDispenser;
+    private AudioSource jamDispenserAudio;
+    private bool jamAudioPlaying = false;
+    private AudioSource rustySound;
+    private bool rustySoundPlaying = false;
 
     private void Start()
     {
         jamDispenser = FindObjectOfType<JamDispenser>();
+        jamDispenserAudio = jamDispenser.GetComponent<AudioSource>();
+        rustySound = GetComponent<AudioSource>();
     }
-
 
     private void Update()
     {
@@ -43,6 +48,18 @@ public class Lever : MonoBehaviour {
 
         leverPressure = Mathf.Abs(transform.position.y - topY);
         spawnInterval = DetermineFrameDelay();
+
+        if(jamAudioPlaying == false)
+        {
+            jamAudioPlaying = true;
+            jamDispenserAudio.Play();
+        }
+
+        if (rustySoundPlaying == false)
+        {
+            rustySoundPlaying = true;
+            rustySound.Play();
+        }
     }
 
     /// <summary>
@@ -54,6 +71,9 @@ public class Lever : MonoBehaviour {
         jamDispenser.PlayDispenseAnimation(false);
         leverPressure = 0;
         transform.position = new Vector3(transform.position.x, topY, 0);
+        jamDispenserAudio.Stop();
+        jamAudioPlaying = false;
+        rustySoundPlaying = false;
     }
 
     private float DetermineFrameDelay()
