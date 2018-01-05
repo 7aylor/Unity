@@ -1,0 +1,2 @@
+@7aylord
+To detect if the mouse is in the right spot, create a Rect based on the RectTransform of the component then do if(rect.Contains(Input.mousePosition)) then you can parent it to the timer.
