@@ -24,7 +24,6 @@ GameObject:
   - component: {fileID: 60143363500535784}
   - component: {fileID: 114127471450326926}
   - component: {fileID: 50782190716885448}
-  - component: {fileID: 114198924326095516}
   - component: {fileID: 60626466514734906}
   m_Layer: 5
   m_Name: Pickle
@@ -126,17 +125,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96753787c3443f24380fd112f58e4348, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114198924326095516
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1224911071286692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8bbc9504745a9448ba3eba53e57c1a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114994413620547366

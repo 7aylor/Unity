@@ -24,7 +24,6 @@ GameObject:
   - component: {fileID: 58617779317026026}
   - component: {fileID: 114847069590093888}
   - component: {fileID: 50959716542714330}
-  - component: {fileID: 114792471883791162}
   - component: {fileID: 58794481379951710}
   m_Layer: 5
   m_Name: Smiley
@@ -110,17 +109,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114792471883791162
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1004312026310280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8bbc9504745a9448ba3eba53e57c1a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114847069590093888
 MonoBehaviour:
   m_ObjectHideFlags: 1

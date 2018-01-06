@@ -34,18 +34,21 @@ public class FriendsDeck : MonoBehaviour {
         }
 
         GameObject newFriend = Instantiate(possibleFriends[index], transform);
-        //newFriend.name = newFriend.GetComponent<Image>().sprite.name;
         spawnedFriendsIndex.Add(index);
 
     }
 
     public void ClearPlaySpace()
     {
+        spawnedFriendsIndex.Clear();
         GameObject[] friends = GameObject.FindGameObjectsWithTag("Friend");
 
-        foreach (GameObject friend in friends)
+        if(friends.Length > 0)
         {
-            Destroy(friend);
+            foreach (GameObject friend in friends)
+            {
+                Destroy(friend);
+            }
         }
     }
 

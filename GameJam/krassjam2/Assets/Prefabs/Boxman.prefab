@@ -23,9 +23,7 @@ GameObject:
   - component: {fileID: 114504416155201736}
   - component: {fileID: 114984490055665266}
   - component: {fileID: 61441151186128760}
-  - component: {fileID: 114990954596336564}
   - component: {fileID: 50703032426390328}
-  - component: {fileID: 114000712965778670}
   - component: {fileID: 61776161326975610}
   m_Layer: 5
   m_Name: Boxman
@@ -104,17 +102,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 87.436844, y: 87.436874}
   m_EdgeRadius: 0
---- !u!114 &114000712965778670
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1067196519686000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8bbc9504745a9448ba3eba53e57c1a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114504416155201736
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -143,17 +130,6 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
 --- !u!114 &114984490055665266
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1067196519686000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96753787c3443f24380fd112f58e4348, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114990954596336564
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

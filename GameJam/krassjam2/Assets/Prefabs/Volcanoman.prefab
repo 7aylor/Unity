@@ -24,7 +24,6 @@ GameObject:
   - component: {fileID: 60827327366537074}
   - component: {fileID: 114521238086502592}
   - component: {fileID: 50579236949440128}
-  - component: {fileID: 114274578125238098}
   - component: {fileID: 60499112579234902}
   m_Layer: 5
   m_Name: Volcanoman
@@ -136,17 +135,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114274578125238098
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1845113827114166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8bbc9504745a9448ba3eba53e57c1a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114521238086502592
 MonoBehaviour:
   m_ObjectHideFlags: 1
