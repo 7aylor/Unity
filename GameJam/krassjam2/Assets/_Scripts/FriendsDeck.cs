@@ -15,6 +15,7 @@ public class FriendsDeck : MonoBehaviour {
 
     public void InitFriendDeck()
     {
+        ClearPlaySpace();
         for(int i = 0; i < 5; i++)
         {
             SpawnUniqueFriendInDeck();
@@ -36,6 +37,16 @@ public class FriendsDeck : MonoBehaviour {
         //newFriend.name = newFriend.GetComponent<Image>().sprite.name;
         spawnedFriendsIndex.Add(index);
 
+    }
+
+    public void ClearPlaySpace()
+    {
+        GameObject[] friends = GameObject.FindGameObjectsWithTag("Friend");
+
+        foreach (GameObject friend in friends)
+        {
+            Destroy(friend);
+        }
     }
 
 }

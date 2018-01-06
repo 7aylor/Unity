@@ -28,7 +28,7 @@ GameObject:
   - component: {fileID: 60499112579234902}
   m_Layer: 5
   m_Name: Volcanoman
-  m_TagString: Untagged
+  m_TagString: Friend
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

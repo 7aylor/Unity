@@ -7,8 +7,12 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour {
 
     private Text timerText;
-    public int timeInSeconds = 10;
+    private int timeInSeconds;
     private float timeSinceLastTick = 0;
+    private int round = 1;
+    private bool endOfRound;
+
+    public EndOfRoundPanel endPanel;
 
     // Use this for initialization
     void Start () {
@@ -31,6 +35,10 @@ public class Timer : MonoBehaviour {
         if(timeInSeconds > 0)
         {
             transform.Rotate(new Vector3(0, 0, 1 * Time.deltaTime));
+        }
+        else
+        {
+            HandleTimeExpired();
         }
     }
 
@@ -57,6 +65,8 @@ public class Timer : MonoBehaviour {
 
     public void InitializeTimer()
     {
+        timeInSeconds = 10;
+        endOfRound = false;
         UpdateTimerText();
         transform.rotation = PickRandomSpawnRotation();
         transform.localScale = PickRandomSpawnScale();
@@ -64,7 +74,7 @@ public class Timer : MonoBehaviour {
 
     private Vector3 PickRandomSpawnScale()
     {
-        float newScale = Random.Range(0.5f, 1.25f);
+        float newScale = Random.Range(0.75f, 1.25f);
 
         return new Vector3(newScale, newScale, newScale);
     }
@@ -74,5 +84,17 @@ public class Timer : MonoBehaviour {
         float newZRot = Random.Range(-90, 90);
 
         return Quaternion.Euler(new Vector3(0, 0, newZRot));
+    }
+
+    private void HandleTimeExpired()
+    {
+        if(endOfRound == false)
+        {
+            endOfRound = true;
+            endPanel.gameObject.SetActive(true);
+            endPanel.SetTitleText(false, round);
+            round++;
+        }
+        
     }
 }
