@@ -22,6 +22,10 @@ GameObject:
   - component: {fileID: 222772596247988554}
   - component: {fileID: 114870309076713054}
   - component: {fileID: 60735915654493788}
+  - component: {fileID: 114803729151007748}
+  - component: {fileID: 114430688726013038}
+  - component: {fileID: 50508434077491526}
+  - component: {fileID: 60984387412307224}
   m_Layer: 5
   m_Name: Beanman
   m_TagString: Untagged
@@ -29,6 +33,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!50 &50508434077491526
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1355925394521112}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!60 &60735915654493788
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -38,6 +62,38 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -15.319458, y: 49.059265}
+      - {x: -31.377441, y: 25.362183}
+      - {x: -31.958313, y: -24.046783}
+      - {x: -15.985352, y: -49.397675}
+      - {x: 15.274353, y: -49.631653}
+      - {x: 33.430054, y: -25.440735}
+      - {x: 32.553772, y: 24.722015}
+      - {x: 15.832703, y: 49.059265}
+--- !u!60 &60984387412307224
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1355925394521112}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 929370764a3d2d541b60dfc76cdb2d9b, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -61,6 +117,28 @@ PolygonCollider2D:
       - {x: 33.430054, y: -25.440735}
       - {x: 32.553772, y: 24.722015}
       - {x: 15.832703, y: 49.059265}
+--- !u!114 &114430688726013038
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1355925394521112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8bbc9504745a9448ba3eba53e57c1a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114803729151007748
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1355925394521112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96753787c3443f24380fd112f58e4348, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114870309076713054
 MonoBehaviour:
   m_ObjectHideFlags: 1
