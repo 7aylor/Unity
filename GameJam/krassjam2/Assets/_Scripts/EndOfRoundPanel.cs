@@ -19,6 +19,7 @@ public class EndOfRoundPanel : MonoBehaviour {
         if(gameOver == true)
         {
             titleText.text = "You have failed at round " + roundNum;
+            transform.GetChild(2).gameObject.SetActive(false);
         }
         else
         {

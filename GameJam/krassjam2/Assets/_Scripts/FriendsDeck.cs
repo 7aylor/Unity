@@ -7,16 +7,18 @@ public class FriendsDeck : MonoBehaviour {
 
     public GameObject[] possibleFriends;
     private List<int> spawnedFriendsIndex = new List<int>();
+    public static int NumFriends { get; private set; }
 
 	// Use this for initialization
 	void Start () {
+        NumFriends = 5;
         InitFriendDeck();
 	}
 
     public void InitFriendDeck()
     {
         ClearPlaySpace();
-        for(int i = 0; i < 5; i++)
+        for (int i = 0; i < NumFriends; i++)
         {
             SpawnUniqueFriendInDeck();
         }

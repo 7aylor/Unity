@@ -11,12 +11,14 @@ public class Timer : MonoBehaviour {
     private float timeSinceLastTick = 0;
     private int round = 1;
     private bool endOfRound;
+    private CheckBelowTimer roundWinCollider;
 
     public EndOfRoundPanel endPanel;
 
     // Use this for initialization
     void Start () {
         timerText = GetComponent<Text>();
+        roundWinCollider = FindObjectOfType<CheckBelowTimer>();
         InitializeTimer();
 	}
 	
@@ -92,7 +94,16 @@ public class Timer : MonoBehaviour {
         {
             endOfRound = true;
             endPanel.gameObject.SetActive(true);
-            endPanel.SetTitleText(false, round);
+
+            if (roundWinCollider.FriendsBelowTimer() >= FriendsDeck.NumFriends)
+            {
+                endPanel.SetTitleText(false, round);
+            }
+            else
+            {
+                endPanel.SetTitleText(transform, round);
+
+            }
             round++;
         }
         
