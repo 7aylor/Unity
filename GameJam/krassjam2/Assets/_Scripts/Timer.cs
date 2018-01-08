@@ -13,11 +13,14 @@ public class Timer : MonoBehaviour {
     private int speed = 1;
     private bool endOfRound;
     private CheckBelowTimer roundWinCollider;
+    private AudioSource boop;
 
     public EndOfRoundPanel endPanel;
 
+
     // Use this for initialization
     void Start () {
+        boop = GetComponent<AudioSource>();
         timerText = GetComponent<Text>();
         roundWinCollider = FindObjectOfType<CheckBelowTimer>();
         InitializeTimer();
@@ -48,6 +51,7 @@ public class Timer : MonoBehaviour {
     private IEnumerator CountDownTimer()
     {
         yield return new WaitForSeconds(1f);
+        boop.Play();
         timeInSeconds--;
         UpdateTimerText();
     }
@@ -77,7 +81,9 @@ public class Timer : MonoBehaviour {
 
     private Vector3 PickRandomSpawnScale()
     {
-        float newScale = Random.Range(0.5f, 1f);
+        float newScale = Random.Range(0.4f, 0.6f);
+
+        Debug.Log("Spawn Scale: " + newScale);
 
         return new Vector3(newScale, newScale, newScale);
     }

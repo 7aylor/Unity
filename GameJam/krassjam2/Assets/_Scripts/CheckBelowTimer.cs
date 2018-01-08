@@ -16,7 +16,6 @@ public class CheckBelowTimer : MonoBehaviour {
         if (!collidingObjects.Contains(collision.gameObject))
         {
             collidingObjects.Add(collision.gameObject);
-            Debug.Log(collidingObjects.Count);
         }
     }
 
@@ -25,7 +24,6 @@ public class CheckBelowTimer : MonoBehaviour {
         if (collidingObjects.Contains(collision.gameObject))
         {
             collidingObjects.Remove(collision.gameObject);
-            Debug.Log(collidingObjects.Count);
         }
     }
 }
