@@ -16,8 +16,6 @@ public class MoveFriendFromDock : MonoBehaviour, IPointerDownHandler, IPointerUp
 	// Use this for initialization
 	void Start () {
         friendName = GetComponent<Image>().sprite.name;
-
-        Debug.Log(Physics2D.queriesHitTriggers);
 	}
 	
 	// Update is called once per frame

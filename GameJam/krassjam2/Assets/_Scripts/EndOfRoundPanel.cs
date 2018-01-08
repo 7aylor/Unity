@@ -18,12 +18,12 @@ public class EndOfRoundPanel : MonoBehaviour {
     {
         if(gameOver == true)
         {
-            titleText.text = "You have failed at round " + roundNum;
+            titleText.text = "You have failed at ROUND " + roundNum;
             transform.GetChild(2).gameObject.SetActive(false);
         }
         else
         {
-            titleText.text = "Congratulations on Completing the Round " + roundNum;
+            titleText.text = "Congratulations on completing ROUND " + roundNum;
         }
     }
 }

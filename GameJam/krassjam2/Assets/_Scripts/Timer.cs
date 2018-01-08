@@ -10,6 +10,7 @@ public class Timer : MonoBehaviour {
     private int timeInSeconds;
     private float timeSinceLastTick = 0;
     private int round = 1;
+    private int speed = 1;
     private bool endOfRound;
     private CheckBelowTimer roundWinCollider;
 
@@ -36,7 +37,7 @@ public class Timer : MonoBehaviour {
 
         if(timeInSeconds > 0)
         {
-            transform.Rotate(new Vector3(0, 0, 1 * Time.deltaTime));
+            transform.Rotate(new Vector3(0, 0, speed * Time.deltaTime));
         }
         else
         {
@@ -76,7 +77,7 @@ public class Timer : MonoBehaviour {
 
     private Vector3 PickRandomSpawnScale()
     {
-        float newScale = Random.Range(0.75f, 1.25f);
+        float newScale = Random.Range(0.5f, 1f);
 
         return new Vector3(newScale, newScale, newScale);
     }
@@ -92,8 +93,10 @@ public class Timer : MonoBehaviour {
     {
         if(endOfRound == false)
         {
+            FriendNames.ClearCurrentNameList();
             endOfRound = true;
             endPanel.gameObject.SetActive(true);
+            IncreaseSpeed();
 
             if (roundWinCollider.FriendsBelowTimer() >= FriendsDeck.NumFriends)
             {
@@ -106,6 +109,10 @@ public class Timer : MonoBehaviour {
             }
             round++;
         }
-        
+    }
+
+    private void IncreaseSpeed()
+    {
+        speed++;
     }
 }

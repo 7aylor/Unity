@@ -26,8 +26,6 @@ public class FriendsDeck : MonoBehaviour {
 
     private void SpawnUniqueFriendInDeck()
     {
-        Debug.Log("spawn friend");
-
         int index = Random.Range(0, possibleFriends.Length);
 
         while (spawnedFriendsIndex.Contains(index))
