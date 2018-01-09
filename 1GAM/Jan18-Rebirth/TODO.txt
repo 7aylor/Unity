@@ -1,0 +1,37 @@
+Story: 
+
+- The Shaman Hyagl is in dire need of four Runes to open a portal to the afterlife. You must find these runes or you will never escape your current existence and be reborn in the afterlife.
+
+Mechanics:
+
+-Fighting Enemies (Dinosaurs? Other Enraged Cavemen? etc.)
+-Finding the Runes
+-Find weapon
+
+
+Locations:
+- Hyagl sanctuary
+- Cave
+- Temple Ruins
+- Swamp
+- Haunted Forest
+
+
+Tech Questions:
+
+- Research how colliders work on Animations
+- Research how layers will work for when the player is in front and behind other objects
+
+
+To Do:
+- Dialogue System
+- Animate Shaman
+- Fighting Mechanics
+- Rune mechanics
+- Draw Enemies
+- Animate Enemies
+- Draw Other landscapes
+- Draw Runes
+
+
+
