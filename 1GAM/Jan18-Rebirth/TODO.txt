@@ -33,5 +33,6 @@ To Do:
 - Draw Other landscapes
 - Draw Runes
 
-
-
+ideas:
+-Pit is called "Womb"
+-Rune symbol means rebirth
