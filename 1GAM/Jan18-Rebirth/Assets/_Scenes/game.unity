@@ -950,8 +950,8 @@ GameObject:
   - component: {fileID: 411358443}
   - component: {fileID: 411358446}
   - component: {fileID: 411358445}
-  - component: {fileID: 411358444}
   - component: {fileID: 411358447}
+  - component: {fileID: 411358444}
   - component: {fileID: 411358448}
   m_Layer: 0
   m_Name: Caveman
@@ -1078,6 +1078,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5247978466aceae47bc7f503bccf9fc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rock: {fileID: 1006335286943094, guid: cd5b3d60e94d20e438b1ad3da1156eb3, type: 2}
 --- !u!1001 &411874323
 Prefab:
   m_ObjectHideFlags: 0
