@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Caveman_Horizontal
+  m_Controller: {fileID: 9100000, guid: 86c751d6a276b3442bd3a2e197675de4, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 9f49063a609a02b4191689ec4e90899e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 57e9ed133f019d143ac983c93723cc5e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 17d01a50706791447a021ea24cc6476f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 3231b1decb1fedf4da66eb458f9a4ccd, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 6f254c9d70f171640b235e51ec5c508f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 9b327e3801d020b499ef7046956f6344, type: 2}

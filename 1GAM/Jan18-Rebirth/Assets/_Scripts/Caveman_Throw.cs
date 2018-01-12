@@ -22,28 +22,19 @@ public class Caveman_Throw : MonoBehaviour {
         if (Input.GetMouseButtonDown(0) && isThrowing == false)
         {
             isThrowing = true;
-            if (Caveman_Move.CavemanDirection == Caveman_Move.direction.down)
-            {
-                animator.SetTrigger("ThrowDown");
-            }
-            if (Caveman_Move.CavemanDirection == Caveman_Move.direction.up)
-            {
-                animator.SetTrigger("ThrowUp");
-            }
-            if (Caveman_Move.CavemanDirection == Caveman_Move.direction.left || Caveman_Move.CavemanDirection == Caveman_Move.direction.right)
-            {
-                animator.SetTrigger("ThrowHoriz");
-            }
+            animator.SetTrigger("Throw");
         }
 	}
 
     public void ThrowProjectile()
     {
+        Debug.Log("Throwing");
         GameObject clone = Instantiate(rock, transform.position, Quaternion.identity);
     }
 
     public void StopThrowing()
     {
+        Debug.Log("Done Throwing");
         isThrowing = false;
     }
 }

@@ -78,14 +78,16 @@ AnimationClip:
   - time: 0.16666667
     functionName: ThrowProjectile
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 11500000, guid: 5247978466aceae47bc7f503bccf9fc6,
+      type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.33333334
     functionName: StopThrowing
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 11500000, guid: 5247978466aceae47bc7f503bccf9fc6,
+      type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

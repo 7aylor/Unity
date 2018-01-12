@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Caveman_Move : MonoBehaviour {
+public class Caveman_Move_1 : MonoBehaviour {
 
     public enum direction { up, down, left, right }
     public static direction CavemanDirection { get; private set; }
@@ -16,7 +16,7 @@ public class Caveman_Move : MonoBehaviour {
     private Animator animator;
     private SpriteRenderer sprite;
     private bool run_up = false;
-
+    
 
 
 
@@ -82,7 +82,7 @@ public class Caveman_Move : MonoBehaviour {
                 sprite.flipX = false;
                 CavemanDirection = direction.right;
                 transform.Translate(Vector3.right * speed * Time.deltaTime, Space.World);
-
+                
             }
             //down
             else if (Input.GetAxis("Vertical") < 0)
@@ -92,7 +92,7 @@ public class Caveman_Move : MonoBehaviour {
                 run_up = false;
                 CavemanDirection = direction.down;
                 transform.Translate(Vector3.down * speed * Time.deltaTime, Space.World);
-
+                
             }
             //up
             if (Input.GetAxis("Vertical") > 0)

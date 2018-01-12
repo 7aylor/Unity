@@ -5,6 +5,7 @@ using UnityEngine;
 public class MoveRock : MonoBehaviour {
 
     public float speed;
+    //public float speedY; //Adjust for throwing up and 
     public float rotationSpeed;
     public float decayRate;
 

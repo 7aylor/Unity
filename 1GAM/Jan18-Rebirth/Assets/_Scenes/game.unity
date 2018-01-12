@@ -986,6 +986,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  up: {fileID: 22100000, guid: e9ab7d9d111ea7b4facb9f07a307eec9, type: 2}
+  horizontal: {fileID: 22100000, guid: 5b1bdbfbcf3433649a522d196234dbe7, type: 2}
+  down: {fileID: 22100000, guid: d2f0b6b8c55e0c0429f675c4b8fb27e4, type: 2}
 --- !u!212 &411358445
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1039,10 +1042,10 @@ Animator:
   m_GameObject: {fileID: 411358442}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c38a5b3889913964aad07fe5b2233e6e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 86c751d6a276b3442bd3a2e197675de4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -1561,7 +1564,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.659, g: 0.6901961, b: 0.45882353, a: 1}
+  m_BackGroundColor: {r: 0.44146988, g: 0.5, b: 0.27941176, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
