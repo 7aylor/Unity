@@ -986,9 +986,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  up: {fileID: 22100000, guid: e9ab7d9d111ea7b4facb9f07a307eec9, type: 2}
-  horizontal: {fileID: 22100000, guid: 5b1bdbfbcf3433649a522d196234dbe7, type: 2}
-  down: {fileID: 22100000, guid: d2f0b6b8c55e0c0429f675c4b8fb27e4, type: 2}
+  up: {fileID: 22100000, guid: a9fc38e0cce138a41b2405dcb335bdaf, type: 2}
+  horizontal: {fileID: 22100000, guid: ca2dbb359a3af314b8ad41985e928ff6, type: 2}
+  down: {fileID: 22100000, guid: 8bc43e98d40b45b4f8723f6b343ddffc, type: 2}
 --- !u!212 &411358445
 SpriteRenderer:
   m_ObjectHideFlags: 0
