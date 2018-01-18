@@ -17,9 +17,6 @@ public class Caveman_Move : MonoBehaviour {
     private SpriteRenderer sprite;
     private bool run_up = false;
 
-
-
-
     // Use this for initialization
     void Start()
     {
