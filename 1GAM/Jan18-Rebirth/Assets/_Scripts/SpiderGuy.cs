@@ -18,6 +18,10 @@ public class SpiderGuy : MonoBehaviour {
     private state SpiderGuyState;
     private SpriteRenderer sprite;
     private bool isMoving = false;
+    private bool chasingPlayer = false;
+    private Transform playerTransform = null;
+    private float timeSinceLastTargetStateChange = 0;
+    private float timeToChangeTargetState = 1f;
 
     // Use this for initialization
     void Start ()
@@ -29,7 +33,7 @@ public class SpiderGuy : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if(timeSinceLastStateChange >= timeToChangeState)
+        if(chasingPlayer == false && timeSinceLastStateChange >= timeToChangeState)
         {
             ChangeStates();
         }
@@ -37,6 +41,11 @@ public class SpiderGuy : MonoBehaviour {
         {
             timeSinceLastStateChange += Time.deltaTime;
             Move();
+            if(chasingPlayer == true)
+            {
+                timeSinceLastTargetStateChange += Time.deltaTime;
+                TargetPlayer(playerTransform);
+            }
         }
 	}
 
@@ -91,7 +100,7 @@ public class SpiderGuy : MonoBehaviour {
 
     private void Move()
     {
-        if(SpiderGuyState == state.run && isMoving)
+        if(SpiderGuyState == state.run && isMoving == true)
         {
             if(SpiderGuyDirection == direction.left)
             {
@@ -119,6 +128,12 @@ public class SpiderGuy : MonoBehaviour {
             isMoving = true;
             animator.SetBool("Run", true);
         }
+        else if(SpiderGuyState == state.attack)
+        {
+            isMoving = false;
+            animator.SetBool("Run", false);
+            animator.SetTrigger("Attack");
+        }
         else
         {
             isMoving = false;
@@ -130,10 +145,58 @@ public class SpiderGuy : MonoBehaviour {
     {
         Debug.Log("Player in Sight");
 
+        playerTransform = caveManTransform;
+
+        chasingPlayer = true;
+
         SpiderGuyState = state.run;
         SetAnimations();
-
-        //get the direction ie spiderGuy position minus caveman position to determine direction
-        //set the animation
+        CalculateDirectionToPlayer(playerTransform);
+        SetAnimatorOverride();
     }
+
+    private void UnTargetPlayer()
+    {
+        Debug.Log("Player out of Sight");
+        chasingPlayer = false;
+        ChangeStates();
+    }
+
+
+    private void CalculateDirectionToPlayer(Transform playerTransform)
+    {
+        float xDiff = transform.position.x - playerTransform.position.x;
+        float yDiff = transform.position.y - playerTransform.position.y;
+
+
+        if(timeSinceLastTargetStateChange >= timeToChangeTargetState)
+        {
+            timeSinceLastTargetStateChange = 0;
+
+            if (Mathf.Abs(xDiff) > Mathf.Abs(yDiff))
+            {
+                if (xDiff > 0)
+                {
+                    SpiderGuyDirection = direction.left;
+                }
+                else
+                {
+                    SpiderGuyDirection = direction.right;
+                }
+            }
+            else
+            {
+                if (yDiff > 0)
+                {
+                    SpiderGuyDirection = direction.down;
+                }
+                else
+                {
+                    SpiderGuyDirection = direction.up;
+                }
+            }
+        }
+    }
+
+
 }
