@@ -11,6 +11,11 @@ public class SpawnCaveman : MonoBehaviour {
     {
         caveman = GameObject.FindObjectOfType<EnabledCaveman>();
         shaman = GameObject.FindObjectOfType<Shaman>();
+        
+    }
+
+    private void Start()
+    {
         shaman.Summon(true);
     }
 
