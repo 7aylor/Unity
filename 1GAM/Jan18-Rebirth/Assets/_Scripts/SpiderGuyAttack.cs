@@ -16,7 +16,11 @@ public class SpiderGuyAttack : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Triggered");
-        
+        if (collision.gameObject.layer == 8)
+        {
+            Debug.Log("Attack");
+
+            gameObject.GetComponent<SpiderGuy>().SpiderGuyState = SpiderGuy.state.attack;
+        }
     }
 }

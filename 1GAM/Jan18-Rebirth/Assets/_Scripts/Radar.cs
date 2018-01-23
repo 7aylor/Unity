@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class Radar : MonoBehaviour {
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        gameObject.SendMessageUpwards("TargetPlayer", collision.transform);
-    }
-
     private void OnTriggerExit2D(Collider2D collision)
     {
-        gameObject.SendMessageUpwards("UnTargetPlayer");
+        if (collision.gameObject.layer == 8)
+        {
+            gameObject.SendMessageUpwards("UnTargetPlayer");
+        }
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        //layer 9 is Enemy
+        if (collision.gameObject.layer == 8)
+        {
+            gameObject.SendMessageUpwards("TargetPlayer", collision.transform);
+        }
+    }
 }

@@ -14,14 +14,15 @@ public class SpiderGuy : MonoBehaviour {
     private float timeSinceLastStateChange;
     private enum direction { up, down, left, right }
     private direction SpiderGuyDirection;
-    private enum state { run, idle, attack };
-    private state SpiderGuyState;
+    public enum state { run, idle, attack };
+    public state SpiderGuyState;
     private SpriteRenderer sprite;
     private bool isMoving = false;
     private bool chasingPlayer = false;
     private Transform playerTransform = null;
     private float timeSinceLastTargetStateChange = 0;
     private float timeToChangeTargetState = 1f;
+    private int health = 3;
 
     // Use this for initialization
     void Start ()
@@ -128,8 +129,9 @@ public class SpiderGuy : MonoBehaviour {
             isMoving = true;
             animator.SetBool("Run", true);
         }
-        else if(SpiderGuyState == state.attack)
+        else if (SpiderGuyState == state.attack)
         {
+            Debug.Log("Attack Animation");
             isMoving = false;
             animator.SetBool("Run", false);
             animator.SetTrigger("Attack");
@@ -149,7 +151,15 @@ public class SpiderGuy : MonoBehaviour {
 
         chasingPlayer = true;
 
-        SpiderGuyState = state.run;
+        if(Vector2.Distance(transform.position, caveManTransform.position) < 1)
+        {
+            SpiderGuyState = state.attack;
+        }
+        else
+        {
+            SpiderGuyState = state.run;
+        }
+
         SetAnimations();
         CalculateDirectionToPlayer(playerTransform);
         SetAnimatorOverride();
@@ -167,7 +177,6 @@ public class SpiderGuy : MonoBehaviour {
     {
         float xDiff = transform.position.x - playerTransform.position.x;
         float yDiff = transform.position.y - playerTransform.position.y;
-
 
         if(timeSinceLastTargetStateChange >= timeToChangeTargetState)
         {
@@ -198,5 +207,30 @@ public class SpiderGuy : MonoBehaviour {
         }
     }
 
+    public void InflictDamage(int damage)
+    {
+        health -= damage;
 
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 8)
+        {
+            gameObject.SendMessageUpwards("UnTargetPlayer");
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        //layer 9 is Enemy
+        if (collision.gameObject.layer == 8)
+        {
+            gameObject.SendMessageUpwards("TargetPlayer", collision.transform);
+        }
+    }
 }
