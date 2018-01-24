@@ -8,6 +8,7 @@ public class SpiderGuy : MonoBehaviour {
     public AnimatorOverrideController horizontal;
     public AnimatorOverrideController down;
     public float speed = 1;
+    public float distanceToPlayer;
 
     private Animator animator;
     private float timeToChangeState;
@@ -34,6 +35,10 @@ public class SpiderGuy : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        if(playerTransform != null)
+        {
+            Debug.DrawLine(transform.position, playerTransform.position, Color.red);
+        }
         if(chasingPlayer == false && timeSinceLastStateChange >= timeToChangeState)
         {
             ChangeStates();
@@ -151,7 +156,7 @@ public class SpiderGuy : MonoBehaviour {
 
         chasingPlayer = true;
 
-        if(Vector2.Distance(transform.position, caveManTransform.position) < 1)
+        if(Vector2.Distance(transform.position, caveManTransform.position) < distanceToPlayer)
         {
             SpiderGuyState = state.attack;
         }
@@ -221,7 +226,7 @@ public class SpiderGuy : MonoBehaviour {
     {
         if (collision.gameObject.layer == 8)
         {
-            gameObject.SendMessageUpwards("UnTargetPlayer");
+            UnTargetPlayer();
         }
     }
 
@@ -230,7 +235,7 @@ public class SpiderGuy : MonoBehaviour {
         //layer 9 is Enemy
         if (collision.gameObject.layer == 8)
         {
-            gameObject.SendMessageUpwards("TargetPlayer", collision.transform);
+            TargetPlayer(collision.gameObject.transform);
         }
     }
 }
