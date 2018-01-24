@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MoveRock : MonoBehaviour {
 
-    public float speed;
-    //public float speedY; //Adjust for throwing up and 
+    public float speedX;
+    public float speedY;
     public float rotationSpeed;
     public float decayRate;
 
@@ -37,11 +37,20 @@ public class MoveRock : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(speed > 2f)
+        if(speedX > 2f)
         {
-            transform.Translate(throwDir * speed, Space.World);
+
+            if(Caveman_Move.CavemanDirection == Caveman_Move.direction.left || Caveman_Move.CavemanDirection == Caveman_Move.direction.right)
+            {
+                transform.Translate(throwDir * speedX, Space.World);
+            }
+            else
+            {
+                transform.Translate(throwDir * speedY, Space.World);
+            }
+            
             transform.Rotate(Vector3.forward * Time.deltaTime * rotationSpeed, Space.World);
-            speed = Mathf.Pow(speed, decayRate);
+            speedX = Mathf.Pow(speedX, decayRate);
         }
         else
         {

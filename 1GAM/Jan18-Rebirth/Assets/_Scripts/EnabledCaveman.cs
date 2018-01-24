@@ -15,7 +15,7 @@ public class EnabledCaveman : MonoBehaviour {
         throws = GetComponent<Caveman_Throw>();
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        //EnableScripts(false);
+        EnableScripts(false);
     }
 
     public void EnableScripts(bool isEnabled)
