@@ -16,12 +16,14 @@ public class Caveman_Move : MonoBehaviour {
     private Animator animator;
     private SpriteRenderer sprite;
     private bool run_up = false;
+    private Rigidbody2D rb;
 
     // Use this for initialization
     void Start()
     {
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
         CavemanDirection = direction.down;
         animator.runtimeAnimatorController = down;
     }
@@ -68,7 +70,8 @@ public class Caveman_Move : MonoBehaviour {
                 run_up = false;
                 sprite.flipX = true;
                 CavemanDirection = direction.left;
-                transform.Translate(Vector3.left * speed * Time.deltaTime, Space.World);
+                //transform.Translate(Vector3.left * speed * Time.deltaTime, Space.World);
+                rb.MovePosition(Vector2.left * speed * Time.deltaTime);
             }
             //right
             else if (Input.GetAxis("Horizontal") > 0)
@@ -78,7 +81,8 @@ public class Caveman_Move : MonoBehaviour {
                 run_up = false;
                 sprite.flipX = false;
                 CavemanDirection = direction.right;
-                transform.Translate(Vector3.right * speed * Time.deltaTime, Space.World);
+                //transform.Translate(Vector3.right * speed * Time.deltaTime, Space.World);
+                rb.MovePosition(Vector2.right * speed * Time.deltaTime);
 
             }
             //down
@@ -88,7 +92,8 @@ public class Caveman_Move : MonoBehaviour {
                 run_horiz = false;
                 run_up = false;
                 CavemanDirection = direction.down;
-                transform.Translate(Vector3.down * speed * Time.deltaTime, Space.World);
+                //transform.Translate(Vector3.down * speed * Time.deltaTime, Space.World);
+                rb.MovePosition(Vector2.down * speed * Time.deltaTime);
 
             }
             //up
@@ -98,7 +103,8 @@ public class Caveman_Move : MonoBehaviour {
                 run_horiz = false;
                 run_down = false;
                 CavemanDirection = direction.up;
-                transform.Translate(Vector3.up * speed * Time.deltaTime, Space.World);
+                //transform.Translate(Vector3.up * speed * Time.deltaTime, Space.World);
+                rb.MovePosition(Vector2.up * speed * Time.deltaTime);
             }
         }
         else
