@@ -152,7 +152,19 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114543983622329030, guid: cdab3bf9d504fba4c8f228a221a2be07,
+        type: 2}
+      propertyPath: soul
+      value: 
+      objectReference: {fileID: 1094577990637758, guid: 260864022936e8944b2da0d1f27e409b,
+        type: 2}
+    - target: {fileID: 114543983622329030, guid: cdab3bf9d504fba4c8f228a221a2be07,
+        type: 2}
+      propertyPath: distanceToChasePlayer
+      value: 7
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114546411619226020, guid: cdab3bf9d504fba4c8f228a221a2be07, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: cdab3bf9d504fba4c8f228a221a2be07, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &111336791

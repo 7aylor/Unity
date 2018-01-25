@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ed27c5c704972c43bafac8e63f40485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedX: 120
+  speedX: 100
   speedY: 70
   rotationSpeed: 500
   decayRate: 0.97

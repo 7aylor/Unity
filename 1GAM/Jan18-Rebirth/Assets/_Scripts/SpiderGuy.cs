@@ -151,7 +151,7 @@ public class SpiderGuy : MonoBehaviour {
         }
         else if (SpiderGuyState == state.attack)
         {
-            Debug.Log("Attack Animation");
+            //Debug.Log("Attack Animation");
             isMoving = false;
             animator.SetBool("Run", false);
             animator.SetTrigger("Attack");
@@ -245,43 +245,44 @@ public class SpiderGuy : MonoBehaviour {
         if(SpiderGuyDirection == direction.down && sprite.flipX == true) // looking right
         {
             hit = Physics2D.BoxCast(transform.position + (Vector3.right * 0.5f), boxSize, 0, Vector2.down, 8); //8 is player layer
-            Debug.DrawRay(transform.position - (Vector3.right * 0.5f) + new Vector3(boxSize.x / 2, 0), Vector2.down * boxSize.y, Color.red, 1);
-            Debug.DrawRay(transform.position - (Vector3.right * 0.5f) - new Vector3(boxSize.x / 2, 0), Vector2.down * boxSize.y, Color.red, 1);
-            if(hit == true)
-            {
-                Debug.Log("Hit Player");
-            }
+            //Debug.DrawRay(transform.position - (Vector3.right * 0.5f) + new Vector3(boxSize.x / 2, 0), Vector2.down * boxSize.y, Color.red, 1);
+            //Debug.DrawRay(transform.position - (Vector3.right * 0.5f) - new Vector3(boxSize.x / 2, 0), Vector2.down * boxSize.y, Color.red, 1);
         }
         else if (SpiderGuyDirection == direction.down && sprite.flipX == false) //looking left
         {
             hit = Physics2D.BoxCast(transform.position - (Vector3.right * 0.5f), boxSize, 0, Vector2.down, 8); //8 is player layer
             Debug.DrawRay(transform.position + (Vector3.right * 0.5f) + new Vector3(boxSize.x / 2, 0), Vector2.down * boxSize.y, Color.red, 1);
             Debug.DrawRay(transform.position + (Vector3.right * 0.5f) - new Vector3(boxSize.x / 2, 0), Vector2.down * boxSize.y, Color.red, 1);
-            if (hit == true)
-            {
-                Debug.Log("Hit Player");
-            }
         }
-        else if (SpiderGuyDirection == direction.up && sprite.flipX == true)
+        else if (SpiderGuyDirection == direction.up && sprite.flipX == true) //right
         {
-            hit = Physics2D.BoxCast(transform.position, boxSize, 0, Vector2.up, 8);
-            //Debug.DrawRay(transform.position - new Vector3(boxSize.x / 2, 0), Vector2.down * boxSize.y, Color.red, 1);
+            hit = Physics2D.BoxCast(transform.position, boxSize, 0, Vector2.up, 8); //8 is player layer
+            Debug.DrawRay(transform.position + new Vector3(boxSize.x / 2, 0), Vector2.up * boxSize.y, Color.red, 1);
+            Debug.DrawRay(transform.position - new Vector3(boxSize.x / 2, 0), Vector2.up * boxSize.y, Color.red, 1);
         }
-        else if (SpiderGuyDirection == direction.up && sprite.flipX == false)
+        else if (SpiderGuyDirection == direction.up && sprite.flipX == false) //left
         {
-            hit = Physics2D.BoxCast(transform.position, boxSize, 0, Vector2.up, 8);
-            //Debug.DrawRay(transform.position - new Vector3(boxSize.x / 2, 0), Vector2.down * boxSize.y, Color.red, 1);
+            hit = Physics2D.BoxCast(transform.position, boxSize, 0, Vector2.up, 8); //8 is player layer
+            //Debug.DrawRay(transform.position + new Vector3(boxSize.x / 2, 0), Vector2.up * boxSize.y, Color.red, 1);
+            //Debug.DrawRay(transform.position - new Vector3(boxSize.x / 2, 0), Vector2.up * boxSize.y, Color.red, 1);
         }
         else if (SpiderGuyDirection == direction.left)
         {
-            hit = Physics2D.BoxCast(transform.position, boxSize, 0, Vector2.left, 8);
-            //Debug.DrawRay(transform.position - new Vector3(boxSize.y / 2, 0), Vector2.down * boxSize.x, Color.red, 1);
+            hit = Physics2D.BoxCast(transform.position, boxSize, 0, Vector2.left, 8); //8 is player layer
+            //Debug.DrawRay(transform.position + new Vector3(boxSize.y / 2, 0), Vector2.left * boxSize.x, Color.red, 1);
+            //Debug.DrawRay(transform.position - new Vector3(boxSize.y / 2, 0), Vector2.left * boxSize.x, Color.red, 1);
         }
-        else if (SpiderGuyDirection == direction.right)
+        else //if (SpiderGuyDirection == direction.right)
         {
-            hit = Physics2D.BoxCast(transform.position, boxSize, 0, Vector2.right, 8);
+            hit = Physics2D.BoxCast(transform.position, boxSize, 0, Vector2.right, 8); //8 is player layer
+            //Debug.DrawRay(transform.position + new Vector3(boxSize.y / 2, 0), Vector2.right * boxSize.x, Color.red, 1);
+            //Debug.DrawRay(transform.position - new Vector3(boxSize.y / 2, 0), Vector2.right * boxSize.x, Color.red, 1);
         }
 
-        
+        if(hit == true)
+        {
+            Debug.Log("Hit Player");
+            //trigger hit animation and check for player death
+        }
     }
 }

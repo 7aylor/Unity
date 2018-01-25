@@ -10,6 +10,7 @@ public class InflictDamage : MonoBehaviour {
 
         if(enemy != null)
         {
+            Debug.Log("Rock hit!");
             enemy.InflictDamage(1);
             Destroy(gameObject);
         }
