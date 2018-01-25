@@ -33,6 +33,16 @@ To Do:
 - Draw Other landscapes
 - Draw Runes
 
+
+- Animate Shaman talking
+- Disable attack when clicking on the Shaman to speak
+- Dialogue window
+- Dialogue
+- Determine how characters react when damaged
+- Border
+- Scenery
+
+
 ideas:
 -Pit is called "Womb"
 -Rune symbol means rebirth
