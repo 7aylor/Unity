@@ -26,6 +26,7 @@ public class SpiderGuy : MonoBehaviour {
     private float timeSinceLastTargetStateChange = 0;
     private float timeToChangeTargetState = 1f;
     private int health = 3;
+    private Rigidbody2D rb;
 
     // Use this for initialization
     void Start ()
@@ -33,6 +34,7 @@ public class SpiderGuy : MonoBehaviour {
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        rb = GetComponent<Rigidbody2D>();
         ChangeStates();
     }
 
@@ -48,13 +50,17 @@ public class SpiderGuy : MonoBehaviour {
         else
         {
             timeSinceLastStateChange += Time.deltaTime;
-            Move();
             if (chasingPlayer == true)
             {
                 timeSinceLastTargetStateChange += Time.deltaTime;
                 TargetPlayer(playerTransform);
             }
         }
+    }
+
+    private void FixedUpdate()
+    {
+        Move();
     }
 
     private void CheckDistanceToPlayer()
@@ -123,21 +129,30 @@ public class SpiderGuy : MonoBehaviour {
     {
         if(SpiderGuyState == state.run && isMoving == true)
         {
-            if(SpiderGuyDirection == direction.left)
+            Vector2 left = -transform.right;
+            Vector2 right = transform.right;
+            Vector2 up = transform.up;
+            Vector2 down = -transform.up;
+
+            if (SpiderGuyDirection == direction.left)
             {
-                transform.Translate(Vector3.left * speed * Time.deltaTime, Space.World);
+                //transform.Translate(Vector3.left * speed * Time.deltaTime, Space.World);
+                rb.MovePosition(rb.position + left * speed * Time.fixedDeltaTime);
             }
             if (SpiderGuyDirection == direction.right)
             {
-                transform.Translate(Vector3.right * speed * Time.deltaTime, Space.World);
+                //transform.Translate(Vector3.right * speed * Time.deltaTime, Space.World);
+                rb.MovePosition(rb.position + right * speed * Time.fixedDeltaTime);
             }
             if (SpiderGuyDirection == direction.up)
             {
-                transform.Translate(Vector3.up * speed * Time.deltaTime, Space.World);
+                //transform.Translate(Vector3.up * speed * Time.deltaTime, Space.World);
+                rb.MovePosition(rb.position + up * speed * Time.fixedDeltaTime);
             }
             if (SpiderGuyDirection == direction.down)
             {
-                transform.Translate(Vector3.down * speed * Time.deltaTime, Space.World);
+                //transform.Translate(Vector3.down * speed * Time.deltaTime, Space.World);
+                rb.MovePosition(rb.position + down * speed * Time.fixedDeltaTime);
             }
         }
     }
@@ -284,5 +299,10 @@ public class SpiderGuy : MonoBehaviour {
             Debug.Log("Hit Player");
             //trigger hit animation and check for player death
         }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        isMoving = false;
     }
 }

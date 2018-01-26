@@ -6,7 +6,7 @@ public class Caveman_Move : MonoBehaviour {
 
     public enum direction { up, down, left, right }
     public static direction CavemanDirection { get; private set; }
-    public float speed = 1;
+    public float speed;
     public AnimatorOverrideController up;
     public AnimatorOverrideController horizontal;
     public AnimatorOverrideController down;
@@ -35,6 +35,11 @@ public class Caveman_Move : MonoBehaviour {
         HandleRunningAnimation();
     }
 
+    private void FixedUpdate()
+    {
+        Move();
+    }
+
     private void HandleRunningAnimation()
     {
         if (run_horiz == true)
@@ -58,6 +63,31 @@ public class Caveman_Move : MonoBehaviour {
         }
     }
 
+    private void Move()
+    {
+        Vector2 left = -transform.right;
+        Vector2 right = transform.right;
+        Vector2 up = transform.up;
+        Vector2 down = -transform.up;
+
+        if(run_horiz == true && CavemanDirection == direction.left)
+        {
+            rb.MovePosition(rb.position + left * speed * Time.fixedDeltaTime);
+        }
+        else if (run_horiz == true && CavemanDirection == direction.right)
+        {
+            rb.MovePosition(rb.position + right * speed * Time.fixedDeltaTime);
+        }
+        else if (run_up == true && CavemanDirection == direction.up)
+        {
+            rb.MovePosition(rb.position + up * speed * Time.fixedDeltaTime);
+        }
+        else if (run_down == true && CavemanDirection == direction.down)
+        {
+            rb.MovePosition(rb.position + down * speed * Time.fixedDeltaTime);
+        }
+    }
+
     private void CheckForInput()
     {
         if ((Input.anyKey == true && Caveman_Throw.isThrowing == false))
@@ -71,7 +101,6 @@ public class Caveman_Move : MonoBehaviour {
                 sprite.flipX = true;
                 CavemanDirection = direction.left;
                 //transform.Translate(Vector3.left * speed * Time.deltaTime, Space.World);
-                rb.MovePosition(Vector2.left * speed * Time.deltaTime);
             }
             //right
             else if (Input.GetAxis("Horizontal") > 0)
@@ -82,8 +111,6 @@ public class Caveman_Move : MonoBehaviour {
                 sprite.flipX = false;
                 CavemanDirection = direction.right;
                 //transform.Translate(Vector3.right * speed * Time.deltaTime, Space.World);
-                rb.MovePosition(Vector2.right * speed * Time.deltaTime);
-
             }
             //down
             else if (Input.GetAxis("Vertical") < 0)
@@ -93,8 +120,6 @@ public class Caveman_Move : MonoBehaviour {
                 run_up = false;
                 CavemanDirection = direction.down;
                 //transform.Translate(Vector3.down * speed * Time.deltaTime, Space.World);
-                rb.MovePosition(Vector2.down * speed * Time.deltaTime);
-
             }
             //up
             if (Input.GetAxis("Vertical") > 0)
@@ -104,11 +129,11 @@ public class Caveman_Move : MonoBehaviour {
                 run_down = false;
                 CavemanDirection = direction.up;
                 //transform.Translate(Vector3.up * speed * Time.deltaTime, Space.World);
-                rb.MovePosition(Vector2.up * speed * Time.deltaTime);
             }
         }
         else
         {
+            rb.velocity = Vector2.zero;
             run_horiz = false;
             run_down = false;
             run_up = false;
