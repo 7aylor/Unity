@@ -9,12 +9,14 @@ public class Shaman : MonoBehaviour {
     private Exclamation exclamation;
     private bool changeCursor = false;
     private ShamanDialogue dialogue;
+    private Caveman_Throw cavemanThrow;
 
 	// Use this for initialization
 	void Awake () {
         animator = GetComponent<Animator>();
         exclamation = GetComponentInChildren<Exclamation>();
         dialogue = GetComponent<ShamanDialogue>();
+        cavemanThrow = FindObjectOfType<Caveman_Throw>();
 	}
 	
     public void Summon(bool enabled)
@@ -42,11 +44,13 @@ public class Shaman : MonoBehaviour {
         if (changeCursor == true)
         {
             dialogue.SetDialogueCursor(true);
+            cavemanThrow.CanThrow(false);
         }
     }
 
     private void OnMouseExit()
     {
         dialogue.SetDialogueCursor(false);
+        cavemanThrow.CanThrow(true);
     }
 }

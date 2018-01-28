@@ -10,16 +10,18 @@ public class Caveman_Throw : MonoBehaviour {
 
     private Animator animator;
     private AnimatorStateInfo currentAnimation;
+    private bool canThrow;
 
 	// Use this for initialization
 	void Start () {
         animator = GetComponent<Animator>();
         currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
+        CanThrow(true);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetMouseButtonDown(0) && isThrowing == false)
+        if (canThrow == true && Input.GetMouseButtonDown(0) && isThrowing == false)
         {
             isThrowing = true;
             animator.SetTrigger("Throw");
@@ -36,5 +38,10 @@ public class Caveman_Throw : MonoBehaviour {
     {
         Debug.Log("Done Throwing");
         isThrowing = false;
+    }
+
+    public void CanThrow(bool canIThrow)
+    {
+        canThrow = canIThrow;
     }
 }

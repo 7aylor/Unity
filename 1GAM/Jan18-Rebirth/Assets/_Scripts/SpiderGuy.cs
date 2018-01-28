@@ -304,5 +304,19 @@ public class SpiderGuy : MonoBehaviour {
     private void OnCollisionStay2D(Collision2D collision)
     {
         isMoving = false;
+        if (collision.gameObject.tag != "Player")
+        {
+            Debug.Log("Changed states on collision");
+            ChangeStates();
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag != "Player")
+        {
+            Debug.Log("Changed states on collision");
+            ChangeStates();
+        }
     }
 }
