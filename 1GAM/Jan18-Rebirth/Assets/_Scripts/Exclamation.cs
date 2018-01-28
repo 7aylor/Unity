@@ -16,6 +16,7 @@ public class Exclamation : MonoBehaviour {
 
     public void Enabled(bool enabled)
     {
+        Debug.Log("Exlamation enabled? " + enabled);
         animator.enabled = enabled;
         sprite.enabled = enabled;
     }

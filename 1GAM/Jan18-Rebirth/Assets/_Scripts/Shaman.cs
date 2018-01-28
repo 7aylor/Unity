@@ -7,16 +7,17 @@ public class Shaman : MonoBehaviour {
 
     private Animator animator;
     private Exclamation exclamation;
-    private bool changeCursor = false;
     private ShamanDialogue dialogue;
     private Caveman_Throw cavemanThrow;
+    public static bool ChangeCursor { get; set; }
 
-	// Use this for initialization
-	void Awake () {
+    // Use this for initialization
+    void Awake () {
         animator = GetComponent<Animator>();
         exclamation = GetComponentInChildren<Exclamation>();
         dialogue = GetComponent<ShamanDialogue>();
         cavemanThrow = FindObjectOfType<Caveman_Throw>();
+        ChangeCursor = false;
 	}
 	
     public void Summon(bool enabled)
@@ -24,24 +25,9 @@ public class Shaman : MonoBehaviour {
         animator.SetBool("Summon", enabled);
     }
 
-    private void Update()
-    {
-        if(SoulCounter.soulCount >= 5)
-        {
-
-            exclamation.Enabled(true);
-            changeCursor = true;
-        }
-        else
-        {
-            exclamation.Enabled(false);
-
-        }
-    }
-
     private void OnMouseEnter()
     {
-        if (changeCursor == true)
+        if (ChangeCursor == true)
         {
             dialogue.SetDialogueCursor(true);
             cavemanThrow.CanThrow(false);

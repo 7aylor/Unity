@@ -15,20 +15,21 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private string words;
     private string wordsSubStr;
     private Caveman_Throw cavemanThrow;
-    private bool endSection = false;
 
-    private string[] messages =
+    private List<Message> messages = new List<Message>
     {
-        "Welcome, my child, to Ubwanga, the land that never dies!",
-        "Unfortunately, we are stuck here in this purgatory for all eternity.",
-        "Unless...",
-        "Can you fight?",
-        "My strength has weakened from your rebirth, but with the Runes of Ubwanga we can escape!",
-        "I need 5 souls for each Rune.",
-        "Collect them and return them to me, and we may be able to return to the land of the living!",
-        "Good luck my child!",
-        "Ya-ya Ub-Wan-Ga!" //8 stop here
+        new Message(false, "Welcome, my child, to Ubwanga, the land that never dies!"),
+        new Message(false, "Unfortunately, we are stuck here in this purgatory for all eternity."),
+        new Message(false, "Unless..."),
+        new Message(false, "Can you fight?"),
+        new Message(false, "My strength has weakened from your rebirth, but with the Runes of Ubwanga we can escape!"),
+        new Message(false, "I need 5 souls for each Rune."),
+        new Message(false, "Collect them and return them to me, and we may be able to return to the land of the living!"),
+        new Message(false, "Good luck my child!"),
+        new Message(true, "Ya-ya Ub-Wan-Ga!"),
+        new Message(true, "You've collected 5 Souls! Stand back, I will summon a rune!")
     };
+        
 
 	// Use this for initialization
 	void Start () {
@@ -36,7 +37,7 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         panelText = GetComponentInChildren<Text>();
         continueButton = transform.GetChild(1).gameObject;
         cavemanThrow = FindObjectOfType<Caveman_Throw>();
-        words = messages[wordTracker];
+        words = messages[wordTracker].MessageText;
         continueButton.SetActive(false);
         EnablePanel(true);
 	}
@@ -51,44 +52,35 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             yield return new WaitForSeconds(0.01f);
         }
 
-        EndOfMenu();
+        continueButton.SetActive(true);
     }
 
     private void EndOfMenu()
     {
-        continueButton.SetActive(true);
         wordsSubStr = "";
         subStrTracker = 0;
-        if (wordTracker < messages.Length - 1)
+        continueButton.SetActive(false);
+
+        if (wordTracker < messages.Count - 1)
         {
             wordTracker++;
-            words = messages[wordTracker];
-            if (wordTracker == 8)
-            {
-                endSection = true;
-            }
-            else
-            {
-                endSection = false;
-            }
-        }
-        else
-        {
-            EnablePanel(false);
-            continueButton.SetActive(false);
+            words = messages[wordTracker].MessageText;
         }
     }
 
     public void ClickContinue()
     {
-        if(endSection == true)
+        if (messages[wordTracker].EndMessage == true)
         {
-            StartCoroutine("WriteWords");
+            EndOfMenu();
+            Debug.Log("End Message true");
+            EnablePanel(false);
         }
         else
         {
+            EndOfMenu();
+            Debug.Log("End Message false");
             StartCoroutine("WriteWords");
-            continueButton.SetActive(false);
         }
     }
 
@@ -96,7 +88,10 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         panel.enabled = enabled;
         panelText.enabled = enabled;
-        StartCoroutine("WriteWords");
+        if(enabled == true)
+        {
+            StartCoroutine("WriteWords");
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -107,5 +102,17 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void OnPointerExit(PointerEventData eventData)
     {
         cavemanThrow.CanThrow(true);
+    }
+}
+
+public struct Message
+{
+    public bool EndMessage { get; set; }
+    public string MessageText { get; set; }
+
+    public Message(bool isEndMessage, string message)
+    {
+        EndMessage = isEndMessage;
+        MessageText = message;
     }
 }
