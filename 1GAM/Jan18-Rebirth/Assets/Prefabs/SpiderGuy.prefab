@@ -22,9 +22,9 @@ GameObject:
   - component: {fileID: 95503073329062334}
   - component: {fileID: 212000283680728274}
   - component: {fileID: 50737771896663310}
-  - component: {fileID: 60324270958117126}
   - component: {fileID: 114543983622329030}
-  - component: {fileID: 114546411619226020}
+  - component: {fileID: 61617502917915588}
+  - component: {fileID: 61370561932486458}
   m_Layer: 9
   m_Name: SpiderGuy
   m_TagString: Untagged
@@ -39,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1918632927564300}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.82, y: -2.52, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 8, y: 8, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -52,21 +52,46 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1918632927564300}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10000
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_AngularDrag: 0
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
---- !u!60 &60324270958117126
-PolygonCollider2D:
+  m_Constraints: 4
+--- !u!61 &61370561932486458
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1918632927564300}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.010594338, y: -0.0061730295}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.32, y: 0.4}
+    newSize: {x: 0.16, y: 0.26}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.062753856, y: 0.11532143}
+  m_EdgeRadius: 0
+--- !u!61 &61617502917915588
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -77,7 +102,7 @@ PolygonCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.013310194, y: -0.063080624}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -87,20 +112,9 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.04, y: 0.13}
-      - {x: -0.099999994, y: 0.13}
-      - {x: -0.129421, y: 0.097657934}
-      - {x: -0.14, y: 0.03}
-      - {x: -0.12, y: -0.12}
-      - {x: -0.08, y: -0.19999999}
-      - {x: -0.02, y: -0.19999999}
-      - {x: 0, y: -0.19}
-      - {x: 0.04, y: -0.19999999}
-      - {x: 0.089999996, y: -0.19999999}
-      - {x: 0.089999996, y: -0.03}
-      - {x: 0.02, y: 0.08}
+  serializedVersion: 2
+  m_Size: {x: 0.1659553, y: 0.22913662}
+  m_EdgeRadius: 0
 --- !u!95 &95503073329062334
 Animator:
   serializedVersion: 3
@@ -133,21 +147,10 @@ MonoBehaviour:
   horizontal: {fileID: 22100000, guid: ca2dbb359a3af314b8ad41985e928ff6, type: 2}
   down: {fileID: 22100000, guid: 8bc43e98d40b45b4f8723f6b343ddffc, type: 2}
   speed: 3
-  distanceToPlayer: 1
+  distanceToPlayer: 2
   distanceToChasePlayer: 8
   soul: {fileID: 1094577990637758, guid: 260864022936e8944b2da0d1f27e409b, type: 2}
   SpiderGuyState: 0
---- !u!114 &114546411619226020
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1918632927564300}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 527c13aa1a72dc649b5ef710adde293b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &212000283680728274
 SpriteRenderer:
   m_ObjectHideFlags: 1

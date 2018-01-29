@@ -25,7 +25,7 @@ public class SpiderGuy : MonoBehaviour {
     private Transform playerTransform = null;
     private float timeSinceLastTargetStateChange = 0;
     private float timeToChangeTargetState = 1f;
-    private int health = 3;
+    private int health = 10;
     private Rigidbody2D rb;
 
     // Use this for initialization

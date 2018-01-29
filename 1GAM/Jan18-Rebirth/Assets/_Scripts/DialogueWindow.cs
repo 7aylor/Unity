@@ -15,6 +15,8 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private string words;
     private string wordsSubStr;
     private Caveman_Throw cavemanThrow;
+    private Shaman shaman;
+    private SpawnEnemies spawnEnemies;
 
     private List<Message> messages = new List<Message>
     {
@@ -23,11 +25,14 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         new Message(false, "Unless..."),
         new Message(false, "Can you fight?"),
         new Message(false, "My strength has weakened from your rebirth, but with the Runes of Ubwanga we can escape!"),
-        new Message(false, "I need 5 souls for each Rune."),
+        new Message(false, "I need 5 souls for each Rune and there are 4 runes total."),
         new Message(false, "Collect them and return them to me, and we may be able to return to the land of the living!"),
+        new Message(false, "But be careful, I can only revive you with the power of the runes."),
         new Message(false, "Good luck my child!"),
         new Message(true, "Ya-ya Ub-Wan-Ga!"),
-        new Message(true, "You've collected 5 Souls! Stand back, I will summon a rune!")
+        new Message(true, "You've collected 5 Souls! Stand back, I will summon a rune!"),
+        new Message(true, "Ub-Wan-Ga! Ub-Wan-GAAA! I rebirth you from the strength of the rune!"),
+        new Message(true, "You have collected enough souls and I have summoned a portal out of this wretched place. Escape now, before it's too late!")
     };
         
 
@@ -39,7 +44,9 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         cavemanThrow = FindObjectOfType<Caveman_Throw>();
         words = messages[wordTracker].MessageText;
         continueButton.SetActive(false);
-        EnablePanel(true);
+        shaman = FindObjectOfType<Shaman>();
+        spawnEnemies = FindObjectOfType<SpawnEnemies>();
+        //EnablePanel(true);
 	}
 	
     private IEnumerator WriteWords()
@@ -74,7 +81,10 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         {
             EndOfMenu();
             Debug.Log("End Message true");
+            shaman.Talk(false);
             EnablePanel(false);
+            spawnEnemies.CanSpawnEnemies = true;
+            spawnEnemies.ResetNumEnemies();
         }
         else
         {
@@ -88,7 +98,8 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         panel.enabled = enabled;
         panelText.enabled = enabled;
-        if(enabled == true)
+        shaman.Talk(true);
+        if (enabled == true)
         {
             StartCoroutine("WriteWords");
         }

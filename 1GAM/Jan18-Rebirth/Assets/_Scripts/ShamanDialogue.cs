@@ -44,6 +44,7 @@ public class ShamanDialogue : MonoBehaviour {
             dw.EnablePanel(true);
             exclamation.Enabled(false);
             soulCounter.BuildRune();
+            GetComponent<Shaman>().Talk(true);
         }
     }
 }

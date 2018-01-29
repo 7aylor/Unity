@@ -25,6 +25,11 @@ public class Shaman : MonoBehaviour {
         animator.SetBool("Summon", enabled);
     }
 
+    public void Talk(bool enabled)
+    {
+        animator.SetBool("Talking", enabled);
+    }
+
     private void OnMouseEnter()
     {
         if (ChangeCursor == true)
