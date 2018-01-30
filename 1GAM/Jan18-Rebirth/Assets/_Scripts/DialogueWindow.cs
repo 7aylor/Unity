@@ -17,6 +17,8 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private Caveman_Throw cavemanThrow;
     private Shaman shaman;
     private SpawnEnemies spawnEnemies;
+    private EnabledCaveman cavemanMovement;
+    private SoulCounter soulCounter;
 
     private List<Message> messages = new List<Message>
     {
@@ -46,6 +48,8 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         continueButton.SetActive(false);
         shaman = FindObjectOfType<Shaman>();
         spawnEnemies = FindObjectOfType<SpawnEnemies>();
+        cavemanMovement = FindObjectOfType<EnabledCaveman>();
+        soulCounter = FindObjectOfType<SoulCounter>();
         //EnablePanel(true);
 	}
 	
@@ -77,10 +81,22 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void ClickContinue()
     {
+        shaman.Talk(false);
+        if(wordTracker == 10)
+        {
+            Debug.Log("Word Tracker 10");
+            soulCounter.BuildRune();
+        }
+        else if(wordTracker == 11)
+        {
+            Debug.Log("Word Tracker 11");
+            soulCounter.DestroyRune();
+        }
+
+        //last message in this series
         if (messages[wordTracker].EndMessage == true)
         {
             EndOfMenu();
-            Debug.Log("End Message true");
             shaman.Talk(false);
             EnablePanel(false);
             spawnEnemies.CanSpawnEnemies = true;
@@ -89,7 +105,6 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         else
         {
             EndOfMenu();
-            Debug.Log("End Message false");
             StartCoroutine("WriteWords");
         }
     }
@@ -101,7 +116,12 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         shaman.Talk(true);
         if (enabled == true)
         {
+            cavemanMovement.EnableMovement(false);
             StartCoroutine("WriteWords");
+        }
+        else
+        {
+            cavemanMovement.EnableMovement(true);
         }
     }
 
@@ -118,6 +138,11 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void DecreaseWordTracker()
     {
         wordTracker--;
+    }
+
+    public void SetWordTracker(int newNum)
+    {
+        wordTracker = newNum;
     }
 }
 

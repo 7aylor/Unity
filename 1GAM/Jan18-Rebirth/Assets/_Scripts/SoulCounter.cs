@@ -40,4 +40,10 @@ public class SoulCounter : MonoBehaviour {
         Shaman.ChangeCursor = false;
         activateRunes.EnableRune(true);
     }
+
+    public void DestroyRune()
+    {
+        Shaman.ChangeCursor = false;
+        activateRunes.EnableRune(false);
+    }
 }

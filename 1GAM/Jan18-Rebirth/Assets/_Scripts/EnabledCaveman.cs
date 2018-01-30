@@ -21,8 +21,13 @@ public class EnabledCaveman : MonoBehaviour {
     public void EnableScripts(bool isEnabled)
     {
         animator.enabled = isEnabled;
+        sprite.enabled = isEnabled;
+        EnableMovement(isEnabled);
+    }
+
+    public void EnableMovement(bool isEnabled)
+    {
         moves.enabled = isEnabled;
         throws.enabled = isEnabled;
-        sprite.enabled = isEnabled;
     }
 }
