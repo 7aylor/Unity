@@ -2941,6 +2941,22 @@ Transform:
   m_PrefabParentObject: {fileID: 4182850802838936, guid: 94b51dc1c974330438df766d06a17105,
     type: 2}
   m_PrefabInternal: {fileID: 386210749}
+--- !u!1 &387246851 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1944909223108156, guid: 6b65e3a16c815b04391ec1d8203ecea0,
+    type: 2}
+  m_PrefabInternal: {fileID: 846194366}
+--- !u!114 &387246854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 387246851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d427627a52c8fb84b84cc8ead65147d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &396519071
 GameObject:
   m_ObjectHideFlags: 0
@@ -6833,6 +6849,11 @@ Prefab:
     - target: {fileID: 212937128494997232, guid: 6b65e3a16c815b04391ec1d8203ecea0,
         type: 2}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212937128494997232, guid: 6b65e3a16c815b04391ec1d8203ecea0,
+        type: 2}
+      propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
