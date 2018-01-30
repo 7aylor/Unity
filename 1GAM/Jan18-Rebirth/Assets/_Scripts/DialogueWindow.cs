@@ -114,6 +114,11 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         cavemanThrow.CanThrow(true);
     }
+
+    public void DecreaseWordTracker()
+    {
+        wordTracker--;
+    }
 }
 
 public struct Message

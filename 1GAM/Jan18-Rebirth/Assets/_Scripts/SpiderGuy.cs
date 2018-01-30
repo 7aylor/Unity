@@ -27,6 +27,7 @@ public class SpiderGuy : MonoBehaviour {
     private float timeToChangeTargetState = 1f;
     private int health = 10;
     private Rigidbody2D rb;
+    private Caveman_Health cavemanHealth;
 
     // Use this for initialization
     void Start ()
@@ -35,6 +36,7 @@ public class SpiderGuy : MonoBehaviour {
         sprite = GetComponent<SpriteRenderer>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody2D>();
+        cavemanHealth = FindObjectOfType<Caveman_Health>();
         ChangeStates();
     }
 
@@ -245,6 +247,7 @@ public class SpiderGuy : MonoBehaviour {
     public void InflictDamage(int damage)
     {
         health -= damage;
+        StartCoroutine("Blink");
 
         if(health <= 0)
         {
@@ -253,9 +256,25 @@ public class SpiderGuy : MonoBehaviour {
         }
     }
 
+    private IEnumerator Blink()
+    {
+        for (int i = 0; i < 6; i++)
+        {
+            if (i % 2 == 0)
+            {
+                sprite.enabled = false;
+            }
+            else
+            {
+                sprite.enabled = true;
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
     public void CheckHitPlayer()
     {
-        Vector2 boxSize = new Vector2(0.7f, 0.7f);
+        Vector2 boxSize = new Vector2(1f, 1f);
         RaycastHit2D hit;
         if(SpiderGuyDirection == direction.down && sprite.flipX == true) // looking right
         {
@@ -294,9 +313,10 @@ public class SpiderGuy : MonoBehaviour {
             //Debug.DrawRay(transform.position - new Vector3(boxSize.y / 2, 0), Vector2.right * boxSize.x, Color.red, 1);
         }
 
-        if(hit == true)
+        if(hit == true && hit.collider.gameObject.tag == "Player")
         {
             Debug.Log("Hit Player");
+            cavemanHealth.InflictDamage(1);
             //trigger hit animation and check for player death
         }
     }

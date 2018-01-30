@@ -5,11 +5,13 @@ using UnityEngine;
 public class ActivateRunes : MonoBehaviour {
 
     private SpriteRenderer[] runes;
+    private DialogueWindow dw;
     private int currentRune = 0;
 
 	// Use this for initialization
 	void Start () {
         runes = transform.GetComponentsInChildren<SpriteRenderer>();
+        dw = FindObjectOfType<DialogueWindow>();
 	}
 
     public void EnableRune(bool enable)
@@ -21,6 +23,7 @@ public class ActivateRunes : MonoBehaviour {
                 //if I get to it, do an animation here
                 runes[currentRune].enabled = true;
                 currentRune++;
+                dw.DecreaseWordTracker();
             }
             else
             {
@@ -41,6 +44,11 @@ public class ActivateRunes : MonoBehaviour {
                 Debug.Log("CurrentRune out of bounds");
             }
         }
+    }
+
+    public int GetActiveRuneCount()
+    {
+        return currentRune;
     }
 
 }
