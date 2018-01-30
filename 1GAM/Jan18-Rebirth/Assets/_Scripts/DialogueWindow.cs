@@ -81,7 +81,6 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void ClickContinue()
     {
-        shaman.Talk(false);
         if(wordTracker == 10)
         {
             Debug.Log("Word Tracker 10");
@@ -97,7 +96,7 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if (messages[wordTracker].EndMessage == true)
         {
             EndOfMenu();
-            shaman.Talk(false);
+            Debug.Log("Shaman Talk Off in Click Continue");
             EnablePanel(false);
             spawnEnemies.CanSpawnEnemies = true;
             spawnEnemies.ResetNumEnemies();
@@ -113,7 +112,7 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         panel.enabled = enabled;
         panelText.enabled = enabled;
-        shaman.Talk(true);
+        shaman.Talk(enabled);
         if (enabled == true)
         {
             cavemanMovement.EnableMovement(false);

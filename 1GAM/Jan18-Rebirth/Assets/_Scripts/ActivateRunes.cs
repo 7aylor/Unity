@@ -8,12 +8,14 @@ public class ActivateRunes : MonoBehaviour {
     private DialogueWindow dw;
     private int currentRune = 0;
     private Shaman shaman;
+    private SpawnPortal portal;
 
 	// Use this for initialization
 	void Start () {
         runes = transform.GetComponentsInChildren<SpriteRenderer>();
         dw = FindObjectOfType<DialogueWindow>();
         shaman = FindObjectOfType<Shaman>();
+        portal = FindObjectOfType<SpawnPortal>();
 	}
 
     public void EnableRune(bool enable)
@@ -33,7 +35,6 @@ public class ActivateRunes : MonoBehaviour {
             {
                 Debug.Log("CurrentRune out of bounds");
                 //maybe spawn portal here?
-
             }
             
         }
@@ -70,6 +71,12 @@ public class ActivateRunes : MonoBehaviour {
             yield return new WaitForEndOfFrame();
         }
         shaman.Summon(false);
+        if(currentRune == 4)
+        {
+            dw.SetWordTracker(12);
+            dw.EnablePanel(true);
+            portal.EnablePortal();
+        }
     }
 
     private IEnumerator FadeOutAlpha(int index)

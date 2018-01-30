@@ -20,6 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4984151525540574}
   - component: {fileID: 212937128494997232}
+  - component: {fileID: 114616994694082364}
+  - component: {fileID: 70443451474016120}
+  - component: {fileID: 114972944842177652}
   m_Layer: 0
   m_Name: Portal
   m_TagString: Untagged
@@ -40,6 +43,49 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &70443451474016120
+CapsuleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1944909223108156}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0010432721, y: 0.0020865442}
+  m_Size: {x: 0.23027983, y: 0.29078874}
+  m_Direction: 0
+--- !u!114 &114616994694082364
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1944909223108156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d427627a52c8fb84b84cc8ead65147d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorTexture: {fileID: 2800000, guid: 754fb92aafb76e44ebc295a477ed5934, type: 3}
+  cursorMode: 0
+  hotSpot: {x: 0, y: 0}
+--- !u!114 &114972944842177652
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1944909223108156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d427627a52c8fb84b84cc8ead65147d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorTexture: {fileID: 0}
+  cursorMode: 0
+  hotSpot: {x: 0, y: 0}
 --- !u!212 &212937128494997232
 SpriteRenderer:
   m_ObjectHideFlags: 1

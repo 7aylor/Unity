@@ -43,8 +43,6 @@ public class ShamanDialogue : MonoBehaviour {
             SetDialogueCursor(false);
             dw.EnablePanel(true);
             exclamation.Enabled(false);
-            //soulCounter.BuildRune();
-            GetComponent<Shaman>().Talk(true);
         }
     }
 }
