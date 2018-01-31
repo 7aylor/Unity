@@ -9,12 +9,14 @@ public class SoulCounter : MonoBehaviour {
     public static int soulCount = 0;
     private Exclamation exclamation;
     private ActivateRunes activateRunes;
+    private Rebirth rebirth;
 
 	// Use this for initialization
 	void Start () {
         text = GetComponent<Text>();
         exclamation = FindObjectOfType<Exclamation>();
         activateRunes = FindObjectOfType<ActivateRunes>();
+        rebirth = FindObjectOfType<Rebirth>();
 	}
 	
     public void IncreaseSoulCounter()
@@ -45,5 +47,6 @@ public class SoulCounter : MonoBehaviour {
     {
         Shaman.ChangeCursor = false;
         activateRunes.EnableRune(false);
+        rebirth.StartRebirthAnimation();
     }
 }

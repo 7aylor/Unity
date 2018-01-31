@@ -8,6 +8,7 @@ public class EnabledCaveman : MonoBehaviour {
     private Caveman_Move moves;
     private Caveman_Throw throws;
     private SpriteRenderer sprite;
+    private Collider2D col;
 
     private void Awake()
     {
@@ -15,6 +16,7 @@ public class EnabledCaveman : MonoBehaviour {
         throws = GetComponent<Caveman_Throw>();
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        col = GetComponent<Collider2D>();
         EnableScripts(false);
     }
 
@@ -22,6 +24,7 @@ public class EnabledCaveman : MonoBehaviour {
     {
         animator.enabled = isEnabled;
         sprite.enabled = isEnabled;
+        col.enabled = isEnabled;
         EnableMovement(isEnabled);
     }
 

@@ -19,6 +19,7 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private SpawnEnemies spawnEnemies;
     private EnabledCaveman cavemanMovement;
     private SoulCounter soulCounter;
+    private ActivateRunes runes;
 
     private List<Message> messages = new List<Message>
     {
@@ -50,7 +51,7 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         spawnEnemies = FindObjectOfType<SpawnEnemies>();
         cavemanMovement = FindObjectOfType<EnabledCaveman>();
         soulCounter = FindObjectOfType<SoulCounter>();
-        //EnablePanel(true);
+        runes = FindObjectOfType<ActivateRunes>();
 	}
 	
     private IEnumerator WriteWords()
@@ -81,22 +82,28 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void ClickContinue()
     {
-        if(wordTracker == 10)
+        if(runes.GetActiveRuneCount() < 4)
         {
-            Debug.Log("Word Tracker 10");
-            soulCounter.BuildRune();
+            if (wordTracker == 10)
+            {
+                Debug.Log("Word Tracker 10");
+                soulCounter.BuildRune();
+            }
+            else if (wordTracker == 11)
+            {
+                Debug.Log("Word Tracker 11");
+                soulCounter.DestroyRune();
+            }
         }
-        else if(wordTracker == 11)
+        else
         {
-            Debug.Log("Word Tracker 11");
-            soulCounter.DestroyRune();
+            Debug.Log("Rune count maxed out");
         }
 
         //last message in this series
         if (messages[wordTracker].EndMessage == true)
         {
             EndOfMenu();
-            Debug.Log("Shaman Talk Off in Click Continue");
             EnablePanel(false);
             spawnEnemies.CanSpawnEnemies = true;
             spawnEnemies.ResetNumEnemies();
@@ -113,6 +120,7 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         panel.enabled = enabled;
         panelText.enabled = enabled;
         shaman.Talk(enabled);
+        words = messages[wordTracker].MessageText;
         if (enabled == true)
         {
             cavemanMovement.EnableMovement(false);
@@ -142,6 +150,11 @@ public class DialogueWindow : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void SetWordTracker(int newNum)
     {
         wordTracker = newNum;
+    }
+
+    public int GetWordTracker()
+    {
+        return wordTracker;
     }
 }
 

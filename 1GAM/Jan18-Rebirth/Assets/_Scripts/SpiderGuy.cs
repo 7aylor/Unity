@@ -28,6 +28,8 @@ public class SpiderGuy : MonoBehaviour {
     private int health = 10;
     private Rigidbody2D rb;
     private Caveman_Health cavemanHealth;
+    private float timeToAttack = 1;
+    private float timeSinceLastAttack = 0;
 
     // Use this for initialization
     void Start ()
@@ -168,10 +170,30 @@ public class SpiderGuy : MonoBehaviour {
         }
         else if (SpiderGuyState == state.attack)
         {
-            //Debug.Log("Attack Animation");
             isMoving = false;
             animator.SetBool("Run", false);
             animator.SetTrigger("Attack");
+
+            if(timeSinceLastAttack > timeToAttack)
+            {
+                timeSinceLastAttack = 0;
+                if ((SpiderGuyDirection == direction.left || SpiderGuyDirection == direction.right) &&
+                    Vector2.Distance(transform.position, cavemanHealth.transform.position) < 1.8)
+                {
+                    cavemanHealth.InflictDamage(1);
+                }
+                else if ((SpiderGuyDirection == direction.up || SpiderGuyDirection == direction.down) &&
+                    Vector2.Distance(transform.position, cavemanHealth.transform.position) < 2.3)
+                {
+                    cavemanHealth.InflictDamage(1);
+                }
+            }
+            else
+            {
+                timeSinceLastAttack += Time.deltaTime;
+            }
+
+            
         }
         else
         {
@@ -182,8 +204,6 @@ public class SpiderGuy : MonoBehaviour {
 
     private void TargetPlayer(Transform caveManTransform)
     {
-        Debug.Log("Player in Sight");
-
         playerTransform = caveManTransform;
 
         chasingPlayer = true;
@@ -205,7 +225,6 @@ public class SpiderGuy : MonoBehaviour {
 
     private void UnTargetPlayer()
     {
-        Debug.Log("Player out of Sight");
         chasingPlayer = false;
         ChangeStates();
     }
@@ -274,51 +293,57 @@ public class SpiderGuy : MonoBehaviour {
 
     public void CheckHitPlayer()
     {
-        Vector2 boxSize = new Vector2(1f, 1f);
-        RaycastHit2D hit;
-        if(SpiderGuyDirection == direction.down && sprite.flipX == true) // looking right
-        {
-            hit = Physics2D.BoxCast(transform.position + (Vector3.right * 0.5f), boxSize, 0, Vector2.down, 8); //8 is player layer
-            //Debug.DrawRay(transform.position - (Vector3.right * 0.5f) + new Vector3(boxSize.x / 2, 0), Vector2.down * boxSize.y, Color.red, 1);
-            //Debug.DrawRay(transform.position - (Vector3.right * 0.5f) - new Vector3(boxSize.x / 2, 0), Vector2.down * boxSize.y, Color.red, 1);
-        }
-        else if (SpiderGuyDirection == direction.down && sprite.flipX == false) //looking left
-        {
-            hit = Physics2D.BoxCast(transform.position - (Vector3.right * 0.5f), boxSize, 0, Vector2.down, 8); //8 is player layer
-            Debug.DrawRay(transform.position + (Vector3.right * 0.5f) + new Vector3(boxSize.x / 2, 0), Vector2.down * boxSize.y, Color.red, 1);
-            Debug.DrawRay(transform.position + (Vector3.right * 0.5f) - new Vector3(boxSize.x / 2, 0), Vector2.down * boxSize.y, Color.red, 1);
-        }
-        else if (SpiderGuyDirection == direction.up && sprite.flipX == true) //right
-        {
-            hit = Physics2D.BoxCast(transform.position, boxSize, 0, Vector2.up, 8); //8 is player layer
-            Debug.DrawRay(transform.position + new Vector3(boxSize.x / 2, 0), Vector2.up * boxSize.y, Color.red, 1);
-            Debug.DrawRay(transform.position - new Vector3(boxSize.x / 2, 0), Vector2.up * boxSize.y, Color.red, 1);
-        }
-        else if (SpiderGuyDirection == direction.up && sprite.flipX == false) //left
-        {
-            hit = Physics2D.BoxCast(transform.position, boxSize, 0, Vector2.up, 8); //8 is player layer
-            //Debug.DrawRay(transform.position + new Vector3(boxSize.x / 2, 0), Vector2.up * boxSize.y, Color.red, 1);
-            //Debug.DrawRay(transform.position - new Vector3(boxSize.x / 2, 0), Vector2.up * boxSize.y, Color.red, 1);
-        }
-        else if (SpiderGuyDirection == direction.left)
-        {
-            hit = Physics2D.BoxCast(transform.position, boxSize, 0, Vector2.left, 8); //8 is player layer
-            //Debug.DrawRay(transform.position + new Vector3(boxSize.y / 2, 0), Vector2.left * boxSize.x, Color.red, 1);
-            //Debug.DrawRay(transform.position - new Vector3(boxSize.y / 2, 0), Vector2.left * boxSize.x, Color.red, 1);
-        }
-        else //if (SpiderGuyDirection == direction.right)
-        {
-            hit = Physics2D.BoxCast(transform.position, boxSize, 0, Vector2.right, 8); //8 is player layer
-            //Debug.DrawRay(transform.position + new Vector3(boxSize.y / 2, 0), Vector2.right * boxSize.x, Color.red, 1);
-            //Debug.DrawRay(transform.position - new Vector3(boxSize.y / 2, 0), Vector2.right * boxSize.x, Color.red, 1);
-        }
+        ////Debug.Log("CheckPlayer");
+        //Vector2 boxSize = new Vector2(1.5f, 1.5f);
+        //RaycastHit2D hit;
+        //if(SpiderGuyDirection == direction.down && sprite.flipX == true) // looking right
+        //{
+        //    hit = Physics2D.BoxCast(transform.position + (Vector3.right * 0.5f), boxSize, 0, Vector2.down, boxSize.y, 8); //8 is player layer
+        //    Debug.DrawRay(transform.position - (Vector3.right * 0.5f) + new Vector3(boxSize.x / 2, 0), Vector2.down * boxSize.y, Color.red, 1);
+        //    Debug.DrawRay(transform.position - (Vector3.right * 0.5f) - new Vector3(boxSize.x / 2, 0), Vector2.down * boxSize.y, Color.red, 1);
+        //}
+        //else if (SpiderGuyDirection == direction.down && sprite.flipX == false) //looking left
+        //{
+        //    hit = Physics2D.BoxCast(transform.position - (Vector3.right * 0.5f), boxSize, 0, Vector2.down, boxSize.y, 8); //8 is player layer
+        //    Debug.DrawRay(transform.position + (Vector3.right * 0.5f) + new Vector3(boxSize.x / 2, 0), Vector2.down * boxSize.y, Color.red, 1);
+        //    Debug.DrawRay(transform.position + (Vector3.right * 0.5f) - new Vector3(boxSize.x / 2, 0), Vector2.down * boxSize.y, Color.red, 1);
+        //}
+        //else if (SpiderGuyDirection == direction.up && sprite.flipX == true) //right
+        //{
+        //    hit = Physics2D.BoxCast(transform.position, boxSize, 0, Vector2.up, boxSize.y, 8); //8 is player layer
+        //    Debug.DrawRay(transform.position + new Vector3(boxSize.x / 2, 0), Vector2.up * boxSize.y, Color.red, 1);
+        //    Debug.DrawRay(transform.position - new Vector3(boxSize.x / 2, 0), Vector2.up * boxSize.y, Color.red, 1);
+        //}
+        //else if (SpiderGuyDirection == direction.up && sprite.flipX == false) //left
+        //{
+        //    hit = Physics2D.BoxCast(transform.position, boxSize, 0, Vector2.up, boxSize.y, 8); //8 is player layer
+        //    Debug.DrawRay(transform.position + new Vector3(boxSize.x / 2, 0), Vector2.up * boxSize.y, Color.red, 1);
+        //    Debug.DrawRay(transform.position - new Vector3(boxSize.x / 2, 0), Vector2.up * boxSize.y, Color.red, 1);
+        //}
+        //else if (SpiderGuyDirection == direction.left)
+        //{
+        //    hit = Physics2D.BoxCast(transform.position, boxSize, 0, Vector2.left, boxSize.x, 8); //8 is player layer
+        //    Debug.DrawRay(transform.position + new Vector3(boxSize.y / 2, 0), Vector2.left * boxSize.x, Color.red, 1);
+        //    Debug.DrawRay(transform.position - new Vector3(boxSize.y / 2, 0), Vector2.left * boxSize.x, Color.red, 1);
+        //}
+        //else //if (SpiderGuyDirection == direction.right)
+        //{
+        //    hit = Physics2D.BoxCast(transform.position, boxSize, 0, Vector2.right, boxSize.x, 8); //8 is player layer
+        //    Debug.DrawRay(transform.position + new Vector3(boxSize.y / 2, 0), Vector2.right * boxSize.x, Color.red, 1);
+        //    Debug.DrawRay(transform.position - new Vector3(boxSize.y / 2, 0), Vector2.right * boxSize.x, Color.red, 1);
+        //}
 
-        if(hit == true && hit.collider.gameObject.tag == "Player")
-        {
-            Debug.Log("Hit Player");
-            cavemanHealth.InflictDamage(1);
-            //trigger hit animation and check for player death
-        }
+        ////Debug.Log("Hit: " + (hit == true).ToString());
+        ////Debug.Log(hit.collider.gameObject.tag);
+
+        //if(hit == true)//hit.collider.gameObject.CompareTag("Player"))
+        //{
+        //    Debug.Log("Hit Player");
+        //    cavemanHealth.InflictDamage(1);
+        //    //trigger hit animation and check for player death
+        //}
+
+        //if(Vector2.Distance(transform.position, caveManTransform.position) < distanceToPlayer)
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -326,7 +351,7 @@ public class SpiderGuy : MonoBehaviour {
         isMoving = false;
         if (collision.gameObject.tag != "Player")
         {
-            Debug.Log("Changed states on collision");
+            //Debug.Log("Changed states on collision");
             ChangeStates();
         }
     }
@@ -335,7 +360,7 @@ public class SpiderGuy : MonoBehaviour {
     {
         if(collision.gameObject.tag != "Player")
         {
-            Debug.Log("Changed states on collision");
+            //Debug.Log("Changed states on collision");
             ChangeStates();
         }
     }

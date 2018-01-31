@@ -31,11 +31,15 @@ public class SpawnPortal : MonoBehaviour {
             sprite.color = spriteColor;
             yield return new WaitForEndOfFrame();
         }
+        canClickPortal = true;
     }
 
     private void OnMouseEnter()
     {
-        SetDialogueCursor(true);
+        if(canClickPortal == true)
+        {
+            SetDialogueCursor(true);
+        }
     }
 
     private void OnMouseExit()
@@ -45,7 +49,11 @@ public class SpawnPortal : MonoBehaviour {
 
     private void OnMouseDown()
     {
-        LevelManager.instance.LoadScene("End");
+        if(canClickPortal == true)
+        {
+            SetDialogueCursor(false);
+            LevelManager.instance.LoadScene("End");
+        }
     }
 
     public void SetDialogueCursor(bool cursorNeeded)

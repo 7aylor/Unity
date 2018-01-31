@@ -19,7 +19,6 @@ public class Rebirth : MonoBehaviour {
     {
         animator.SetTrigger("Rebirth");
         shaman.Summon(true);
-        dw.SetWordTracker(11);
+        dw.SetWordTracker(9);
     }
-
 }

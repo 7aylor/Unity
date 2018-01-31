@@ -24,11 +24,13 @@ public class ActivateRunes : MonoBehaviour {
         {
             if(currentRune < runes.Length)
             {
+                Debug.Log("Spawning Rune" + currentRune);
                 //if I get to it, do an animation here
                 shaman.Talk(false);
                 shaman.Summon(true);
                 StartCoroutine("FadeInAlpha", currentRune);
                 currentRune++;
+                Debug.Log("After Spawn Rune" + currentRune);
                 dw.DecreaseWordTracker();
             }
             else
@@ -36,17 +38,18 @@ public class ActivateRunes : MonoBehaviour {
                 Debug.Log("CurrentRune out of bounds");
                 //maybe spawn portal here?
             }
-            
         }
         else
         {
             if (currentRune > 0)
             {
+                Debug.Log("Destroying Rune" + currentRune);
                 //if I get to it, do an animation here
                 shaman.Talk(false);
                 shaman.Summon(true);
-                StartCoroutine("FadeOutAlpha", currentRune);
                 currentRune--;
+                StartCoroutine("FadeOutAlpha", currentRune);
+                Debug.Log("After Destroy Rune" + currentRune);
             }
             else
             {
@@ -71,8 +74,9 @@ public class ActivateRunes : MonoBehaviour {
             yield return new WaitForEndOfFrame();
         }
         shaman.Summon(false);
-        if(currentRune == 4)
+        if(currentRune >= 4)
         {
+            Debug.Log("Spawning Portal");
             dw.SetWordTracker(12);
             dw.EnablePanel(true);
             portal.EnablePortal();
@@ -81,16 +85,15 @@ public class ActivateRunes : MonoBehaviour {
 
     private IEnumerator FadeOutAlpha(int index)
     {
-
+        Debug.Log("FadeOutAlpha");
         Color spriteColor = runes[index].color;
-        for (int i = 100; i >= 0; i++)
+        for (int i = 100; i >= 0; i--)
         {
             spriteColor.a = i / 100f;
             runes[index].color = spriteColor;
             yield return new WaitForEndOfFrame();
         }
-        runes[currentRune].enabled = false;
-        shaman.Summon(false);
+        runes[index].enabled = false;
+        //shaman.Summon(false);
     }
-
 }

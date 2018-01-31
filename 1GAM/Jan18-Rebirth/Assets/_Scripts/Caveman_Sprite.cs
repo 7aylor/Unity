@@ -16,7 +16,6 @@ public class Caveman_Sprite : MonoBehaviour {
         //SGetComponent<SpriteRenderer>().sortingOrder = Mathf.RoundToInt(transform.position.y * 100f) * -1;
     }
 
-
     public void AdjustSpriteLayer(int newLayer)
     {
         sprite.sortingOrder = newLayer;

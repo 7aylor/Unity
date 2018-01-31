@@ -9,6 +9,7 @@ public class Caveman_Health : MonoBehaviour {
     private Rebirth rebirth;
     private ActivateRunes runes;
     private SpriteRenderer sprite;
+    private DialogueWindow dw;
     private int startHealth = 15;
     private int health;
 
@@ -20,6 +21,7 @@ public class Caveman_Health : MonoBehaviour {
         health = startHealth;
         runes = FindObjectOfType<ActivateRunes>();
         sprite = GetComponent<SpriteRenderer>();
+        dw = FindObjectOfType<DialogueWindow>();
     }
 
     public void InflictDamage(int damage)
@@ -40,10 +42,12 @@ public class Caveman_Health : MonoBehaviour {
     {
         if(runes.GetActiveRuneCount() > 0)
         {
-            enabledCaveman.EnableScripts(false);
-            rebirth.StartRebirthAnimation();
             transform.position = cavemanStartPos;
+            StopCoroutine("Blink");
+            enabledCaveman.EnableScripts(false);
             health = startHealth;
+            dw.SetWordTracker(11);
+            dw.EnablePanel(true);
         }
         else
         {

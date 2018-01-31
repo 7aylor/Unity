@@ -30,7 +30,10 @@ public class SpawnCaveman : MonoBehaviour {
 
     public void ShowDialogueWindow()
     {
-        dw.EnablePanel(true);
+        if(dw.GetWordTracker() == 0)
+        {
+            dw.EnablePanel(true);
+        }
     }
 
 }
