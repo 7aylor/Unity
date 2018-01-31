@@ -12,6 +12,7 @@ public class Caveman_Health : MonoBehaviour {
     private DialogueWindow dw;
     private int startHealth = 15;
     private int health;
+    private Life_Counter life;
 
     private void Start()
     {
@@ -22,11 +23,13 @@ public class Caveman_Health : MonoBehaviour {
         runes = FindObjectOfType<ActivateRunes>();
         sprite = GetComponent<SpriteRenderer>();
         dw = FindObjectOfType<DialogueWindow>();
+        life = FindObjectOfType<Life_Counter>();
     }
 
     public void InflictDamage(int damage)
     {
         health -= damage;
+        life.UpdateHealthUI(health);
         if(health <= 0)
         {
             Debug.Log("Killed played");
@@ -46,6 +49,7 @@ public class Caveman_Health : MonoBehaviour {
             StopCoroutine("Blink");
             enabledCaveman.EnableScripts(false);
             health = startHealth;
+            life.UpdateHealthUI(health);
             dw.SetWordTracker(11);
             dw.EnablePanel(true);
         }
@@ -69,5 +73,10 @@ public class Caveman_Health : MonoBehaviour {
             }
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    public int GetHealth()
+    {
+        return health;
     }
 }
