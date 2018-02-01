@@ -17,7 +17,7 @@ public class EnabledCaveman : MonoBehaviour {
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         col = GetComponent<Collider2D>();
-        //EnableScripts(false);
+        EnableScripts(false);
     }
 
     public void EnableScripts(bool isEnabled)

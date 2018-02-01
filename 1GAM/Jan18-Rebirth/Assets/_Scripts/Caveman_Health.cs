@@ -33,9 +33,16 @@ public class Caveman_Health : MonoBehaviour {
     {
         health -= damage;
         life.UpdateHealthUI(health);
-        audio.clip = hitCaveman;
-        audio.Play();
-        if(health <= 0)
+
+        GameObject obj = new GameObject();
+        AudioSource objAudio = obj.AddComponent<AudioSource>();
+        objAudio.clip = hitCaveman;
+        obj.AddComponent<DestroyOnFinishAudio>();
+
+        Instantiate(obj);
+
+
+        if (health <= 0)
         {
             Debug.Log("Killed played");
             KillPlayer();

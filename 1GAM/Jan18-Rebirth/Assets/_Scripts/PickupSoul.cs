@@ -18,9 +18,9 @@ public class PickupSoul : MonoBehaviour {
         {
             soulCounter.IncreaseSoulCounter();
             GameObject obj = new GameObject();
-            obj.AddComponent<DestroyOnFinishAudio>();
             AudioSource audio = obj.AddComponent<AudioSource>();
             audio.clip = soulSound;
+            obj.AddComponent<DestroyOnFinishAudio>();
             audio.Play();
 
             Destroy(gameObject);

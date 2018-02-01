@@ -37,6 +37,7 @@ public class SpiderGuy : MonoBehaviour {
     private float timeSinceLastAttack = 0;
     private HealthBar healthBar;
     private AudioSource audio;
+    private float timeSinceHitByPlayer = 0;
 
     private void Awake()
     {
@@ -60,6 +61,7 @@ public class SpiderGuy : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
+        timeSinceHitByPlayer += Time.deltaTime;
         CheckDistanceToPlayer();
 
         if (chasingPlayer == false && timeSinceLastStateChange >= timeToChangeState)
@@ -91,7 +93,7 @@ public class SpiderGuy : MonoBehaviour {
 
     private void CheckDistanceToPlayer()
     {
-        if (Vector2.Distance(transform.position, playerTransform.position) <= distanceToChasePlayer)
+        if (Vector2.Distance(transform.position, playerTransform.position) <= distanceToChasePlayer || timeSinceHitByPlayer < 3)
         {
             chasingPlayer = true;
             //Debug.DrawLine(transform.position, playerTransform.position, Color.red);
@@ -125,7 +127,7 @@ public class SpiderGuy : MonoBehaviour {
 
     private state GetRandomState()
     {
-        int randomIndex = Random.Range(0, 3);
+        int randomIndex = Random.Range(0, 2);
         return (state)randomIndex;
     }
 
@@ -219,12 +221,12 @@ public class SpiderGuy : MonoBehaviour {
             {
                 timeSinceLastAttack = 0;
                 if ((SpiderGuyDirection == direction.left || SpiderGuyDirection == direction.right) &&
-                    Vector2.Distance(transform.position, cavemanHealth.transform.position) < 1.8)
+                    Vector2.Distance(transform.position, cavemanHealth.transform.position) < 1.6)
                 {
                     cavemanHealth.InflictDamage(1);
                 }
                 else if ((SpiderGuyDirection == direction.up || SpiderGuyDirection == direction.down) &&
-                    Vector2.Distance(transform.position, cavemanHealth.transform.position) < 2.3)
+                    Vector2.Distance(transform.position, cavemanHealth.transform.position) < 2)
                 {
                     cavemanHealth.InflictDamage(1);
                 }
@@ -249,9 +251,14 @@ public class SpiderGuy : MonoBehaviour {
 
         chasingPlayer = true;
 
-        if(Vector2.Distance(transform.position, caveManTransform.position) < distanceToPlayer)
+        if ((SpiderGuyDirection == direction.left || SpiderGuyDirection == direction.right) &&
+                    Vector2.Distance(transform.position, cavemanHealth.transform.position) < 1.6)
         {
-            //Debug.DrawLine(transform.position, playerTransform.position, Color.red);
+            SpiderGuyState = state.attack;
+        }
+        else if ((SpiderGuyDirection == direction.up || SpiderGuyDirection == direction.down) &&
+            Vector2.Distance(transform.position, cavemanHealth.transform.position) < 2)
+        {
             SpiderGuyState = state.attack;
         }
         else
@@ -308,8 +315,15 @@ public class SpiderGuy : MonoBehaviour {
     {
         health -= damage;
         healthBar.UpdateHealthBar(health);
-        audio.clip = hit;
-        audio.Play();
+
+        GameObject obj = new GameObject();
+        AudioSource objAudio = obj.AddComponent<AudioSource>();
+        objAudio.clip = hit;
+        obj.AddComponent<DestroyOnFinishAudio>();
+        timeSinceHitByPlayer = 0;
+
+        Instantiate(obj);
+
         StartCoroutine("Blink");
 
         if(health <= 0)
