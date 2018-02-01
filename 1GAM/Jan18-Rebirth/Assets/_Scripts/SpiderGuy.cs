@@ -11,6 +11,10 @@ public class SpiderGuy : MonoBehaviour {
     public float distanceToPlayer;
     public float distanceToChasePlayer;
     public GameObject soul;
+    public AudioClip swing;
+    public AudioClip hit;
+    public AudioClip leftFoot;
+    public AudioClip rightFoot;
 
     private Animator animator;
     private float timeToChangeState;
@@ -25,11 +29,20 @@ public class SpiderGuy : MonoBehaviour {
     private Transform playerTransform = null;
     private float timeSinceLastTargetStateChange = 0;
     private float timeToChangeTargetState = 1f;
-    private int health = 10;
+    private int maxHealth;
+    private int health;
     private Rigidbody2D rb;
     private Caveman_Health cavemanHealth;
     private float timeToAttack = 1;
     private float timeSinceLastAttack = 0;
+    private HealthBar healthBar;
+    private AudioSource audio;
+
+    private void Awake()
+    {
+        maxHealth = CreateMaxHealth();
+        health = maxHealth;
+    }
 
     // Use this for initialization
     void Start ()
@@ -40,6 +53,8 @@ public class SpiderGuy : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         cavemanHealth = FindObjectOfType<Caveman_Health>();
         ChangeStates();
+        healthBar = transform.GetChild(0).GetChild(0).GetComponent<HealthBar>();
+        audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -60,6 +75,13 @@ public class SpiderGuy : MonoBehaviour {
                 TargetPlayer(playerTransform);
             }
         }
+    }
+
+    private int CreateMaxHealth()
+    {
+        const int baseCount = 10;
+        int runeCount = FindObjectOfType<ActivateRunes>().GetActiveRuneCount();
+        return baseCount + (2 * runeCount);
     }
 
     private void FixedUpdate()
@@ -159,6 +181,25 @@ public class SpiderGuy : MonoBehaviour {
                 rb.MovePosition(rb.position + down * speed * Time.fixedDeltaTime);
             }
         }
+    }
+
+
+    public void PlaySwingSound()
+    {
+        audio.clip = swing;
+        audio.Play();
+    }
+
+    public void PlayLeftFootSound()
+    {
+        audio.clip = leftFoot;
+        audio.Play();
+    }
+
+    public void PlayRightFootSound()
+    {
+        audio.clip = rightFoot;
+        audio.Play();
     }
 
     private void SetAnimations()
@@ -266,6 +307,9 @@ public class SpiderGuy : MonoBehaviour {
     public void InflictDamage(int damage)
     {
         health -= damage;
+        healthBar.UpdateHealthBar(health);
+        audio.clip = hit;
+        audio.Play();
         StartCoroutine("Blink");
 
         if(health <= 0)
@@ -363,5 +407,10 @@ public class SpiderGuy : MonoBehaviour {
             //Debug.Log("Changed states on collision");
             ChangeStates();
         }
+    }
+
+    public int GetMaxHealth()
+    {
+        return maxHealth;
     }
 }

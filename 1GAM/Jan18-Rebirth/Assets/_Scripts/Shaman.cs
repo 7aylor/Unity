@@ -9,7 +9,11 @@ public class Shaman : MonoBehaviour {
     private Exclamation exclamation;
     private ShamanDialogue dialogue;
     private Caveman_Throw cavemanThrow;
+    private AudioSource audio;
     public static bool ChangeCursor { get; set; }
+    public AudioClip talking;
+    public AudioClip summoning;
+
 
     // Use this for initialization
     void Awake () {
@@ -18,8 +22,24 @@ public class Shaman : MonoBehaviour {
         dialogue = GetComponent<ShamanDialogue>();
         cavemanThrow = FindObjectOfType<Caveman_Throw>();
         ChangeCursor = false;
+        audio = GetComponent<AudioSource>();
 	}
-	
+
+    private void Update()
+    {
+        if(animator.GetBool("Talking") == true &&  audio.isPlaying == false)
+        {
+            audio.clip = talking;
+            audio.Play();
+        }
+
+        if (animator.GetBool("Summon") == true && audio.isPlaying == false)
+        {
+            audio.clip = summoning;
+            audio.Play();
+        }
+    }
+
     public void Summon(bool enabled)
     {
         animator.SetBool("Summon", enabled);

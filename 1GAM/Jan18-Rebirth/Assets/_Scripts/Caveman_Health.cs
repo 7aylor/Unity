@@ -10,9 +10,11 @@ public class Caveman_Health : MonoBehaviour {
     private ActivateRunes runes;
     private SpriteRenderer sprite;
     private DialogueWindow dw;
-    private int startHealth = 15;
+    private int startHealth = 10;
     private int health;
     private Life_Counter life;
+    private AudioSource audio;
+    public AudioClip hitCaveman;
 
     private void Start()
     {
@@ -24,12 +26,15 @@ public class Caveman_Health : MonoBehaviour {
         sprite = GetComponent<SpriteRenderer>();
         dw = FindObjectOfType<DialogueWindow>();
         life = FindObjectOfType<Life_Counter>();
+        audio = GetComponent<AudioSource>();
     }
 
     public void InflictDamage(int damage)
     {
         health -= damage;
         life.UpdateHealthUI(health);
+        audio.clip = hitCaveman;
+        audio.Play();
         if(health <= 0)
         {
             Debug.Log("Killed played");
@@ -55,7 +60,7 @@ public class Caveman_Health : MonoBehaviour {
         }
         else
         {
-            LevelManager.instance.LoadScene("End");
+            LevelManager.instance.LoadScene("End_Lose");
         }
     }
 

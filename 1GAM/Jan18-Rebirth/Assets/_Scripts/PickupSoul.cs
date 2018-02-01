@@ -5,6 +5,7 @@ using UnityEngine;
 public class PickupSoul : MonoBehaviour {
 
     private SoulCounter soulCounter;
+    public AudioClip soulSound;
 
     private void Start()
     {
@@ -16,9 +17,14 @@ public class PickupSoul : MonoBehaviour {
         if(collision.gameObject.tag == "Player")
         {
             soulCounter.IncreaseSoulCounter();
+            GameObject obj = new GameObject();
+            obj.AddComponent<DestroyOnFinishAudio>();
+            AudioSource audio = obj.AddComponent<AudioSource>();
+            audio.clip = soulSound;
+            audio.Play();
+
             Destroy(gameObject);
             //animation
         }
     }
-
 }

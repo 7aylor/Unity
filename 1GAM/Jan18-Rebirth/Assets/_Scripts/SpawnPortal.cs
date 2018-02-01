@@ -52,7 +52,7 @@ public class SpawnPortal : MonoBehaviour {
         if(canClickPortal == true)
         {
             SetDialogueCursor(false);
-            LevelManager.instance.LoadScene("End");
+            LevelManager.instance.LoadScene("End_Win");
         }
     }
 

@@ -7,16 +7,19 @@ public class Caveman_Throw : MonoBehaviour {
 
     public GameObject rock;
     public static bool isThrowing = false;
+    public AudioClip throwSound;
 
     private Animator animator;
     private AnimatorStateInfo currentAnimation;
     private bool canThrow;
+    private AudioSource audio;
 
 	// Use this for initialization
 	void Start () {
         animator = GetComponent<Animator>();
         currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
         CanThrow(true);
+        audio = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -25,6 +28,8 @@ public class Caveman_Throw : MonoBehaviour {
         {
             isThrowing = true;
             animator.SetTrigger("Throw");
+            audio.clip = throwSound;
+            audio.Play();
         }
 	}
 

@@ -10,6 +10,8 @@ public class Caveman_Move : MonoBehaviour {
     public AnimatorOverrideController up;
     public AnimatorOverrideController horizontal;
     public AnimatorOverrideController down;
+    public AudioClip leftFoot;
+    public AudioClip rightFoot;
 
     private bool run_horiz = false;
     private bool run_down = false;
@@ -17,6 +19,7 @@ public class Caveman_Move : MonoBehaviour {
     private SpriteRenderer sprite;
     private bool run_up = false;
     private Rigidbody2D rb;
+    private AudioSource audio;
 
     // Use this for initialization
     void Start()
@@ -24,6 +27,7 @@ public class Caveman_Move : MonoBehaviour {
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        audio = GetComponent<AudioSource>();
         CavemanDirection = direction.down;
         animator.runtimeAnimatorController = down;
     }
@@ -38,6 +42,18 @@ public class Caveman_Move : MonoBehaviour {
     private void FixedUpdate()
     {
         Move();
+    }
+
+    public void PlayLeftFootSound()
+    {
+        audio.clip = leftFoot;
+        audio.Play();
+    }
+
+    public void PlayRightFootSound()
+    {
+        audio.clip = rightFoot;
+        audio.Play();
     }
 
     private void HandleRunningAnimation()
