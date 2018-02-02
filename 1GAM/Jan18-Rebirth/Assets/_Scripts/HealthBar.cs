@@ -13,6 +13,7 @@ public class HealthBar : MonoBehaviour {
         maxHealth = transform.parent.parent.GetComponent<SpiderGuy>().GetMaxHealth();
         healthBar.minValue = 1;
         healthBar.maxValue = maxHealth;
+        UpdateHealthBar(maxHealth);
 	}
 	
     public void UpdateHealthBar(int newHealth)

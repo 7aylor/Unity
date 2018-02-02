@@ -38,6 +38,7 @@ public class SpiderGuy : MonoBehaviour {
     private HealthBar healthBar;
     private AudioSource audio;
     private float timeSinceHitByPlayer = 0;
+    private float timeSinceLastCollision = 0;        
 
     private void Awake()
     {
@@ -62,6 +63,7 @@ public class SpiderGuy : MonoBehaviour {
     void Update ()
     {
         timeSinceHitByPlayer += Time.deltaTime;
+        timeSinceLastCollision += Time.deltaTime;
         CheckDistanceToPlayer();
 
         if (chasingPlayer == false && timeSinceLastStateChange >= timeToChangeState)
@@ -226,7 +228,7 @@ public class SpiderGuy : MonoBehaviour {
                     cavemanHealth.InflictDamage(1);
                 }
                 else if ((SpiderGuyDirection == direction.up || SpiderGuyDirection == direction.down) &&
-                    Vector2.Distance(transform.position, cavemanHealth.transform.position) < 2)
+                    Vector2.Distance(transform.position, cavemanHealth.transform.position) < 2.2)
                 {
                     cavemanHealth.InflictDamage(1);
                 }
@@ -257,7 +259,7 @@ public class SpiderGuy : MonoBehaviour {
             SpiderGuyState = state.attack;
         }
         else if ((SpiderGuyDirection == direction.up || SpiderGuyDirection == direction.down) &&
-            Vector2.Distance(transform.position, cavemanHealth.transform.position) < 2)
+            Vector2.Distance(transform.position, cavemanHealth.transform.position) < 2.2)
         {
             SpiderGuyState = state.attack;
         }
@@ -416,9 +418,10 @@ public class SpiderGuy : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag != "Player")
+        if(collision.gameObject.tag != "Player" && timeSinceLastCollision > 1)
         {
             //Debug.Log("Changed states on collision");
+            timeSinceLastCollision = 0;
             ChangeStates();
         }
     }
