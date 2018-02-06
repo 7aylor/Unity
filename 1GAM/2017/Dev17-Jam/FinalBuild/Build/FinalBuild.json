@@ -1,0 +1,12 @@
+{
+"TOTAL_MEMORY": 268435456,
+"dataUrl": "FinalBuild.data.unityweb",
+"asmCodeUrl": "FinalBuild.asm.code.unityweb",
+"asmMemoryUrl": "FinalBuild.asm.memory.unityweb",
+"asmFrameworkUrl": "FinalBuild.asm.framework.unityweb",
+"graphicsAPI": ["WebGL 2.0", "WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"backgroundUrl": "FinalBuild.jpg",
+"splashScreenStyle": "Dark",
+"backgroundColor": "#FFFFFF"
+}
