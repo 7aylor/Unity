@@ -13,6 +13,7 @@ public class UserInput : MonoBehaviour {
     bool canType;
     int currentCharNum = 0;
     MoneyManager moneyManager;
+    Summaries summaries;
 
     private void Awake()
     {
@@ -36,7 +37,7 @@ public class UserInput : MonoBehaviour {
             CheckNewCharacter(currentChar);
             currentCharNum++;
         }
-        else if (canType && TimeManager.currentTime <= 0)
+        else if (canType && TimeManager.currentTime <= 0 && Time.timeSinceLevelLoad > 1)
         {
             FailedTyping();
         }
@@ -57,6 +58,8 @@ public class UserInput : MonoBehaviour {
 
     private void FailedTyping()
     {
+        summaries.totalBusts++;
+        summaries.profitsToday -= Stock.Price;
         canType = false;
         Instantiate(moneyEarnedObj, transform.parent);
         MoneyEarned.successfullyTyped = false;
@@ -65,12 +68,17 @@ public class UserInput : MonoBehaviour {
 
     private void SucceededTyping()
     {
+        summaries.totalSales++;
+        summaries.profitsToday -= Stock.Price;
         canType = false;
         Instantiate(moneyEarnedObj, transform.parent);
         MoneyEarned.successfullyTyped = true;
         moneyManager.UpdateMoney(Stock.Price);
     }
 
+    /// <summary>
+    /// Resets all of the necessary fields. Called from Time Manager
+    /// </summary>
     public void StartNewRound()
     {
         currentCharNum = 0;

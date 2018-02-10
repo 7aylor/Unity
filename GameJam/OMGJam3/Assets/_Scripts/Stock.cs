@@ -57,6 +57,9 @@ public class Stock : MonoBehaviour {
         return Random.Range(100, 1001);
     }
 
+    /// <summary>
+    /// Resets the stock name and updates text, increase the stocksoldnum. Called from TimeManager
+    /// </summary>
     public void StartNewRound()
     {
         NewStockName();

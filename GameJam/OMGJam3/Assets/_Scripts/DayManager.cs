@@ -10,6 +10,7 @@ public class DayManager : MonoBehaviour {
     Text dayText;
     int day;
     TimeManager timeManager;
+    Summaries summaries;
 
     private void Awake()
     {
@@ -32,6 +33,7 @@ public class DayManager : MonoBehaviour {
     public void IncreaseDay()
     {
         day++;
+        summaries.totalDaysBeforeBankruptcy++;
         UpdateDayText();
         if(TimeManager.maxTime > 1)
         {
@@ -40,5 +42,6 @@ public class DayManager : MonoBehaviour {
 
         //enable Summary
         summary.SetActive(true);
+        summaries.profitsToday = 0;
     }
 }

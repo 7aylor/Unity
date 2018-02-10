@@ -1,9 +1,12 @@
 fileFormatVersion: 2
-guid: ba121db4be9e66e42955390e608506f6
-timeCreated: 1518210442
+guid: 75fc99ddc306626459d834a88b0028bf
+timeCreated: 1518291162
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: snowglobe animation_0
+    21300002: snowglobe animation_1
+    21300004: snowglobe animation_2
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -31,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 2
     aniso: -1
     mipBias: -1
     wrapU: 1
@@ -40,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -108,7 +111,49 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: snowglobe animation_0
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 61
+        width: 1317
+        height: 1323
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: snowglobe animation_1
+      rect:
+        serializedVersion: 2
+        x: 1783
+        y: 61
+        width: 1318
+        height: 1323
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: snowglobe animation_2
+      rect:
+        serializedVersion: 2
+        x: 3445
+        y: 61
+        width: 1320
+        height: 1323
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
     outline: []
     physicsShape: []
   spritePackingTag: 

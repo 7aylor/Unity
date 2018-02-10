@@ -8,21 +8,22 @@ public class MoneyManager : MonoBehaviour {
 
     int money;
     Text moneyText;
+    Summaries summaries;
 
 	// Use this for initialization
 	void Start () {
         moneyText = GetComponent<Text>();
-        money = 10000;
+        money = 3000;
+        summaries.highestEarnings = money;
         UpdateMoneyText();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
     public void UpdateMoney(int additionalAmount)
     {
+        if(money > summaries.highestEarnings)
+        {
+            summaries.highestEarnings = money;
+        }
         money += additionalAmount;
         UpdateMoneyText();
     }

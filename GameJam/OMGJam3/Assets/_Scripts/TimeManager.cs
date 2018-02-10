@@ -40,14 +40,11 @@ public class TimeManager : MonoBehaviour {
             }
             UpdateTimerText();
         }
-        else if(currentTime <= 0)
+        else if(timerStarted && currentTime <= 0)
         {
             timerStarted = false;
             currentTime = maxTime;
-            if(StocksSoldManager.stocksSold < StocksSoldManager.maxTransactionsPerDay)
-            {
-                StartCoroutine("WaitForNewRound");
-            }
+            StartCoroutine("WaitForNewRound");
         }
 	}
 
@@ -70,8 +67,11 @@ public class TimeManager : MonoBehaviour {
     public void StartNewRound()
     {
         userInput.StartNewRound();
+        if (StocksSoldManager.stocksSold < StocksSoldManager.maxTransactionsPerDay)
+        {
+            StartTimer();
+        }
         stock.StartNewRound();
-        StartTimer();
     }
 
     public void FasterTimer()

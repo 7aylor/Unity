@@ -10,6 +10,7 @@ public class StocksSoldManager : MonoBehaviour {
     public static int stocksSold { get; set; }
     public static int maxTransactionsPerDay { get; set; }
     DayManager dayManager;
+    Summaries summaries;
 
     private void Awake()
     {
@@ -33,6 +34,7 @@ public class StocksSoldManager : MonoBehaviour {
     public void IncreaseStocksSold()
     {
         stocksSold++;
+        summaries.totalTransactions++;
         if(stocksSold >= maxTransactionsPerDay)
         {
             stocksSold = 0;
