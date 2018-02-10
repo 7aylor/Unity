@@ -10,7 +10,7 @@ public class TimeManager : MonoBehaviour {
     public static float currentTime { get; set; }
     bool timerStarted = false;
     Text timerText;
-    float maxTime = 2;
+    public static float maxTime { get; set; }
     UserInput userInput;
     Stock stock;
 
@@ -25,6 +25,7 @@ public class TimeManager : MonoBehaviour {
     private void Start()
     {
         StartTimer();
+        maxTime = 2;
     }
 
     // Update is called once per frame
@@ -43,7 +44,10 @@ public class TimeManager : MonoBehaviour {
         {
             timerStarted = false;
             currentTime = maxTime;
-            StartCoroutine("WaitForNewRound");
+            if(StocksSoldManager.stocksSold < StocksSoldManager.maxTransactionsPerDay)
+            {
+                StartCoroutine("WaitForNewRound");
+            }
         }
 	}
 
@@ -54,7 +58,7 @@ public class TimeManager : MonoBehaviour {
 
     public void UpdateTimerText()
     {
-        timerText.text = currentTime.ToString();
+        timerText.text = (Mathf.Round(currentTime * 10) / 10f).ToString();
     } 
 
     private IEnumerator WaitForNewRound()
@@ -63,10 +67,17 @@ public class TimeManager : MonoBehaviour {
         StartNewRound();
     }
 
-    private void StartNewRound()
+    public void StartNewRound()
     {
         userInput.StartNewRound();
         stock.StartNewRound();
         StartTimer();
+    }
+
+    public void FasterTimer()
+    {
+        timerStarted = false;
+        maxTime -= 0.1f;
+        currentTime = maxTime;
     }
 }

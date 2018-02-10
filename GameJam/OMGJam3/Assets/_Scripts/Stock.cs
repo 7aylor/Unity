@@ -9,10 +9,12 @@ public class Stock : MonoBehaviour {
     public static string Name { get; set; }
     public static int Price { get; set; }
     Text stockNameText;
+    StocksSoldManager stocksSold;
 
 	// Use this for initialization
 	void Awake () {
         stockNameText = GetComponent<Text>();
+        stocksSold = FindObjectOfType<StocksSoldManager>();
         NewStockName();
         Price = GetRandomPrice();
 	}
@@ -58,5 +60,6 @@ public class Stock : MonoBehaviour {
     public void StartNewRound()
     {
         NewStockName();
+        stocksSold.IncreaseStocksSold();
     }
 }
