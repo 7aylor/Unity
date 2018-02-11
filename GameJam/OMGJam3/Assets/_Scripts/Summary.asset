@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08ad7df3e70cd6a4aa20c509c800726b, type: 3}
+  m_Name: Summary
+  m_EditorClassIdentifier: 
+  highestEarnings: 3000
+  profitsToday: 0
+  salesToday: 0
+  bustsToday: 0
+  transactionsToday: 0
+  totalDaysBeforeBankruptcy: 5
+  totalTransactions: 12
+  totalSales: 4
+  totalBusts: 4

@@ -6,11 +6,12 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Text))]
 public class TimeManager : MonoBehaviour {
 
-
+    public Summaries summaries;
+    public Difficulty difficulty;
     public static float currentTime { get; set; }
-    bool timerStarted = false;
+    bool timerStarted;
     Text timerText;
-    public static float maxTime { get; set; }
+    [SerializeField] public static float maxTime { get; set; }
     UserInput userInput;
     Stock stock;
 
@@ -24,8 +25,10 @@ public class TimeManager : MonoBehaviour {
 
     private void Start()
     {
-        StartTimer();
-        maxTime = 2;
+        timerStarted = false;
+        maxTime = difficulty.maxTime;
+        timerText.text = 0.ToString();
+        StartCoroutine("WaitForNewRound");
     }
 
     // Update is called once per frame
@@ -36,20 +39,17 @@ public class TimeManager : MonoBehaviour {
             currentTime -= Time.deltaTime;
             if(currentTime <= 0)
             {
+                timerStarted = false;
                 currentTime = 0;
+                StartCoroutine("WaitForNewRound");
             }
             UpdateTimerText();
-        }
-        else if(timerStarted && currentTime <= 0)
-        {
-            timerStarted = false;
-            currentTime = maxTime;
-            StartCoroutine("WaitForNewRound");
         }
 	}
 
     public void StartTimer()
     {
+        currentTime = maxTime;
         timerStarted = true;
     }
 
@@ -66,11 +66,13 @@ public class TimeManager : MonoBehaviour {
 
     public void StartNewRound()
     {
-        userInput.StartNewRound();
-        if (StocksSoldManager.stocksSold < StocksSoldManager.maxTransactionsPerDay)
+        Debug.Log("StartNewRound in TimeManager");
+
+        if (summaries.transactionsToday < StocksSoldManager.maxTransactionsPerDay)
         {
             StartTimer();
         }
+        userInput.StartNewRound();
         stock.StartNewRound();
     }
 

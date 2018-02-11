@@ -7,34 +7,31 @@ using UnityEngine.UI;
 public class DayManager : MonoBehaviour {
 
     public GameObject summary;
+    public Summaries summaries;
     Text dayText;
-    int day;
     TimeManager timeManager;
-    Summaries summaries;
+    DailyStats dailyStats;
 
     private void Awake()
     {
         //summary.SetActive(false);
         dayText = GetComponent<Text>();
         timeManager = FindObjectOfType<TimeManager>();
+        dailyStats = summary.GetComponentInChildren<DailyStats>();
     }
 
     // Use this for initialization
     void Start () {
-        day = 1;
         UpdateDayText();
 	}
 
     private void UpdateDayText()
     {
-        dayText.text = "Day" + day.ToString();
+        dayText.text = "Day" + summaries.totalDaysBeforeBankruptcy.ToString();
     }
 
     public void IncreaseDay()
     {
-        day++;
-        summaries.totalDaysBeforeBankruptcy++;
-        UpdateDayText();
         if(TimeManager.maxTime > 1)
         {
             timeManager.FasterTimer();
@@ -42,6 +39,8 @@ public class DayManager : MonoBehaviour {
 
         //enable Summary
         summary.SetActive(true);
-        summaries.profitsToday = 0;
+        dailyStats.UpdateStatsText();
+        summaries.totalDaysBeforeBankruptcy++;
+        UpdateDayText();
     }
 }

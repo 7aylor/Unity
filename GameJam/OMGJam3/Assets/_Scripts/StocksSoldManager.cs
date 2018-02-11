@@ -6,11 +6,11 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Text))]
 public class StocksSoldManager : MonoBehaviour {
 
-    Text stocksSoldText;
-    public static int stocksSold { get; set; }
-    public static int maxTransactionsPerDay { get; set; }
+    public Summaries summaries;
+    public Difficulty difficulty;
+    [SerializeField] public static int maxTransactionsPerDay { get; set; }
     DayManager dayManager;
-    Summaries summaries;
+    Text stocksSoldText;
 
     private void Awake()
     {
@@ -21,25 +21,26 @@ public class StocksSoldManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        stocksSold = 0;
-        maxTransactionsPerDay = 3;
+        maxTransactionsPerDay = difficulty.numRounds;
         UpdateStocksSoldText();
 	}
 
     private void UpdateStocksSoldText()
     {
-        stocksSoldText.text = "Stocks Sold: " + stocksSold.ToString();
+        stocksSoldText.text = "Stocks Sold: " + summaries.transactionsToday.ToString();
     }
 
     public void IncreaseStocksSold()
     {
-        stocksSold++;
-        summaries.totalTransactions++;
-        if(stocksSold >= maxTransactionsPerDay)
+        if(summaries.transactionsToday >= maxTransactionsPerDay)
         {
-            stocksSold = 0;
             dayManager.IncreaseDay();
         }
-        UpdateStocksSoldText();
+        else
+        {
+            UpdateStocksSoldText();
+            summaries.totalTransactions++;
+            summaries.transactionsToday++;
+        }
     }
 }

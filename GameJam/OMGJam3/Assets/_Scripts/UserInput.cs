@@ -7,24 +7,27 @@ using UnityEngine.UI;
 public class UserInput : MonoBehaviour {
 
     public GameObject moneyEarnedObj;
+    public Summaries summaries;
 
     [SerializeField]string typedInput;
     Text typedText;
     bool canType;
     int currentCharNum = 0;
     MoneyManager moneyManager;
-    Summaries summaries;
+    Color startColor;
+    
 
     private void Awake()
     {
         moneyManager = FindObjectOfType<MoneyManager>();
         typedText = GetComponent<Text>();
+        startColor = typedText.color;
     }
 
     // Use this for initialization
     void Start () {
-        typedInput = "";
-        canType = true;
+        canType = false;
+        typedText.text = "";
 	}
 	
 	// Update is called once per frame
@@ -59,8 +62,10 @@ public class UserInput : MonoBehaviour {
     private void FailedTyping()
     {
         summaries.totalBusts++;
+        summaries.bustsToday++;
         summaries.profitsToday -= Stock.Price;
         canType = false;
+        typedText.color = Color.red;
         Instantiate(moneyEarnedObj, transform.parent);
         MoneyEarned.successfullyTyped = false;
         moneyManager.UpdateMoney(-Stock.Price);
@@ -69,8 +74,10 @@ public class UserInput : MonoBehaviour {
     private void SucceededTyping()
     {
         summaries.totalSales++;
-        summaries.profitsToday -= Stock.Price;
+        summaries.salesToday++;
+        summaries.profitsToday += Stock.Price;
         canType = false;
+        typedText.color = Color.green;
         Instantiate(moneyEarnedObj, transform.parent);
         MoneyEarned.successfullyTyped = true;
         moneyManager.UpdateMoney(Stock.Price);
@@ -84,6 +91,7 @@ public class UserInput : MonoBehaviour {
         currentCharNum = 0;
         typedInput = "";
         typedText.text = "";
+        typedText.color = startColor;
         canType = true;
     }
 }

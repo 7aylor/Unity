@@ -6,14 +6,14 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Text))]
 public class MoneyManager : MonoBehaviour {
 
+    public Summaries summaries;
     int money;
     Text moneyText;
-    Summaries summaries;
 
 	// Use this for initialization
 	void Start () {
         moneyText = GetComponent<Text>();
-        money = 3000;
+        money = 1000;
         summaries.highestEarnings = money;
         UpdateMoneyText();
 	}
@@ -26,6 +26,11 @@ public class MoneyManager : MonoBehaviour {
         }
         money += additionalAmount;
         UpdateMoneyText();
+
+        if(money <= 0)
+        {
+            LevelManager.instance.LoadScene("End");
+        }
     }
 
     public void UpdateMoneyText()

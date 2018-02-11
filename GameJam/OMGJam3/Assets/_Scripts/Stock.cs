@@ -15,25 +15,17 @@ public class Stock : MonoBehaviour {
 	void Awake () {
         stockNameText = GetComponent<Text>();
         stocksSold = FindObjectOfType<StocksSoldManager>();
-        NewStockName();
-        Price = GetRandomPrice();
 	}
-
     private void Start()
     {
-        UpdateStockText();
+        stockNameText.text = "";
     }
-
-    // Update is called once per frame
-    void Update () {
-		
-	}
 
     /// <summary>
     /// Randomly returns a stock name with 3 english letters
     /// </summary>
     /// <returns></returns>
-    private void NewStockName()
+    private void NewStock()
     {
         string possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         string stockName = "";
@@ -44,6 +36,7 @@ public class Stock : MonoBehaviour {
         }
 
         Name = stockName;
+        Price = GetRandomPrice();
         UpdateStockText();
     }
 
@@ -62,7 +55,7 @@ public class Stock : MonoBehaviour {
     /// </summary>
     public void StartNewRound()
     {
-        NewStockName();
+        NewStock();
         stocksSold.IncreaseStocksSold();
     }
 }
