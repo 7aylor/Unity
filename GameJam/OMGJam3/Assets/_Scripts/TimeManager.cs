@@ -63,6 +63,7 @@ public class TimeManager : MonoBehaviour {
 
     public IEnumerator WaitForNewRound()
     {
+        Debug.Log("Starting new Round");
         yield return new WaitForSeconds(1);
         StartNewRound();
     }

@@ -12,21 +12,18 @@ public class Tutorial : MonoBehaviour {
     Stock stock;
     UserInput userInput;
     TimeManager timeManager;
-    bool retry = false;
 
     string[] messages =
     {
-        "Welcome to Trade Typer",
+        "Welcome to Stock Market Typer!",
         "You are here to sell stocks and earn money!",
-        "A stock will appear on the screen, like this:",
+        "During the game, a stock will appear on the screen like this:",
         "Now, type the name of the stock.",
         "Nice, you've made your first sale!",
-        "Oops, you mistyped the name and botched your sale",
-        "Type as fast you can though, if time runs out, you'll botch the sale",
-        "As the game progresses, it will get faster and harder",
-        "The more money you earn, the nicer your apartment gets",
-        "How long can you make it as a stock Trader?",
-        "Now, let's get started!"
+        "Oops, you botched your sale by taking too long or mistyping. Try again!",
+        "As the game progresses, it will get faster and harder.",
+        "How long can you make it as a stock Trader before going bankrupt?",
+        "Let's get started a find out!"
     };
 
     private void Awake()
@@ -47,9 +44,10 @@ public class Tutorial : MonoBehaviour {
 
     private IEnumerator DisplayMessage()
     {
-        if(messageCount == messages.Length - 1)
+        if(messageCount == messages.Length)
         {
-            timeManager.WaitForNewRound();
+            tutorialText.text = "";
+            timeManager.StartNewRound();
             yield break;
         }
         if(messageCount == 2)
@@ -62,7 +60,7 @@ public class Tutorial : MonoBehaviour {
         }
         if(messageCount == 4)
         {
-            if (userInput.tutorialSuccess == false && retry == false)
+            if (userInput.tutorialSuccess == false)
             {
                 messageCount++;
             }
@@ -74,19 +72,22 @@ public class Tutorial : MonoBehaviour {
                 messageCount++;
             }
         }
-        //if(messageCount == 6)
-        //{
-        //    if (userInput.tutorialSuccess == false)
-        //    {
-        //        retry = true;
-        //        messageCount = 4;
-        //    }
-        //}
+        if (messageCount == 6)
+        {
+            userInput.GetComponent<Text>().text = "";
+            stock.GetComponent<Text>().text = "";
+            if (userInput.tutorialSuccess == false)
+            {
+                messageCount = 3;
+                stock.NewStock();
+                userInput.TutorialStartTyping();
+            }
+        }
 
         tutorialText.text = messages[messageCount];
 
         messageCount++;
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(4);
         StartCoroutine("DisplayMessage");
 
     }
@@ -103,6 +104,12 @@ public class Tutorial : MonoBehaviour {
         {
             yield return new WaitForEndOfFrame();
         }
+    }
+
+    public void EndTypingInTutorial()
+    {
+        StopAllCoroutines();
+        StartCoroutine("DisplayMessage");
     }
 
 }

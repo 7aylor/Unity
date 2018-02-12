@@ -29,17 +29,17 @@ struct DiffOptions
         if(difficulty == Difficulty.DifficultyOptions.Easy)
         {
             maxTime = 3f;
-            numRounds = 10;
+            numRounds = 6;
         }
         else if (difficulty == Difficulty.DifficultyOptions.Medium)
         {
             maxTime = 2f;
-            numRounds = 7;
+            numRounds = 5;
         }
         else
         {
             maxTime = 1.5f;
-            numRounds = 5;
+            numRounds = 4;
         }
     }
 

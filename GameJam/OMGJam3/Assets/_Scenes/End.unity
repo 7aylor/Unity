@@ -719,6 +719,7 @@ GameObject:
   - component: {fileID: 1269714606}
   - component: {fileID: 1269714605}
   - component: {fileID: 1269714604}
+  - component: {fileID: 1269714607}
   m_Layer: 5
   m_Name: Play Again
   m_TagString: Untagged
@@ -784,6 +785,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1269714607}
+        m_MethodName: NoTutorial
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Game
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 114274643615279418, guid: 7a8e62df8655d0e4abc780106d83a0a8,
           type: 2}
         m_MethodName: LoadScene
@@ -831,6 +843,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1269714602}
+--- !u!114 &1269714607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1269714602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f09868e9999a48844920926d5046e15a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  difficulty: {fileID: 11400000, guid: c717612576b333948b3ee2d4efb270de, type: 2}
 --- !u!1 &1360940418
 GameObject:
   m_ObjectHideFlags: 0

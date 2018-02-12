@@ -8,6 +8,8 @@ public class UserInput : MonoBehaviour {
 
     public GameObject moneyEarnedObj;
     public Summaries summaries;
+    public bool tutorialCanType = false;
+    public bool tutorialSuccess = false;
 
     [SerializeField]string typedInput;
     Text typedText;
@@ -15,16 +17,18 @@ public class UserInput : MonoBehaviour {
     int currentCharNum = 0;
     MoneyManager moneyManager;
     Color startColor;
-    public bool tutorialCanType = false;
-    public bool tutorialSuccess = false;
+    Tutorial tutorial;
+    AudioSource click;
     
     
 
     private void Awake()
     {
         moneyManager = FindObjectOfType<MoneyManager>();
+        tutorial = FindObjectOfType<Tutorial>();
         typedText = GetComponent<Text>();
         startColor = typedText.color;
+        click = GetComponent<AudioSource>();
     }
 
     // Use this for initialization
@@ -37,7 +41,7 @@ public class UserInput : MonoBehaviour {
 	void Update () {
         if(canType && Input.inputString != "" && GoodInputCharacters() == true)
         {
-            
+            click.Play();
             HandleTyping();
         }
         else if (canType && TimeManager.currentTime <= 0 && Time.timeSinceLevelLoad > 1)
@@ -47,6 +51,7 @@ public class UserInput : MonoBehaviour {
 
         if (tutorialCanType == true && GoodInputCharacters() == true)
         {
+            click.Play();
             HandleTyping();
         }
     }
@@ -93,6 +98,7 @@ public class UserInput : MonoBehaviour {
                 tutorialCanType = false;
                 typedText.color = Color.red;
                 tutorialSuccess = false;
+                tutorial.EndTypingInTutorial();
             }
             else if (currentCharNum == 2)
             {
@@ -100,6 +106,7 @@ public class UserInput : MonoBehaviour {
                 tutorialSuccess = true;
                 tutorialCanType = false;
                 typedText.color = Color.green;
+                tutorial.EndTypingInTutorial();
             }
         }
 
@@ -144,6 +151,7 @@ public class UserInput : MonoBehaviour {
 
     public void TutorialStartTyping()
     {
+        currentCharNum = 0;
         canType = false;
         tutorialCanType = true;
         typedInput = "";
