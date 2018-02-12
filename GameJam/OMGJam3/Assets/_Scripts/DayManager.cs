@@ -11,10 +11,12 @@ public class DayManager : MonoBehaviour {
     Text dayText;
     TimeManager timeManager;
     DailyStats dailyStats;
+    MoneyManager moneyManager;
 
     private void Awake()
     {
-        //summary.SetActive(false);
+        summary.SetActive(false);
+        moneyManager = FindObjectOfType<MoneyManager>();
         dayText = GetComponent<Text>();
         timeManager = FindObjectOfType<TimeManager>();
         dailyStats = summary.GetComponentInChildren<DailyStats>();
@@ -42,5 +44,6 @@ public class DayManager : MonoBehaviour {
         dailyStats.UpdateStatsText();
         summaries.totalDaysBeforeBankruptcy++;
         UpdateDayText();
+        moneyManager.UpdateScenery();
     }
 }

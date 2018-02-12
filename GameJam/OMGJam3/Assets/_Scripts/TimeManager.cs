@@ -20,20 +20,23 @@ public class TimeManager : MonoBehaviour {
         timerText = GetComponent<Text>();
         userInput = FindObjectOfType<UserInput>();
         stock = FindObjectOfType<Stock>();
-        currentTime = maxTime;
 	}
 
     private void Start()
     {
         timerStarted = false;
         maxTime = difficulty.maxTime;
+        currentTime = maxTime;
         timerText.text = 0.ToString();
-        StartCoroutine("WaitForNewRound");
+
+        if (difficulty.playTutorial == false)
+        {
+            StartCoroutine("WaitForNewRound");
+        }
     }
 
     // Update is called once per frame
     void Update () {
-
         if (timerStarted && currentTime > 0)
         {
             currentTime -= Time.deltaTime;
@@ -58,7 +61,7 @@ public class TimeManager : MonoBehaviour {
         timerText.text = (Mathf.Round(currentTime * 10) / 10f).ToString();
     } 
 
-    private IEnumerator WaitForNewRound()
+    public IEnumerator WaitForNewRound()
     {
         yield return new WaitForSeconds(1);
         StartNewRound();
@@ -67,10 +70,10 @@ public class TimeManager : MonoBehaviour {
     public void StartNewRound()
     {
         Debug.Log("StartNewRound in TimeManager");
-
+        StartTimer();
         if (summaries.transactionsToday < StocksSoldManager.maxTransactionsPerDay)
         {
-            StartTimer();
+            //StartCoroutine("WaitForNewRound");
         }
         userInput.StartNewRound();
         stock.StartNewRound();

@@ -11,5 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf7af41953554994cae574496ee6c5a8, type: 3}
   m_Name: Difficulty
   m_EditorClassIdentifier: 
-  maxTime: 2
-  numRounds: 3
+  maxTime: 3
+  numRounds: 10
+  playTutorial: 1

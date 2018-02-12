@@ -15,6 +15,9 @@ public class UserInput : MonoBehaviour {
     int currentCharNum = 0;
     MoneyManager moneyManager;
     Color startColor;
+    public bool tutorialCanType = false;
+    public bool tutorialSuccess = false;
+    
     
 
     private void Awake()
@@ -32,31 +35,74 @@ public class UserInput : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(canType && Input.inputString != "" && Input.inputString != "\n" && Input.inputString != "\b" && Input.inputString != "\r")
+        if(canType && Input.inputString != "" && GoodInputCharacters() == true)
         {
-            string currentChar = Input.inputString.ToUpper();
-            typedInput += currentChar;
-            typedText.text = typedInput;
-            CheckNewCharacter(currentChar);
-            currentCharNum++;
+            
+            HandleTyping();
         }
         else if (canType && TimeManager.currentTime <= 0 && Time.timeSinceLevelLoad > 1)
         {
             FailedTyping();
         }
-	}
+
+        if (tutorialCanType == true && GoodInputCharacters() == true)
+        {
+            HandleTyping();
+        }
+    }
+
+    private bool GoodInputCharacters()
+    {
+        if(Input.inputString != "" && Input.inputString != "\n" && Input.inputString != "\b" && Input.inputString != "\r")
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private void HandleTyping()
+    {
+        string currentChar = Input.inputString.ToUpper();
+        typedInput += currentChar;
+        typedText.text = typedInput;
+        CheckNewCharacter(currentChar);
+        currentCharNum++;
+    }
 
     private void CheckNewCharacter(string currentChar)
     {
-        if(Stock.Name[currentCharNum].ToString() != currentChar)
+        if(canType == true)
         {
-            FailedTyping();
+            if (Stock.Name[currentCharNum].ToString() != currentChar)
+            {
+                FailedTyping();
+            }
+            else if (currentCharNum == 2)
+            {
+                //start a new round?
+                SucceededTyping();
+            }
         }
-        else if(currentCharNum == 2)
+        if(tutorialCanType == true)
         {
-            //start a new round?
-            SucceededTyping();
+            if (Stock.Name[currentCharNum].ToString() != currentChar)
+            {
+                tutorialCanType = false;
+                typedText.color = Color.red;
+                tutorialSuccess = false;
+            }
+            else if (currentCharNum == 2)
+            {
+                Debug.Log("Called from UserInput");
+                tutorialSuccess = true;
+                tutorialCanType = false;
+                typedText.color = Color.green;
+            }
         }
+
     }
 
     private void FailedTyping()
@@ -93,5 +139,15 @@ public class UserInput : MonoBehaviour {
         typedText.text = "";
         typedText.color = startColor;
         canType = true;
+        tutorialCanType = false;
+    }
+
+    public void TutorialStartTyping()
+    {
+        canType = false;
+        tutorialCanType = true;
+        typedInput = "";
+        typedText.text = "";
+        typedText.color = startColor;
     }
 }

@@ -15,11 +15,16 @@ public class SceneChange : MonoBehaviour {
     public Image cup;
     public Image ledger;
 
-	// Use this for initialization
-	void Start () {
-        //EarlyGame();
-        //MidGame();
-        EndGame();
+    FadeInNightSky nightSky;
+
+    private void Awake()
+    {
+        nightSky = skylineNight.GetComponent<FadeInNightSky>();
+    }
+
+    // Use this for initialization
+    void Start () {
+        EarlyGame();
 	}
 	
     public void EarlyGame()
@@ -54,7 +59,8 @@ public class SceneChange : MonoBehaviour {
         picture.enabled = false;
         window.enabled = false;
         skyline.enabled = true;
-        skylineNight.enabled = false;
+        skylineNight.enabled = true;
+        nightSky.FadeInAlpha();
         snowGlobe.enabled = true;
         bonzai.enabled = true;
         cup.enabled = true;

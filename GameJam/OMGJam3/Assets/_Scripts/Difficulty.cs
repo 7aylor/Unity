@@ -8,6 +8,7 @@ public class Difficulty : ScriptableObject {
 
     public float maxTime;
     public int numRounds;
+    public bool playTutorial;
 
     public void SetDifficulty(DifficultyOptions difficulty)
     {

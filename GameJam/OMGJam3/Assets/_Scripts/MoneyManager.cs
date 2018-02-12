@@ -7,12 +7,18 @@ using UnityEngine.UI;
 public class MoneyManager : MonoBehaviour {
 
     public Summaries summaries;
+    SceneChange scenery;
     int money;
     Text moneyText;
 
-	// Use this for initialization
-	void Start () {
+    private void Awake()
+    {
         moneyText = GetComponent<Text>();
+        scenery = GetComponent<SceneChange>();
+    }
+
+    // Use this for initialization
+    void Start () {
         money = 1000;
         summaries.highestEarnings = money;
         UpdateMoneyText();
@@ -38,4 +44,20 @@ public class MoneyManager : MonoBehaviour {
         moneyText.text = "$" + money.ToString();
     }
 
+    public void UpdateScenery()
+    {
+        if (money < 2000)
+        {
+            scenery.EarlyGame();
+        }
+        else if (money < 4000)
+        {
+            scenery.MidGame();
+
+        }
+        else
+        {
+            scenery.EndGame();
+        }
+    }
 }

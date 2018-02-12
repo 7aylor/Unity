@@ -25,7 +25,7 @@ public class Stock : MonoBehaviour {
     /// Randomly returns a stock name with 3 english letters
     /// </summary>
     /// <returns></returns>
-    private void NewStock()
+    public void NewStock()
     {
         string possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         string stockName = "";
