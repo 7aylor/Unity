@@ -6,6 +6,7 @@ public class BetterJump : MonoBehaviour {
 
     private float fallMultiplyer = 2.5f;
     private float lowJumpMultiplyer = 2f;
+    private float fallHarder = 4f;
     private Rigidbody2D rb;
 
 	// Use this for initialization
@@ -23,5 +24,11 @@ public class BetterJump : MonoBehaviour {
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplyer - 1) * Time.deltaTime;
         }
-	}
+
+        //down
+        if (Input.GetAxis("Vertical") < 0)
+        {
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (fallHarder - 1) * Time.deltaTime; ;
+        }
+    }
 }

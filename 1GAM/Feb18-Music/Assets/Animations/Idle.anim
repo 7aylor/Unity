@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Jump
+  m_Name: Idle
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -19,7 +19,7 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: c44c37c881f1eed49b30a6883ba64a79, type: 3}
+      value: {fileID: 21300000, guid: 9107264b2f7a30547b5ebb90f4355e0e, type: 3}
     - time: 1
       value: {fileID: 21300000, guid: cf3af6555227efe449c66e92fefc7537, type: 3}
     attribute: m_Sprite
@@ -41,7 +41,7 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: c44c37c881f1eed49b30a6883ba64a79, type: 3}
+    - {fileID: 21300000, guid: 9107264b2f7a30547b5ebb90f4355e0e, type: 3}
     - {fileID: 21300000, guid: cf3af6555227efe449c66e92fefc7537, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2

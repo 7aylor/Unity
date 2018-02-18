@@ -11,6 +11,10 @@ public class Jump : MonoBehaviour {
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void Start()
+    {
         jumpCount = 0;
     }
 
