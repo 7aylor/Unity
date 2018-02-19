@@ -5,12 +5,16 @@ using UnityEngine;
 public class Key : MonoBehaviour {
 
     public float speed = 0.001f;
+    public bool changePitchbyHeight;
     private AudioSource note;
 
     private void Awake()
     {
         note = GetComponent<AudioSource>();
-        ChangePitch();
+        if(changePitchbyHeight == true)
+        {
+            ChangePitch();
+        }
     }
 
     // Update is called once per frame
@@ -25,7 +29,7 @@ public class Key : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Play Sound");
+        AudioManager.instance.AddNoteToSong(note.clip, note.pitch, Time.timeSinceLevelLoad);
         note.Play();
     }
 

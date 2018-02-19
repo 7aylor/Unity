@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class KeySpawnManager : MonoBehaviour {
 
-    private float spawnSpeed;
+    [Range(1, 4)]
+    public float spawnSpeed;
     private float timeSinceLastSpawn;
 
 	// Use this for initialization
 	void Start () {
-        spawnSpeed = 2;
         timeSinceLastSpawn = 0;
 	}
 	
