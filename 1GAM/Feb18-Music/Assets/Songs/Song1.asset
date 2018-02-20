@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 886157ea8702fb140acc19bf9ec4f77f, type: 3}
+  m_Name: Song1
+  m_EditorClassIdentifier: 
+  bassClips:
+  - {fileID: 8300000, guid: b0d3a338ef5e83f4b8afd8d2a5d9f89a, type: 3}
+  - {fileID: 8300000, guid: 757bfdbd3f235bf42abae73bbc337677, type: 3}
+  drumClips:
+  - {fileID: 8300000, guid: 09a20bb0eb064484088c8a3bd5c754e3, type: 3}
+  - {fileID: 8300000, guid: 7777e653f50f57342813bdbec24bca65, type: 3}
+  - {fileID: 8300000, guid: 09a20bb0eb064484088c8a3bd5c754e3, type: 3}
+  - {fileID: 8300000, guid: c2d5f7a2686b4244086e12c81e53895a, type: 3}
+  leadClips:
+  - {fileID: 8300000, guid: 1ee15edaada79ed4ca249affe1a0e3a6, type: 3}
+  - {fileID: 8300000, guid: 384d679974e67bf498a106ed75337abe, type: 3}
+  - {fileID: 8300000, guid: 1ee15edaada79ed4ca249affe1a0e3a6, type: 3}
+  - {fileID: 8300000, guid: d3189de7c41c617408470630220a6ac2, type: 3}
+  instrumentNames:
+  - Bass
+  - Drums
+  - Lead
