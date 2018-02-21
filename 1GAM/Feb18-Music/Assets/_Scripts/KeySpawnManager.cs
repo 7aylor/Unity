@@ -17,7 +17,8 @@ public class KeySpawnManager : MonoBehaviour {
 	void Update () {
 		if(timeSinceLastSpawn >= spawnSpeed)
         {
-            transform.GetChild(PickRandomSpawner()).GetComponent<SpawnKeys>().Spawn();
+            //transform.GetChild(PickRandomSpawner()).GetComponent<SpawnKeys>().Spawn();
+            SpawnFromRandomSpawner();
             timeSinceLastSpawn = 0;
         }
         else
@@ -26,8 +27,24 @@ public class KeySpawnManager : MonoBehaviour {
         }
     }
 
-    private int PickRandomSpawner()
+    private void SpawnFromRandomSpawner()
     {
-        return Random.Range(0, transform.childCount);
+        Dictionary<int, GameObject> activeSpawners = new Dictionary<int, GameObject>();
+
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            GameObject spawner = transform.GetChild(i).gameObject;
+            if (spawner.activeInHierarchy)
+            {
+                activeSpawners.Add(i, spawner);
+            }
+        }
+
+
+        ///This needs to be fixed
+        activeSpawners[Random.Range(0, activeSpawners.Count)].GetComponent<SpawnKeys>().Spawn();
+
+        Debug.Log(activeSpawners[Random.Range(0, activeSpawners.Count)]);
+
     }
 }
