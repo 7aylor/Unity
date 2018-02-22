@@ -6,11 +6,12 @@ public class Key : MonoBehaviour {
 
     public float speed = 0.001f;
     public bool changePitchbyHeight;
-    private AudioSource note;
+    private AudioSource parentClip;
 
     private void Awake()
     {
-        note = GetComponent<AudioSource>();
+        parentClip = transform.parent.GetComponent<AudioSource>();
+
         if(changePitchbyHeight == true)
         {
             ChangePitch();
@@ -29,14 +30,14 @@ public class Key : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        AudioManager.instance.AddNoteToSong(note.clip, note.pitch, Time.timeSinceLevelLoad);
-        note.Play();
+        AudioManager.instance.AddNoteToSong(parentClip.clip, parentClip.pitch, Time.timeSinceLevelLoad);
+        parentClip.Play();
     }
 
     private void ChangePitch()
     {
         Debug.Log(Camera.main.WorldToScreenPoint(transform.position).y * 0.005f);
 
-        note.pitch = Camera.main.WorldToScreenPoint(transform.position).y * 0.005f;
+        parentClip.pitch = Camera.main.WorldToScreenPoint(transform.position).y * 0.005f;
     }
 }

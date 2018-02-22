@@ -17,7 +17,7 @@ public class InstrumentPanel : MonoBehaviour {
     private void Awake()
     {
         SetTime(0);
-        song.instrumentIndex = 0;
+        song.phraseIndex = 0;
         instrumentName = transform.GetComponentInChildren<Text>();
         audioSources = GetComponents<AudioSource>();
         instrumentImagePanel = transform.GetChild(0);
@@ -29,17 +29,16 @@ public class InstrumentPanel : MonoBehaviour {
     void Start ()
     {
 
-        instrumentName.text = song.instrumentNames[song.instrumentIndex];
+        instrumentName.text = song.phraseNames[song.phraseIndex];
 
         AddKeysToPanel();
         ConfigureKeysAndSpawners();
-
         StartPlayClips();
     }
 
     private void AddKeysToPanel()
     {
-        for (int i = 0; i < song.instruments[song.instrumentIndex].Count; i++)
+        for (int i = 0; i < song.phrases[song.phraseIndex].Count; i++)
         {
             keys.Add(Instantiate(keyImage, instrumentImagePanel));
         }
@@ -48,15 +47,20 @@ public class InstrumentPanel : MonoBehaviour {
     private void ConfigureKeysAndSpawners()
     {
         int numSpawners = keySpawner.transform.childCount;
+        int countOfUsedClips = 0;
         for (int i = 0; i < numSpawners; i++)
         {
+            GameObject child = keySpawner.transform.GetChild(i).gameObject;
+
             //number of spawners / number of clips for this instrument
-            if((i + 1) % (numSpawners/song.instruments[song.instrumentIndex].Count) != 0)
+            if (i % (Mathf.Ceil((float)numSpawners / song.phrases[song.phraseIndex].Count)) != 0)
             {
-                keySpawner.transform.GetChild(i).gameObject.SetActive(false);
+                child.SetActive(false);
             }
             else
             {
+                child.GetComponent<AudioSource>().clip = song.phrases[song.phraseIndex][countOfUsedClips];
+                countOfUsedClips++;
                 Debug.Log("Spawner " + i + " left active");
             }
         }
@@ -70,10 +74,10 @@ public class InstrumentPanel : MonoBehaviour {
     private IEnumerator PlayClips()
     {
         int clipIndex = 0;
-        for(int i = 0; i < song.instruments[song.instrumentIndex].Count; i++)
+        for(int i = 0; i < song.phrases[song.phraseIndex].Count; i++)
         {
             Debug.Log("Playing clip " + (clipIndex + 1));
-            AudioClip clip = song.instruments[song.instrumentIndex][clipIndex];
+            AudioClip clip = song.phrases[song.phraseIndex][clipIndex];
 
             Image keyImage = keys[clipIndex].GetComponent<Image>();
             keyImage.color = Color.red;

@@ -29,22 +29,15 @@ public class KeySpawnManager : MonoBehaviour {
 
     private void SpawnFromRandomSpawner()
     {
-        Dictionary<int, GameObject> activeSpawners = new Dictionary<int, GameObject>();
-
-        for(int i = 0; i < transform.childCount; i++)
+        List<Transform> actives = new List<Transform>();
+        foreach (Transform child in transform)
         {
-            GameObject spawner = transform.GetChild(i).gameObject;
-            if (spawner.activeInHierarchy)
+            if (child.gameObject.activeSelf == true)
             {
-                activeSpawners.Add(i, spawner);
+                actives.Add(child);
             }
         }
 
-
-        ///This needs to be fixed
-        activeSpawners[Random.Range(0, activeSpawners.Count)].GetComponent<SpawnKeys>().Spawn();
-
-        Debug.Log(activeSpawners[Random.Range(0, activeSpawners.Count)]);
-
+        actives[Random.Range(0, actives.Count)].GetComponent<SpawnKeys>().Spawn();
     }
 }

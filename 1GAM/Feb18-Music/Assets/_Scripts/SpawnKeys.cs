@@ -8,7 +8,6 @@ public class SpawnKeys : MonoBehaviour {
 
     public void Spawn()
     {
-        Instantiate(key, transform.position, Quaternion.identity);
+        GameObject newKey = Instantiate(key, transform, false);
     }
-
 }
