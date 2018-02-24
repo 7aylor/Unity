@@ -11,24 +11,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 886157ea8702fb140acc19bf9ec4f77f, type: 3}
   m_Name: Song1
   m_EditorClassIdentifier: 
-  phrase1:
-  - {fileID: 8300000, guid: 34981740352beb54b90fe6733f27a332, type: 3}
-  - {fileID: 8300000, guid: 09a20bb0eb064484088c8a3bd5c754e3, type: 3}
-  - {fileID: 8300000, guid: 1ee15edaada79ed4ca249affe1a0e3a6, type: 3}
-  phrase2:
-  - {fileID: 8300000, guid: 757bfdbd3f235bf42abae73bbc337677, type: 3}
-  - {fileID: 8300000, guid: 7777e653f50f57342813bdbec24bca65, type: 3}
-  - {fileID: 8300000, guid: 384d679974e67bf498a106ed75337abe, type: 3}
-  phrase3:
-  - {fileID: 8300000, guid: 34981740352beb54b90fe6733f27a332, type: 3}
-  - {fileID: 8300000, guid: 09a20bb0eb064484088c8a3bd5c754e3, type: 3}
-  - {fileID: 8300000, guid: 1ee15edaada79ed4ca249affe1a0e3a6, type: 3}
-  phrase4:
-  - {fileID: 8300000, guid: 757bfdbd3f235bf42abae73bbc337677, type: 3}
-  - {fileID: 8300000, guid: c2d5f7a2686b4244086e12c81e53895a, type: 3}
-  - {fileID: 8300000, guid: d3189de7c41c617408470630220a6ac2, type: 3}
-  phraseNames:
-  - Phrase1
-  - Phrase2
-  - Phrase3
-  - Phrase4
+  fullInstrumentClips:
+  - {fileID: 8300000, guid: 1160b052447d6274dba90783e7219512, type: 3}
+  - {fileID: 8300000, guid: 7f107e92d854e534db5394d7dc30c43c, type: 3}
+  - {fileID: 8300000, guid: e8d231d325d8823449c646b8b76b5d1c, type: 3}
+  bassClips:
+  - {fileID: 8300000, guid: b2712e0dbc2018040bb343134d334296, type: 3}
+  - {fileID: 8300000, guid: 54b2b8273b20e654e93e57e923d532d4, type: 3}
+  - {fileID: 8300000, guid: b2712e0dbc2018040bb343134d334296, type: 3}
+  - {fileID: 8300000, guid: 54b2b8273b20e654e93e57e923d532d4, type: 3}
+  drumClips:
+  - {fileID: 8300000, guid: a85f9de3e8d19494d8d655be0b51a9eb, type: 3}
+  - {fileID: 8300000, guid: e9d8784d4f735924089c4fb52afb1982, type: 3}
+  - {fileID: 8300000, guid: a85f9de3e8d19494d8d655be0b51a9eb, type: 3}
+  - {fileID: 8300000, guid: 8a1bf520e765a204ba2a16be30285d0e, type: 3}
+  leadClips:
+  - {fileID: 8300000, guid: fdfc5baa18ec4294eb0296f9c8e893a5, type: 3}
+  - {fileID: 8300000, guid: b23a722df64bb784a8f1c384c143702f, type: 3}
+  - {fileID: 8300000, guid: fdfc5baa18ec4294eb0296f9c8e893a5, type: 3}
+  - {fileID: 8300000, guid: f144612621911544e8e46d47d1c18b76, type: 3}
+  songName: Song 1
+  songIndex: 0
