@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class InstrumentPanel : MonoBehaviour {
 
-    public SO.Song song;
     public GameObject keyImage;
+    private SO.Song currentSong;
     private Transform instrumentImagePanel;
     private AudioSource[] audioSources;
     private int numKeys;
@@ -17,7 +17,8 @@ public class InstrumentPanel : MonoBehaviour {
     private void Awake()
     {
         SetTime(0);
-        song.instrumentIndex = 0;
+        currentSong = FindObjectOfType<AudioManager>().currentSong;
+        currentSong.instrumentIndex = 0;
         instrumentName = transform.GetComponentInChildren<Text>();
         audioSources = GetComponents<AudioSource>();
         instrumentImagePanel = transform.GetChild(0);
@@ -29,7 +30,7 @@ public class InstrumentPanel : MonoBehaviour {
     void Start ()
     {
 
-        instrumentName.text = song.songName;
+        instrumentName.text = currentSong.songName;
 
         AddKeysToPanel();
         ConfigureKeysAndSpawners();
@@ -38,7 +39,7 @@ public class InstrumentPanel : MonoBehaviour {
 
     private void AddKeysToPanel()
     {
-        for (int i = 0; i < song.fullInstrumentClips.Count; i++)
+        for (int i = 0; i < currentSong.fullInstrumentClips.Count; i++)
         {
             keys.Add(Instantiate(keyImage, instrumentImagePanel));
         }
@@ -53,13 +54,13 @@ public class InstrumentPanel : MonoBehaviour {
             GameObject child = keySpawner.transform.GetChild(i).gameObject;
 
             //number of spawners / number of clips for this instrument
-            if (i % (Mathf.Ceil((float)numSpawners / song.instruments.Count)) != 0)
+            if (i % (Mathf.Ceil((float)numSpawners / currentSong.instruments.Count)) != 0)
             {
                 child.SetActive(false);
             }
             else
             {
-                child.GetComponent<AudioSource>().clip = song.instruments[countOfUsedClips][0];
+                child.GetComponent<AudioSource>().clip = currentSong.instruments[countOfUsedClips][0];
 
                 switch (countOfUsedClips)
                 {
@@ -88,10 +89,10 @@ public class InstrumentPanel : MonoBehaviour {
     private IEnumerator PlayClips()
     {
         int clipIndex = 0;
-        for(int i = 0; i < song.fullInstrumentClips.Count; i++)
+        for(int i = 0; i < currentSong.fullInstrumentClips.Count; i++)
         {
             Debug.Log("Playing clip " + (clipIndex + 1));
-            AudioClip clip = song.fullInstrumentClips[i];
+            AudioClip clip = currentSong.fullInstrumentClips[i];
 
             Image keyImage = keys[clipIndex].GetComponent<Image>();
             keyImage.color = Color.red;

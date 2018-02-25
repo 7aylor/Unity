@@ -28,10 +28,22 @@ public class Key : MonoBehaviour {
         transform.Translate(Vector2.left * speed);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        AudioManager.instance.AddNoteToSong(parentClip.clip, parentClip.pitch, Time.timeSinceLevelLoad);
-        parentClip.Play();
+        if(collision.gameObject.layer == 9)
+        {
+            AudioManager.instance.AddNoteToSong(parentClip.clip, parentClip.pitch, Time.timeSinceLevelLoad);
+            if (parentClip.isPlaying == false)
+            {
+                transform.parent.GetComponent<SpawnKeys>().UpdateAudioClip();
+            }
+            else
+            {
+                transform.parent.GetComponent<SpawnKeys>().ResetSlidersToLastCheckPoint();
+            }
+
+            parentClip.Play();
+        }
     }
 
     private void ChangePitch()

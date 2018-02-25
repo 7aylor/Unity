@@ -5,6 +5,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour {
 
     private bool isRecording;
+    public SO.Song currentSong;
     private Song song;
     private AudioSource[] audioSources;
 
@@ -162,8 +163,8 @@ public class Note
         timeStamp = timePlayed;
         noteIndex = index;
 
-        Debug.Log("Successfully Added clip to song: Clip-" + sound.name + 
-                  " Pitch-" + pitch + " Time Stamp-" + timeStamp + " Index-" + index);
+        //Debug.Log("Successfully Added clip to song: Clip-" + sound.name + 
+        //          " Pitch-" + pitch + " Time Stamp-" + timeStamp + " Index-" + index);
 
     }
 }
