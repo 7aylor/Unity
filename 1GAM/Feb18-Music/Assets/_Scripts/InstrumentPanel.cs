@@ -13,6 +13,7 @@ public class InstrumentPanel : MonoBehaviour {
     private List<GameObject> keys;
     private Text instrumentName;
     private KeySpawnManager keySpawner;
+    private InstrumentImages instrumentImages;
 
     private void Awake()
     {
@@ -24,6 +25,7 @@ public class InstrumentPanel : MonoBehaviour {
         instrumentImagePanel = transform.GetChild(0);
         keys = new List<GameObject>();
         keySpawner = FindObjectOfType<KeySpawnManager>();
+        instrumentImages = GetComponentInChildren<InstrumentImages>();
     }
 
     // Use this for initialization
@@ -91,6 +93,7 @@ public class InstrumentPanel : MonoBehaviour {
         int clipIndex = 0;
         for(int i = 0; i < currentSong.fullInstrumentClips.Count; i++)
         {
+            instrumentImages.UseNextInstrumentHighlightedImage();
             Debug.Log("Playing clip " + (clipIndex + 1));
             AudioClip clip = currentSong.fullInstrumentClips[i];
 
@@ -114,6 +117,7 @@ public class InstrumentPanel : MonoBehaviour {
             clipIndex++;
         }
 
+        instrumentImages.UseNextInstrumentHighlightedImage();
         //song.instrumentIndex++;
     }
 

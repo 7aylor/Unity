@@ -7,12 +7,14 @@ public class Key : MonoBehaviour {
     public float speed = 0.001f;
     public bool changePitchbyHeight;
     private AudioSource parentClip;
+    private SpawnKeys parentSpawner;
 
     private void Awake()
     {
         parentClip = transform.parent.GetComponent<AudioSource>();
+        parentSpawner = transform.parent.GetComponent<SpawnKeys>();
 
-        if(changePitchbyHeight == true)
+        if (changePitchbyHeight == true)
         {
             ChangePitch();
         }
@@ -33,15 +35,12 @@ public class Key : MonoBehaviour {
         if(collision.gameObject.layer == 9)
         {
             AudioManager.instance.AddNoteToSong(parentClip.clip, parentClip.pitch, Time.timeSinceLevelLoad);
-            if (parentClip.isPlaying == false)
-            {
-                transform.parent.GetComponent<SpawnKeys>().UpdateAudioClip();
-            }
-            else
-            {
-                transform.parent.GetComponent<SpawnKeys>().ResetSlidersToLastCheckPoint();
-            }
+            //if (parentClip.isPlaying == false)
+            //{
+            //    parentSpawner.UpdateAudioClip();
+            //}
 
+            parentSpawner.StartEndOfClipTimer();
             parentClip.Play();
         }
     }

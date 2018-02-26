@@ -32,12 +32,20 @@ public class KeySpawnManager : MonoBehaviour {
         List<Transform> actives = new List<Transform>();
         foreach (Transform child in transform)
         {
-            if (child.gameObject.activeSelf == true)
+            if (child.gameObject.activeSelf == true && child.GetComponent<SpawnKeys>().CanSpawnKeys == true)
             {
                 actives.Add(child);
             }
         }
 
-        actives[Random.Range(0, actives.Count)].GetComponent<SpawnKeys>().Spawn();
+        if(actives.Count > 0)
+        {
+            actives[Random.Range(0, actives.Count)].GetComponent<SpawnKeys>().Spawn();
+        }
+        else
+        {
+            Debug.Log("You have won! This came from KeySpawnManager");
+        }
+        
     }
 }

@@ -16,6 +16,7 @@ public class SpawnKeys : MonoBehaviour {
     public int sliderDistance { get; set; }
     private float clipTimePerFrame = 0;
     private float timeClipHasPlayed = 0;
+    public bool CanSpawnKeys { get; set; }
 
     private void Awake()
     {
@@ -27,40 +28,43 @@ public class SpawnKeys : MonoBehaviour {
     {
         sliderDistance = 0;
         currentClip = 0;
+        CanSpawnKeys = true;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (audioSource.isPlaying)
         {
-            timeClipHasPlayed += Time.deltaTime;
+            timeClipHasPlayed += Time.fixedDeltaTime / audioSource.clip.length;
             switch (gameObject.tag)
             {
                 case "Drums":
-                    drumsSlider.value += Time.deltaTime / audioSource.clip.length / 4;
+                    drumsSlider.value += Time.fixedDeltaTime / 2;
                     break;
                 case "Bass":
-                    bassSlider.value += Time.deltaTime / audioSource.clip.length;
+                    bassSlider.value += Time.fixedDeltaTime / 2;
                     break;
                 case "Lead":
-                    pianoSlider.value += Time.deltaTime / audioSource.clip.length;
+                    pianoSlider.value += Time.fixedDeltaTime / 2;
                     break;
             }
-
-            if(timeClipHasPlayed >= audioSource.clip.length)
-            {
-                timeClipHasPlayed = 0;
-                sliderDistance++;   
-            }
         }
-        else
-        {
-            ResetSlidersToLastCheckPoint();
-        }
+        //    if(timeClipHasPlayed >= audioSource.clip.length)
+        //    {
+        //        Debug.Log("Finished playing clip");
+        //        timeClipHasPlayed = 0;
+        //        sliderDistance++;
+        //    }
+        //}
+        //else
+        //{
+        //    ResetSlidersToLastCheckPoint();
+        //}
     }
 
     public void ResetSlidersToLastCheckPoint()
     {
+        timeClipHasPlayed = 0;
         switch (gameObject.tag)
         {
             case "Drums":
@@ -98,14 +102,31 @@ public class SpawnKeys : MonoBehaviour {
 
     private void UpdateInstrumentClip(int instrumentNum)
     {
+        Debug.Log("Current Clip Count = " + currentClip);
         if (currentClip < currentSong.instruments[instrumentNum].Count)
         {
             audioSource.clip = currentSong.instruments[instrumentNum][currentClip];
             currentClip++;
         }
-        //else
-        //{
-        //    gameObject.SetActive(false);
-        //}
+        else
+        {
+            Debug.Log("Instrument finished");
+            CanSpawnKeys = false;
+        }
+    }
+
+    public void StartEndOfClipTimer()
+    {
+        StopAllCoroutines();
+        ResetSlidersToLastCheckPoint();
+        StartCoroutine(WaitForEndOfClip());
+    }
+
+    private IEnumerator WaitForEndOfClip()
+    {
+        yield return new WaitForSeconds(audioSource.clip.length);
+        timeClipHasPlayed = 0;
+        sliderDistance++;
+        UpdateAudioClip();
     }
 }
