@@ -909,7 +909,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.8161765, g: 0.81303096, b: 0.70215183, a: 0}
+  m_BackGroundColor: {r: 0.8897059, g: 0.88808167, b: 0.8308283, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -4460,7 +4460,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 1602dcecdcf1b634ca77630653aeba3b, type: 3}
     m_FontSize: 38
     m_FontStyle: 0
     m_BestFit: 0
