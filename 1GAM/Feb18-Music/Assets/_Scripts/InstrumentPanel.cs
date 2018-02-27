@@ -11,7 +11,8 @@ public class InstrumentPanel : MonoBehaviour {
     private AudioSource[] audioSources;
     private int numKeys;
     private List<GameObject> keys;
-    private Text instrumentName;
+    private Text songName;
+    private Text songNameShadow;
     private KeySpawnManager keySpawner;
     private InstrumentImages instrumentImages;
 
@@ -20,7 +21,8 @@ public class InstrumentPanel : MonoBehaviour {
         SetTime(0);
         currentSong = FindObjectOfType<AudioManager>().currentSong;
         currentSong.instrumentIndex = 0;
-        instrumentName = transform.GetComponentInChildren<Text>();
+        songNameShadow = transform.GetChild(1).GetComponent<Text>();
+        songName = transform.GetChild(2).GetComponent<Text>();
         audioSources = GetComponents<AudioSource>();
         instrumentImagePanel = transform.GetChild(0);
         keys = new List<GameObject>();
@@ -32,7 +34,8 @@ public class InstrumentPanel : MonoBehaviour {
     void Start ()
     {
 
-        instrumentName.text = currentSong.songName;
+        songNameShadow.text = currentSong.songName;
+        songName.text = currentSong.songName;
 
         AddKeysToPanel();
         ConfigureKeysAndSpawners();
