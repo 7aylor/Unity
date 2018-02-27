@@ -105,7 +105,15 @@ public class SpawnKeys : MonoBehaviour {
         if (currentClip < currentSong.instruments[instrumentNum].Count)
         {
             currentClip++;
+            Debug.Log("Spawner " + gameObject.name + " " + currentClip);
             audioSource.clip = currentSong.instruments[instrumentNum][currentClip];
+
+            if(currentClip >= currentSong.instruments[instrumentNum].Count)
+            {
+                CanSpawnKeys = false;
+                audioSource.volume = 0;
+                transform.parent.GetComponent<KeySpawnManager>().activeSpawners--;
+            }
         }
         else
         {
@@ -129,6 +137,9 @@ public class SpawnKeys : MonoBehaviour {
         timeClipHasPlayed = 0;
         sliderDistance++;
         //drumsSlider.value = sliderDistance;
-        UpdateAudioClip();
+        if(currentClip < 4)
+        {
+            UpdateAudioClip();
+        }
     }
 }
