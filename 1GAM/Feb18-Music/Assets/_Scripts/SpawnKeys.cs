@@ -102,16 +102,16 @@ public class SpawnKeys : MonoBehaviour {
 
     private void UpdateInstrumentClip(int instrumentNum)
     {
-        Debug.Log("Current Clip Count = " + currentClip);
         if (currentClip < currentSong.instruments[instrumentNum].Count)
         {
-            audioSource.clip = currentSong.instruments[instrumentNum][currentClip];
             currentClip++;
+            audioSource.clip = currentSong.instruments[instrumentNum][currentClip];
         }
         else
         {
-            Debug.Log("Instrument finished");
             CanSpawnKeys = false;
+            audioSource.volume = 0;
+            transform.parent.GetComponent<KeySpawnManager>().activeSpawners--;
         }
     }
 
@@ -125,8 +125,10 @@ public class SpawnKeys : MonoBehaviour {
     private IEnumerator WaitForEndOfClip()
     {
         yield return new WaitForSeconds(audioSource.clip.length);
+        Debug.Log("End of Clip");
         timeClipHasPlayed = 0;
         sliderDistance++;
+        //drumsSlider.value = sliderDistance;
         UpdateAudioClip();
     }
 }

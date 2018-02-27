@@ -22,7 +22,8 @@ namespace SO
             instrumentIndex = 0;
             songIndex = 0;
             instruments = new List<List<AudioClip>>();
-            fullInstrumentClips = new List<AudioClip>();bassClips = new List<AudioClip>();
+            fullInstrumentClips = new List<AudioClip>();
+            bassClips = new List<AudioClip>();
             drumClips = new List<AudioClip>();
             leadClips = new List<AudioClip>();
 
