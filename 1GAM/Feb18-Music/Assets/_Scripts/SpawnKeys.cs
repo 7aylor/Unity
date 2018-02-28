@@ -11,14 +11,15 @@ public class SpawnKeys : MonoBehaviour {
     public Slider drumsSlider;
     public int sliderDistance { get; set; }
     public bool CanSpawnKeys { get; set; }
+    public InstrumentAlert drumsAlert;
+    public InstrumentAlert pianoAlert;
+    public InstrumentAlert bassAlert;
+
     private float clipTimePerFrame = 0;
     private float timeClipHasPlayed = 0;
     private int currentClip;
     private AudioSource audioSource;
     private SO.Song currentSong;
-    public InstrumentAlert drumsAlert;
-    public InstrumentAlert pianoAlert;
-    public InstrumentAlert bassAlert;
 
     private void Awake()
     {

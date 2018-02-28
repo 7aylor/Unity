@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class InstrumentAlert : MonoBehaviour
 {
 
-    public Color[] colors;
     private Text alertText;
 
     private void Awake()
@@ -22,7 +21,7 @@ public class InstrumentAlert : MonoBehaviour
     public void Interrupted()
     {
         Debug.Log("Interrupted!");
-        alertText.color = colors[1];
+        alertText.color = Color.red;
         alertText.text = "Clip Interrupted";
         StopAllCoroutines();
         StartCoroutine(WaitToClearText());
@@ -32,15 +31,15 @@ public class InstrumentAlert : MonoBehaviour
     {
         Debug.Log("Success!");
 
-        alertText.color = colors[0];
+        alertText.color = Color.green;
         alertText.text = "Clip Complete!";
-        //StopAllCoroutines();
-        //StartCoroutine(WaitToClearText());
+        StopAllCoroutines();
+        StartCoroutine(WaitToClearText());
     }
 
     private IEnumerator WaitToClearText()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(0.5f);
         alertText.text = "";
     }
 }

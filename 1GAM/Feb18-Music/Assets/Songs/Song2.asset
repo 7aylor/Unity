@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 886157ea8702fb140acc19bf9ec4f77f, type: 3}
+  m_Name: Song2
+  m_EditorClassIdentifier: 
+  fullInstrumentClips:
+  - {fileID: 8300000, guid: e38ea4ee8e388534695738dc529b9c1b, type: 3}
+  - {fileID: 8300000, guid: 77fcae82f71f4334fb6138fda53cd4a3, type: 3}
+  - {fileID: 8300000, guid: f62b9ac77f86f3d4fb32c7e1dd8e3b94, type: 3}
+  bassClips:
+  - {fileID: 8300000, guid: 86ba1c1a1f6ac3c45b5f6ab5c321e201, type: 3}
+  - {fileID: 8300000, guid: 6cae459df6d0f8145afa6e398bb07f2c, type: 3}
+  - {fileID: 8300000, guid: 86ba1c1a1f6ac3c45b5f6ab5c321e201, type: 3}
+  - {fileID: 8300000, guid: 1953402b5619eec46af3a0e998e1c71b, type: 3}
+  drumClips:
+  - {fileID: 8300000, guid: 92bbc73c7bce3444fbca104f6c9b56a6, type: 3}
+  - {fileID: 8300000, guid: 800706fafca80dd4aa60aeda5e6a52ae, type: 3}
+  - {fileID: 8300000, guid: 92bbc73c7bce3444fbca104f6c9b56a6, type: 3}
+  - {fileID: 8300000, guid: c867182c173c917488620f3273981714, type: 3}
+  leadClips:
+  - {fileID: 8300000, guid: 427aee8a0dc985043962697f75388660, type: 3}
+  - {fileID: 8300000, guid: 82b184726924dfa4f8ff5cfa4ac85b2d, type: 3}
+  - {fileID: 8300000, guid: 427aee8a0dc985043962697f75388660, type: 3}
+  - {fileID: 8300000, guid: 3a81f95f301bd0b4ea70cac6e35bc847, type: 3}
+  songName: Song2
+  songIndex: 1

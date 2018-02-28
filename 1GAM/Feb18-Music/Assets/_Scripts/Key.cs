@@ -26,7 +26,7 @@ public class Key : MonoBehaviour {
             {
                 drumsAlert = alert;
             }
-            if (alert.gameObject.name.ToLower().Contains("lead"))
+            if (alert.gameObject.name.ToLower().Contains("piano"))
             {
                 pianoAlert = alert;
             }
@@ -49,7 +49,7 @@ public class Key : MonoBehaviour {
 
     private void MoveKey()
     {
-        transform.Translate(Vector2.left * speed);
+        transform.Translate(Vector2.left * speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

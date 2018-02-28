@@ -125,14 +125,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b407d4c2e7064b849af1323c675e74bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.1
+  speed: 5
   changePitchbyHeight: 0
-  drumsAlert: {fileID: 114904239756322990, guid: dd8255df80d8e0c46bb82cb14ba5c77c,
-    type: 2}
-  pianoAlert: {fileID: 114860341555686732, guid: eb7351bb0cefcdd4d85571fdbb5e3e0a,
-    type: 2}
-  bassAlert: {fileID: 114616680888737736, guid: 411ca45c1d3586e4e8cde3017e5208f2,
-    type: 2}
+  drumsAlert: {fileID: 0}
+  pianoAlert: {fileID: 0}
+  bassAlert: {fileID: 0}
 --- !u!212 &212806868859952558
 SpriteRenderer:
   m_ObjectHideFlags: 1
