@@ -8,11 +8,33 @@ public class Key : MonoBehaviour {
     public bool changePitchbyHeight;
     private AudioSource parentClip;
     private SpawnKeys parentSpawner;
+    private InstrumentAlert[] instrumentAlerts;
+
+    public InstrumentAlert drumsAlert;
+    public InstrumentAlert pianoAlert;
+    public InstrumentAlert bassAlert;
 
     private void Awake()
     {
         parentClip = transform.parent.GetComponent<AudioSource>();
         parentSpawner = transform.parent.GetComponent<SpawnKeys>();
+        instrumentAlerts = FindObjectsOfType<InstrumentAlert>();
+
+        foreach(InstrumentAlert alert in instrumentAlerts)
+        {
+            if (alert.gameObject.name.ToLower().Contains("drums"))
+            {
+                drumsAlert = alert;
+            }
+            if (alert.gameObject.name.ToLower().Contains("lead"))
+            {
+                pianoAlert = alert;
+            }
+            if (alert.gameObject.name.ToLower().Contains("bass"))
+            {
+                bassAlert = alert;
+            }
+        }
 
         if (changePitchbyHeight == true)
         {
@@ -35,10 +57,21 @@ public class Key : MonoBehaviour {
         if(collision.gameObject.layer == 9)
         {
             AudioManager.instance.AddNoteToSong(parentClip.clip, parentClip.pitch, Time.timeSinceLevelLoad);
-            //if (parentClip.isPlaying == false)
-            //{
-            //    parentSpawner.UpdateAudioClip();
-            //}
+            if (parentClip.isPlaying == true)
+            {
+                Debug.Log("Clip is playing");
+                if (parentClip.clip.name.ToLower().Contains("drums")){
+                    drumsAlert.Interrupted();
+                }
+                else if(parentClip.clip.name.ToLower().Contains("bass"))
+                {
+                    bassAlert.Interrupted();
+                }
+                else if (parentClip.clip.name.ToLower().Contains("lead"))
+                {
+                    pianoAlert.Interrupted();
+                }
+            }
 
             parentSpawner.StartEndOfClipTimer();
             parentClip.Play();

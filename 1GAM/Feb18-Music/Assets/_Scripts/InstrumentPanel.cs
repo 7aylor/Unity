@@ -88,13 +88,23 @@ public class InstrumentPanel : MonoBehaviour {
 
     public void StartPlayClips()
     {
+        StopAllCoroutines();
+        Debug.Log("Stopped all Coroutines");
         StartCoroutine(PlayClips());
     }
 
     private IEnumerator PlayClips()
     {
         int clipIndex = 0;
-        for(int i = 0; i < currentSong.fullInstrumentClips.Count; i++)
+        audioSources[0].Stop();
+
+        for (int i = 0; i < currentSong.fullInstrumentClips.Count; i++)
+        {
+            Image keyImage = keys[i].GetComponent<Image>();
+            keyImage.color = Color.white;
+        }
+
+        for (int i = 0; i < currentSong.fullInstrumentClips.Count; i++)
         {
             instrumentImages.UseNextInstrumentHighlightedImage();
             Debug.Log("Playing clip " + (clipIndex + 1));
@@ -103,17 +113,8 @@ public class InstrumentPanel : MonoBehaviour {
             Image keyImage = keys[clipIndex].GetComponent<Image>();
             keyImage.color = Color.red;
 
-            if (audioSources[0].isPlaying == false)
-            {
-                audioSources[0].clip = clip;
-                audioSources[0].Play();
-                
-            }
-            else
-            {
-                audioSources[1].clip = clip;
-                audioSources[1].Play();
-            }
+            audioSources[0].clip = clip;
+            audioSources[0].Play();
 
             yield return new WaitForSecondsRealtime(clip.length);
             keyImage.color = Color.white;

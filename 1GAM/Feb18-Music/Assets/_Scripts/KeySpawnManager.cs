@@ -8,6 +8,7 @@ public class KeySpawnManager : MonoBehaviour {
     public float spawnSpeed;
     public GameObject roundCompleteMenu;
     private float timeSinceLastSpawn;
+    private bool isEndOfRound = false;
 
     public int activeSpawners { get; set; }
 
@@ -20,10 +21,12 @@ public class KeySpawnManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(activeSpawners <= 0)
+        if(activeSpawners <= 0 && isEndOfRound == false)
         {
+            isEndOfRound = true;
             Time.timeScale = 0;
             roundCompleteMenu.SetActive(true);
+            roundCompleteMenu.GetComponent<PlayRoundSong>().StartFullSong();
         }
 
 		if(timeSinceLastSpawn >= spawnSpeed)
@@ -57,7 +60,7 @@ public class KeySpawnManager : MonoBehaviour {
         {
             Time.timeScale = 0;
             roundCompleteMenu.SetActive(true);
-            Debug.Log("You have won! This came from KeySpawnManager");
+            roundCompleteMenu.GetComponent<PlayRoundSong>().StartFullSong();
         }
         
     }

@@ -5,18 +5,20 @@ using UnityEngine.UI;
 
 public class SpawnKeys : MonoBehaviour {
 
-    [SerializeField]
-    private int currentClip;
-    private AudioSource audioSource;
     public GameObject key;
-    private SO.Song currentSong;
     public Slider pianoSlider;
     public Slider bassSlider;
     public Slider drumsSlider;
     public int sliderDistance { get; set; }
+    public bool CanSpawnKeys { get; set; }
     private float clipTimePerFrame = 0;
     private float timeClipHasPlayed = 0;
-    public bool CanSpawnKeys { get; set; }
+    private int currentClip;
+    private AudioSource audioSource;
+    private SO.Song currentSong;
+    public InstrumentAlert drumsAlert;
+    public InstrumentAlert pianoAlert;
+    public InstrumentAlert bassAlert;
 
     private void Awake()
     {
@@ -106,13 +108,16 @@ public class SpawnKeys : MonoBehaviour {
         {
             currentClip++;
             Debug.Log("Spawner " + gameObject.name + " " + currentClip);
-            audioSource.clip = currentSong.instruments[instrumentNum][currentClip];
 
-            if(currentClip >= currentSong.instruments[instrumentNum].Count)
+            if (currentClip >= currentSong.instruments[instrumentNum].Count)
             {
                 CanSpawnKeys = false;
                 audioSource.volume = 0;
                 transform.parent.GetComponent<KeySpawnManager>().activeSpawners--;
+            }
+            else
+            {
+                audioSource.clip = currentSong.instruments[instrumentNum][currentClip];
             }
         }
         else
@@ -136,10 +141,30 @@ public class SpawnKeys : MonoBehaviour {
         Debug.Log("End of Clip");
         timeClipHasPlayed = 0;
         sliderDistance++;
-        //drumsSlider.value = sliderDistance;
+
         if(currentClip < 4)
         {
             UpdateAudioClip();
+            SuccessAlert();
+        }
+    }
+
+    public void SuccessAlert()
+    {
+        switch (gameObject.tag)
+        {
+            case "Drums":
+                drumsSlider.value = sliderDistance;
+                drumsAlert.Success();
+                break;
+            case "Bass":
+                bassSlider.value = sliderDistance;
+                bassAlert.Success();
+                break;
+            case "Lead":
+                pianoSlider.value = sliderDistance;
+                pianoAlert.Success();
+                break;
         }
     }
 }

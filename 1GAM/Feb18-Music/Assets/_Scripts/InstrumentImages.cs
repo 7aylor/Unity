@@ -18,14 +18,7 @@ public class InstrumentImages : MonoBehaviour {
     // Use this for initialization
     void Start () {
         currentImageIndex = 0;
-        UseNextInstrumentHighlightedImage();
-
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public void UseNextInstrumentHighlightedImage()
     {
