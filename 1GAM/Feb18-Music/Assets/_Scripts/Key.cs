@@ -10,8 +10,11 @@ public class Key : MonoBehaviour {
     private SpawnKeys parentSpawner;
     private InstrumentAlert[] instrumentAlerts;
 
-    public InstrumentAlert drumsAlert;
+    [HideInInspector]
+    public InstrumentAlert drumsAlert; //these can be left blank intentionally in the inspector
+    [HideInInspector]
     public InstrumentAlert pianoAlert;
+    [HideInInspector]
     public InstrumentAlert bassAlert;
 
     private void Awake()
@@ -40,6 +43,8 @@ public class Key : MonoBehaviour {
         {
             ChangePitch();
         }
+
+        SetKeyColor();
     }
 
     // Update is called once per frame
@@ -56,7 +61,7 @@ public class Key : MonoBehaviour {
     {
         if(collision.gameObject.layer == 9)
         {
-            AudioManager.instance.AddNoteToSong(parentClip.clip, parentClip.pitch, Time.timeSinceLevelLoad);
+            FindObjectOfType<AudioManager>().AddNoteToSong(parentClip.clip, parentClip.pitch, Time.timeSinceLevelLoad);
             if (parentClip.isPlaying == true)
             {
                 Debug.Log("Clip is playing");
@@ -83,5 +88,14 @@ public class Key : MonoBehaviour {
         Debug.Log(Camera.main.WorldToScreenPoint(transform.position).y * 0.005f);
 
         parentClip.pitch = Camera.main.WorldToScreenPoint(transform.position).y * 0.005f;
+    }
+
+    private void SetKeyColor()
+    {
+        SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+        sprite.color = transform.parent.GetComponent<SpawnKeys>().keyColor;
+        Color c = sprite.color;
+        c.a = 1;
+        sprite.color = c;
     }
 }

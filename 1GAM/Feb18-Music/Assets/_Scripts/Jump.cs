@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Jump : MonoBehaviour {
+
+    public Text jumpsText;
 
     private float jumpVelocity = 10;
     private Rigidbody2D rb;
@@ -25,6 +28,7 @@ public class Jump : MonoBehaviour {
             if(jumpCount < 2)
             {
                 jumpCount++;
+                jumpsText.text = (2 - jumpCount).ToString();
                 rb.velocity = Vector2.up * jumpVelocity;
             }
         }
@@ -36,6 +40,7 @@ public class Jump : MonoBehaviour {
         if(collision.gameObject.layer != 8)
         {
             jumpCount = 0;
+            jumpsText.text = (2).ToString();
         }
     }
 }

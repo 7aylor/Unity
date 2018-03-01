@@ -62,6 +62,16 @@ public class KeySpawnManager : MonoBehaviour {
             roundCompleteMenu.SetActive(true);
             roundCompleteMenu.GetComponent<PlayRoundSong>().StartFullSong();
         }
-        
+    }
+
+    public void AssignKeyColors()
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.gameObject.activeSelf == true && child.GetComponent<SpawnKeys>().CanSpawnKeys == true)
+            {
+                child.GetComponent<SpawnKeys>().AssignKeyColor();
+            }
+        }
     }
 }

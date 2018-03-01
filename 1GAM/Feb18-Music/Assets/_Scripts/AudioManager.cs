@@ -9,20 +9,20 @@ public class AudioManager : MonoBehaviour {
     private Song song;
     private AudioSource[] audioSources;
 
-    public static AudioManager instance = null;
+    //public static AudioManager instance = null;
 
     private void Awake()
     {
-        if(instance == null)
-        {
-            instance = this;
-        }
-        else if(instance != this)
-        {
-            Destroy(gameObject);
-        }
+        //if(instance == null)
+        //{
+        //    instance = this;
+        //}
+        //else if(instance != this)
+        //{
+        //    Destroy(gameObject);
+        //}
 
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         audioSources = GetComponents<AudioSource>();
 

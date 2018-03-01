@@ -14,6 +14,10 @@ public class SpawnKeys : MonoBehaviour {
     public InstrumentAlert drumsAlert;
     public InstrumentAlert pianoAlert;
     public InstrumentAlert bassAlert;
+    public Color keyColor { get; set; }
+    public Color leadColor;
+    public Color bassColor;
+    public Color drumsColor;
 
     private float clipTimePerFrame = 0;
     private float timeClipHasPlayed = 0;
@@ -165,6 +169,22 @@ public class SpawnKeys : MonoBehaviour {
             case "Lead":
                 pianoSlider.value = sliderDistance;
                 pianoAlert.Success();
+                break;
+        }
+    }
+
+    public void AssignKeyColor()
+    {
+        switch (gameObject.tag)
+        {
+            case "Drums":
+                keyColor = drumsColor;
+                break;
+            case "Bass":
+                keyColor = bassColor;
+                break;
+            case "Lead":
+                keyColor = leadColor;
                 break;
         }
     }

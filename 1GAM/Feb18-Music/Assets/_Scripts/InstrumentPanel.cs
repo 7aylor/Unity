@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class InstrumentPanel : MonoBehaviour {
 
     public GameObject keyImage;
+    public Color leadColor;
+    public Color bassColor;
+    public Color drumColor;
     private SO.Song currentSong;
     private Transform instrumentImagePanel;
     private AudioSource[] audioSources;
@@ -33,7 +36,6 @@ public class InstrumentPanel : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-
         songNameShadow.text = currentSong.songName;
         songName.text = currentSong.songName;
 
@@ -111,7 +113,23 @@ public class InstrumentPanel : MonoBehaviour {
             AudioClip clip = currentSong.fullInstrumentClips[i];
 
             Image keyImage = keys[clipIndex].GetComponent<Image>();
-            keyImage.color = Color.red;
+
+            if(i == 0)
+            {
+                keyImage.color = leadColor;
+            }
+            else if (i == 1)
+            {
+                keyImage.color = bassColor;
+            }
+            else
+            {
+                keyImage.color = drumColor;
+            }
+
+            Color newColor = keyImage.color;
+            newColor.a = 1;
+            keyImage.color = newColor;
 
             audioSources[0].clip = clip;
             audioSources[0].Play();

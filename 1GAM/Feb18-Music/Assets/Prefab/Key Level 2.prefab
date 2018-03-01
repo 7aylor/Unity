@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 61202563392922940}
   - component: {fileID: 114662443973558314}
   m_Layer: 0
-  m_Name: Key
+  m_Name: Key Level 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b407d4c2e7064b849af1323c675e74bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 6
   changePitchbyHeight: 0
   drumsAlert: {fileID: 0}
   pianoAlert: {fileID: 0}
