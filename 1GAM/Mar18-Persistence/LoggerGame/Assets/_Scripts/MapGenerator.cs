@@ -13,7 +13,10 @@ public class MapGenerator : MonoBehaviour {
     public int smoothCycles;
 
     [Range(0, 100)]
-    public int spawnThreshold;
+    public int treeSpawnThreshold;
+
+    [Range(0, 100)]
+    public int rockSpawnThreshold;
 
     [Range(0,6)]
     public int neighborThreshold;
@@ -21,6 +24,7 @@ public class MapGenerator : MonoBehaviour {
     #region GameObjects
     public GameObject grass;
     public GameObject trees;
+    public GameObject rock;
     #endregion
 
     private void Start()
@@ -51,9 +55,13 @@ public class MapGenerator : MonoBehaviour {
 
                 int num = Random.Range(0, 100);
 
-                if(num < spawnThreshold)
+                if(num < treeSpawnThreshold)
                 {
                     map[x, y] = 1;
+                }
+                else if(num > rockSpawnThreshold)
+                {
+                    map[x, y] = 2;
                 }
                 else
                 {
@@ -122,6 +130,10 @@ public class MapGenerator : MonoBehaviour {
                 {
                     //Instantiate(black, new Vector3(-sizeX/2 + x + 0.5f, -sizeY/2 + y + 0.5f, 0), Quaternion.identity);
                     newTile = Instantiate(trees, new Vector3((float)x / 2 - sizeX / 4 + 0.5f, (float)y / 2 - sizeY / 4 + 0.25f, 0), Quaternion.identity);
+                }
+                else if(map[x, y] == 2)
+                {
+                    newTile = Instantiate(rock, new Vector3((float)x / 2 - sizeX / 4 + 0.5f, (float)y / 2 - sizeY / 4 + 0.25f, 0), Quaternion.identity);
                 }
                 else
                 {
