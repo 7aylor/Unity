@@ -150,6 +150,11 @@ MonoBehaviour:
   grass: {fileID: 1242716478098746, guid: d42ffa50972fda54a99dfed4f7ff9e0c, type: 2}
   trees: {fileID: 1242716478098746, guid: 3268fd16a863d624f85573170ed30d28, type: 2}
   rock: {fileID: 1242716478098746, guid: 615299f68cb775247ac1c337faa2c6f2, type: 2}
+  riverStraight: {fileID: 1242716478098746, guid: c001939f7bb303449a1ddeaef0edb167,
+    type: 2}
+  riverCurve: {fileID: 1242716478098746, guid: 98e30c70ff8014a4cbc3841937933a23, type: 2}
+  riverStart: {fileID: 1242716478098746, guid: 350bfe053e5811642a9797aba46b2f11, type: 2}
+  riverEnd: {fileID: 1242716478098746, guid: 71ba4d29068906c48852bed4236d1cea, type: 2}
 --- !u!4 &1309077501
 Transform:
   m_ObjectHideFlags: 0
@@ -204,7 +209,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.26666668, g: 0.5372549, b: 0.101960786, a: 1}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
