@@ -90,7 +90,7 @@ public class MapGenerator : MonoBehaviour {
 
     private void CreateRiver()
     {
-        bool startOnX = System.Convert.ToBoolean(Random.Range(0, 2));
+        bool startOnX = true;// System.Convert.ToBoolean(Random.Range(0, 2));
 
         int startX = 0;
         int startY = 0;
@@ -98,42 +98,78 @@ public class MapGenerator : MonoBehaviour {
         //start on x axis x=0 or x=sizeX
         if (startOnX == true)
         {
-            startX = PickSide(sizeX);
+            startX = sizeX - 1;// PickSide(sizeX);
             startY = Random.Range(0, sizeY - 1);
 
             int x = startX;
-            //on the left
-            if (startX > 0)
+            int y = startY;
+
+            //if the river starts on the right side of the screen
+            if(x > 0)
             {
-                while (x > 0)
+                while (x > 0 && (y > 0 && y < sizeY - 1))
                 {
-                    x--;
-                    if (x == 0)
+                    int randDir = Random.Range(0, 4);
+
+                    switch (randDir)
                     {
-                        map[startX, x] = (int)tileType.endRiver;
-                    }
-                    else
-                    {
-                        map[startX, x] = (int)tileType.straightRiver;
+                        //up
+                        case 0:
+                            y++;
+                            map[x, y] = (int)tileType.curveRiver;
+                            break;
+                        //down
+                        case 1:
+                            y--;
+                            map[x, y] = (int)tileType.curveRiver;
+                            break;
+                        //forward
+                        case 2:
+                            x--;
+                            map[x, y] = (int)tileType.straightRiver;
+                            break;
                     }
                 }
             }
-            //on the right
             else
             {
-                while (x < sizeX - 1)
-                {
-                    x++;
-                    if (x == sizeX)
-                    {
-                        map[startX, x] = (int)tileType.endRiver;
-                    }
-                    else
-                    {
-                        map[startX, x] = (int)tileType.straightRiver;
-                    }
-                }
+
             }
+            
+
+            //int x = startX;
+            ////on the left
+            //if (startX > 0)
+            //{
+            //    while (x > 0)
+            //    {
+            //        x--;
+            //        if (x == 0)
+            //        {
+            //            map[startX, x] = (int)tileType.endRiver;
+            //        }
+            //        else
+            //        {
+            //            map[startX, x] = (int)tileType.straightRiver;
+            //        }
+            //    }
+            //}
+            ////on the right
+            //else
+            //{
+            //    while (x < sizeX - 1)
+            //    {
+            //        x++;
+            //        if (x == sizeX - 1)
+            //        {
+            //            map[startX, x] = (int)tileType.endRiver;
+            //        }
+            //        else
+            //        {
+            //            map[startX, x] = (int)tileType.straightRiver;
+            //        }
+            //    }
+            //}
         }
         //start on y axis
         else
@@ -165,7 +201,7 @@ public class MapGenerator : MonoBehaviour {
                 {
                     y++;
 
-                    if(y == sizeY)
+                    if(y == sizeY - 1)
                     {
                         map[startX, y] = (int)tileType.endRiver;
                     }
@@ -179,6 +215,25 @@ public class MapGenerator : MonoBehaviour {
         }
 
         map[startX, startY] = (int)tileType.startRiver;
+    }
+
+    /// <summary>
+    /// Used to check which directions the next river tile can go in
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    private int CreateNextRiverTile(int x, int y)
+    {
+
+        int acceptableNeighborCount = 0;
+
+        if(x > 0 && x < sizeX - 1 && y > 0 && y < sizeY - 1)
+        {
+            //if()
+        }
+
+        return Random.Range(0, acceptableNeighborCount);
     }
 
     private int PickSide(int maxSize)
@@ -204,7 +259,7 @@ public class MapGenerator : MonoBehaviour {
             {
                 for (int y = 0; y < sizeY; y++)
                 {
-                    int neighboringForestCount = GetNeighboringForestCount(x, y);
+                    int neighboringForestCount = GetNeighboringsOfThisTileType(x, y, (int)tileType.tree);
 
                     if(neighboringForestCount > neighborThreshold)
                     {
@@ -219,7 +274,7 @@ public class MapGenerator : MonoBehaviour {
         }
     }
 
-    private int GetNeighboringForestCount(int posInGridX, int posInGridY)
+    private int GetNeighboringsOfThisTileType(int posInGridX, int posInGridY, int tile)
     {
         int neighborsWithForest = 0;
 
@@ -229,7 +284,7 @@ public class MapGenerator : MonoBehaviour {
             {
                 if(x > 0 && x < sizeX && y > 0 && y < sizeY && (y != posInGridY || x != posInGridX))
                 {
-                    if(map[x,y] == 1)
+                    if(map[x,y] == tile)
                     {
                         neighborsWithForest++;
                     }
@@ -320,6 +375,29 @@ public class MapGenerator : MonoBehaviour {
                     }
 
                     newTile = Instantiate(riverEnd, new Vector3((float)x / 2 - sizeX / 4 + 0.5f, (float)y / 2 - sizeY / 4 + 0.25f, 0), rotation);
+                }
+                else if (map[x, y] == (int)tileType.curveRiver)
+                {
+                    Quaternion rotation = Quaternion.identity;
+
+                    //if (x == 0)
+                    //{
+                    //    rotation = Quaternion.Euler(0, 0, 90);
+                    //}
+                    //else if (x == sizeX - 1)
+                    //{
+                    //    rotation = Quaternion.Euler(0, 0, -90);
+                    //}
+                    //else if (y == 0)
+                    //{
+                    //    rotation = rotation = Quaternion.Euler(0, 0, 180);
+                    //}
+                    //else
+                    //{
+                    //    rotation = Quaternion.identity;
+                    //}
+
+                    newTile = Instantiate(riverCurve, new Vector3((float)x / 2 - sizeX / 4 + 0.5f, (float)y / 2 - sizeY / 4 + 0.25f, 0), rotation);
                 }
                 else
                 {
