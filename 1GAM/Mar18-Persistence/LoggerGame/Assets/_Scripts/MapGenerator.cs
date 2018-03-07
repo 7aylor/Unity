@@ -185,11 +185,6 @@ public class MapGenerator : MonoBehaviour {
 
                     y++;
 
-                    //if (isPreviousRiverTileCorner(x, y))
-                    //{
-
-                    //}
-
                     map[x, y] = (int)tileType.straightRiver;
                     break;
                 //down
@@ -217,22 +212,6 @@ public class MapGenerator : MonoBehaviour {
             }
         }
     }
-
-    //private bool isPreviousRiverTileCorner(int x, int y)
-    //{
-    //    // (x-1,y+1) (x-1,y-1) (x+1,y+1) (x+1,y-1)
-    //    //if (map[x - 1, y + 1] == (int)tileType.straightRiver ||
-    //    //    map[x - 1, y - 1] == (int)tileType.straightRiver ||
-    //    //    map[x + 1, y + 1] == (int)tileType.straightRiver ||
-    //    //    map[x + 1, y - 1] == (int)tileType.straightRiver)
-    //    //{
-    //    //    return true;
-    //    //}
-    //    //else
-    //    //{
-    //    //    return false;
-    //    //}
-    //}
 
     private bool isRiverTile(int x, int y)
     {
@@ -358,7 +337,6 @@ public class MapGenerator : MonoBehaviour {
 
         return neighborsOfThisTile;
     }
-
     /// <summary>
     /// Loops through the map array and spawns terrain
     /// </summary>
@@ -414,9 +392,19 @@ public class MapGenerator : MonoBehaviour {
                             rotation = Quaternion.Euler(0, 0, 90);
                         }
                     }
-                    
-                    newTile = Instantiate(riverStraight, new Vector3((float)x / 2 - sizeX / 4 + 0.5f, (float)y / 2 - sizeY / 4 + 0.25f, 0), rotation);
+
+                    newTile = isCurvedRiver(x, y);
+
+                    if (newTile != null)
+                    {
+                        map[x, y] = (int)tileType.curveRiver;
+                    }
+                    else
+                    {
+                        newTile = Instantiate(riverStraight, new Vector3((float)x / 2 - sizeX / 4 + 0.5f, (float)y / 2 - sizeY / 4 + 0.25f, 0), rotation);
+                    }
                 }
+
                 else if (map[x, y] == (int)tileType.endRiver)
                 {
                     Quaternion rotation;
@@ -440,29 +428,6 @@ public class MapGenerator : MonoBehaviour {
 
                     newTile = Instantiate(riverEnd, new Vector3((float)x / 2 - sizeX / 4 + 0.5f, (float)y / 2 - sizeY / 4 + 0.25f, 0), rotation);
                 }
-                else if (map[x, y] == (int)tileType.curveRiver)
-                {
-                    Quaternion rotation = Quaternion.identity;
-
-                    //if (x == 0)
-                    //{
-                    //    rotation = Quaternion.Euler(0, 0, 90);
-                    //}
-                    //else if (x == sizeX - 1)
-                    //{
-                    //    rotation = Quaternion.Euler(0, 0, -90);
-                    //}
-                    //else if (y == 0)
-                    //{
-                    //    rotation = rotation = Quaternion.Euler(0, 0, 180);
-                    //}
-                    //else
-                    //{
-                    //    rotation = Quaternion.identity;
-                    //}
-
-                    newTile = Instantiate(riverCurve, new Vector3((float)x / 2 - sizeX / 4 + 0.5f, (float)y / 2 - sizeY / 4 + 0.25f, 0), rotation);
-                }
                 else
                 {
                     newTile = Instantiate(grass, new Vector3((float)x / 2 - sizeX / 4 + 0.5f, (float)y / 2 - sizeY / 4 + 0.25f, 0), Quaternion.identity);
@@ -471,6 +436,40 @@ public class MapGenerator : MonoBehaviour {
                 newTile.transform.parent = terrainContainer;
             }
         }
+    }
+
+    private GameObject isCurvedRiver(int x, int y)
+    {
+        List<int> riverTiles = new List<int> { (int)tileType.curveRiver, (int)tileType.endRiver,
+                                               (int)tileType.startRiver, (int)tileType.straightRiver};
+
+        Debug.Log("isCurvedRiver called");
+
+        if (x > 0 && x < sizeX && y > 0 && y < sizeY)
+        {
+            //down and left
+            if(riverTiles.Contains(map[x - 1 ,y]) && riverTiles.Contains(map[x , y - 1]))
+            {
+                return Instantiate(riverCurve, new Vector3((float)x / 2 - sizeX / 4 + 0.5f, (float)y / 2 - sizeY / 4 + 0.25f, 0), Quaternion.Euler(0,0, -90));
+            }
+            //down and right
+            if (riverTiles.Contains(map[x, y - 1]) && riverTiles.Contains(map[x + 1, y]))
+            {
+                return Instantiate(riverCurve, new Vector3((float)x / 2 - sizeX / 4 + 0.5f, (float)y / 2 - sizeY / 4 + 0.25f, 0), Quaternion.identity);
+            }
+            //up and right
+            if (riverTiles.Contains(map[x + 1, y]) && riverTiles.Contains(map[x, y + 1]))
+            {
+                return Instantiate(riverCurve, new Vector3((float)x / 2 - sizeX / 4 + 0.5f, (float)y / 2 - sizeY / 4 + 0.25f, 0), Quaternion.Euler(0, 0, 90));
+            }
+            //up and left
+            if (riverTiles.Contains(map[x - 1, y]) && riverTiles.Contains(map[x, y + 1]))
+            {
+                return Instantiate(riverCurve, new Vector3((float)x / 2 - sizeX / 4 + 0.5f, (float)y / 2 - sizeY / 4 + 0.25f, 0), Quaternion.Euler(0, 0, 180));
+            }
+        }
+
+        return null;
     }
 
     private void DestroyTerrain()
