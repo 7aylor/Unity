@@ -107,69 +107,15 @@ public class MapGenerator : MonoBehaviour {
             //if the river starts on the right side of the screen
             if(x > 0)
             {
-                while (x > 0 && (y > 0 && y < sizeY - 1))
+                while(x > 0 && y > 0 && y < sizeY - 1)
                 {
-                    int randDir = Random.Range(0, 4);
-
-                    switch (randDir)
-                    {
-                        //up
-                        case 0:
-                            y++;
-                            map[x, y] = (int)tileType.curveRiver;
-                            break;
-                        //down
-                        case 1:
-                            y--;
-                            map[x, y] = (int)tileType.curveRiver;
-                            break;
-                        //forward
-                        case 2:
-                            x--;
-                            map[x, y] = (int)tileType.straightRiver;
-                            break;
-                    }
+                    LayRiverTiles(ref x, ref y);
                 }
             }
             else
             {
 
             }
-            
-
-            //int x = startX;
-            ////on the left
-            //if (startX > 0)
-            //{
-            //    while (x > 0)
-            //    {
-            //        x--;
-            //        if (x == 0)
-            //        {
-            //            map[startX, x] = (int)tileType.endRiver;
-            //        }
-            //        else
-            //        {
-            //            map[startX, x] = (int)tileType.straightRiver;
-            //        }
-            //    }
-            //}
-            ////on the right
-            //else
-            //{
-            //    while (x < sizeX - 1)
-            //    {
-            //        x++;
-            //        if (x == sizeX - 1)
-            //        {
-            //            map[startX, x] = (int)tileType.endRiver;
-            //        }
-            //        else
-            //        {
-            //            map[startX, x] = (int)tileType.straightRiver;
-            //        }
-            //    }
-            //}
         }
         //start on y axis
         else
@@ -217,6 +163,89 @@ public class MapGenerator : MonoBehaviour {
         map[startX, startY] = (int)tileType.startRiver;
     }
 
+    private void LayRiverTiles(ref int x, ref int y)
+    {
+        int randomDistance = Random.Range(3, 8);
+        int steps = 0;
+
+        int randDir = CreateNextRiverTile(x, y);
+
+        while (steps < randomDistance && x > 0 && (y > 0 && y < sizeY - 1))
+        {
+            steps++;
+
+            switch (randDir)
+            {
+                //up
+                case 0:
+                    if(isRiverTile(x, y + 1) || x == sizeX - 1)
+                    {
+                        return;
+                    }
+
+                    y++;
+
+                    //if (isPreviousRiverTileCorner(x, y))
+                    //{
+
+                    //}
+
+                    map[x, y] = (int)tileType.straightRiver;
+                    break;
+                //down
+                case 1:
+                    if (isRiverTile(x, y - 1) || x == sizeX - 1)
+                    {
+                        return;
+                    }
+
+                    y--;
+
+                    map[x, y] = (int)tileType.straightRiver;
+                    break;
+                //forward
+                case 2:
+                    if (isRiverTile(x - 1, y))
+                    {
+                        return;
+                    }
+
+                    x--;
+
+                    map[x, y] = (int)tileType.straightRiver;
+                    break;
+            }
+        }
+    }
+
+    //private bool isPreviousRiverTileCorner(int x, int y)
+    //{
+    //    // (x-1,y+1) (x-1,y-1) (x+1,y+1) (x+1,y-1)
+    //    //if (map[x - 1, y + 1] == (int)tileType.straightRiver ||
+    //    //    map[x - 1, y - 1] == (int)tileType.straightRiver ||
+    //    //    map[x + 1, y + 1] == (int)tileType.straightRiver ||
+    //    //    map[x + 1, y - 1] == (int)tileType.straightRiver)
+    //    //{
+    //    //    return true;
+    //    //}
+    //    //else
+    //    //{
+    //    //    return false;
+    //    //}
+    //}
+
+    private bool isRiverTile(int x, int y)
+    {
+        if (map[x, y] == (int)tileType.curveRiver || map[x, y] == (int)tileType.endRiver || map[x, y] == (int)tileType.startRiver || map[x, y] == (int)tileType.straightRiver)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     /// <summary>
     /// Used to check which directions the next river tile can go in
     /// </summary>
@@ -226,16 +255,48 @@ public class MapGenerator : MonoBehaviour {
     private int CreateNextRiverTile(int x, int y)
     {
 
-        int acceptableNeighborCount = 0;
+        int acceptableNeighborCount = 4;
 
-        if(x > 0 && x < sizeX - 1 && y > 0 && y < sizeY - 1)
+        List<int> riverTypes = new List<int>{ (int)tileType.curveRiver,
+                                    (int)tileType.endRiver, (int)tileType.startRiver, (int)tileType.straightRiver};
+
+
+        //acceptableNeighborCount = GetNeighborsOfThisTileType(x, y, new int[] { (int)tileType.curveRiver,
+        //                            (int)tileType.endRiver, (int)tileType.startRiver, (int)tileType.straightRiver});
+
+
+        if (x > 0 && x < sizeX - 1 && y > 0 && y < sizeY - 1)
         {
-            //if()
+            //left
+            if (riverTypes.Contains(map[x - 1, y]))
+            {
+                acceptableNeighborCount--;
+            }
+            //right 1
+            if (riverTypes.Contains(map[x + 1, y]))
+            {
+                acceptableNeighborCount--;
+            }
+            //up
+            if (riverTypes.Contains(map[x, y + 1]))
+            {
+                acceptableNeighborCount--;
+            }
+            //down
+            if (riverTypes.Contains(map[x, y - 1]))
+            {
+                acceptableNeighborCount--;
+            }
         }
 
         return Random.Range(0, acceptableNeighborCount);
     }
 
+    /// <summary>
+    /// Picks the side of the screen to start on when creating the river
+    /// </summary>
+    /// <param name="maxSize"></param>
+    /// <returns></returns>
     private int PickSide(int maxSize)
     {
         int startVal;
@@ -259,7 +320,7 @@ public class MapGenerator : MonoBehaviour {
             {
                 for (int y = 0; y < sizeY; y++)
                 {
-                    int neighboringForestCount = GetNeighboringsOfThisTileType(x, y, (int)tileType.tree);
+                    int neighboringForestCount = GetNeighborsOfThisTileType(x, y, new int[] { (int)tileType.tree });
 
                     if(neighboringForestCount > neighborThreshold)
                     {
@@ -274,9 +335,9 @@ public class MapGenerator : MonoBehaviour {
         }
     }
 
-    private int GetNeighboringsOfThisTileType(int posInGridX, int posInGridY, int tile)
+    private int GetNeighborsOfThisTileType(int posInGridX, int posInGridY, int[] tiles)
     {
-        int neighborsWithForest = 0;
+        int neighborsOfThisTile = 0;
 
         for(int x = posInGridX - 1; x <= posInGridX + 1; x++)
         {
@@ -284,15 +345,18 @@ public class MapGenerator : MonoBehaviour {
             {
                 if(x > 0 && x < sizeX && y > 0 && y < sizeY && (y != posInGridY || x != posInGridX))
                 {
-                    if(map[x,y] == tile)
+                    foreach(int tile in tiles)
                     {
-                        neighborsWithForest++;
+                        if (map[x, y] == tile)
+                        {
+                            neighborsOfThisTile++;
+                        }
                     }
                 }
             }
         }
 
-        return neighborsWithForest;
+        return neighborsOfThisTile;
     }
 
     /// <summary>
