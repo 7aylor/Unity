@@ -23,7 +23,7 @@ public class MapGenerator : MonoBehaviour {
 
     #region GameObjects
     public GameObject grass;
-    public GameObject trees;
+    public GameObject[] trees;
     public GameObject rock;
     public GameObject riverStraight;
     public GameObject riverCurve;
@@ -90,7 +90,7 @@ public class MapGenerator : MonoBehaviour {
 
     private void CreateRiver()
     {
-        bool startOnX = false;// System.Convert.ToBoolean(Random.Range(0, 2));
+        bool startOnX = true;// System.Convert.ToBoolean(Random.Range(0, 2));
 
         int startX = 0;
         int startY = 0;
@@ -532,7 +532,9 @@ public class MapGenerator : MonoBehaviour {
                 if (map[x,y] == (int)tileType.tree)
                 {
                     //Instantiate(black, new Vector3(-sizeX/2 + x + 0.5f, -sizeY/2 + y + 0.5f, 0), Quaternion.identity);
-                    newTile = Instantiate(trees, new Vector3((float)x / 2 - sizeX / 4 + 0.5f, (float)y / 2 - sizeY / 4 + 0.25f, 0), Quaternion.identity);
+                    GameObject tree = trees[Random.Range(0, trees.Length)];
+
+                    newTile = Instantiate(tree, new Vector3((float)x / 2 - sizeX / 4 + 0.5f, (float)y / 2 - sizeY / 4 + 0.25f, 0), Quaternion.identity);
                 }
                 else if(map[x, y] == (int)tileType.rock)
                 {
