@@ -527,7 +527,7 @@ public class MapGenerator : MonoBehaviour {
         {
             for (int y = 0; y < sizeY; y++)
             {
-                GameObject newTile;
+                GameObject newTile = null;
 
                 if (map[x,y] == (int)tileType.tree)
                 {
@@ -613,12 +613,15 @@ public class MapGenerator : MonoBehaviour {
 
                     newTile = Instantiate(riverEnd, new Vector3((float)x / 2 - sizeX / 4 + 0.5f, (float)y / 2 - sizeY / 4 + 0.25f, 0), rotation);
                 }
-                else
-                {
-                    newTile = Instantiate(grass, new Vector3((float)x / 2 - sizeX / 4 + 0.5f, (float)y / 2 - sizeY / 4 + 0.25f, 0), Quaternion.identity);
-                }
+                //else
+                //{
+                //    newTile = Instantiate(grass, new Vector3((float)x / 2 - sizeX / 4 + 0.5f, (float)y / 2 - sizeY / 4 + 0.25f, 0), Quaternion.identity);
+                //}
 
-                newTile.transform.parent = terrainContainer;
+                if(newTile != null)
+                {
+                    newTile.transform.parent = terrainContainer;
+                }
             }
         }
     }
