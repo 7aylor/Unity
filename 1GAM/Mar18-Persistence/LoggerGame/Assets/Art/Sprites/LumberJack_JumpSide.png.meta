@@ -1,13 +1,11 @@
 fileFormatVersion: 2
-guid: 5cac0f7dee4374b41adf5abf6404e6b1
-timeCreated: 1520912935
+guid: 7d960e2f5b03c834cbc80d317dd74720
+timeCreated: 1520916574
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: River Start_0
-    21300002: River Start_1
-    21300004: River Start_2
-    21300006: River Start_3
+    21300000: LumberJack_JumpSide_0
+    21300002: LumberJack_JumpSide_1
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -114,11 +112,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: River Start_0
+      name: LumberJack_JumpSide_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -128,38 +126,10 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: River Start_1
+      name: LumberJack_JumpSide_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: River Start_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: River Start_3
-      rect:
-        serializedVersion: 2
-        x: 96
+        x: 0
         y: 0
         width: 32
         height: 32
