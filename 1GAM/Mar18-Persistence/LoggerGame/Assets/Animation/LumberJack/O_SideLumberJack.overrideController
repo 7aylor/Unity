@@ -7,4 +7,8 @@ AnimatorOverrideController:
   m_PrefabInternal: {fileID: 0}
   m_Name: O_SideLumberJack
   m_Controller: {fileID: 9100000, guid: 1c77b38fafd96f7429a8304d43d52723, type: 2}
-  m_Clips: []
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: bbd9ebebf566aad4995e74e20f9c02fc, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2679eeaa4ac99064e8bd7b873714188e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: e5728f5163c516b41872355c6d897abe, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: db7c38668b6202942814fd693949834b, type: 2}
