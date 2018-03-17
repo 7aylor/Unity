@@ -6,7 +6,7 @@ public class MapGenerator : MonoBehaviour {
 
     public int sizeX;
     public int sizeY;
-    public int[,] map;
+    //public int[,] map;
     public Transform terrainContainer;
 
     [Range(0,5)]
@@ -42,9 +42,14 @@ public class MapGenerator : MonoBehaviour {
         endRiver
     }
 
+    private void Awake()
+    {
+        
+    }
+
     private void Start()
     {
-        map = new int[sizeX, sizeY];
+        GameManager.instance.InstantiateMap(sizeX, sizeY);
         GenerateRandomMap();
         SmoothMap();
         CreateRiver();
@@ -73,15 +78,15 @@ public class MapGenerator : MonoBehaviour {
 
                 if (num < treeSpawnThreshold)
                 {
-                    map[x, y] = (int)tileType.tree;
+                    GameManager.instance.map[x, y] = (int)tileType.tree;
                 }
                 else if (num > rockSpawnThreshold)
                 {
-                    map[x, y] = (int)tileType.rock;
+                    GameManager.instance.map[x, y] = (int)tileType.rock;
                 }
                 else
                 {
-                    map[x, y] = (int)tileType.grass;
+                    GameManager.instance.map[x, y] = (int)tileType.grass;
                 }
             }
         }
@@ -136,18 +141,6 @@ public class MapGenerator : MonoBehaviour {
                 {
                     LayRiverTilesStartOnTop(ref x, ref y);
                 }
-                //while (y > 0)
-                //{
-                //    y--;
-                //    if (y == 0)
-                //    {
-                //        map[startX, y] = (int)tileType.endRiver;
-                //    }
-                //    else
-                //    {
-                //        map[startX, y] = (int)tileType.straightRiver;
-                //    }
-                //}
             }
             //on top
             else
@@ -156,26 +149,10 @@ public class MapGenerator : MonoBehaviour {
                 {
                     LayRiverTilesStartOnBot(ref x, ref y);
                 }
-
-                //straight line
-                //while (y < sizeY - 1)
-                //{
-                //    y++;
-
-                //    if(y == sizeY - 1)
-                //    {
-                //        map[startX, y] = (int)tileType.endRiver;
-                //    }
-                //    else
-                //    {
-                //        map[startX, y] = (int)tileType.straightRiver;
-                //    }
-
-                //}
             }
         }
 
-        map[startX, startY] = (int)tileType.startRiver;
+        GameManager.instance.map[startX, startY] = (int)tileType.startRiver;
     }
 
     private void LayRiverTilesStartOnRight(ref int x, ref int y)
@@ -200,7 +177,7 @@ public class MapGenerator : MonoBehaviour {
 
                     y++;
 
-                    map[x, y] = (int)tileType.straightRiver;
+                    GameManager.instance.map[x, y] = (int)tileType.straightRiver;
                     break;
                 //down
                 case 1:
@@ -211,7 +188,7 @@ public class MapGenerator : MonoBehaviour {
 
                     y--;
 
-                    map[x, y] = (int)tileType.straightRiver;
+                    GameManager.instance.map[x, y] = (int)tileType.straightRiver;
                     break;
                 //left
                 case 2:
@@ -222,7 +199,7 @@ public class MapGenerator : MonoBehaviour {
 
                     x--;
 
-                    map[x, y] = (int)tileType.straightRiver;
+                    GameManager.instance.map[x, y] = (int)tileType.straightRiver;
                     break;
             }
 
@@ -230,19 +207,19 @@ public class MapGenerator : MonoBehaviour {
             if (x <= 0)
             {
                 Debug.Log("Hit left edge, created endRiver tile");
-                map[x, y] = (int)tileType.endRiver;
+                GameManager.instance.map[x, y] = (int)tileType.endRiver;
                 return;
             }
             if (y <= 0)
             {
                 Debug.Log("Hit top edge, created endRiver tile");
-                map[x, y] = (int)tileType.endRiver;
+                GameManager.instance.map[x, y] = (int)tileType.endRiver;
                 return;
             }
             if (y >= sizeY - 1)
             {
                 Debug.Log("Hit bottom edge, created endRiver tile");
-                map[x, y] = (int)tileType.endRiver;
+                GameManager.instance.map[x, y] = (int)tileType.endRiver;
                 return;
             }
 
@@ -271,7 +248,7 @@ public class MapGenerator : MonoBehaviour {
 
                     y++;
 
-                    map[x, y] = (int)tileType.straightRiver;
+                    GameManager.instance.map[x, y] = (int)tileType.straightRiver;
                     break;
                 //down
                 case 1:
@@ -282,7 +259,7 @@ public class MapGenerator : MonoBehaviour {
 
                     y--;
 
-                    map[x, y] = (int)tileType.straightRiver;
+                    GameManager.instance.map[x, y] = (int)tileType.straightRiver;
                     break;
                 //right
                 case 2:
@@ -293,7 +270,7 @@ public class MapGenerator : MonoBehaviour {
 
                     x++;
 
-                    map[x, y] = (int)tileType.straightRiver;
+                    GameManager.instance.map[x, y] = (int)tileType.straightRiver;
                     break;
             }
 
@@ -301,19 +278,19 @@ public class MapGenerator : MonoBehaviour {
             if (x >= sizeX - 1)
             {
                 Debug.Log("Hit left edge, created endRiver tile");
-                map[x, y] = (int)tileType.endRiver;
+                GameManager.instance.map[x, y] = (int)tileType.endRiver;
                 return;
             }
             if (y <= 0)
             {
                 Debug.Log("Hit top edge, created endRiver tile");
-                map[x, y] = (int)tileType.endRiver;
+                GameManager.instance.map[x, y] = (int)tileType.endRiver;
                 return;
             }
             if (y >= sizeY - 1)
             {
                 Debug.Log("Hit bottom edge, created endRiver tile");
-                map[x, y] = (int)tileType.endRiver;
+                GameManager.instance.map[x, y] = (int)tileType.endRiver;
                 return;
             }
 
@@ -342,7 +319,7 @@ public class MapGenerator : MonoBehaviour {
 
                     y--;
 
-                    map[x, y] = (int)tileType.straightRiver;
+                    GameManager.instance.map[x, y] = (int)tileType.straightRiver;
                     break;
                 //left
                 case 1:
@@ -353,7 +330,7 @@ public class MapGenerator : MonoBehaviour {
 
                     x--;
 
-                    map[x, y] = (int)tileType.straightRiver;
+                    GameManager.instance.map[x, y] = (int)tileType.straightRiver;
                     break;
                 //right
                 case 2:
@@ -364,7 +341,7 @@ public class MapGenerator : MonoBehaviour {
 
                     x++;
 
-                    map[x, y] = (int)tileType.straightRiver;
+                    GameManager.instance.map[x, y] = (int)tileType.straightRiver;
                     break;
             }
 
@@ -372,19 +349,19 @@ public class MapGenerator : MonoBehaviour {
             if (x >= sizeX - 1)
             {
                 Debug.Log("Hit left edge, created endRiver tile");
-                map[x, y] = (int)tileType.endRiver;
+                GameManager.instance.map[x, y] = (int)tileType.endRiver;
                 return;
             }
             if (x <= 0)
             {
                 Debug.Log("Hit top edge, created endRiver tile");
-                map[x, y] = (int)tileType.endRiver;
+                GameManager.instance.map[x, y] = (int)tileType.endRiver;
                 return;
             }
             if (y <= 0)
             {
                 Debug.Log("Hit bottom edge, created endRiver tile");
-                map[x, y] = (int)tileType.endRiver;
+                GameManager.instance.map[x, y] = (int)tileType.endRiver;
                 return;
             }
 
@@ -413,7 +390,7 @@ public class MapGenerator : MonoBehaviour {
 
                     y++;
 
-                    map[x, y] = (int)tileType.straightRiver;
+                    GameManager.instance.map[x, y] = (int)tileType.straightRiver;
                     break;
                 //left
                 case 1:
@@ -424,7 +401,7 @@ public class MapGenerator : MonoBehaviour {
 
                     x--;
 
-                    map[x, y] = (int)tileType.straightRiver;
+                    GameManager.instance.map[x, y] = (int)tileType.straightRiver;
                     break;
                 //right
                 case 2:
@@ -435,7 +412,7 @@ public class MapGenerator : MonoBehaviour {
 
                     x++;
 
-                    map[x, y] = (int)tileType.straightRiver;
+                    GameManager.instance.map[x, y] = (int)tileType.straightRiver;
                     break;
             }
 
@@ -443,19 +420,19 @@ public class MapGenerator : MonoBehaviour {
             if (x >= sizeX - 1)
             {
                 Debug.Log("Hit left edge, created endRiver tile");
-                map[x, y] = (int)tileType.endRiver;
+                GameManager.instance.map[x, y] = (int)tileType.endRiver;
                 return;
             }
             if (x <= 0)
             {
                 Debug.Log("Hit top edge, created endRiver tile");
-                map[x, y] = (int)tileType.endRiver;
+                GameManager.instance.map[x, y] = (int)tileType.endRiver;
                 return;
             }
             if (y >= sizeY - 1)
             {
                 Debug.Log("Hit bottom edge, created endRiver tile");
-                map[x, y] = (int)tileType.endRiver;
+                GameManager.instance.map[x, y] = (int)tileType.endRiver;
                 return;
             }
 
@@ -470,7 +447,10 @@ public class MapGenerator : MonoBehaviour {
     /// <returns></returns>
     private bool isRiverTile(int x, int y)
     {
-        if (map[x, y] == (int)tileType.curveRiver || map[x, y] == (int)tileType.endRiver || map[x, y] == (int)tileType.startRiver || map[x, y] == (int)tileType.straightRiver)
+        if (GameManager.instance.map[x, y] == (int)tileType.curveRiver || 
+            GameManager.instance.map[x, y] == (int)tileType.endRiver || 
+            GameManager.instance.map[x, y] == (int)tileType.startRiver || 
+            GameManager.instance.map[x, y] == (int)tileType.straightRiver)
         {
             return true;
         }
@@ -497,22 +477,22 @@ public class MapGenerator : MonoBehaviour {
         if (x > 0 && x < sizeX - 1 && y > 0 && y < sizeY - 1)
         {
             //left
-            if (riverTypes.Contains(map[x - 1, y]))
+            if (riverTypes.Contains(GameManager.instance.map[x - 1, y]))
             {
                 acceptableNeighborCount--;
             }
             //right 1
-            if (riverTypes.Contains(map[x + 1, y]))
+            if (riverTypes.Contains(GameManager.instance.map[x + 1, y]))
             {
                 acceptableNeighborCount--;
             }
             //up
-            if (riverTypes.Contains(map[x, y + 1]))
+            if (riverTypes.Contains(GameManager.instance.map[x, y + 1]))
             {
                 acceptableNeighborCount--;
             }
             //down
-            if (riverTypes.Contains(map[x, y - 1]))
+            if (riverTypes.Contains(GameManager.instance.map[x, y - 1]))
             {
                 acceptableNeighborCount--;
             }
@@ -553,11 +533,11 @@ public class MapGenerator : MonoBehaviour {
 
                     if(neighboringForestCount > neighborThreshold)
                     {
-                        map[x, y] = (int)tileType.tree;
+                        GameManager.instance.map[x, y] = (int)tileType.tree;
                     }
                     else if (neighboringForestCount < neighborThreshold)
                     {
-                        map[x, y] = (int)tileType.grass;
+                        GameManager.instance.map[x, y] = (int)tileType.grass;
                     }
                 }
             }
@@ -576,7 +556,7 @@ public class MapGenerator : MonoBehaviour {
                 {
                     foreach(int tile in tiles)
                     {
-                        if (map[x, y] == tile)
+                        if (GameManager.instance.map[x, y] == tile)
                         {
                             neighborsOfThisTile++;
                         }
@@ -606,18 +586,18 @@ public class MapGenerator : MonoBehaviour {
                 float xPos = (float)x - sizeX / 2;
                 float yPos = (float)y - sizeY / 2 + 1;
 
-                if (map[x,y] == (int)tileType.tree)
+                if (GameManager.instance.map[x,y] == (int)tileType.tree)
                 {
                     //Instantiate(black, new Vector3(-sizeX/2 + x + 0.5f, -sizeY/2 + y + 0.5f, 0), Quaternion.identity);
                     GameObject tree = trees[Random.Range(0, trees.Length)];
 
                     newTile = Instantiate(tree, new Vector3(xPos, yPos, 0), Quaternion.identity);
                 }
-                else if(map[x, y] == (int)tileType.rock)
+                else if(GameManager.instance.map[x, y] == (int)tileType.rock)
                 {
                     newTile = Instantiate(rock, new Vector3(xPos, yPos, 0), Quaternion.identity);
                 }
-                else if(map[x,y] == (int)tileType.startRiver)
+                else if(GameManager.instance.map[x,y] == (int)tileType.startRiver)
                 {
                     Quaternion rotation;
 
@@ -640,16 +620,16 @@ public class MapGenerator : MonoBehaviour {
 
                     newTile = Instantiate(riverStart, new Vector3(xPos, yPos, 0), rotation);
                 }
-                else if(map[x, y] == (int)tileType.straightRiver)
+                else if(GameManager.instance.map[x, y] == (int)tileType.straightRiver)
                 {
                     Quaternion rotation = Quaternion.identity;
 
                     if(x > 0 && x < sizeX)
                     {
-                        if (map[x - 1, y] == (int)tileType.straightRiver || map[x - 1, y] == (int)tileType.startRiver ||
-                            map[x + 1, y] == (int)tileType.straightRiver || map[x + 1, y] == (int)tileType.startRiver ||
-                            (map[x - 1, y] == (int)tileType.curveRiver && map[x + 1, y] == (int)tileType.endRiver) ||
-                            (map[x - 1, y] == (int)tileType.endRiver && map[x + 1, y] == (int)tileType.curveRiver))
+                        if (GameManager.instance.map[x - 1, y] == (int)tileType.straightRiver || GameManager.instance.map[x - 1, y] == (int)tileType.startRiver ||
+                            GameManager.instance.map[x + 1, y] == (int)tileType.straightRiver || GameManager.instance.map[x + 1, y] == (int)tileType.startRiver ||
+                            (GameManager.instance.map[x - 1, y] == (int)tileType.curveRiver && GameManager.instance.map[x + 1, y] == (int)tileType.endRiver) ||
+                            (GameManager.instance.map[x - 1, y] == (int)tileType.endRiver && GameManager.instance.map[x + 1, y] == (int)tileType.curveRiver))
                         {
                             rotation = Quaternion.Euler(0, 0, 90);
                         }
@@ -659,7 +639,7 @@ public class MapGenerator : MonoBehaviour {
 
                     if (newTile != null)
                     {
-                        map[x, y] = (int)tileType.curveRiver;
+                        GameManager.instance.map[x, y] = (int)tileType.curveRiver;
                     }
                     else
                     {
@@ -667,7 +647,7 @@ public class MapGenerator : MonoBehaviour {
                     }
                 }
 
-                else if (map[x, y] == (int)tileType.endRiver)
+                else if (GameManager.instance.map[x, y] == (int)tileType.endRiver)
                 {
                     Quaternion rotation;
 
@@ -709,22 +689,22 @@ public class MapGenerator : MonoBehaviour {
         if (x > 0 && x < sizeX && y > 0 && y < sizeY)
         {
             //down and left
-            if(riverTiles.Contains(map[x - 1 ,y]) && riverTiles.Contains(map[x , y - 1]))
+            if(riverTiles.Contains(GameManager.instance.map[x - 1 ,y]) && riverTiles.Contains(GameManager.instance.map[x , y - 1]))
             {
                 return Instantiate(riverCurve, new Vector3(xPos, yPos, 0), Quaternion.Euler(0,0, -90));
             }
             //down and right
-            if (riverTiles.Contains(map[x, y - 1]) && riverTiles.Contains(map[x + 1, y]))
+            if (riverTiles.Contains(GameManager.instance.map[x, y - 1]) && riverTiles.Contains(GameManager.instance.map[x + 1, y]))
             {
                 return Instantiate(riverCurve, new Vector3(xPos, yPos, 0), Quaternion.identity);
             }
             //up and right
-            if (riverTiles.Contains(map[x + 1, y]) && riverTiles.Contains(map[x, y + 1]))
+            if (riverTiles.Contains(GameManager.instance.map[x + 1, y]) && riverTiles.Contains(GameManager.instance.map[x, y + 1]))
             {
                 return Instantiate(riverCurve, new Vector3(xPos, yPos, 0), Quaternion.Euler(0, 0, 90));
             }
             //up and left
-            if (riverTiles.Contains(map[x - 1, y]) && riverTiles.Contains(map[x, y + 1]))
+            if (riverTiles.Contains(GameManager.instance.map[x - 1, y]) && riverTiles.Contains(GameManager.instance.map[x, y + 1]))
             {
                 return Instantiate(riverCurve, new Vector3(xPos, yPos, 0), Quaternion.Euler(0, 0, 180));
             }

@@ -1,13 +1,11 @@
 fileFormatVersion: 2
-guid: cde2ccaef7a24a443a3e859261c4f7b8
-timeCreated: 1520824197
+guid: f586349d06d29b34f9d6f31d36230693
+timeCreated: 1521310591
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: River Curve_0
-    21300002: River Curve_1
-    21300004: River Curve_2
-    21300006: River Curve_3
+    21300000: Flag_0
+    21300002: Flag_1
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -114,7 +112,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: River Curve_0
+      name: Flag_0
       rect:
         serializedVersion: 2
         x: 0
@@ -128,38 +126,10 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: River Curve_1
+      name: Flag_1
       rect:
         serializedVersion: 2
         x: 32
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: River Curve_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: River Curve_3
-      rect:
-        serializedVersion: 2
-        x: 96
         y: 0
         width: 32
         height: 32

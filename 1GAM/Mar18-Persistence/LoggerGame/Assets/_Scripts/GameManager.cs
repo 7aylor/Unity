@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public int[,] map;
+    public int sizeX;
+    public int sizeY;
+    public bool playerSelected = false;
+
+    public static GameManager instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    public void InstantiateMap(int x, int y)
+    {
+        map = new int[x, y];
+    }
 }
