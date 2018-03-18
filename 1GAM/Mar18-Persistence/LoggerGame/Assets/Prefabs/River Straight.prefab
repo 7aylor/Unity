@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4699363228839310}
   - component: {fileID: 212879450060890496}
   - component: {fileID: 95597619420514294}
-  - component: {fileID: 114957814659490812}
   - component: {fileID: 61427604242356064}
+  - component: {fileID: 114173999999974826}
   m_Layer: 0
   m_Name: River Straight
   m_TagString: River
@@ -85,15 +85,15 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114957814659490812
+--- !u!114 &114173999999974826
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1242716478098746}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e140e0768d4fb3438cbe9a08f4c10b4, type: 3}
+  m_Script: {fileID: 11500000, guid: 38082d86edb19134a87586f901ecc4b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212879450060890496

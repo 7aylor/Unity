@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4699363228839310}
   - component: {fileID: 212879450060890496}
   - component: {fileID: 61243958191437534}
+  - component: {fileID: 95914381790313112}
+  - component: {fileID: 114704544677291500}
   m_Layer: 0
   m_Name: River End
   m_TagString: River
@@ -66,6 +68,34 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &95914381790313112
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1242716478098746}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114704544677291500
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1242716478098746}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38082d86edb19134a87586f901ecc4b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212879450060890496
 SpriteRenderer:
   m_ObjectHideFlags: 1

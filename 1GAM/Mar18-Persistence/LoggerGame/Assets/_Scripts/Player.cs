@@ -21,6 +21,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     private SpriteRenderer sprite;
     private GameObject selectionIndicator;
     private GameObject tempFlag;
+    private GameObject collidingTile;
 
     private enum direction { up, down, left, right };
     private direction travelDirection;
@@ -119,6 +120,19 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         }
         hasTarget = false;
         Destroy(tempFlag);
+        CheckTileType();
+    }
+
+    private void CheckTileType()
+    {
+        if(collidingTile != null)
+        {
+            if (collidingTile.tag == "Tree")
+            {
+                animator.SetBool("Chop", true);
+                sprite.sortingOrder = -1000;
+            }
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -152,5 +166,11 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                 selectionIndicator.SetActive(false);
             }
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Triggered");
+        collidingTile = collision.gameObject;
     }
 }
