@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
     public int sizeX;
     public int sizeY;
     public bool playerSelected = false;
+    public Player selectedPlayer;
 
     public static GameManager instance;
 

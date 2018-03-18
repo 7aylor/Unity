@@ -22,6 +22,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     private GameObject selectionIndicator;
     private GameObject tempFlag;
     private GameObject collidingTile;
+    private ActionPanel actionPanel;
 
     private enum direction { up, down, left, right };
     private direction travelDirection;
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     {
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        actionPanel = FindObjectOfType<ActionPanel>();
         selectionIndicator = transform.GetChild(0).gameObject; //Gets the indicator child game object
     }
 
@@ -37,12 +39,12 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         hasTarget = false;
         isSelected = false;
 	}
-	
-	void Update () {
 
-        if (Input.GetMouseButtonDown(0) && isSelected == true && hasTarget == false)
+    public void HandleMovePlayer()
+    {
+        if (isSelected == true && hasTarget == false)
         {
-            Debug.Log("Clicked");
+            Debug.Log("Handling PlayerMovement");
             //get the distance between the mouse and the player
             Vector3 distanceToMouse = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -93,6 +95,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         }
     }
 
+
     private IEnumerator TravelToTarget(direction dir)
     {
         Vector3 changeVector;
@@ -120,7 +123,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         }
         hasTarget = false;
         Destroy(tempFlag);
-        CheckTileType();
+        //CheckTileType();
     }
 
     private void CheckTileType()
@@ -137,22 +140,30 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("OnPointerClick called");
-
         if(GameManager.instance.playerSelected == false)
         {
             if (isSelected == true)
             {
-                isSelected = false;
                 GameManager.instance.playerSelected = false;
                 hasTarget = false;
-                selectionIndicator.SetActive(false);
+                SelectPlayer(false);
+                actionPanel.Animate();
             }
             else
             {
                 GameManager.instance.playerSelected = true;
-                isSelected = true;
-                selectionIndicator.SetActive(true);
+                SelectPlayer(true);
+
+                if (tag == "Lumberjack")
+                {
+                    actionPanel.EnableLumberJackActionPanel();
+                    actionPanel.Animate();
+                }
+                else if (tag == "Planter")
+                {
+                    actionPanel.EnablePlanterActionPanel();
+                    actionPanel.Animate();
+                }
             }
         }
         else
@@ -160,12 +171,53 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             //play can't select noise
             if (isSelected == true)
             {
-                isSelected = false;
                 GameManager.instance.playerSelected = false;
                 hasTarget = false;
-                selectionIndicator.SetActive(false);
+                SelectPlayer(false);
+                actionPanel.Animate();
+            }
+            else
+            {
+                foreach(Player p in FindObjectsOfType<Player>())
+                {
+                    if(p.gameObject != this)
+                    {
+                        p.SelectPlayer(false);
+                        Debug.Log("Deselecting other player");
+                    }
+                }
+
+                if(tag == "Lumberjack")
+                {
+                    actionPanel.EnableLumberJackActionPanel();
+                    actionPanel.Animate();
+                }
+                else if(tag == "Planter")
+                {
+                    actionPanel.EnablePlanterActionPanel();
+                    actionPanel.Animate();
+                }
+
+
+                GameManager.instance.playerSelected = true;
+                SelectPlayer(true);
             }
         }
+    }
+
+    public void SelectPlayer(bool isActive)
+    {
+        isSelected = isActive;
+        selectionIndicator.SetActive(isActive);
+        if(isActive == true)
+        {
+            GameManager.instance.selectedPlayer = this;
+        }
+        else
+        {
+            GameManager.instance.selectedPlayer = null;
+        }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

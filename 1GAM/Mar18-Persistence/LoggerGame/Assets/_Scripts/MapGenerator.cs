@@ -670,6 +670,10 @@ public class MapGenerator : MonoBehaviour {
 
                     newTile = Instantiate(riverEnd, new Vector3(xPos, yPos, 0), rotation);
                 }
+                else
+                {
+                    newTile = Instantiate(grass, new Vector3(xPos, yPos, 0), Quaternion.identity);
+                }
 
                 if(newTile != null)
                 {
