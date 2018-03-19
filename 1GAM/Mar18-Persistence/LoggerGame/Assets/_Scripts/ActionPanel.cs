@@ -1,29 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
 public class ActionPanel : MonoBehaviour {
 
     private Animator animator;
     private bool isUp;
-    private GameObject hireActions;
-    private GameObject lumberjackActions;
-    private GameObject planterActions;
+    private GameObject actionsPanel;
+
+    public enum SelectedPlayer { none, planter, lumberjack };
+    public SelectedPlayer selectedPlayer;
+
+    public Button[] hireButtons;
+    public Button[] planterButtons;
+    public Button[] lumberjackButtons;
+
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        hireActions = transform.GetChild(0).gameObject;
-        lumberjackActions = transform.GetChild(1).gameObject;
-        planterActions = transform.GetChild(2).gameObject;
+        actionsPanel = transform.GetChild(0).gameObject;
     }
 
     // Use this for initialization
     void Start () {
         isUp = false;
-        EnableHireActionPanel();
-	}
+        selectedPlayer = SelectedPlayer.none;
+    }
 	
     public void Animate()
     {
@@ -39,23 +44,44 @@ public class ActionPanel : MonoBehaviour {
         }
     }
 
-    public void EnableHireActionPanel()
+    public void ActionsButtonClick()
     {
-        hireActions.SetActive(true);
-        lumberjackActions.SetActive(false);
-        planterActions.SetActive(false);
+        if(selectedPlayer != SelectedPlayer.planter && selectedPlayer != SelectedPlayer.lumberjack)
+        {
+            ActivateButtons(SelectedPlayer.none);
+        }
+        
+        Animate();
     }
 
-    public void EnableLumberJackActionPanel()
+    public void ActivateButtons(SelectedPlayer player)
     {
-        hireActions.SetActive(false);
-        lumberjackActions.SetActive(true);
-        planterActions.SetActive(false);
+        selectedPlayer = player;
+
+        if(selectedPlayer == SelectedPlayer.none)
+        {
+            EnableDisableButtons(hireButtons, true);
+            EnableDisableButtons(planterButtons, false);
+            EnableDisableButtons(lumberjackButtons, false);
+        }
+        else if (selectedPlayer == SelectedPlayer.lumberjack)
+        {
+            EnableDisableButtons(hireButtons, false);
+            EnableDisableButtons(planterButtons, false);
+            EnableDisableButtons(lumberjackButtons, true);
+        }
+        else if (selectedPlayer == SelectedPlayer.planter)
+        {
+            EnableDisableButtons(hireButtons, false);
+            EnableDisableButtons(planterButtons, true);
+            EnableDisableButtons(lumberjackButtons, false);
+        }
     }
-    public void EnablePlanterActionPanel()
+
+    private void EnableDisableButtons(Button[] selectedButtons, bool isActive)
     {
-        hireActions.SetActive(false);
-        lumberjackActions.SetActive(false);
-        planterActions.SetActive(true);
+        foreach (Button button in selectedButtons)
+        {button.interactable = isActive;
+        }
     }
 }

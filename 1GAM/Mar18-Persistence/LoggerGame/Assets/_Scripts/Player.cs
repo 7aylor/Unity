@@ -142,29 +142,27 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     {
         if(GameManager.instance.playerSelected == false)
         {
-            if (isSelected == true)
-            {
-                GameManager.instance.playerSelected = false;
-                hasTarget = false;
-                SelectPlayer(false);
-                actionPanel.Animate();
-            }
-            else
-            {
+            //if (isSelected == true)
+            //{
+            //    GameManager.instance.playerSelected = false;
+            //    hasTarget = false;
+            //    SelectPlayer(false);
+            //    actionPanel.Animate();
+            //}
+            //else
+            //{
                 GameManager.instance.playerSelected = true;
                 SelectPlayer(true);
 
                 if (tag == "Lumberjack")
                 {
-                    actionPanel.EnableLumberJackActionPanel();
-                    actionPanel.Animate();
+                    actionPanel.ActivateButtons(ActionPanel.SelectedPlayer.lumberjack);
                 }
                 else if (tag == "Planter")
                 {
-                    actionPanel.EnablePlanterActionPanel();
-                    actionPanel.Animate();
+                    actionPanel.ActivateButtons(ActionPanel.SelectedPlayer.planter);
                 }
-            }
+            //}
         }
         else
         {
@@ -174,7 +172,11 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                 GameManager.instance.playerSelected = false;
                 hasTarget = false;
                 SelectPlayer(false);
-                actionPanel.Animate();
+
+                if (tag == "Lumberjack" || tag == "Planter")
+                {
+                    actionPanel.ActivateButtons(ActionPanel.SelectedPlayer.none);
+                }
             }
             else
             {
@@ -189,13 +191,11 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
                 if(tag == "Lumberjack")
                 {
-                    actionPanel.EnableLumberJackActionPanel();
-                    actionPanel.Animate();
+                    actionPanel.ActivateButtons(ActionPanel.SelectedPlayer.lumberjack);
                 }
                 else if(tag == "Planter")
                 {
-                    actionPanel.EnablePlanterActionPanel();
-                    actionPanel.Animate();
+                    actionPanel.ActivateButtons(ActionPanel.SelectedPlayer.planter);
                 }
 
 
