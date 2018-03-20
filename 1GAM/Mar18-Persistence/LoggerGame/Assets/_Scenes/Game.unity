@@ -712,6 +712,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1103796138249030, guid: f2938e3017ab8e74daaa175e232dd23e, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f2938e3017ab8e74daaa175e232dd23e, type: 2}
   m_IsPrefabParent: 0
@@ -1059,6 +1063,7 @@ GameObject:
   - component: {fileID: 557461895}
   - component: {fileID: 557461894}
   - component: {fileID: 557461893}
+  - component: {fileID: 557461896}
   m_Layer: 5
   m_Name: Lumberjack Chop
   m_TagString: Untagged
@@ -1123,7 +1128,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 557461894}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 557461896}
+        m_MethodName: Chop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &557461894
@@ -1159,6 +1175,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 557461891}
+--- !u!114 &557461896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 557461891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc0ca1d51157bbe42ab039a73bdb1b55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chopping: 0
 --- !u!1 &568207925
 GameObject:
   m_ObjectHideFlags: 0
@@ -1684,7 +1712,7 @@ MonoBehaviour:
   playerSelected: 0
   selectedPlayer: {fileID: 0}
   forestHealth: 0
-  dollars: 0
+  money: 0
   lumber: 0
   demand: 0
 --- !u!4 &839035040
@@ -1821,6 +1849,7 @@ GameObject:
   - component: {fileID: 868797051}
   - component: {fileID: 868797053}
   - component: {fileID: 868797052}
+  - component: {fileID: 868797054}
   m_Layer: 5
   m_Name: MoneyText
   m_TagString: Untagged
@@ -1964,6 +1993,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 868797050}
+--- !u!114 &868797054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 868797050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 557caa96ce2b6ba40bd955764b31248d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &894945172
 GameObject:
   m_ObjectHideFlags: 0
@@ -2512,6 +2552,7 @@ GameObject:
   - component: {fileID: 1218034918}
   - component: {fileID: 1218034920}
   - component: {fileID: 1218034919}
+  - component: {fileID: 1218034921}
   m_Layer: 5
   m_Name: LumberText
   m_TagString: Untagged
@@ -2655,6 +2696,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1218034917}
+--- !u!114 &1218034921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1218034917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4dcd08d03fa9ea429f6f7cabe5758de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1225797005
 GameObject:
   m_ObjectHideFlags: 0
@@ -2786,7 +2838,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 228393865
+  randomSeed: 730285558
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6111,6 +6163,7 @@ GameObject:
   - component: {fileID: 1269686624}
   - component: {fileID: 1269686623}
   - component: {fileID: 1269686622}
+  - component: {fileID: 1269686625}
   m_Layer: 5
   m_Name: Planter Plant
   m_TagString: Untagged
@@ -6175,7 +6228,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1269686623}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1269686625}
+        m_MethodName: Plant
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1269686623
@@ -6211,6 +6275,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1269686620}
+--- !u!114 &1269686625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1269686620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c70a076f34e763489cac7a86aefc647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  planting: 0
 --- !u!1 &1309077499
 GameObject:
   m_ObjectHideFlags: 0
@@ -6432,6 +6508,7 @@ GameObject:
   - component: {fileID: 1424159597}
   - component: {fileID: 1424159599}
   - component: {fileID: 1424159598}
+  - component: {fileID: 1424159600}
   m_Layer: 5
   m_Name: LumberDemandText
   m_TagString: Untagged
@@ -6575,6 +6652,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1424159596}
+--- !u!114 &1424159600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1424159596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c044a00969aa28547a76c417722ff174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1466753535
 GameObject:
   m_ObjectHideFlags: 0
@@ -6586,6 +6674,7 @@ GameObject:
   - component: {fileID: 1466753539}
   - component: {fileID: 1466753538}
   - component: {fileID: 1466753537}
+  - component: {fileID: 1466753540}
   m_Layer: 5
   m_Name: Planter Water
   m_TagString: Untagged
@@ -6650,7 +6739,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1466753538}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1466753540}
+        m_MethodName: Water
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1466753538
@@ -6686,6 +6786,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1466753535}
+--- !u!114 &1466753540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1466753535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66e8b7889ed6f2748a698416c8d57170, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  watering: 0
 --- !u!1 &1506497296
 GameObject:
   m_ObjectHideFlags: 0
@@ -6897,6 +7009,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 114004205610177298, guid: 604dcbbd411470947aa4a918e2e4d82f,
+        type: 2}
+      propertyPath: flag
+      value: 
+      objectReference: {fileID: 1548263214518042, guid: 7e40ba269c177a441a05885a59e092b2,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 604dcbbd411470947aa4a918e2e4d82f, type: 2}
   m_IsPrefabParent: 0

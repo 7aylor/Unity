@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
     public bool playerSelected = false;
     public Player selectedPlayer;
     public int forestHealth;
-    public int dollars;
+    public int money;
     public int lumber;
     public int demand;
 
@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour {
     {
         instance = this;
         forestHealth = 100;
-        dollars = 1000;
+        money = 1000;
         lumber = 0;
         demand = 0;
     }

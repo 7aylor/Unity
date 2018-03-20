@@ -23,6 +23,9 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     private GameObject tempFlag;
     private GameObject collidingTile;
     private ActionPanel actionPanel;
+    private ChopButton chopButton;
+    private PlantButton plantButton;
+    private WaterButton waterButton;
 
     private enum direction { up, down, left, right };
     private direction travelDirection;
@@ -32,6 +35,9 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         actionPanel = FindObjectOfType<ActionPanel>();
+        chopButton = FindObjectOfType<ChopButton>();
+        plantButton = FindObjectOfType<PlantButton>();
+        waterButton = FindObjectOfType<WaterButton>();
         selectionIndicator = transform.GetChild(0).gameObject; //Gets the indicator child game object
     }
 
@@ -140,46 +146,58 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        //if there is no currently selected player
         if(GameManager.instance.playerSelected == false)
         {
-            //if (isSelected == true)
-            //{
-            //    GameManager.instance.playerSelected = false;
-            //    hasTarget = false;
-            //    SelectPlayer(false);
-            //    actionPanel.Animate();
-            //}
-            //else
-            //{
-                GameManager.instance.playerSelected = true;
-                SelectPlayer(true);
+            GameManager.instance.playerSelected = true;
+            SelectPlayer(true);
 
-                if (tag == "Lumberjack")
-                {
-                    actionPanel.ActivateButtons(ActionPanel.SelectedPlayer.lumberjack);
-                }
-                else if (tag == "Planter")
-                {
-                    actionPanel.ActivateButtons(ActionPanel.SelectedPlayer.planter);
-                }
-            //}
+            //toggle which buttons are active on the actions panel
+            if (tag == "Lumberjack")
+            {
+                actionPanel.ActivateButtons(ActionPanel.SelectedPlayer.lumberjack);
+            }
+            else if (tag == "Planter")
+            {
+                actionPanel.ActivateButtons(ActionPanel.SelectedPlayer.planter);
+            }
         }
+        //the player is selected when clicked
         else
         {
-            //play can't select noise
+            //if this player is selected already, deactivate
             if (isSelected == true)
             {
+
+               actionPanel.ActivateButtons(ActionPanel.SelectedPlayer.none);
+
+                if (tag == "Lumberjack" && chopButton.chopping == true)
+                {
+                    animator.SetBool("Chop", false);
+                    animator.runtimeAnimatorController = down;
+                    chopButton.chopping = false;
+                }
+                else if (tag == "Planter" && plantButton.planting == true)
+                {
+                    animator.SetBool("Plant", false);
+                    plantButton.planting = false;
+                    animator.runtimeAnimatorController = down;
+                }
+                else if (tag == "Planter" && waterButton.watering == true)
+                {
+                    animator.SetBool("Water", false);
+                    waterButton.watering = false;
+                    animator.runtimeAnimatorController = down;
+                }
+
                 GameManager.instance.playerSelected = false;
                 hasTarget = false;
                 SelectPlayer(false);
-
-                if (tag == "Lumberjack" || tag == "Planter")
-                {
-                    actionPanel.ActivateButtons(ActionPanel.SelectedPlayer.none);
-                }
             }
+            //otherwise we are selecting the other player
             else
             {
+                //find the other player
                 foreach(Player p in FindObjectsOfType<Player>())
                 {
                     if(p.gameObject != this)
@@ -198,7 +216,6 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                     actionPanel.ActivateButtons(ActionPanel.SelectedPlayer.planter);
                 }
 
-
                 GameManager.instance.playerSelected = true;
                 SelectPlayer(true);
             }
@@ -211,6 +228,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         selectionIndicator.SetActive(isActive);
         if(isActive == true)
         {
+            Debug.Log(this + " is the player in Game Manager");
             GameManager.instance.selectedPlayer = this;
         }
         else
@@ -225,4 +243,40 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         Debug.Log("Triggered");
         collidingTile = collision.gameObject;
     }
+
+    public void PlayChopAnimation(bool playAnimation)
+    {
+        if (tag == "Lumberjack")
+        {
+            if(playAnimation == true)
+            {
+                sprite.sortingOrder = -1000;
+            }
+            else
+            {
+                sprite.sortingOrder = 1;
+            }
+            animator.SetBool("Chop", playAnimation);
+            animator.runtimeAnimatorController = down;
+        }
+    }
+
+    public void PlayPlantAnimation(bool playAnimation)
+    {
+        if(tag == "Planter")
+        {
+            animator.SetBool("Plant", playAnimation);
+            animator.runtimeAnimatorController = down;
+        }
+    }
+
+    public void PlayWaterAnimation(bool playAnimation)
+    {
+        if (tag == "Planter")
+        {
+            animator.SetBool("Water", playAnimation);
+            animator.runtimeAnimatorController = down;
+        }
+    }
+
 }
