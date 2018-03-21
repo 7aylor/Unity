@@ -1092,7 +1092,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 548f5d64d2f75624287bc4366dc6fea7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isRight: 0
+  isRight: 1
   bird: {fileID: 1913756786112950, guid: e9fdf1127dc24b54cae02c72aa972db7, type: 2}
 --- !u!1 &368802664
 GameObject:
@@ -1121,7 +1121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 548f5d64d2f75624287bc4366dc6fea7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isRight: 1
+  isRight: 0
   bird: {fileID: 1913756786112950, guid: e9fdf1127dc24b54cae02c72aa972db7, type: 2}
 --- !u!4 &368802666
 Transform:
@@ -8122,7 +8122,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4711253044039546, guid: e9fdf1127dc24b54cae02c72aa972db7, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -3.28
+      value: 2.85
       objectReference: {fileID: 0}
     - target: {fileID: 4711253044039546, guid: e9fdf1127dc24b54cae02c72aa972db7, type: 2}
       propertyPath: m_LocalPosition.z

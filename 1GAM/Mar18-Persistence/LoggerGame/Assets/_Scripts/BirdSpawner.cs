@@ -31,6 +31,6 @@ public class BirdSpawner : MonoBehaviour {
 
     private float GetNewMaxTimeBetweenSpawns()
     {
-        return Random.Range(1, 3f);
+        return Random.Range(60, 180f);
     }
 }
