@@ -6,6 +6,8 @@ public class BirdSpawner : MonoBehaviour {
 
     public bool isRight;
     public GameObject bird;
+    public int minTimeBetweenSpawn;
+    public int maxTimeBetweenSpawn;
     private float maxTimeBetweenSpawns;
     private float timeSinceLastSpawn;
 
@@ -20,7 +22,9 @@ public class BirdSpawner : MonoBehaviour {
 		if(timeSinceLastSpawn >= maxTimeBetweenSpawns)
         {
             timeSinceLastSpawn = 0;
-            GameObject newBird = Instantiate(bird, transform.position, Quaternion.identity);
+            GameObject newBird = Instantiate(bird, transform.position + new Vector3(0, Random.Range(-3, 3), 0), Quaternion.identity);
+
+
             newBird.GetComponent<Bird>().isRight = isRight;
         }
         else
@@ -31,6 +35,6 @@ public class BirdSpawner : MonoBehaviour {
 
     private float GetNewMaxTimeBetweenSpawns()
     {
-        return Random.Range(60, 180f);
+        return Random.Range(minTimeBetweenSpawn, maxTimeBetweenSpawn);
     }
 }

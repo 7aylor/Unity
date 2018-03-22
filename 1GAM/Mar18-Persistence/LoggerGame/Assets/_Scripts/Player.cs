@@ -279,4 +279,8 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         }
     }
 
+    public void LumberjackChopAnimation()
+    {
+        collidingTile.GetComponent<Animator>().SetTrigger("Tree_Chop");
+    }
 }
