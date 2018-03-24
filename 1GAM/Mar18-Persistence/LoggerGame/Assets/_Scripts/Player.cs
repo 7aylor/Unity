@@ -22,6 +22,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     private GameObject selectionIndicator;
     private GameObject tempFlag;
     private GameObject collidingTile;
+    private Animator collidingTileAnimator;
     private ActionPanel actionPanel;
     private ChopButton chopButton;
     private PlantButton plantButton;
@@ -242,6 +243,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     {
         Debug.Log("Triggered");
         collidingTile = collision.gameObject;
+        collidingTileAnimator = collidingTile.GetComponent<Animator>();
     }
 
     public void PlayChopAnimation(bool playAnimation)
@@ -281,6 +283,10 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
     public void LumberjackChopAnimation()
     {
-        collidingTile.GetComponent<Animator>().SetTrigger("Tree_Chop");
+        if (collidingTileAnimator != null)
+        {
+            Debug.Log("CHOP");
+            collidingTileAnimator.SetTrigger("Tree_Chop");
+        }
     }
 }

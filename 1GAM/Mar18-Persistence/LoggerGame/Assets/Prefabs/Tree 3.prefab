@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 212879450060890496}
   - component: {fileID: 61424360963066636}
   - component: {fileID: 114295666658344546}
+  - component: {fileID: 95268288504876870}
+  - component: {fileID: 114056010350619742}
   m_Layer: 0
   m_Name: Tree 3
   m_TagString: Tree
@@ -67,6 +69,42 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &95268288504876870
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1242716478098746}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114056010350619742
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1242716478098746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0517155edcc8e434c92ee59063ebb10e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  treeState: 0
+  lumberYielded: 0
+  seedAnim: {fileID: 0}
+  smallAnim: {fileID: 0}
+  mediumAnim: {fileID: 0}
+  largeAnim: {fileID: 0}
+  multipleAnim: {fileID: 0}
 --- !u!114 &114295666658344546
 MonoBehaviour:
   m_ObjectHideFlags: 1
