@@ -241,7 +241,6 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Triggered");
         collidingTile = collision.gameObject;
         collidingTileAnimator = collidingTile.GetComponent<Animator>();
     }
@@ -286,7 +285,22 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         if (collidingTileAnimator != null)
         {
             Debug.Log("CHOP");
-            collidingTileAnimator.SetTrigger("Tree_Chop");
+            collidingTileAnimator.SetTrigger("Chop");
+            if (sprite.flipX == true)
+            {
+                collidingTile.GetComponent<SpriteRenderer>().flipX = false;
+            }
+            else
+            {
+                //collidingTileAnimator.SetTrigger("Chop_Right");
+                collidingTile.GetComponent<SpriteRenderer>().flipX = true;
+            }
+            
         }
+    }
+
+    public void ClearLumberjackAnimations()
+    {
+        animator.SetBool("Chop", false);
     }
 }

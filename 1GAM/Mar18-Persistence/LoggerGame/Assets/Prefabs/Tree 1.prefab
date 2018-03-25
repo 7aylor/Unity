@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 61534394842584890}
   - component: {fileID: 114462012698103256}
   - component: {fileID: 114598334969851468}
+  - component: {fileID: 114109155081197910}
   m_Layer: 0
   m_Name: Tree 1
   m_TagString: Tree
@@ -86,6 +87,24 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114109155081197910
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1242716478098746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0517155edcc8e434c92ee59063ebb10e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 2
+  treeState: 0
+  lumberYielded: 0
+  seedAnim: {fileID: 0}
+  smallAnim: {fileID: 0}
+  mediumAnim: {fileID: 0}
+  largeAnim: {fileID: 0}
 --- !u!114 &114462012698103256
 MonoBehaviour:
   m_ObjectHideFlags: 1

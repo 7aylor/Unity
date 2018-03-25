@@ -9,13 +9,16 @@ public class Tree : MonoBehaviour {
     public enum maturity { seed, small, medium, large, multiple}
     public maturity treeState;
     public int lumberYielded;
+    public bool canChopDown;
     
     //these will need to be set and changed when the maturity changes
     public AnimatorOverrideController seedAnim;
     public AnimatorOverrideController smallAnim;
     public AnimatorOverrideController mediumAnim;
     public AnimatorOverrideController largeAnim;
-    public AnimatorOverrideController multipleAnim;
+    //public AnimatorOverrideController multipleAnim;
+
+    private Player lumberjack;
 
     private Animator animator;
 
@@ -26,33 +29,43 @@ public class Tree : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        //InitializeTree();
+        treeState = maturity.small;
         UpdateTreeStats();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    private void InitializeTree()
+    {
+        treeState = (maturity)(Random.Range(0, 4));
+        UpdateTreeStats();
+    }
 
     private void UpdateTreeStats()
     {
+        canChopDown = true;
+
         switch (treeState)
         {
             case maturity.seed:
                 health = -1;
                 lumberYielded = 0;
+                canChopDown = false;
+                //animator.runtimeAnimatorController = seedAnim;
                 break;
             case maturity.small:
                 health = 2;
                 lumberYielded = 10;
+                //animator.runtimeAnimatorController = smallAnim;
                 break;
             case maturity.medium:
                 health = 4;
                 lumberYielded = 20;
+                //animator.runtimeAnimatorController = mediumAnim;
                 break;
             case maturity.large:
                 health = 8;
                 lumberYielded = 50;
+                //animator.runtimeAnimatorController = largeAnim;
                 break;
         }
     }
@@ -63,7 +76,9 @@ public class Tree : MonoBehaviour {
 
         if(health <= 0)
         {
-            //trigger falling animation
+            lumberjack = GameObject.FindGameObjectWithTag("Lumberjack").GetComponent<Player>();
+            animator.SetTrigger("Falling");
+            lumberjack.ClearLumberjackAnimations();
         }
     }
 }
