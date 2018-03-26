@@ -6,7 +6,7 @@ using UnityEngine;
 public class Tree : MonoBehaviour {
 
     public int health;
-    public enum maturity { seed, small, medium, large, multiple}
+    public enum maturity { seed, small, medium, large}
     public maturity treeState;
     public int lumberYielded;
     public bool canChopDown;
@@ -18,9 +18,15 @@ public class Tree : MonoBehaviour {
     public AnimatorOverrideController largeAnim;
     //public AnimatorOverrideController multipleAnim;
 
+    //public Sprite seedSprite;
+    //public Sprite smallSprite;
+    //public Sprite mediumSprite;
+    //public Sprite largeSprite;
+
     private Player lumberjack;
 
     private Animator animator;
+    private SpriteRenderer sprite;
 
     private void Awake()
     {
@@ -29,14 +35,21 @@ public class Tree : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        //InitializeTree();
-        treeState = maturity.small;
+        InitializeTree();
         UpdateTreeStats();
-	}
+        PickAnimationStartFrame();
+    }
+
+    private void PickAnimationStartFrame()
+    {
+        Animator anim = GetComponent<Animator>();
+        AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);//could replace 0 by any other animation layer index
+        anim.Play(state.fullPathHash, -1, Random.Range(0f, 1f));
+    }
 
     private void InitializeTree()
     {
-        treeState = (maturity)(Random.Range(0, 4));
+        treeState = (maturity)(Random.Range(1, 4));
         UpdateTreeStats();
     }
 
@@ -50,22 +63,26 @@ public class Tree : MonoBehaviour {
                 health = -1;
                 lumberYielded = 0;
                 canChopDown = false;
+                //sprite.sprite = seedSprite;
                 //animator.runtimeAnimatorController = seedAnim;
                 break;
             case maturity.small:
                 health = 2;
                 lumberYielded = 10;
-                //animator.runtimeAnimatorController = smallAnim;
+                //sprite.sprite = smallSprite;
+                animator.runtimeAnimatorController = smallAnim;
                 break;
             case maturity.medium:
                 health = 4;
                 lumberYielded = 20;
-                //animator.runtimeAnimatorController = mediumAnim;
+                //sprite.sprite = mediumSprite;
+                animator.runtimeAnimatorController = mediumAnim;
                 break;
             case maturity.large:
                 health = 8;
                 lumberYielded = 50;
-                //animator.runtimeAnimatorController = largeAnim;
+                //sprite.sprite = largeSprite;
+                animator.runtimeAnimatorController = largeAnim;
                 break;
         }
     }
