@@ -102,7 +102,7 @@ MonoBehaviour:
   treeState: 0
   lumberYielded: 0
   canChopDown: 0
-  seedAnim: {fileID: 0}
+  seedAnim: {fileID: 22100000, guid: 1664c60c079745742ae6404848c103f9, type: 2}
   smallAnim: {fileID: 22100000, guid: d7e0c5297040875408a2f6dcf3e28e77, type: 2}
   mediumAnim: {fileID: 22100000, guid: 75dfbadf0a348ea4395e60b21de28f57, type: 2}
   largeAnim: {fileID: 22100000, guid: b03c4a224b1bfbd48a40c57e8fd083ea, type: 2}

@@ -24,7 +24,6 @@ public class BirdSpawner : MonoBehaviour {
             timeSinceLastSpawn = 0;
             GameObject newBird = Instantiate(bird, transform.position + new Vector3(0, Random.Range(-3, 3), 0), Quaternion.identity);
 
-
             newBird.GetComponent<Bird>().isRight = isRight;
         }
         else

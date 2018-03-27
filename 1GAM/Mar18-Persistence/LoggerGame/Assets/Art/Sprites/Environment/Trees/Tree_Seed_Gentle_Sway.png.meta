@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: abf1388e99bb74f4fb61038c1cb3fad3
-timeCreated: 1522005035
+guid: 4afa9f9b944fd0748a765785b374f92c
+timeCreated: 1522120956
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Stump_0
-    21300002: Stump_1
-    21300004: Stump_2
-    21300006: Stump_3
+    21300000: Tree_Seed_Gentle_Sway_0
+    21300002: Tree_Seed_Gentle_Sway_1
+    21300004: Tree_Seed_Gentle_Sway_2
+    21300006: Tree_Seed_Gentle_Sway_3
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -114,7 +114,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Stump_0
+      name: Tree_Seed_Gentle_Sway_0
       rect:
         serializedVersion: 2
         x: 0
@@ -128,7 +128,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Stump_1
+      name: Tree_Seed_Gentle_Sway_1
       rect:
         serializedVersion: 2
         x: 0
@@ -142,7 +142,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Stump_2
+      name: Tree_Seed_Gentle_Sway_2
       rect:
         serializedVersion: 2
         x: 0
@@ -156,7 +156,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Stump_3
+      name: Tree_Seed_Gentle_Sway_3
       rect:
         serializedVersion: 2
         x: 0

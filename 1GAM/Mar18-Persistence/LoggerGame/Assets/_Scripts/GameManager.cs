@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
     public int sizeY;
     public bool playerSelected = false;
     public Player selectedPlayer;
+
     public int forestHealth;
     public int money;
     public int lumber;

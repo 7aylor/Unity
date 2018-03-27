@@ -229,7 +229,6 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         selectionIndicator.SetActive(isActive);
         if(isActive == true)
         {
-            Debug.Log(this + " is the player in Game Manager");
             GameManager.instance.selectedPlayer = this;
         }
         else
@@ -284,7 +283,6 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     {
         if (collidingTileAnimator != null)
         {
-            Debug.Log("CHOP");
             collidingTileAnimator.SetTrigger("Chop");
             if (sprite.flipX == true)
             {
@@ -292,15 +290,14 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             }
             else
             {
-                //collidingTileAnimator.SetTrigger("Chop_Right");
                 collidingTile.GetComponent<SpriteRenderer>().flipX = true;
             }
-            
         }
     }
 
     public void ClearLumberjackAnimations()
     {
-        animator.SetBool("Chop", false);
+        PlayChopAnimation(false);
+        chopButton.chopping = false;
     }
 }

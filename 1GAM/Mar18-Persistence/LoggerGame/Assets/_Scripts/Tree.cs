@@ -27,10 +27,12 @@ public class Tree : MonoBehaviour {
 
     private Animator animator;
     private SpriteRenderer sprite;
+    private Lumber lumberCount;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        lumberCount = FindObjectOfType<Lumber>();
     }
 
     // Use this for initialization
@@ -49,7 +51,7 @@ public class Tree : MonoBehaviour {
 
     private void InitializeTree()
     {
-        treeState = (maturity)(Random.Range(1, 4));
+        treeState = (maturity)(Random.Range(0, 4));
         UpdateTreeStats();
     }
 
@@ -60,20 +62,20 @@ public class Tree : MonoBehaviour {
         switch (treeState)
         {
             case maturity.seed:
-                health = -1;
-                lumberYielded = 0;
+                health = 1;
+                lumberYielded = 1;
                 canChopDown = false;
                 //sprite.sprite = seedSprite;
-                //animator.runtimeAnimatorController = seedAnim;
+                animator.runtimeAnimatorController = seedAnim;
                 break;
             case maturity.small:
-                health = 2;
+                health = 3;
                 lumberYielded = 10;
                 //sprite.sprite = smallSprite;
                 animator.runtimeAnimatorController = smallAnim;
                 break;
             case maturity.medium:
-                health = 4;
+                health = 6;
                 lumberYielded = 20;
                 //sprite.sprite = mediumSprite;
                 animator.runtimeAnimatorController = mediumAnim;
@@ -96,6 +98,7 @@ public class Tree : MonoBehaviour {
             lumberjack = GameObject.FindGameObjectWithTag("Lumberjack").GetComponent<Player>();
             animator.SetTrigger("Falling");
             lumberjack.ClearLumberjackAnimations();
+            lumberCount.UpdateLumberCount(lumberYielded);
         }
     }
 }

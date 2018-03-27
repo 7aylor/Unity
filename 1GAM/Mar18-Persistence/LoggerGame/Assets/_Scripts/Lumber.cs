@@ -16,6 +16,12 @@ public class Lumber : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        UpdateLumberCount(0);
+    }
+
+    public void UpdateLumberCount(int increaseAmount)
+    {
+        GameManager.instance.lumber += increaseAmount;
         text.text = GameManager.instance.lumber.ToString();
     }
 
