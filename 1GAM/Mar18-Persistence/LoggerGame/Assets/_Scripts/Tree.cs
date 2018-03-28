@@ -6,13 +6,14 @@ using UnityEngine;
 public class Tree : MonoBehaviour {
 
     public int health;
-    public enum maturity { seed, small, medium, large}
+    public enum maturity { seed, tiny, small, medium, large}
     public maturity treeState;
     public int lumberYielded;
     public bool canChopDown;
-    
+
     //these will need to be set and changed when the maturity changes
     public AnimatorOverrideController seedAnim;
+    public AnimatorOverrideController tinyAnim;
     public AnimatorOverrideController smallAnim;
     public AnimatorOverrideController mediumAnim;
     public AnimatorOverrideController largeAnim;
@@ -33,13 +34,21 @@ public class Tree : MonoBehaviour {
     {
         animator = GetComponent<Animator>();
         lumberCount = FindObjectOfType<Lumber>();
+        sprite = GetComponent<SpriteRenderer>();
+        InitializeTree();
+        UpdateTreeStats();
+        PickAnimationStartFrame();
     }
 
     // Use this for initialization
     void Start () {
-        InitializeTree();
+
+    }
+
+    public void StartAsSeed()
+    {
+        treeState = maturity.seed;
         UpdateTreeStats();
-        PickAnimationStartFrame();
     }
 
     private void PickAnimationStartFrame()
@@ -51,7 +60,7 @@ public class Tree : MonoBehaviour {
 
     private void InitializeTree()
     {
-        treeState = (maturity)(Random.Range(0, 4));
+        treeState = (maturity)(Random.Range(1, 5));
         UpdateTreeStats();
     }
 
@@ -63,27 +72,32 @@ public class Tree : MonoBehaviour {
         {
             case maturity.seed:
                 health = 1;
-                lumberYielded = 1;
+                lumberYielded = 0;
                 canChopDown = false;
-                //sprite.sprite = seedSprite;
                 animator.runtimeAnimatorController = seedAnim;
+                //sprite.sortingOrder = 2;
+                break;
+            case maturity.tiny:
+                health = 2;
+                lumberYielded = 3;
+                canChopDown = false;
+                animator.runtimeAnimatorController = tinyAnim;
+                //sprite.sortingOrder = 2;
                 break;
             case maturity.small:
                 health = 3;
                 lumberYielded = 10;
-                //sprite.sprite = smallSprite;
                 animator.runtimeAnimatorController = smallAnim;
                 break;
             case maturity.medium:
                 health = 6;
                 lumberYielded = 20;
-                //sprite.sprite = mediumSprite;
                 animator.runtimeAnimatorController = mediumAnim;
                 break;
             case maturity.large:
+            default:
                 health = 8;
                 lumberYielded = 50;
-                //sprite.sprite = largeSprite;
                 animator.runtimeAnimatorController = largeAnim;
                 break;
         }

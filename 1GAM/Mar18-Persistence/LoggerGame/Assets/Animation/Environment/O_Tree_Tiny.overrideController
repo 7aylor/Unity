@@ -5,14 +5,14 @@ AnimatorOverrideController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: O_Tree_Seed
+  m_Name: O_Tree_Tiny
   m_Controller: {fileID: 9100000, guid: b20670bb33fc118468de50cc1b5eb4d8, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: fe8fbbbc5a768a24fbe4907e39d3eace, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: f30bbc7f6fd0ea8408d73d20098d9dc5, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: df1fb911a880d044caa0c0969c7754b9, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: ef6099887167ee94db1524d2bd24c21c, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: ef6099887167ee94db1524d2bd24c21c, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: d3657424e1d9bd6449bf37ca7aa9d74b, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: d3657424e1d9bd6449bf37ca7aa9d74b, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: d4063eda40eb51646ac230a86d75dd9e, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 424ae6bd0351f954fa98379f889a1c88, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 5faa1a2ca449357478be4773fb97497c, type: 2}

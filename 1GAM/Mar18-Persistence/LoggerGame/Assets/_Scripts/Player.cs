@@ -12,6 +12,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     public AnimatorOverrideController down;
     public AnimatorOverrideController side;
     public GameObject flag;
+    public GameObject tree;
 
     private float jumpSpeed = 0.05f;
     private bool isSelected;
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
     private enum direction { up, down, left, right };
     private direction travelDirection;
+    private int seedsPlanted;
 
     private void Awake()
     {
@@ -45,6 +47,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     void Start () {
         hasTarget = false;
         isSelected = false;
+        seedsPlanted = 0;
 	}
 
     public void HandleMovePlayer()
@@ -299,5 +302,17 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     {
         PlayChopAnimation(false);
         chopButton.chopping = false;
+    }
+
+    public void SowSeeds()
+    {
+        if(seedsPlanted++ >= 5)
+        {
+            Destroy(collidingTile);
+            collidingTile = Instantiate(tree, transform.position, Quaternion.identity);
+            collidingTile.GetComponent<Tree>().StartAsSeed();
+            seedsPlanted = 0;
+            transform.GetChild(1).gameObject.SetActive(true);
+        }
     }
 }
