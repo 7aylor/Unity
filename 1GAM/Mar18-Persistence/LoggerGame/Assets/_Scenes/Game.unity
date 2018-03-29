@@ -1846,6 +1846,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noAlpha: {r: 0, g: 0, b: 0, a: 0}
+  startColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!212 &793395062
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7568,7 +7569,7 @@ GameObject:
   - component: {fileID: 1648250224}
   - component: {fileID: 1648250223}
   m_Layer: 5
-  m_Name: ResourceIncrease
+  m_Name: LumberIncrease
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7603,6 +7604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 143a55f11a320cb478991982c398e853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noAlpha: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1648250224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7631,8 +7633,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4280852288
+  m_fontColor: {r: 0.2509804, g: 0.62352943, b: 0.15686275, a: 1}
   m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
@@ -7655,7 +7657,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_textAlignment: 257
   m_isAlignmentEnumConverted: 1
   m_characterSpacing: 0

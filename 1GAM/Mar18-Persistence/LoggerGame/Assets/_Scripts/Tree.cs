@@ -29,12 +29,14 @@ public class Tree : MonoBehaviour {
     private Animator animator;
     private SpriteRenderer sprite;
     private Lumber lumberCount;
+    private IncreaseResource increaseLumberObj;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
         lumberCount = FindObjectOfType<Lumber>();
         sprite = GetComponent<SpriteRenderer>();
+        increaseLumberObj = FindObjectOfType<IncreaseResource>();
         InitializeTree();
         UpdateTreeStats();
         PickAnimationStartFrame();
@@ -113,6 +115,7 @@ public class Tree : MonoBehaviour {
             animator.SetTrigger("Falling");
             lumberjack.ClearLumberjackAnimations();
             lumberCount.UpdateLumberCount(lumberYielded);
+            increaseLumberObj.SetIncreaseResourceText(lumberYielded);
         }
     }
 }

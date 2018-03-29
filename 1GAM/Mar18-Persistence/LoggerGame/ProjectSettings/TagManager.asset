@@ -9,6 +9,7 @@ TagManager:
   - Obstacle
   - Planter
   - Lumberjack
+  - Grass
   layers:
   - Default
   - TransparentFX

@@ -17,7 +17,6 @@ public class ActionPanel : MonoBehaviour {
     public Button[] planterButtons;
     public Button[] lumberjackButtons;
 
-
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -81,7 +80,18 @@ public class ActionPanel : MonoBehaviour {
     private void EnableDisableButtons(Button[] selectedButtons, bool isActive)
     {
         foreach (Button button in selectedButtons)
-        {button.interactable = isActive;
+        {
+            button.interactable = isActive;
+        }
+    }
+
+    public void EnableDisableSingleButton(GameObject buttonObj, bool isActive)
+    {
+        Button b = buttonObj.GetComponent<Button>();
+
+        if(b != null)
+        {
+            b.interactable = isActive;
         }
     }
 }

@@ -245,6 +245,30 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     {
         collidingTile = collision.gameObject;
         collidingTileAnimator = collidingTile.GetComponent<Animator>();
+        HandleActionPanelButtons();
+    }
+
+    private void HandleActionPanelButtons()
+    {
+        if (tag == "Lumberjack")
+        {
+            //based off of tile type, enable/disable buttons
+
+            //tree
+            if (collidingTile.tag == "Tree")
+            {
+                actionPanel.EnableDisableSingleButton(chopButton.gameObject, true);
+            }
+            else
+            {
+                actionPanel.EnableDisableSingleButton(chopButton.gameObject, false);
+            }
+
+        }
+        else if (tag == "Planter")
+        {
+            //based off of tile type, enable/disable buttons
+        }
     }
 
     public void PlayChopAnimation(bool playAnimation)
@@ -306,13 +330,15 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
     public void SowSeeds()
     {
-        if(seedsPlanted++ >= 5)
+        if(tag == "Planter" && seedsPlanted++ >= 5)
         {
             Destroy(collidingTile);
             collidingTile = Instantiate(tree, transform.position, Quaternion.identity);
             collidingTile.GetComponent<Tree>().StartAsSeed();
             seedsPlanted = 0;
             transform.GetChild(1).gameObject.SetActive(true);
+            animator.SetBool("Plant", false);
+            plantButton.planting = false;
         }
     }
 }
