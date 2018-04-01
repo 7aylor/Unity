@@ -10,6 +10,11 @@ public class Tree : MonoBehaviour {
     public maturity treeState;
     public int lumberYielded;
     public bool canChopDown;
+    public float deathChance;
+    public float minTimeToGrow;
+    public float maxTimeToGrow;
+    public int waterCount;
+
 
     //these will need to be set and changed when the maturity changes
     public AnimatorOverrideController seedAnim;
@@ -31,6 +36,9 @@ public class Tree : MonoBehaviour {
     private Lumber lumberCount;
     private IncreaseResource increaseLumberObj;
 
+    private float timeSinceLastGrowth;
+    private float timeToGrow;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -42,11 +50,47 @@ public class Tree : MonoBehaviour {
         PickAnimationStartFrame();
     }
 
-    // Use this for initialization
-    void Start () {
-
+    private void Start()
+    {
+        timeSinceLastGrowth = 0;
+        timeToGrow = GetNewGrowthTime();
+        waterCount = 0;
     }
 
+    private void Update()
+    {
+        if(treeState != maturity.seed && treeState != maturity.large)
+        {
+            //check for growth time, then grow and reset timers
+            if(timeSinceLastGrowth >= timeToGrow)
+            {
+                GrowTree();
+                timeSinceLastGrowth = 0;
+                timeToGrow = GetNewGrowthTime();
+            }
+            timeSinceLastGrowth += Time.deltaTime;
+        }
+
+        //check if the tree dies
+        if(treeState == maturity.large && CheckTreeDeath() == true)
+        {
+            animator.SetTrigger("Falling");
+        }
+    }
+
+    private float GetNewGrowthTime()
+    {
+        return Random.Range(minTimeToGrow, maxTimeToGrow);
+    }
+
+    private bool CheckTreeDeath()
+    {
+        return Random.Range(0, 1f) < deathChance;
+    }
+
+    /// <summary>
+    /// Used by the planter when he plants a tree
+    /// </summary>
     public void StartAsSeed()
     {
         treeState = maturity.seed;
@@ -117,5 +161,11 @@ public class Tree : MonoBehaviour {
             lumberCount.UpdateLumberCount(lumberYielded);
             increaseLumberObj.SetIncreaseResourceText(lumberYielded);
         }
+    }
+
+    public void GrowTree()
+    {
+            treeState += 1;
+            UpdateTreeStats();
     }
 }
