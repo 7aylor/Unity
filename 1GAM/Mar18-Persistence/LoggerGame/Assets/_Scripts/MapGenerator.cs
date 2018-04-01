@@ -24,7 +24,7 @@ public class MapGenerator : MonoBehaviour {
     #region GameObjects
     public GameObject grass;
     public GameObject[] trees;
-    public GameObject rock;
+    public GameObject[] rocks;
     public GameObject riverStraight;
     public GameObject riverCurve;
     public GameObject riverStart;
@@ -595,7 +595,7 @@ public class MapGenerator : MonoBehaviour {
                 }
                 else if(GameManager.instance.map[x, y] == (int)tileType.rock)
                 {
-                    newTile = Instantiate(rock, new Vector3(xPos, yPos, 0), Quaternion.identity);
+                    newTile = Instantiate(rocks[Random.Range(0, rocks.Length)], new Vector3(xPos, yPos, 0), Quaternion.identity);
                 }
                 else if(GameManager.instance.map[x,y] == (int)tileType.startRiver)
                 {

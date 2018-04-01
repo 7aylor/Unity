@@ -6898,6 +6898,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
+        type: 2}
+      propertyPath: rocks.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4823850287400002, guid: 66bb6308a5a62c74b991525243bf4512, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -6940,6 +6945,36 @@ Prefab:
       propertyPath: rockSpawnThreshold
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
+        type: 2}
+      propertyPath: rocks.Array.data[0]
+      value: 
+      objectReference: {fileID: 1242716478098746, guid: 615299f68cb775247ac1c337faa2c6f2,
+        type: 2}
+    - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
+        type: 2}
+      propertyPath: rocks.Array.data[1]
+      value: 
+      objectReference: {fileID: 1242716478098746, guid: 82f6412660326d74884e26287546623a,
+        type: 2}
+    - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
+        type: 2}
+      propertyPath: rocks.Array.data[2]
+      value: 
+      objectReference: {fileID: 1242716478098746, guid: 8b65f3c5396e83745ba7e32684c83d36,
+        type: 2}
+    - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
+        type: 2}
+      propertyPath: rocks.Array.data[3]
+      value: 
+      objectReference: {fileID: 1242716478098746, guid: d6d629fd4db056e4cb744b5482bcd0b6,
+        type: 2}
+    - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
+        type: 2}
+      propertyPath: rocks.Array.data[4]
+      value: 
+      objectReference: {fileID: 1242716478098746, guid: f030b1eceae13c14aaaf89b4b1892dfe,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 66bb6308a5a62c74b991525243bf4512, type: 2}
   m_IsPrefabParent: 0
