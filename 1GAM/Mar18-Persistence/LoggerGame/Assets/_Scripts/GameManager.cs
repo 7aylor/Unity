@@ -18,6 +18,13 @@ public class GameManager : MonoBehaviour {
     public bool lumberjackHired;
     public bool planterHired;
 
+    //These are used for promoting
+    public float lumberjackChopSpeed; //animator speed
+    public float lumberjackJumpSpeed; //animator and translate speeds
+    public float planterPlantSpeed; //animator speed
+    public float planterWaterSpeed; //animator speed
+    public float planterJumpSpeed; //animator and translate speeds
+
     public Dictionary<int, int> rank;
 
     public static GameManager instance;
@@ -29,6 +36,11 @@ public class GameManager : MonoBehaviour {
         money = 1000;
         lumber = 0;
         demand = 0;
+        lumberjackChopSpeed = 1;
+        lumberjackJumpSpeed = 1;
+        planterPlantSpeed = 1;
+        planterWaterSpeed = 1;
+        planterJumpSpeed = 1;
         lumberjackHired = false;
         planterHired = false;
         rank = new Dictionary<int, int>() { { 1, 2 }, { 2, 3 }, { 3, 4 }, { 4, 6 }, { 5, 10 } };
