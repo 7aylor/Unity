@@ -13,8 +13,8 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     public AnimatorOverrideController side;
     public GameObject flag;
     public GameObject tree;
+    public float jumpSpeed;
 
-    private float jumpSpeed = 0.05f;
     private bool isSelected;
     private bool hasTarget; //used to determine if the lumberjack is walking toward a tree
     private Vector3 targetXY; //the target location of the next tree;
@@ -38,6 +38,12 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     private int currentRank;
     private int pointTowardsNextRank;
 
+    public float animatorLumberjackJumpSpeed;
+    public float animatorPlanterJumpSpeed;
+    public float animatorPlantSpeed;
+    public float animatorWaterSpeed;
+    public float animatorChopSpeed;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -57,7 +63,13 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         seedsPlanted = 0;
         currentRank = 1;
         pointTowardsNextRank = 0;
-	}
+        animatorLumberjackJumpSpeed = 1;
+        animatorPlanterJumpSpeed = 1;
+        animatorPlantSpeed = 1;
+        animatorWaterSpeed = 1;
+        animatorChopSpeed = 1;
+        jumpSpeed = 0.05f;
+    }
 
     public void HandleMovePlayer()
     {
@@ -109,11 +121,18 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                     }
                 }
 
+                if (tag == "Planter")
+                {
+                    animator.SetFloat("JumpSpeed", animatorPlanterJumpSpeed);
+                }
+                else if (tag == "Lumberjack")
+                {
+                    animator.SetFloat("JumpSpeed", animatorLumberjackJumpSpeed);
+                }
                 animator.SetTrigger("Jump");
             }
         }
     }
-
 
     private IEnumerator TravelToTarget(direction dir)
     {
@@ -135,11 +154,15 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             changeVector = new Vector3(jumpSpeed, 0, 0);
         }
 
-        for (int i = 0; i < 20; i++)
+        float numLoops = (1 / jumpSpeed);
+        Debug.Log(numLoops);
+
+        for (int i = 0; i < numLoops; i++)
         {
             transform.Translate(changeVector);
             yield return new WaitForSeconds(0.025f);
         }
+
         hasTarget = false;
         Destroy(tempFlag);
         HandleActionPanelButtons();
