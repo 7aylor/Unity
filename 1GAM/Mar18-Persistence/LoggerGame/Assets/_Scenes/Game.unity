@@ -1082,18 +1082,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 1035719212993330, guid: f2938e3017ab8e74daaa175e232dd23e, type: 2}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1103796138249030, guid: f2938e3017ab8e74daaa175e232dd23e, type: 2}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1862596069070212, guid: f2938e3017ab8e74daaa175e232dd23e, type: 2}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
+    - target: {fileID: 114234605834538308, guid: f2938e3017ab8e74daaa175e232dd23e,
+        type: 2}
+      propertyPath: waterSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: be9f2cfca8007c64994840c57f321bcf, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f2938e3017ab8e74daaa175e232dd23e, type: 2}
   m_IsPrefabParent: 0
@@ -10143,19 +10136,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 61276419360003070, guid: 604dcbbd411470947aa4a918e2e4d82f,
+    - target: {fileID: 114004205610177298, guid: 604dcbbd411470947aa4a918e2e4d82f,
         type: 2}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1177844285494184, guid: 604dcbbd411470947aa4a918e2e4d82f, type: 2}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1745305440513308, guid: 604dcbbd411470947aa4a918e2e4d82f, type: 2}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
+      propertyPath: waterSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: be9f2cfca8007c64994840c57f321bcf, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 604dcbbd411470947aa4a918e2e4d82f, type: 2}
   m_IsPrefabParent: 0

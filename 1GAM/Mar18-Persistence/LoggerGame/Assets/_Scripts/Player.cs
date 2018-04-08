@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(AudioSource))]
 public class Player : MonoBehaviour, IPointerClickHandler {
 
     public AnimatorOverrideController up;
@@ -13,6 +14,8 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     public AnimatorOverrideController side;
     public GameObject flag;
     public GameObject tree;
+    public AudioClip chopSfx;
+    public AudioClip waterSfx;
     public float jumpSpeed;
 
     private bool isSelected;
@@ -30,6 +33,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     private WaterButton waterButton;
     private PromoteLumberJackButton promoteLumberJackButton;
     private PromotePlanterButton promotePlanterButton;
+    private AudioSource audioSource;
 
     private enum direction { up, down, left, right };
     private direction travelDirection;
@@ -46,6 +50,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         actionPanel = FindObjectOfType<ActionPanel>();
@@ -422,5 +427,17 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             animator.SetBool("Water", false);
             waterButton.watering = false;
         }
+    }
+
+    public void PlayChopSound()
+    {
+        audioSource.clip = chopSfx;
+        audioSource.Play();
+    }
+
+    public void PlayWaterSound()
+    {
+        audioSource.clip = waterSfx;
+        audioSource.Play();
     }
 }
