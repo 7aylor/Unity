@@ -14,16 +14,18 @@ public class Deer : MonoBehaviour {
 
     private bool hit = false;
 
+    private int playerLayerMask = 1 << 10;
+
 	// Use this for initialization
 	void Start () {
         
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         if(hit == false)
         {
-            //CheckToRun();
+            CheckToRun();
         }
 	}
 
@@ -33,55 +35,63 @@ public class Deer : MonoBehaviour {
     private void CheckToRun()
     {
 
-        RaycastHit2D hitPlayer;
+        //NEED TO WORK ON HOW TO DEAL WITH RIVER COLLISOIN
 
-        hitPlayer = Physics2D.Raycast(transform.position, Vector2.up, raycastDistance);
-        
         //up
-        if (hitPlayer.collider.gameObject.GetComponent<Player>() != null)
+        if (CheckHit(Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up), raycastDistance, playerLayerMask), Vector2.down))
         {
-            hit = true;
-            Debug.Log("Up");
-            runDirection = Vector2.down;
-            StartCoroutine(Run());
             return;
         }
-
-        hitPlayer = Physics2D.Raycast(transform.position, Vector2.down);
-        
-        //down 
-        if (hitPlayer.collider.gameObject.GetComponent<Player>() != null)
+        //down
+        if (CheckHit(Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.down), raycastDistance, playerLayerMask), Vector2.up))
         {
-            hit = true;
-            Debug.Log("Down");
-            runDirection = Vector2.up;
-            StartCoroutine(Run());
             return;
         }
-
-        hitPlayer = Physics2D.Raycast(transform.position, Vector2.left, raycastDistance);
-
         //left
-        if (hitPlayer.collider.gameObject.GetComponent<Player>() != null)
+        else if (CheckHit(Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.left), raycastDistance, playerLayerMask), Vector2.right))
         {
-            hit = true;
-            Debug.Log("Left");
-            runDirection = Vector2.right;
-            StartCoroutine(Run());
             return;
         }
-
-        hitPlayer = Physics2D.Raycast(transform.position, Vector2.right, raycastDistance);
-
-        if (hitPlayer.collider.gameObject.GetComponent<Player>() != null)
-        {
-            hit = true;
-            Debug.Log("Right");
-            runDirection = Vector2.left;
-            StartCoroutine(Run());
+        //right
+        else if (CheckHit(Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.right), raycastDistance, playerLayerMask), Vector2.left)){
             return;
         }
+        //upper right
+        else if (CheckHit(Physics2D.Raycast(transform.position, transform.TransformDirection(new Vector3(1.414f, 1.414f)), raycastDistance, playerLayerMask), Vector2.left))
+        {
+            return;
+        }
+        //upper left
+        else if (CheckHit(Physics2D.Raycast(transform.position, transform.TransformDirection(new Vector3(-1.414f, 1.414f)), raycastDistance, playerLayerMask), Vector2.right))
+        {
+            return;
+        }
+        //lower left
+        else if (CheckHit(Physics2D.Raycast(transform.position, transform.TransformDirection(new Vector3(-1.414f, -1.414f)), raycastDistance, playerLayerMask), Vector2.right))
+        {
+            return;
+        }
+        //lower right
+        else if (CheckHit(Physics2D.Raycast(transform.position, transform.TransformDirection(new Vector3(1.414f, -1.414f)), raycastDistance, playerLayerMask), Vector2.left))
+        {
+            return;
+        }
+    }
 
+    private bool CheckHit(RaycastHit2D hitPlayer, Vector2 direction)
+    {
+        //right
+        if (hitPlayer.collider != null && hitPlayer.collider.GetComponent<Player>() != null)
+        {
+            hit = true;
+            runDirection = direction;
+            StartCoroutine(Run());
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private IEnumerator Run()
@@ -97,33 +107,33 @@ public class Deer : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        float distanceX = transform.position.x - collision.gameObject.transform.position.x;
-        float distanceY = transform.position.y - collision.gameObject.transform.position.y;
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    float distanceX = transform.position.x - collision.gameObject.transform.position.x;
+    //    float distanceY = transform.position.y - collision.gameObject.transform.position.y;
 
-        //run left
-        if (distanceX >= 0 && distanceX > distanceY)
-        {
-            runDirection = Vector2.left;
-        }
-        //run right
-        else if (distanceX < 0 && distanceX > distanceY)
-        {
-            runDirection = Vector2.right;
-        }
-        //run down
-        else if (distanceY >= 0 && distanceX < distanceY)
-        {
-            runDirection = Vector2.down;
-        }
-        else if(distanceY < 0 && distanceX < distanceY)
-        {
-            runDirection = Vector2.up;
-        }
+    //    //run left
+    //    if (distanceX >= 0 && distanceX > distanceY)
+    //    {
+    //        runDirection = Vector2.left;
+    //    }
+    //    //run right
+    //    else if (distanceX < 0 && distanceX > distanceY)
+    //    {
+    //        runDirection = Vector2.right;
+    //    }
+    //    //run down
+    //    else if (distanceY >= 0 && distanceX < distanceY)
+    //    {
+    //        runDirection = Vector2.down;
+    //    }
+    //    else if(distanceY < 0 && distanceX < distanceY)
+    //    {
+    //        runDirection = Vector2.up;
+    //    }
 
-        StartCoroutine(Run());
-    }
+    //    StartCoroutine(Run());
+    //}
 
 
 }
