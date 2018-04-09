@@ -18,6 +18,12 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     public AudioClip waterSfx;
     public float jumpSpeed;
 
+    public float animatorLumberjackJumpSpeed;
+    public float animatorPlanterJumpSpeed;
+    public float animatorPlantSpeed;
+    public float animatorWaterSpeed;
+    public float animatorChopSpeed;
+
     private bool isSelected;
     private bool hasTarget; //used to determine if the lumberjack is walking toward a tree
     private Vector3 targetXY; //the target location of the next tree;
@@ -41,12 +47,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
     private int currentRank;
     private int pointTowardsNextRank;
-
-    public float animatorLumberjackJumpSpeed;
-    public float animatorPlanterJumpSpeed;
-    public float animatorPlantSpeed;
-    public float animatorWaterSpeed;
-    public float animatorChopSpeed;
+    private bool canMove = true;
 
     private void Awake()
     {
@@ -78,9 +79,8 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
     public void HandleMovePlayer()
     {
-        if (isSelected == true && hasTarget == false)
+        if (isSelected == true && hasTarget == false && canMove == true)
         {
-            Debug.Log("Handling PlayerMovement");
             //get the distance between the mouse and the player
             Vector3 distanceToMouse = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -90,7 +90,6 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             //check if we haven't clicked the player again
             if (Mathf.Abs(distanceToMouse.x) >= 0.5f || Mathf.Abs(distanceToMouse.y) >= 0.5f)
             {
-                Debug.Log("Not clicked self");
                 //travel on X
                 if (Mathf.Abs(distanceToMouse.x) > Mathf.Abs(distanceToMouse.y))
                 {
@@ -160,7 +159,6 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         }
 
         float numLoops = (1 / jumpSpeed);
-        Debug.Log(numLoops);
 
         for (int i = 0; i < numLoops; i++)
         {
