@@ -244,11 +244,13 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                     actionPanel.ActivateButtons(ActionPanel.SelectedPlayer.planter);
                 }
 
-                HandleActionPanelButtons();
+                
 
                 GameManager.instance.playerSelected = true;
                 SelectPlayer(true);
             }
+
+            HandleActionPanelButtons();
         }
     }
 
@@ -279,63 +281,79 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     /// </summary>
     private void HandleActionPanelButtons()
     {
-        if (tag == "Lumberjack")
+        if(GameManager.instance.selectedPlayer == this)
         {
-            if(pointTowardsNextRank < GameManager.instance.rank[currentRank])
+            if (tag == "Lumberjack")
             {
-                actionPanel.EnableDisableSingleButton(promoteLumberJackButton.gameObject, false);
-            }
-            else
-            {
-                actionPanel.EnableDisableSingleButton(promoteLumberJackButton.gameObject, true);
-            }
-
-            if (collidingTile.tag == "Tree")
-            {
-                actionPanel.EnableDisableSingleButton(chopButton.gameObject, true);
-            }
-            else
-            {
-                actionPanel.EnableDisableSingleButton(chopButton.gameObject, false);
-            }
-
-        }
-        else if (tag == "Planter")
-        {
-            if (pointTowardsNextRank < GameManager.instance.rank[currentRank])
-            {
-                actionPanel.EnableDisableSingleButton(promotePlanterButton.gameObject, false);
-            }
-            else
-            {
-                actionPanel.EnableDisableSingleButton(promotePlanterButton.gameObject, true);
-            }
-
-            if (collidingTile.tag == "Tree" || collidingTile.tag == "Obstacle" || collidingTile.tag == "River")
-            {
-                Tree tree = collidingTile.GetComponent<Tree>();
-                if (tree != null && tree.treeState == Tree.maturity.seed)
+                //check rank to enable promotion button
+                if (pointTowardsNextRank < GameManager.instance.rank[currentRank])
                 {
-                    Debug.Log("Can watter");
-                    actionPanel.EnableDisableSingleButton(waterButton.gameObject, true);
+                    actionPanel.EnableDisableSingleButton(promoteLumberJackButton.gameObject, false);
                 }
                 else
                 {
+                    actionPanel.EnableDisableSingleButton(promoteLumberJackButton.gameObject, true);
+                }
+
+                //check colliding tile is a tree and enable chop button
+                if (collidingTile.tag == "Tree")
+                {
+                    actionPanel.EnableDisableSingleButton(chopButton.gameObject, true);
+                }
+                //disable chop button
+                else
+                {
+                    actionPanel.EnableDisableSingleButton(chopButton.gameObject, false);
+                }
+
+            }
+            else if (tag == "Planter")
+            {
+                //check rank to enable promotion button
+                if (pointTowardsNextRank < GameManager.instance.rank[currentRank])
+                {
+                    actionPanel.EnableDisableSingleButton(promotePlanterButton.gameObject, false);
+                }
+                else
+                {
+                    actionPanel.EnableDisableSingleButton(promotePlanterButton.gameObject, true);
+                }
+
+                //check tiles we collide with
+                if (collidingTile.tag == "Tree" || collidingTile.tag == "Obstacle" || collidingTile.tag == "River")
+                {
+
+                    //check if tree is a seed to activate water button
+                    Tree tree = collidingTile.GetComponent<Tree>();
+                    if (tree != null && tree.treeState == Tree.maturity.seed)
+                    {
+                        Debug.Log("Can watter");
+                        actionPanel.EnableDisableSingleButton(waterButton.gameObject, true);
+                    }
+                    else
+                    {
+                        actionPanel.EnableDisableSingleButton(waterButton.gameObject, false);
+                    }
+
+                    //disable plant button
+                    actionPanel.EnableDisableSingleButton(plantButton.gameObject, false);
+                }
+                //if not a tree, or obstacle, or river
+                else
+                {
+                    //enable plant button, disable water button
+                    actionPanel.EnableDisableSingleButton(plantButton.gameObject, true);
                     actionPanel.EnableDisableSingleButton(waterButton.gameObject, false);
                 }
-                
-                actionPanel.EnableDisableSingleButton(plantButton.gameObject, false);
-            }
-            else
-            {
-                actionPanel.EnableDisableSingleButton(plantButton.gameObject, true);
-                actionPanel.EnableDisableSingleButton(waterButton.gameObject, false);
             }
         }
     }
 
+    //called from chop button
     public void PlayChopAnimation(bool playAnimation)
     {
+        canMove = false;
+
         if (tag == "Lumberjack")
         {
             if(playAnimation == true)
@@ -351,8 +369,10 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         }
     }
 
+    //called from Plant Button
     public void PlayPlantAnimation(bool playAnimation)
     {
+        canMove = false;
         if(tag == "Planter")
         {
             animator.SetBool("Plant", playAnimation);
@@ -360,8 +380,10 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         }
     }
 
+    //called from Water button
     public void PlayWaterAnimation(bool playAnimation)
     {
+        canMove = false;
         if (tag == "Planter")
         {
             animator.SetBool("Water", playAnimation);
@@ -369,6 +391,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         }
     }
 
+    //called from the animator
     public void LumberjackChopAnimation()
     {
         if (collidingTileAnimator != null)
@@ -385,17 +408,22 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         }
     }
 
+    //called on tree script with tree falls
     public void ClearLumberjackAnimations()
     {
         PlayChopAnimation(false);
         chopButton.chopping = false;
+        HandleActionPanelButtons();
         pointTowardsNextRank++;
+        canMove = true;
     }
 
     public void SowSeeds()
     {
         if(tag == "Planter" && seedsPlanted++ >= 5)
         {
+            canMove = true;
+
             //destroy the grass tile
             Destroy(collidingTile);
 
@@ -419,6 +447,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
         if(collidingTree.waterCount++ >= 5)
         {
+            canMove = true;
             pointTowardsNextRank++;
             collidingTree.GrowTree();
             HandleActionPanelButtons();

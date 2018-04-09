@@ -81,17 +81,20 @@ public class ActionPanel : MonoBehaviour {
     {
         foreach (Button button in selectedButtons)
         {
-            button.interactable = isActive;
+            //button.interactable = isActive;
+            button.gameObject.SetActive(isActive);
         }
     }
 
     public void EnableDisableSingleButton(GameObject buttonObj, bool isActive)
     {
-        Button b = buttonObj.GetComponent<Button>();
+        //Button b = buttonObj.GetComponent<Button>();
 
-        if(b != null)
-        {
-            b.interactable = isActive;
-        }
+        //if(b != null)
+        //{
+        //    b.interactable = isActive;
+        //}
+
+        buttonObj.SetActive(isActive);
     }
 }
