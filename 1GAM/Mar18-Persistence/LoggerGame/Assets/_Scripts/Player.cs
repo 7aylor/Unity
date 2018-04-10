@@ -23,6 +23,8 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     public float animatorPlantSpeed;
     public float animatorWaterSpeed;
     public float animatorChopSpeed;
+    public int currentRank;
+
 
     private bool isSelected;
     private bool hasTarget; //used to determine if the lumberjack is walking toward a tree
@@ -45,7 +47,6 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     private direction travelDirection;
     private int seedsPlanted;
 
-    private int currentRank;
     private int pointTowardsNextRank;
     private bool canMove = true;
 
@@ -75,6 +76,16 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         animatorWaterSpeed = 1;
         animatorChopSpeed = 1;
         jumpSpeed = 0.05f;
+
+        if(tag == "Planter")
+        {
+            GameManager.instance.planterHired = true;
+        }
+        else if(tag == "Lumberjack")
+        {
+            GameManager.instance.lumberjackHired = true;
+        }
+
     }
 
     public void HandleMovePlayer()
@@ -466,5 +477,11 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     {
         audioSource.clip = waterSfx;
         audioSource.Play();
+    }
+
+    public void ResetPoints()
+    {
+        pointTowardsNextRank = 0;
+        HandleActionPanelButtons();
     }
 }

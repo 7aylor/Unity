@@ -22,7 +22,7 @@ public class LumberjackPromotionPoints : MonoBehaviour {
 
     private void OnEnable()
     {
-        numPoints = startPoints;
+        ResetPonts();
     }
 
     public void UsePoints()
@@ -33,4 +33,11 @@ public class LumberjackPromotionPoints : MonoBehaviour {
             text.text = numPoints.ToString();
         }
     }
+
+    public void ResetPonts()
+    {
+        numPoints = startPoints;
+        text.text = numPoints.ToString();
+    }
+
 }

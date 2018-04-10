@@ -22,7 +22,7 @@ public class BirdSpawner : MonoBehaviour {
 		if(timeSinceLastSpawn >= maxTimeBetweenSpawns)
         {
             timeSinceLastSpawn = 0;
-            GameObject newBird = Instantiate(bird, transform.position + new Vector3(0, Random.Range(-3, 3), 0), Quaternion.identity);
+            GameObject newBird = Instantiate(bird, transform.position + new Vector3(0, Random.Range(-2, 2), 0), Quaternion.identity);
 
             newBird.GetComponent<Bird>().isRight = isRight;
         }

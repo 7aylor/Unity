@@ -5,6 +5,7 @@ using UnityEngine;
 public class PromoteButton : MonoBehaviour {
 
     public enum PromoteType { chop, lumberJump, plant, water, plantJump}
+    public LumberjackPromotionPoints lumberjackPoints;
 
     public PromoteType type;
 
@@ -14,16 +15,11 @@ public class PromoteButton : MonoBehaviour {
     private Player planterPlayer;
     private Animator lumberjackAnimator;
     private Animator planterAnimator;
-    private LumberjackPromotionPoints lumberjackPoints;
-
-    private void Awake()
-    {
-        lumberjackPoints = FindObjectOfType<LumberjackPromotionPoints>();
-    }
-
+   
 
     public void ClickPromote()
     {
+        Debug.Log("Clicked");
         if (lumberjackPoints.numPoints > 0)
         {
             lumberjackPoints.UsePoints();
@@ -32,12 +28,14 @@ public class PromoteButton : MonoBehaviour {
                 planter = GameObject.FindGameObjectWithTag("Planter");
                 planterPlayer = planter.GetComponent<Player>();
                 planterAnimator = planter.GetComponent<Animator>();
+                planterPlayer.currentRank++;
             }
             else if (transform.parent.parent.tag == "LumberjackPromote")
             {
                 lumberjack = GameObject.FindGameObjectWithTag("Lumberjack");
                 lumberjackPlayer = lumberjack.GetComponent<Player>();
                 lumberjackAnimator = lumberjack.GetComponent<Animator>();
+                lumberjackPlayer.currentRank++;
             }
 
             switch (type)

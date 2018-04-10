@@ -27,12 +27,12 @@ public class GameManager : MonoBehaviour {
     {
         instance = this;
         forestHealth = 100;
-        money = 1000;
+        money = 0;
         lumber = 0;
         demand = 0;
         lumberjackHired = false;
         planterHired = false;
-        rank = new Dictionary<int, int>() { { 1, 2 }, { 2, 3 }, { 3, 4 }, { 4, 6 }, { 5, 10 } };
+        rank = new Dictionary<int, int>() { { 1, 2 }, { 2, 3 }, { 3, 15 }, { 4, 20 }, { 5, 30 } }; //adjust for testing
     }
 
     public void InstantiateMap(int x, int y)
