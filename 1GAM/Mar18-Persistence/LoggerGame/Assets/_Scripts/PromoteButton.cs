@@ -5,7 +5,7 @@ using UnityEngine;
 public class PromoteButton : MonoBehaviour {
 
     public enum PromoteType { chop, lumberJump, plant, water, plantJump}
-    public LumberjackPromotionPoints lumberjackPoints;
+    public PromotionPoints points;
 
     public PromoteType type;
 
@@ -19,10 +19,9 @@ public class PromoteButton : MonoBehaviour {
 
     public void ClickPromote()
     {
-        Debug.Log("Clicked");
-        if (lumberjackPoints.numPoints > 0)
+        if (points.numPoints > 0)
         {
-            lumberjackPoints.UsePoints();
+            points.UsePoints();
             if (transform.parent.parent.tag == "PlanterPromote")
             {
                 planter = GameObject.FindGameObjectWithTag("Planter");

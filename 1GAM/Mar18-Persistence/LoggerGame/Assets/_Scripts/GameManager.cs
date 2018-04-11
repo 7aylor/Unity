@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour {
         demand = 0;
         lumberjackHired = false;
         planterHired = false;
-        rank = new Dictionary<int, int>() { { 1, 2 }, { 2, 3 }, { 3, 15 }, { 4, 20 }, { 5, 30 } }; //adjust for testing
+        rank = new Dictionary<int, int>() { { 1, 1 }, { 2, 1 }, { 3, 1}, { 4, 1 }, { 5, 30 } }; //adjust for testing
     }
 
     public void InstantiateMap(int x, int y)

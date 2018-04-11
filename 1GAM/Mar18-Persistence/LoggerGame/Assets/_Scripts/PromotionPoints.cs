@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class LumberjackPromotionPoints : MonoBehaviour {
+public class PromotionPoints : MonoBehaviour {
 
-    private int startPoints;
     public int numPoints;
     TMP_Text text;
 
@@ -16,13 +15,12 @@ public class LumberjackPromotionPoints : MonoBehaviour {
 
     private void Start()
     {
-        startPoints = 1;
-        numPoints = 0;
+        numPoints = 1;
     }
 
     private void OnEnable()
     {
-        ResetPonts();
+        ResetPoints();
     }
 
     public void UsePoints()
@@ -34,10 +32,10 @@ public class LumberjackPromotionPoints : MonoBehaviour {
         }
     }
 
-    public void ResetPonts()
+    public void ResetPoints()
     {
-        numPoints = startPoints;
+        Debug.Log("Reset points");
+        numPoints = 1;
         text.text = numPoints.ToString();
     }
-
 }
