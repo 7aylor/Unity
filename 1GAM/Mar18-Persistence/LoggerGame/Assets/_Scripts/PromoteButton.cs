@@ -16,7 +16,6 @@ public class PromoteButton : MonoBehaviour {
     private Animator lumberjackAnimator;
     private Animator planterAnimator;
    
-
     public void ClickPromote()
     {
         if (points.numPoints > 0)
@@ -40,28 +39,28 @@ public class PromoteButton : MonoBehaviour {
             switch (type)
             {
                 case PromoteType.chop:
-                    lumberjackPlayer.animatorChopSpeed += 1;
+                    lumberjackPlayer.animatorChopSpeed += 0.25f;
                     lumberjackAnimator.SetFloat("ChopSpeed", lumberjackPlayer.animatorChopSpeed);
                     break;
                 case PromoteType.lumberJump:
-                    lumberjackPlayer.animatorLumberjackJumpSpeed += 0.5f;
+                    lumberjackPlayer.animatorLumberjackJumpSpeed += 0.25f;
                     lumberjackAnimator.SetFloat("JumpSpeed", lumberjackPlayer.animatorLumberjackJumpSpeed);
                     lumberjackPlayer.jumpSpeed += 0.05f;
                     //more here
                     break;
                 case PromoteType.plant:
                     Debug.Log("Planting Speed Upgraded");
-                    planterPlayer.animatorPlantSpeed += 1;
+                    planterPlayer.animatorPlantSpeed += 0.25f;
                     planterAnimator.SetFloat("PlantSpeed", planterPlayer.animatorPlantSpeed);
                     break;
                 case PromoteType.plantJump:
-                    planterPlayer.animatorPlanterJumpSpeed += 0.5f;
+                    planterPlayer.animatorPlanterJumpSpeed += 0.25f;
                     planterAnimator.SetFloat("JumpSpeed", planterPlayer.animatorPlanterJumpSpeed);
                     planterPlayer.jumpSpeed += 0.05f;
                     //more here
                     break;
                 case PromoteType.water:
-                    planterPlayer.animatorWaterSpeed += 1;
+                    planterPlayer.animatorWaterSpeed += 0.25f;
                     planterAnimator.SetFloat("WaterSpeed", planterPlayer.animatorWaterSpeed);
                     break;
             }

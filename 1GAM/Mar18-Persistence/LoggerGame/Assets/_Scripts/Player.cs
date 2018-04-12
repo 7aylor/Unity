@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -25,6 +26,8 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     public float animatorChopSpeed;
     public int currentRank;
 
+    public float fatigueIncrement;
+    public float recoverFatigueRate;
 
     private bool isSelected;
     private bool hasTarget; //used to determine if the lumberjack is walking toward a tree
@@ -42,6 +45,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     private PromoteLumberJackButton promoteLumberJackButton;
     private PromotePlanterButton promotePlanterButton;
     private AudioSource audioSource;
+    private Slider fatigueSlider;
 
     private enum direction { up, down, left, right };
     private direction travelDirection;
@@ -49,6 +53,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
     private int pointTowardsNextRank;
     private bool canMove = true;
+    private bool isFatigued = false;
 
     private void Awake()
     {
@@ -62,6 +67,8 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         promoteLumberJackButton = FindObjectOfType<PromoteLumberJackButton>();
         promotePlanterButton = FindObjectOfType<PromotePlanterButton>();
         selectionIndicator = transform.GetChild(0).gameObject; //Gets the indicator child game object
+        //fatigueSlider = GetComponentInChildren<Slider>();'
+        fatigueSlider = transform.SearchForChild("FatigueSlider").GetComponent<Slider>();
     }
 
     void Start () {
@@ -85,12 +92,28 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         {
             GameManager.instance.lumberjackHired = true;
         }
+    }
 
+    private void Update()
+    {
+        if(fatigueSlider.value == 1)
+        {
+            isFatigued = true;
+        }
+
+        if(fatigueSlider.value > 0)
+        {
+            fatigueSlider.value -= recoverFatigueRate;
+            if (fatigueSlider.value == 0)
+            {
+                isFatigued = false;
+            }
+        }
     }
 
     public void HandleMovePlayer()
     {
-        if (isSelected == true && hasTarget == false && canMove == true)
+        if (isSelected == true && hasTarget == false && canMove == true && isFatigued == false)
         {
             //get the distance between the mouse and the player
             Vector3 distanceToMouse = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -152,7 +175,10 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     private IEnumerator TravelToTarget(direction dir)
     {
         Vector3 changeVector;
-        if(dir == direction.down)
+
+        float fatigueVal = (1 - fatigueSlider.value);
+
+        if (dir == direction.down)
         {
             changeVector = new Vector3(0, -jumpSpeed, 0);
         }
@@ -483,5 +509,10 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     {
         pointTowardsNextRank = 0;
         HandleActionPanelButtons();
+    }
+
+    public void AddFatigue()
+    {
+        fatigueSlider.value += fatigueIncrement;
     }
 }
