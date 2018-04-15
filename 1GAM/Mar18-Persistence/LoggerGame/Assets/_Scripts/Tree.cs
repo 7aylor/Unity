@@ -15,19 +15,11 @@ public class Tree : MonoBehaviour {
     public float maxTimeToGrow;
     public int waterCount;
 
-
-    //these will need to be set and changed when the maturity changes
     public AnimatorOverrideController seedAnim;
     public AnimatorOverrideController tinyAnim;
     public AnimatorOverrideController smallAnim;
     public AnimatorOverrideController mediumAnim;
     public AnimatorOverrideController largeAnim;
-    //public AnimatorOverrideController multipleAnim;
-
-    //public Sprite seedSprite;
-    //public Sprite smallSprite;
-    //public Sprite mediumSprite;
-    //public Sprite largeSprite;
 
     private Player lumberjack;
 
@@ -97,6 +89,9 @@ public class Tree : MonoBehaviour {
         UpdateTreeStats();
     }
 
+    /// <summary>
+    /// randomly starts the swaying in the wind
+    /// </summary>
     private void PickAnimationStartFrame()
     {
         Animator anim = GetComponent<Animator>();
@@ -104,12 +99,18 @@ public class Tree : MonoBehaviour {
         anim.Play(state.fullPathHash, -1, Random.Range(0f, 1f));
     }
 
+    /// <summary>
+    /// create the tree in a random state, only used when the level is loaded
+    /// </summary>
     private void InitializeTree()
     {
         treeState = (maturity)(Random.Range(1, 5));
         UpdateTreeStats();
     }
 
+    /// <summary>
+    /// assign tree states and animation states
+    /// </summary>
     private void UpdateTreeStats()
     {
         canChopDown = true;
@@ -149,20 +150,46 @@ public class Tree : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Deal damage to the tree when the lumberjack chops
+    /// </summary>
     private void DealDamage()
     {
         health -= 1;
 
         if(health <= 0)
         {
-            lumberjack = GameObject.FindGameObjectWithTag("Lumberjack").GetComponent<Player>();
+            //need to find lumberjack in case when the tree is spawned a lumberjack isn't present
+            if(lumberjack == null)
+            {
+                lumberjack = GameObject.FindGameObjectWithTag("Lumberjack").GetComponent<Player>();
+            }
+            
             animator.SetTrigger("Falling");
+
+            //stops the lumberjack chop animation
             lumberjack.ClearLumberjackAnimations();
+
+            //update the ui and count of lumber in the bank
             lumberCount.UpdateLumberCount(lumberYielded);
             increaseLumberObj.SetIncreaseResourceText(lumberYielded);
         }
     }
 
+    /// <summary>
+    /// Put the lumberjack sprite above the tree
+    /// </summary>
+    public void TreeHasFallen()
+    {
+        if (lumberjack != null)
+        {
+            lumberjack.ChangeSpriteOrder(1);
+        }
+    }
+
+    /// <summary>
+    /// grow the tree, change the sprite and stats
+    /// </summary>
     public void GrowTree()
     {
             treeState += 1;

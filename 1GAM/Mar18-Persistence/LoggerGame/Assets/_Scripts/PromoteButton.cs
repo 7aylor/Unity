@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PromoteButton : MonoBehaviour {
 
-    public enum PromoteType { chop, lumberJump, plant, water, plantJump}
+    public enum PromoteType { chop, lumberJump, plant, water, plantJump, stamina}
     public PromotionPoints points;
 
     public PromoteType type;
@@ -62,6 +62,10 @@ public class PromoteButton : MonoBehaviour {
                 case PromoteType.water:
                     planterPlayer.animatorWaterSpeed += 0.25f;
                     planterAnimator.SetFloat("WaterSpeed", planterPlayer.animatorWaterSpeed);
+                    break;
+                case PromoteType.stamina:
+                    planterPlayer.fatigueIncrement -= 0.02f;
+                    planterPlayer.recoverFatigueRate += 0.0005f;
                     break;
             }
         }

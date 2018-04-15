@@ -99,6 +99,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         if(fatigueSlider.value == 1)
         {
             isFatigued = true;
+            animator.SetBool("Fatigued", true);
         }
 
         if(fatigueSlider.value > 0)
@@ -107,6 +108,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             if (fatigueSlider.value == 0)
             {
                 isFatigued = false;
+                animator.SetBool("Fatigued", false);
             }
         }
     }
@@ -172,12 +174,18 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         }
     }
 
+    /// <summary>
+    /// Used to make a player travel in the direction they are jumping
+    /// </summary>
+    /// <param name="dir">direction the player is moving in</param>
+    /// <returns></returns>
     private IEnumerator TravelToTarget(direction dir)
     {
         Vector3 changeVector;
 
         float fatigueVal = (1 - fatigueSlider.value);
 
+        //determine the direction vector
         if (dir == direction.down)
         {
             changeVector = new Vector3(0, -jumpSpeed, 0);
@@ -204,7 +212,11 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         }
 
         hasTarget = false;
+
+        //destroy the marker flag that shows they tile they are landing on
         Destroy(tempFlag);
+
+        //update the buttons based on the new tile the player is on
         HandleActionPanelButtons();
     }
 
@@ -386,7 +398,10 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         }
     }
 
-    //called from chop button
+    /// <summary>
+    /// called from chop button
+    /// </summary>
+    /// <param name="playAnimation"></param>
     public void PlayChopAnimation(bool playAnimation)
     {
         canMove = false;
@@ -395,18 +410,26 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         {
             if(playAnimation == true)
             {
-                sprite.sortingOrder = -1000;
-            }
-            else
-            {
-                sprite.sortingOrder = 1;
+                ChangeSpriteOrder(-1000);
             }
             animator.SetBool("Chop", playAnimation);
             animator.runtimeAnimatorController = down;
         }
     }
 
-    //called from Plant Button
+    /// <summary>
+    /// change the sprite sorting order of the player
+    /// </summary>
+    /// <param name="newOrder"></param>
+    public void ChangeSpriteOrder(int newOrder)
+    {
+        sprite.sortingOrder = newOrder;
+    }
+
+    /// <summary>
+    /// called from Plant Button
+    /// </summary>
+    /// <param name="playAnimation"></param>
     public void PlayPlantAnimation(bool playAnimation)
     {
         canMove = false;
@@ -417,7 +440,10 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         }
     }
 
-    //called from Water button
+    /// <summary>
+    /// called from Water button
+    /// </summary>
+    /// <param name="playAnimation"></param>
     public void PlayWaterAnimation(bool playAnimation)
     {
         canMove = false;
@@ -428,7 +454,9 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         }
     }
 
-    //called from the animator
+    /// <summary>
+    /// called from the animator
+    /// </summary>
     public void LumberjackChopAnimation()
     {
         if (collidingTileAnimator != null)
@@ -445,16 +473,21 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         }
     }
 
-    //called on tree script with tree falls
+    /// <summary>
+    /// called on tree script when tree falls
+    /// </summary>
     public void ClearLumberjackAnimations()
     {
         PlayChopAnimation(false);
         chopButton.chopping = false;
-        HandleActionPanelButtons();
         pointTowardsNextRank++;
+        HandleActionPanelButtons();
         canMove = true;
     }
 
+    /// <summary>
+    /// called from animator at the end of the planting animation
+    /// </summary>
     public void SowSeeds()
     {
         if(tag == "Planter" && seedsPlanted++ >= 5)
@@ -478,10 +511,15 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         }
     }
 
+    /// <summary>
+    /// called at the end of the watering animation
+    /// </summary>
     public void HandleWatering()
     {
+        //get the colliding tree
         Tree collidingTree = collidingTile.GetComponent<Tree>();
 
+        //check if the tree has been watered five times, then adjust stats, handle animations, and update the buttons
         if(collidingTree.waterCount++ >= 5)
         {
             canMove = true;
@@ -493,6 +531,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         }
     }
 
+    #region play sound effects
     public void PlayChopSound()
     {
         audioSource.clip = chopSfx;
@@ -504,6 +543,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         audioSource.clip = waterSfx;
         audioSource.Play();
     }
+    #endregion
 
     public void ResetPoints()
     {
@@ -511,6 +551,9 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         HandleActionPanelButtons();
     }
 
+    /// <summary>
+    /// called at the ends of each action animation
+    /// </summary>
     public void AddFatigue()
     {
         fatigueSlider.value += fatigueIncrement;

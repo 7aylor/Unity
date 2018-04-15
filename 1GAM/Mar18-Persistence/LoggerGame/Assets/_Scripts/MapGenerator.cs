@@ -6,6 +6,13 @@ public class MapGenerator : MonoBehaviour {
 
     public int sizeX;
     public int sizeY;
+
+    //used for forestHealth script
+    public int treeCount;
+    public int riverCount;
+    public int obstacleCount;
+    public int numTiles;
+
     //public int[,] map;
     public Transform terrainContainer;
 
@@ -44,16 +51,16 @@ public class MapGenerator : MonoBehaviour {
 
     private void Awake()
     {
-        
-    }
-
-    private void Start()
-    {
         GameManager.instance.InstantiateMap(sizeX, sizeY);
         GenerateRandomMap();
         SmoothMap();
         CreateRiver();
         SpawnTerrain();
+
+        treeCount = 0;
+        riverCount = 0;
+        obstacleCount = 0;
+        numTiles = sizeX * sizeY;
     }
 
     private void Update()
@@ -592,10 +599,13 @@ public class MapGenerator : MonoBehaviour {
                     GameObject tree = trees[Random.Range(0, trees.Length)];
 
                     newTile = Instantiate(tree, new Vector3(xPos, yPos, 0), Quaternion.identity);
+
+                    treeCount++;
                 }
                 else if(GameManager.instance.map[x, y] == (int)tileType.rock)
                 {
                     newTile = Instantiate(rocks[Random.Range(0, rocks.Length)], new Vector3(xPos, yPos, 0), Quaternion.identity);
+                    obstacleCount++;
                 }
                 else if(GameManager.instance.map[x,y] == (int)tileType.startRiver)
                 {
@@ -619,6 +629,8 @@ public class MapGenerator : MonoBehaviour {
                     }
 
                     newTile = Instantiate(riverStart, new Vector3(xPos, yPos, 0), rotation);
+
+                    riverCount++;
                 }
                 else if(GameManager.instance.map[x, y] == (int)tileType.straightRiver)
                 {
@@ -645,6 +657,8 @@ public class MapGenerator : MonoBehaviour {
                     {
                         newTile = Instantiate(riverStraight, new Vector3(xPos, yPos, 0), rotation);
                     }
+
+                    riverCount++;
                 }
 
                 else if (GameManager.instance.map[x, y] == (int)tileType.endRiver)
@@ -669,6 +683,8 @@ public class MapGenerator : MonoBehaviour {
                     }
 
                     newTile = Instantiate(riverEnd, new Vector3(xPos, yPos, 0), rotation);
+
+                    riverCount++;
                 }
                 else
                 {
@@ -681,6 +697,8 @@ public class MapGenerator : MonoBehaviour {
                 }
             }
         }
+
+        Debug.Log("Tree count: " + treeCount + " River count: " + riverCount + " Obstacle count: " + obstacleCount);
     }
 
     private GameObject isCurvedRiver(int x, int y, float xPos, float yPos)

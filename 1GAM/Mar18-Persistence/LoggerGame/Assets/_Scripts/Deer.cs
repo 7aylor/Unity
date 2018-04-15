@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class Deer : MonoBehaviour {
 
     public float raycastDistance;
     public float runSpeed;
 
     private Vector2 runDirection;
-
+    private Animator animator;
     private float destroyTime = 10;
     private float timeUntilDestroy = 0;
 
@@ -16,9 +17,9 @@ public class Deer : MonoBehaviour {
 
     private int playerLayerMask = 1 << 10;
 
-	// Use this for initialization
-	void Start () {
-        
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
     }
 	
 	// Update is called once per frame
@@ -97,6 +98,8 @@ public class Deer : MonoBehaviour {
     private IEnumerator Run()
     {
         //play animation
+        animator.SetBool("Running", true);
+
         while(timeUntilDestroy <= destroyTime)
         {
             transform.Translate(runDirection * runSpeed * Time.deltaTime);
