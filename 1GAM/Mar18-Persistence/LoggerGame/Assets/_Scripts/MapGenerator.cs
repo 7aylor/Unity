@@ -49,7 +49,7 @@ public class MapGenerator : MonoBehaviour {
         endRiver
     }
 
-    private void Awake()
+    private void Start()
     {
         GameManager.instance.InstantiateMap(sizeX, sizeY);
         GenerateRandomMap();

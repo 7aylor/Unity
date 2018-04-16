@@ -24,7 +24,7 @@ public class ForestHealth : MonoBehaviour {
         text.text = GameManager.instance.forestHealth.ToString();
         numSpaces = map.numTiles - map.riverCount - map.obstacleCount;
 
-        forestHealth = map.treeCount / numSpaces;
+        //forestHealth = map.treeCount / numSpaces;
         Debug.Log("Forest Health: " + forestHealth);
 	}
 }
