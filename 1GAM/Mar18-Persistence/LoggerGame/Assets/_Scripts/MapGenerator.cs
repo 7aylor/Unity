@@ -7,12 +7,6 @@ public class MapGenerator : MonoBehaviour {
     public int sizeX;
     public int sizeY;
 
-    //used for forestHealth script
-    public int treeCount;
-    public int riverCount;
-    public int obstacleCount;
-    public int numTiles;
-
     //public int[,] map;
     public Transform terrainContainer;
 
@@ -29,7 +23,7 @@ public class MapGenerator : MonoBehaviour {
     public int neighborThreshold;
 
     #region GameObjects
-    public GameObject grass;
+    public GameObject[] grass;
     public GameObject[] trees;
     public GameObject[] rocks;
     public GameObject riverStraight;
@@ -51,16 +45,15 @@ public class MapGenerator : MonoBehaviour {
 
     private void Start()
     {
+        GameManager.instance.numTiles = sizeX * sizeY;
+        GameManager.instance.numTreesInPlay = 0;
+        GameManager.instance.numRiverTiles = 0;
+        GameManager.instance.numObstacleTiles = 0;
         GameManager.instance.InstantiateMap(sizeX, sizeY);
         GenerateRandomMap();
         SmoothMap();
         CreateRiver();
         SpawnTerrain();
-
-        treeCount = 0;
-        riverCount = 0;
-        obstacleCount = 0;
-        numTiles = sizeX * sizeY;
     }
 
     private void Update()
@@ -599,13 +592,11 @@ public class MapGenerator : MonoBehaviour {
                     GameObject tree = trees[Random.Range(0, trees.Length)];
 
                     newTile = Instantiate(tree, new Vector3(xPos, yPos, 0), Quaternion.identity);
-
-                    treeCount++;
                 }
                 else if(GameManager.instance.map[x, y] == (int)tileType.rock)
                 {
                     newTile = Instantiate(rocks[Random.Range(0, rocks.Length)], new Vector3(xPos, yPos, 0), Quaternion.identity);
-                    obstacleCount++;
+                    GameManager.instance.numObstacleTiles++;
                 }
                 else if(GameManager.instance.map[x,y] == (int)tileType.startRiver)
                 {
@@ -630,7 +621,7 @@ public class MapGenerator : MonoBehaviour {
 
                     newTile = Instantiate(riverStart, new Vector3(xPos, yPos, 0), rotation);
 
-                    riverCount++;
+                    GameManager.instance.numRiverTiles++;
                 }
                 else if(GameManager.instance.map[x, y] == (int)tileType.straightRiver)
                 {
@@ -658,7 +649,7 @@ public class MapGenerator : MonoBehaviour {
                         newTile = Instantiate(riverStraight, new Vector3(xPos, yPos, 0), rotation);
                     }
 
-                    riverCount++;
+                    GameManager.instance.numRiverTiles++;
                 }
 
                 else if (GameManager.instance.map[x, y] == (int)tileType.endRiver)
@@ -684,11 +675,26 @@ public class MapGenerator : MonoBehaviour {
 
                     newTile = Instantiate(riverEnd, new Vector3(xPos, yPos, 0), rotation);
 
-                    riverCount++;
+                    GameManager.instance.numRiverTiles++;
                 }
                 else
                 {
-                    newTile = Instantiate(grass, new Vector3(xPos, yPos, 0), Quaternion.identity);
+                    ///////
+
+                    int grassTileIndex = 0;
+                    float tileVal = Random.Range(0, 1.0f);
+
+                    if (tileVal > 0.97f)
+                    {
+                        grassTileIndex = 1;
+                    }
+                    else if (tileVal > 0.93f)
+                    {
+                        grassTileIndex = 2;
+                    }
+                    
+
+                    newTile = Instantiate(grass[grassTileIndex], new Vector3(xPos, yPos, 0), Quaternion.identity);
                 }
 
                 if(newTile != null)
@@ -697,8 +703,9 @@ public class MapGenerator : MonoBehaviour {
                 }
             }
         }
-
-        Debug.Log("Tree count: " + treeCount + " River count: " + riverCount + " Obstacle count: " + obstacleCount);
+        
+        //updates the UI of the forest health
+        FindObjectOfType<ForestHealth>().UpdateForestHealth();
     }
 
     private GameObject isCurvedRiver(int x, int y, float xPos, float yPos)

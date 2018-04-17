@@ -20,11 +20,11 @@ public class ForestHealth : MonoBehaviour {
         map = FindObjectOfType<MapGenerator>();
     }
 
-    void Start () {
-        text.text = GameManager.instance.forestHealth.ToString();
-        numSpaces = map.numTiles - map.riverCount - map.obstacleCount;
-
-        //forestHealth = map.treeCount / numSpaces;
-        Debug.Log("Forest Health: " + forestHealth);
-	}
+    public void UpdateForestHealth()
+    {
+        numSpaces = GameManager.instance.numTiles - GameManager.instance.numRiverTiles - GameManager.instance.numObstacleTiles;
+        forestHealth = Mathf.RoundToInt(((float)GameManager.instance.numTreesInPlay / numSpaces) * 100);
+        Debug.Log("Tree count: " + GameManager.instance.numTreesInPlay + " Num Spaces: " + numSpaces + " Forest Health: " + forestHealth);
+        text.text = forestHealth.ToString();
+    }
 }

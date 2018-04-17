@@ -64,8 +64,17 @@ public class PromoteButton : MonoBehaviour {
                     planterAnimator.SetFloat("WaterSpeed", planterPlayer.animatorWaterSpeed);
                     break;
                 case PromoteType.stamina:
-                    planterPlayer.fatigueIncrement -= 0.02f;
-                    planterPlayer.recoverFatigueRate += 0.0005f;
+                    if(planterPlayer != null)
+                    {
+                        planterPlayer.fatigueIncrement -= 0.02f;
+                        planterPlayer.recoverFatigueRate += 0.0005f;
+                    }
+                    else if(lumberjackPlayer != null)
+                    {
+                        lumberjackPlayer.fatigueIncrement -= 0.02f;
+                        lumberjackPlayer.recoverFatigueRate += 0.0005f;
+                    }
+                    
                     break;
             }
         }

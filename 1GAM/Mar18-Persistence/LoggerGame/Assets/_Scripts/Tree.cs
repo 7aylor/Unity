@@ -27,9 +27,11 @@ public class Tree : MonoBehaviour {
     private SpriteRenderer sprite;
     private Lumber lumberCount;
     private IncreaseResource increaseLumberObj;
+    private ForestHealth forestHealth;
 
     private float timeSinceLastGrowth;
     private float timeToGrow;
+    
 
     private void Awake()
     {
@@ -37,6 +39,8 @@ public class Tree : MonoBehaviour {
         lumberCount = FindObjectOfType<Lumber>();
         sprite = GetComponent<SpriteRenderer>();
         increaseLumberObj = FindObjectOfType<IncreaseResource>();
+        forestHealth = FindObjectOfType<ForestHealth>();
+        GameManager.instance.numTreesInPlay++;
         InitializeTree();
         UpdateTreeStats();
         PickAnimationStartFrame();
@@ -129,6 +133,7 @@ public class Tree : MonoBehaviour {
                 lumberYielded = 3;
                 canChopDown = false;
                 animator.runtimeAnimatorController = tinyAnim;
+
                 //sprite.sortingOrder = 2;
                 break;
             case maturity.small:
@@ -173,6 +178,10 @@ public class Tree : MonoBehaviour {
             //update the ui and count of lumber in the bank
             lumberCount.UpdateLumberCount(lumberYielded);
             increaseLumberObj.SetIncreaseResourceText(lumberYielded);
+
+            GameManager.instance.numTreesInPlay--;
+
+            forestHealth.UpdateForestHealth();
         }
     }
 
@@ -192,7 +201,13 @@ public class Tree : MonoBehaviour {
     /// </summary>
     public void GrowTree()
     {
-            treeState += 1;
-            UpdateTreeStats();
+        treeState += 1;
+        UpdateTreeStats();
+
+        //update the forest health UI on grow to Tiny tree
+        if (treeState == maturity.tiny)
+        {
+            forestHealth.UpdateForestHealth();
+        }
     }
 }

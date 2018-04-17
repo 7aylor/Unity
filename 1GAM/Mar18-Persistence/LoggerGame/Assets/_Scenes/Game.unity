@@ -991,7 +991,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 364.15, y: -495.74384}
+  m_AnchoredPosition: {x: 364.1504, y: -495.74384}
   m_SizeDelta: {x: 650, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &157368182
@@ -1435,6 +1435,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8d3e2d4829b98d4787ecf5b856212e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  good: {r: 0.121568635, g: 0.36862746, b: 0.07450981, a: 0}
+  medium: {r: 0.88235295, g: 0.85886234, b: 0.071366794, a: 0}
+  bad: {r: 0.8161765, g: 0.10202206, b: 0.10202206, a: 0}
 --- !u!1 &253313274
 GameObject:
   m_ObjectHideFlags: 0
@@ -1581,7 +1584,7 @@ Prefab:
     - target: {fileID: 114234605834538308, guid: f2938e3017ab8e74daaa175e232dd23e,
         type: 2}
       propertyPath: fatigueIncrement
-      value: 0.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114234605834538308, guid: f2938e3017ab8e74daaa175e232dd23e,
         type: 2}
@@ -1633,7 +1636,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 364.15, y: -194.8805}
+  m_AnchoredPosition: {x: 364.1504, y: -194.8805}
   m_SizeDelta: {x: 650, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &273987634
@@ -3407,7 +3410,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 364.15, y: -357.6742}
+  m_AnchoredPosition: {x: 364.1504, y: -357.6742}
   m_SizeDelta: {x: 650, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &636042629
@@ -4574,6 +4577,10 @@ MonoBehaviour:
   money: 0
   lumber: 0
   demand: 0
+  numTreesInPlay: 0
+  numRiverTiles: 0
+  numObstacleTiles: 0
+  numTiles: 0
   lumberjackHired: 0
   planterHired: 0
 --- !u!4 &839035040
@@ -10408,7 +10415,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 364.15, y: -81.534836}
+  m_AnchoredPosition: {x: 364.1504, y: -81.534836}
   m_SizeDelta: {x: 650, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1289454378
@@ -11235,6 +11242,11 @@ Prefab:
       propertyPath: rocks.Array.size
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
+        type: 2}
+      propertyPath: grass.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4823850287400002, guid: 66bb6308a5a62c74b991525243bf4512, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -11306,6 +11318,24 @@ Prefab:
       propertyPath: rocks.Array.data[4]
       value: 
       objectReference: {fileID: 1242716478098746, guid: f030b1eceae13c14aaaf89b4b1892dfe,
+        type: 2}
+    - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
+        type: 2}
+      propertyPath: grass.Array.data[0]
+      value: 
+      objectReference: {fileID: 1272982007471352, guid: 7c583826f0e024349915926082e87a34,
+        type: 2}
+    - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
+        type: 2}
+      propertyPath: grass.Array.data[1]
+      value: 
+      objectReference: {fileID: 1272982007471352, guid: bec12c88699af5849b5170422a13fac1,
+        type: 2}
+    - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
+        type: 2}
+      propertyPath: grass.Array.data[2]
+      value: 
+      objectReference: {fileID: 1272982007471352, guid: 8bc748d7e80eca047aaa063794a03d65,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 66bb6308a5a62c74b991525243bf4512, type: 2}
@@ -11741,7 +11771,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 364.15, y: -219.6045}
+  m_AnchoredPosition: {x: 364.1504, y: -219.6045}
   m_SizeDelta: {x: 650, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1551809590
@@ -12818,7 +12848,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 364.15, y: -324.80084}
+  m_AnchoredPosition: {x: 364.1504, y: -324.80084}
   m_SizeDelta: {x: 650, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1718075551
@@ -14057,7 +14087,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 364.15, y: -64.96017}
+  m_AnchoredPosition: {x: 364.1504, y: -64.96017}
   m_SizeDelta: {x: 650, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1966412198

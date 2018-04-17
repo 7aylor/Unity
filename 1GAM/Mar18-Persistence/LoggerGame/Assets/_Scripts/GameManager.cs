@@ -15,6 +15,11 @@ public class GameManager : MonoBehaviour {
     public int lumber;
     public int demand;
 
+    public int numTreesInPlay;
+    public int numRiverTiles;
+    public int numObstacleTiles;
+    public int numTiles;
+
     public bool lumberjackHired;
     public bool planterHired;
 
