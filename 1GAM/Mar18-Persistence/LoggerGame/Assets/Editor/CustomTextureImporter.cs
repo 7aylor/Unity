@@ -9,13 +9,13 @@ using UnityEditor;
 /// </summary>
 public class CustomTextureImporter : AssetPostprocessor
 {
-    void OnPreprocessTexture()
-    {
+    //void OnPreprocessTexture()
+    //{
 
-        var importer = assetImporter as TextureImporter;
+    //    var importer = assetImporter as TextureImporter;
 
-        importer.filterMode = FilterMode.Point;
-        importer.textureCompression = TextureImporterCompression.Uncompressed;
-        importer.spritePixelsPerUnit = 32;
-    }
+    //    importer.filterMode = FilterMode.Point;
+    //    importer.textureCompression = TextureImporterCompression.Uncompressed;
+    //    importer.spritePixelsPerUnit = 32;
+    //}
 }
