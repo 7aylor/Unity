@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PromoteButton : MonoBehaviour {
 
@@ -15,25 +16,30 @@ public class PromoteButton : MonoBehaviour {
     private Player planterPlayer;
     private Animator lumberjackAnimator;
     private Animator planterAnimator;
-   
+    private TMP_Text planterLevelText;
+    private TMP_Text lumberjackLevelText;
+
     public void ClickPromote()
     {
         if (points.numPoints > 0)
         {
-            points.UsePoints();
             if (transform.parent.parent.tag == "PlanterPromote")
             {
                 planter = GameObject.FindGameObjectWithTag("Planter");
                 planterPlayer = planter.GetComponent<Player>();
                 planterAnimator = planter.GetComponent<Animator>();
+                planterLevelText = GameObject.FindGameObjectWithTag("PlanterLevel").GetComponent<TMP_Text>();
                 planterPlayer.currentRank++;
+                planterLevelText.text = planterPlayer.currentRank++.ToString();
             }
             else if (transform.parent.parent.tag == "LumberjackPromote")
             {
                 lumberjack = GameObject.FindGameObjectWithTag("Lumberjack");
                 lumberjackPlayer = lumberjack.GetComponent<Player>();
                 lumberjackAnimator = lumberjack.GetComponent<Animator>();
+                lumberjackLevelText = GameObject.FindGameObjectWithTag("LumberjackLevel").GetComponent<TMP_Text>();
                 lumberjackPlayer.currentRank++;
+                lumberjackLevelText.text = lumberjackPlayer.currentRank.ToString();
             }
 
             switch (type)

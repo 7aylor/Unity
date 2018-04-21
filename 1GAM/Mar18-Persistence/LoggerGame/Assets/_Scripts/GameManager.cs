@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour {
     public bool lumberjackHired;
     public bool planterHired;
 
-
     public Dictionary<int, int> rank;
     public Dictionary<string, int> skillLevels;
 

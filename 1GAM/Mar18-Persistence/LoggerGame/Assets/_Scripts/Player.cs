@@ -67,7 +67,6 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         promoteLumberJackButton = FindObjectOfType<PromoteLumberJackButton>();
         promotePlanterButton = FindObjectOfType<PromotePlanterButton>();
         selectionIndicator = transform.GetChild(0).gameObject; //Gets the indicator child game object
-        //fatigueSlider = GetComponentInChildren<Slider>();'
         fatigueSlider = transform.SearchForChild("FatigueSlider").GetComponent<Slider>();
     }
 
