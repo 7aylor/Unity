@@ -267,7 +267,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.95, y: 0.95}
+  m_Size: {x: 0.75, y: 0.75}
   m_EdgeRadius: 0
 --- !u!82 &82478007210291418
 AudioSource:
@@ -462,7 +462,7 @@ MonoBehaviour:
   animatorWaterSpeed: 0
   animatorChopSpeed: 0
   currentRank: 0
-  fatigueIncrement: 0
+  fatigueIncrement: 0.2
   recoverFatigueRate: 0.001
 --- !u!114 &114311166380874406
 MonoBehaviour:

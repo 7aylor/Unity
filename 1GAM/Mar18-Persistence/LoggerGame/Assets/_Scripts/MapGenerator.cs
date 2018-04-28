@@ -45,6 +45,8 @@ public class MapGenerator : MonoBehaviour {
 
     private void Start()
     {
+        GameManager.instance.sizeX = sizeX;
+        GameManager.instance.sizeY = sizeY;
         GameManager.instance.numTiles = sizeX * sizeY;
         GameManager.instance.numTreesInPlay = 0;
         GameManager.instance.numRiverTiles = 0;
@@ -582,7 +584,7 @@ public class MapGenerator : MonoBehaviour {
                 //float xPos = (float)x / 2 - sizeX / 4 + 0.5f;
                 //float yPos = (float)y / 2 - sizeY / 4 + 0.25f;
 
-                //32 PPU
+                //32 PPU, convery from array coords to game space coords
                 float xPos = (float)x - sizeX / 2;
                 float yPos = (float)y - sizeY / 2 + 1;
 

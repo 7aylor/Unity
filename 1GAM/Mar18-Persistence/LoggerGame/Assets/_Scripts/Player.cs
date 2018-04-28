@@ -29,6 +29,8 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     public float fatigueIncrement;
     public float recoverFatigueRate;
 
+    private ActionPanel actionPanel;
+
     private bool isSelected;
     private bool hasTarget; //used to determine if the lumberjack is walking toward a tree
     private Vector3 targetXY; //the target location of the next tree;
@@ -38,7 +40,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     private GameObject tempFlag;
     private GameObject collidingTile;
     private Animator collidingTileAnimator;
-    private ActionPanel actionPanel;
+    
     private ChopButton chopButton;
     private PlantButton plantButton;
     private WaterButton waterButton;
@@ -61,11 +63,11 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         actionPanel = FindObjectOfType<ActionPanel>();
-        chopButton = FindObjectOfType<ChopButton>();
-        plantButton = FindObjectOfType<PlantButton>();
-        waterButton = FindObjectOfType<WaterButton>();
-        promoteLumberJackButton = FindObjectOfType<PromoteLumberJackButton>();
-        promotePlanterButton = FindObjectOfType<PromotePlanterButton>();
+        chopButton = actionPanel.lumberjackButtons[0].GetComponent<ChopButton>();
+        plantButton = actionPanel.planterButtons[0].GetComponent<PlantButton>();
+        waterButton = actionPanel.planterButtons[1].GetComponent<WaterButton>();
+        promoteLumberJackButton = actionPanel.lumberjackButtons[1].GetComponent<PromoteLumberJackButton>();
+        promotePlanterButton = actionPanel.planterButtons[2].GetComponent<PromotePlanterButton>();
         selectionIndicator = transform.GetChild(0).gameObject; //Gets the indicator child game object
         fatigueSlider = transform.SearchForChild("FatigueSlider").GetComponent<Slider>();
     }
