@@ -59,7 +59,17 @@ public class ActionPanel : MonoBehaviour {
 
         if(selectedPlayer == SelectedPlayer.none)
         {
-            EnableDisableButtons(hireButtons, true);
+            //check if lumberjack is hired
+            if (!GameManager.instance.lumberjackHired)
+            {
+                EnableDisableSingleButton(hireButtons[0].gameObject, true);
+            }
+            //check if planter is hired
+            if (!GameManager.instance.planterHired)
+            {
+                EnableDisableSingleButton(hireButtons[1].gameObject, true);
+            }
+
             EnableDisableButtons(planterButtons, false);
             EnableDisableButtons(lumberjackButtons, false);
         }
@@ -77,24 +87,26 @@ public class ActionPanel : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// enables or disables a set of buttons
+    /// </summary>
+    /// <param name="selectedButtons"></param>
+    /// <param name="isActive"></param>
     private void EnableDisableButtons(Button[] selectedButtons, bool isActive)
     {
         foreach (Button button in selectedButtons)
         {
-            //button.interactable = isActive;
             button.gameObject.SetActive(isActive);
         }
     }
 
+    /// <summary>
+    /// enables or disables a single button in the panel
+    /// </summary>
+    /// <param name="buttonObj"></param>
+    /// <param name="isActive"></param>
     public void EnableDisableSingleButton(GameObject buttonObj, bool isActive)
     {
-        //Button b = buttonObj.GetComponent<Button>();
-
-        //if(b != null)
-        //{
-        //    b.interactable = isActive;
-        //}
-
         buttonObj.SetActive(isActive);
     }
 }
