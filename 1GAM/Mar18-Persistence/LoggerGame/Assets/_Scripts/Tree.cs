@@ -6,7 +6,8 @@ using UnityEngine;
 public class Tree : MonoBehaviour {
 
     public int health;
-    public enum maturity { seed, tiny, small, medium, large}
+    public enum maturity { seed, tiny, small, medium, large, stump}
+    [SerializeField]
     public maturity treeState;
     public int lumberYielded;
     public bool canChopDown;
@@ -14,6 +15,7 @@ public class Tree : MonoBehaviour {
     public float minTimeToGrow;
     public float maxTimeToGrow;
     public int waterCount;
+    public GameObject grassTile;
 
     public AnimatorOverrideController seedAnim;
     public AnimatorOverrideController tinyAnim;
@@ -31,7 +33,7 @@ public class Tree : MonoBehaviour {
 
     private float timeSinceLastGrowth;
     private float timeToGrow;
-    
+    private int stumpHealth;
 
     private void Awake()
     {
@@ -71,6 +73,7 @@ public class Tree : MonoBehaviour {
         if(treeState == maturity.large && CheckTreeDeath() == true)
         {
             animator.SetTrigger("Falling");
+            InitializeStump();
         }
     }
 
@@ -165,15 +168,12 @@ public class Tree : MonoBehaviour {
         if(health <= 0)
         {
             //need to find lumberjack in case when the tree is spawned a lumberjack isn't present
-            if(lumberjack == null)
+            if (lumberjack == null)
             {
                 lumberjack = GameObject.FindGameObjectWithTag("Lumberjack").GetComponent<Player>();
             }
-            
-            animator.SetTrigger("Falling");
 
-            //stops the lumberjack chop animation
-            lumberjack.ClearLumberjackAnimations();
+            animator.SetTrigger("Falling");
 
             //update the ui and count of lumber in the bank
             lumberCount.UpdateLumberCount(lumberYielded);
@@ -182,7 +182,69 @@ public class Tree : MonoBehaviour {
             GameManager.instance.numTreesInPlay--;
 
             forestHealth.UpdateForestHealth();
+
+            InitializeStump();
+
+            //stops the lumberjack chop animation
+            lumberjack.ClearLumberjackAnimations();
         }
+    }
+
+    public void DigOutStump()
+    {
+        stumpHealth -= 1;
+
+        if(stumpHealth <= 0)
+        {
+            //need to find lumberjack in case when the tree is spawned a lumberjack isn't present
+            if (lumberjack == null)
+            {
+                lumberjack = GameObject.FindGameObjectWithTag("Lumberjack").GetComponent<Player>();
+            }
+
+            //stops the lumberjack chop animation
+            lumberjack.ClearLumberjackAnimations();
+
+            //update the ui and count of lumber in the bank
+            lumberCount.UpdateLumberCount(lumberYielded);
+            increaseLumberObj.SetIncreaseResourceText(lumberYielded);
+
+            GameObject grass = Instantiate(grassTile, transform);
+            grass.transform.parent = GameObject.FindGameObjectWithTag("Terrain").transform;
+
+            //destroy tree
+            Destroy(gameObject);
+        }
+    }
+
+    /// <summary>
+    /// resets health to zero, generates stump health and new lumber yielded amount, sets the treestate to stump
+    /// </summary>
+    private void InitializeStump()
+    {
+        health = 0;
+        animator.SetBool("Swaying", false);
+        switch (treeState)
+        {
+            case maturity.tiny:
+                stumpHealth = 1;
+                lumberYielded = 1;
+                break;
+            case maturity.small:
+                stumpHealth = 2;
+                lumberYielded = 3;
+                break;
+            case maturity.medium:
+                stumpHealth = 3;
+                lumberYielded = 5;
+                break;
+            case maturity.large:
+                stumpHealth = 5;
+                lumberYielded = 10;
+                break;
+        }
+
+        treeState = maturity.stump;
     }
 
     /// <summary>

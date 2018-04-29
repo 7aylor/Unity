@@ -106,6 +106,7 @@ MonoBehaviour:
   minTimeToGrow: 60
   maxTimeToGrow: 90
   waterCount: 0
+  grassTile: {fileID: 1272982007471352, guid: 7c583826f0e024349915926082e87a34, type: 2}
   seedAnim: {fileID: 22100000, guid: 426da4a00ee732b46972a57ca04fd703, type: 2}
   tinyAnim: {fileID: 22100000, guid: 1664c60c079745742ae6404848c103f9, type: 2}
   smallAnim: {fileID: 22100000, guid: d7e0c5297040875408a2f6dcf3e28e77, type: 2}

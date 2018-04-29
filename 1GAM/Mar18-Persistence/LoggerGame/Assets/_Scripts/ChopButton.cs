@@ -14,6 +14,6 @@ public class ChopButton : MonoBehaviour {
     public void Chop()
     {
         chopping = !chopping;
-        GameManager.instance.selectedPlayer.PlayChopAnimation(chopping);
+        GameManager.instance.selectedPlayer.PlayLumberjackAnimation(chopping, "Chop");
     }
 }

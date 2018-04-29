@@ -42,6 +42,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     private Animator collidingTileAnimator;
     
     private ChopButton chopButton;
+    private DigButton digButton;
     private PlantButton plantButton;
     private WaterButton waterButton;
     private PromoteLumberJackButton promoteLumberJackButton;
@@ -63,11 +64,17 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         actionPanel = FindObjectOfType<ActionPanel>();
+
+        //lumberjack buttons
         chopButton = actionPanel.lumberjackButtons[0].GetComponent<ChopButton>();
+        digButton = actionPanel.lumberjackButtons[1].GetComponent<DigButton>();
+        promoteLumberJackButton = actionPanel.lumberjackButtons[2].GetComponent<PromoteLumberJackButton>();
+
+        //planter buttons
         plantButton = actionPanel.planterButtons[0].GetComponent<PlantButton>();
         waterButton = actionPanel.planterButtons[1].GetComponent<WaterButton>();
-        promoteLumberJackButton = actionPanel.lumberjackButtons[1].GetComponent<PromoteLumberJackButton>();
         promotePlanterButton = actionPanel.planterButtons[2].GetComponent<PromotePlanterButton>();
+
         selectionIndicator = transform.GetChild(0).gameObject; //Gets the indicator child game object
         fatigueSlider = transform.SearchForChild("FatigueSlider").GetComponent<Slider>();
     }
@@ -345,17 +352,28 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                     actionPanel.EnableDisableSingleButton(promoteLumberJackButton.gameObject, true);
                 }
 
-                //check colliding tile is a tree and enable chop button
+                //check colliding tile is a tree and enable chop button/dig button
                 if (collidingTile.tag == "Tree")
                 {
-                    actionPanel.EnableDisableSingleButton(chopButton.gameObject, true);
+                    Tree t = collidingTile.GetComponent<Tree>();
+                    if (t.treeState != Tree.maturity.stump)
+                    {
+                        actionPanel.EnableDisableSingleButton(chopButton.gameObject, true);
+                        actionPanel.EnableDisableSingleButton(digButton.gameObject, false);
+                    }
+                    else
+                    {
+                        actionPanel.EnableDisableSingleButton(chopButton.gameObject, false);
+                        actionPanel.EnableDisableSingleButton(digButton.gameObject, true);
+                    }
+                    
                 }
-                //disable chop button
+                //grass, disable chop and dig buttons
                 else
                 {
                     actionPanel.EnableDisableSingleButton(chopButton.gameObject, false);
+                    actionPanel.EnableDisableSingleButton(digButton.gameObject, false);
                 }
-
             }
             else if (tag == "Planter")
             {
@@ -403,9 +421,9 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     /// called from chop button
     /// </summary>
     /// <param name="playAnimation"></param>
-    public void PlayChopAnimation(bool playAnimation)
+    public void PlayLumberjackAnimation(bool playAnimation, string animation)
     {
-        canMove = false;
+        canMove = !playAnimation;
 
         if (tag == "Lumberjack")
         {
@@ -413,7 +431,11 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             {
                 ChangeSpriteOrder(-1000);
             }
-            animator.SetBool("Chop", playAnimation);
+            else
+            {
+                ChangeSpriteOrder(1);
+            }
+            animator.SetBool(animation, playAnimation);
             animator.runtimeAnimatorController = down;
         }
     }
@@ -475,15 +497,27 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     }
 
     /// <summary>
+    /// called from the animator
+    /// </summary>
+    public void LumberjackDigAnimation()
+    {
+        if (collidingTileAnimator != null)
+        {
+            collidingTileAnimator.GetComponent<Tree>().DigOutStump();
+        }
+    }
+
+    /// <summary>
     /// called on tree script when tree falls
     /// </summary>
     public void ClearLumberjackAnimations()
     {
-        PlayChopAnimation(false);
+        PlayLumberjackAnimation(false, "Chop");
         chopButton.chopping = false;
+        PlayLumberjackAnimation(false, "Dig");
+        digButton.digging = false;
         pointTowardsNextRank++;
         HandleActionPanelButtons();
-        canMove = true;
     }
 
     /// <summary>

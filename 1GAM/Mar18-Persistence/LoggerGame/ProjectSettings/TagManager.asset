@@ -14,6 +14,7 @@ TagManager:
   - LumberjackPromote
   - PlanterLevel
   - LumberjackLevel
+  - Terrain
   layers:
   - Default
   - TransparentFX
