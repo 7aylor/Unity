@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour {
         lumberjackHired = false;
         planterHired = false;
         rank = new Dictionary<int, int>() { { 1, 1 }, { 2, 1 }, { 3, 1}, { 4, 1 }, { 5, 30 } }; //adjust for testing
-        skillLevels = new Dictionary<string, int>() { { "ChopSpeed", 1 }, { "LumberjackJumpSpeed", 1 }, { "LumberjackStamina", 1 }, { "PlantSpeed", 1 }, { "WaterSpeed", 1 }, { "PlanterJumpSpeed", 1 }, { "PlanterStamina", 1 } };
+        skillLevels = new Dictionary<string, int>() { { "ChopSpeed", 1 }, { "DigSpeed", 1},{ "LumberjackJumpSpeed", 1 }, { "LumberjackStamina", 1 }, { "PlantSpeed", 1 }, { "WaterSpeed", 1 }, { "PlanterJumpSpeed", 1 }, { "PlanterStamina", 1 } };
     }
 
     public void InstantiateMap(int x, int y)

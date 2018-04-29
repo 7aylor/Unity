@@ -24,6 +24,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     public float animatorPlantSpeed;
     public float animatorWaterSpeed;
     public float animatorChopSpeed;
+    public float animatorDigSpeed;
     public int currentRank;
 
     public float fatigueIncrement;
@@ -90,6 +91,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         animatorPlantSpeed = 1;
         animatorWaterSpeed = 1;
         animatorChopSpeed = 1;
+        animatorDigSpeed = 1;
         jumpSpeed = 0.05f;
 
         if(tag == "Planter")
@@ -528,6 +530,9 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         if(tag == "Planter" && seedsPlanted++ >= 5)
         {
             canMove = true;
+
+            pointTowardsNextRank++;
+            HandleActionPanelButtons();
 
             //destroy the grass tile
             Destroy(collidingTile);

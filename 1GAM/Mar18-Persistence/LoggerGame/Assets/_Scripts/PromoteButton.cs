@@ -5,7 +5,7 @@ using TMPro;
 
 public class PromoteButton : MonoBehaviour {
 
-    public enum PromoteType { chop, lumberJump, plant, water, plantJump, stamina}
+    public enum PromoteType { chop, dig, lumberJump, plant, water, plantJump, stamina}
     public PromotionPoints points;
 
     public PromoteType type;
@@ -30,7 +30,7 @@ public class PromoteButton : MonoBehaviour {
                 planterAnimator = planter.GetComponent<Animator>();
                 planterLevelText = GameObject.FindGameObjectWithTag("PlanterLevel").GetComponent<TMP_Text>();
                 planterPlayer.currentRank++;
-                planterLevelText.text = planterPlayer.currentRank++.ToString();
+                planterLevelText.text = planterPlayer.currentRank.ToString();
             }
             else if (transform.parent.parent.tag == "LumberjackPromote")
             {
@@ -47,6 +47,10 @@ public class PromoteButton : MonoBehaviour {
                 case PromoteType.chop:
                     lumberjackPlayer.animatorChopSpeed += 0.25f;
                     lumberjackAnimator.SetFloat("ChopSpeed", lumberjackPlayer.animatorChopSpeed);
+                    break;
+                case PromoteType.dig:
+                    lumberjackPlayer.animatorDigSpeed += 0.25f;
+                    lumberjackAnimator.SetFloat("DigSpeed", lumberjackPlayer.animatorDigSpeed);
                     break;
                 case PromoteType.lumberJump:
                     lumberjackPlayer.animatorLumberjackJumpSpeed += 0.25f;

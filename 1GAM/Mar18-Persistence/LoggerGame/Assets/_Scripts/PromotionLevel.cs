@@ -6,7 +6,7 @@ using TMPro;
 public class PromotionLevel : MonoBehaviour {
 
     public SkillType skillType;
-    public enum SkillType { ChopSpeed, LumberjackJumpSpeed, LumberjackStamina, PlantSpeed, WaterSpeed, PlanterJumpSpeed, PlanterStamina };
+    public enum SkillType { ChopSpeed, DigSpeed, LumberjackJumpSpeed, LumberjackStamina, PlantSpeed, WaterSpeed, PlanterJumpSpeed, PlanterStamina };
     private TMP_Text text;
     public PromotionPoints promotionPoints;
 
@@ -26,6 +26,5 @@ public class PromotionLevel : MonoBehaviour {
             GameManager.instance.skillLevels[skillType.ToString()] += 1;
             text.text = GameManager.instance.skillLevels[skillType.ToString()].ToString();
         }
-        
     }
 }
