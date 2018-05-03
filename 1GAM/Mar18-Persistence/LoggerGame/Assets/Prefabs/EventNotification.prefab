@@ -56,7 +56,6 @@ GameObject:
   - component: {fileID: 224981075098235364}
   - component: {fileID: 222233165502968082}
   - component: {fileID: 114775855720941770}
-  - component: {fileID: 95704828543974692}
   - component: {fileID: 114080477633838590}
   - component: {fileID: 61093556882107406}
   m_Layer: 5
@@ -108,23 +107,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95704828543974692
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1686421624726234}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7a749b3f1b2d3864a87d746d1a800eef, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114080477633838590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -137,11 +119,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   companies:
-  - AAAAAAA
-  - BBBBBBB
-  - CCCCCC
-  - DDDDDD
-  - EEEEEEEE
+  - aaa
+  - bbb
+  - ccc
   eventLife: 5
 --- !u!114 &114128280546045984
 MonoBehaviour:
@@ -275,7 +255,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 4167fbf792d54aa41bee3177d5aec5e2, type: 3}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -342,8 +322,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 49.09, y: 0.49996}
-  m_SizeDelta: {x: 98.18, y: 100}
+  m_AnchoredPosition: {x: 46.8, y: -0.000038072}
+  m_SizeDelta: {x: 100.5, y: 96.862}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224650947495692378
 RectTransform:
@@ -360,8 +340,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 50, y: 53.77}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 48.23, y: 53.17}
+  m_SizeDelta: {x: 96.46, y: 96.45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224981075098235364
 RectTransform:
@@ -380,6 +360,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 98.179955, y: -50.499954}
-  m_SizeDelta: {x: 196.35999, y: 106.54004}
+  m_AnchoredPosition: {x: 102.46094, y: 53.27005}
+  m_SizeDelta: {x: 204.94, y: 106.54}
   m_Pivot: {x: 0.5, y: 0.5}

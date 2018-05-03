@@ -4,109 +4,113 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 using System;
+using DigitalRuby.Tween;
 
-[Serializable] public class DictionaryOfStringAndAnim : SerializableDictionary<string, Animator> { }
+//[Serializable] public class DictionaryOfStringAndAnim : SerializableDictionary<string, Animator> { }
 
-[Serializable]
-public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
-{
-    [SerializeField]
-    private List<TKey> keys = new List<TKey>();
+//[Serializable]
+//public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
+//{
+//    [SerializeField]
+//    private List<TKey> keys = new List<TKey>();
 
-    [SerializeField]
-    private List<TValue> values = new List<TValue>();
+//    [SerializeField]
+//    private List<TValue> values = new List<TValue>();
 
-    // save the dictionary to lists
-    public void OnBeforeSerialize()
-    {
-        keys.Clear();
-        values.Clear();
-        foreach (KeyValuePair<TKey, TValue> pair in this)
-        {
-            keys.Add(pair.Key);
-            values.Add(pair.Value);
-        }
-    }
+//    // save the dictionary to lists
+//    public void OnBeforeSerialize()
+//    {
+//        keys.Clear();
+//        values.Clear();
+//        foreach (KeyValuePair<TKey, TValue> pair in this)
+//        {
+//            keys.Add(pair.Key);
+//            values.Add(pair.Value);
+//        }
+//    }
 
-    // load dictionary from lists
-    public void OnAfterDeserialize()
-    {
-        this.Clear();
+//    // load dictionary from lists
+//    public void OnAfterDeserialize()
+//    {
+//        this.Clear();
 
-        if (keys.Count != values.Count)
-            throw new System.Exception(string.Format("there are {0} keys and {1} values after deserialization. Make sure that both key and value types are serializable."));
+//        if (keys.Count != values.Count)
+//            throw new System.Exception(string.Format("there are {0} keys and {1} values after deserialization. Make sure that both key and value types are serializable."));
 
-        for (int i = 0; i < keys.Count; i++)
-            this.Add(keys[i], values[i]);
-    }
-}
+//        for (int i = 0; i < keys.Count; i++)
+//            this.Add(keys[i], values[i]);
+//    }
+//}
 
 public class GameEvent : MonoBehaviour, IPointerClickHandler
 {
-    //public string[] companies;
+    //could replace this with a dictionary defined here
+    public string[] companies;
+
     public int eventLife;
 
-    public DictionaryOfStringAndAnim companies;
+    private RectTransform rectTransform;
 
     private int lumberNeeded;
     private int priceToPay;
     private string eventString;
-
-    private Animator animator;
-    private float timeSinceLastEvent;
-    private int timeToNextEvent;
 
     private TMP_Text eventText;
     private Animator TalkingHeadAnimator;
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
         eventText = GetComponentInChildren<TMP_Text>();
         TalkingHeadAnimator = GetComponentInChildren<Animator>();
+        rectTransform = GetComponent<RectTransform>();
     }
 
     // Use this for initialization
     void Start () {
-        timeSinceLastEvent = 0f;
-        timeToNextEvent = GetRandomVal(1, 5);
-        lumberNeeded = GetRandomVal(10, 80);
+        BuildEventString();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (CheckTimeElapsed())
+        if (Input.GetKeyDown(KeyCode.A))
         {
-            BuildEventString();
-            TriggerEvent(true);
-            timeSinceLastEvent = 0;
+            MoveEventPosition(true);
         }
-        else
+
+        if (Input.GetKeyDown(KeyCode.B))
         {
-            timeSinceLastEvent += Time.deltaTime;
+            MoveEventPosition(false);
         }
     }
 
     /// <summary>
     /// animates the event going up and down
     /// </summary>
-    /// <param name="isNotificationDown">true crawls down, false crawls up</param>
-    private void TriggerEvent(bool isNotificationDown)
+    /// <param name="down">true crawls down, false crawls up</param>
+    public void MoveEventPosition(bool down)
     {
-        if (isNotificationDown)
+        if (down)
         {
-            animator.SetTrigger("CrawlDown");
+            //animator.SetTrigger("CrawlDown");
+            gameObject.Tween("move", transform.position, transform.position + Vector3.down * rectTransform.rect.height * 2, 0.5f, TweenScaleFunctions.QuarticEaseInOut, (t) =>
+            {
+                // progress
+                gameObject.transform.position = t.CurrentValue;
+            });
         }
         else
         {
-            animator.SetTrigger("CrawlUp");
-        }
-    }
+            //animator.SetTrigger("CrawlUp");
+            gameObject.Tween("move", transform.position, transform.position + Vector3.left * rectTransform.rect.width * 2, 0.5f, TweenScaleFunctions.QuarticEaseInOut, (t) =>
+            {
+                // progress
+                gameObject.transform.position = t.CurrentValue;
+            }, (t) => Destroy(gameObject));
 
-    private bool CheckTimeElapsed()
-    {
-        return timeSinceLastEvent >= timeToNextEvent;
+            //add the event to the event queue
+            
+        }
     }
 
     private int GetRandomVal(int min, int max)
@@ -120,7 +124,7 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
     /// <param name="eventData"></param>
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
-        TriggerEvent(false);
+        MoveEventPosition(false);
         //place the event in the event queue
     }
 
@@ -131,8 +135,8 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
         priceToPay = lumberNeeded * 5;
 
         //build the string
-        //eventString = string.Format("{0} wants {1} lumber for ${2}", 
-        //    companies[GetRandomVal(0, companies.Length)], lumberNeeded, priceToPay);
+        eventString = string.Format("{0} wants {1} lumber for ${2}",
+            companies[GetRandomVal(0, companies.Length)], lumberNeeded, priceToPay);
 
         //assign the text value
         eventText.text = eventString;
@@ -153,6 +157,6 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
     private IEnumerator EventLife()
     {
         yield return new WaitForSeconds(eventLife);
-        TriggerEvent(false);
+        MoveEventPosition(false);
     }
 }
