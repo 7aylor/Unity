@@ -11,6 +11,8 @@ public class EventManager : MonoBehaviour {
     private float timeSinceLastEvent;
     private int timeToNextEvent;
 
+    private int currentEvent;
+
     private void Awake()
     {
         eventQueue = new List<GameObject>();
@@ -20,6 +22,7 @@ public class EventManager : MonoBehaviour {
     void Start () {
         timeSinceLastEvent = 0f;
         timeToNextEvent = GetRandomVal(3, 5);
+        currentEvent = 0;
     }
 	
 	// Update is called once per frame
@@ -28,7 +31,7 @@ public class EventManager : MonoBehaviour {
         {
             GameObject newEvent = Instantiate(ourEvent, transform.parent);
             eventQueue.Add(newEvent);
-            PushEventsDown();
+            PushNextEventDown();
             timeSinceLastEvent = 0;
         }
         else
@@ -52,5 +55,29 @@ public class EventManager : MonoBehaviour {
     private int GetRandomVal(int min, int max)
     {
         return UnityEngine.Random.Range(min, max);
+    }
+
+    /// <summary>
+    /// Remove an event object from the Queue
+    /// </summary>
+    /// <param name="obj"></param>
+    public void RemoveEventFromQueue(GameObject obj)
+    {
+        currentEvent = eventQueue.Count - eventQueue.FindIndex(@event => @event == obj) - 1;
+        eventQueue.Remove(obj);
+        Destroy(obj);
+    }
+
+    public void PushNextEventDown()
+    {
+        if(currentEvent < eventQueue.Count)
+        {
+            eventQueue[currentEvent].GetComponent<GameEvent>().MoveEventPosition(true);
+            currentEvent++;
+        }
+        else if(currentEvent >= eventQueue.Count)
+        {
+            currentEvent = 0;
+        }
     }
 }

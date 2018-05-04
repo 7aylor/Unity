@@ -58,16 +58,21 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
     private TMP_Text eventText;
     private Animator TalkingHeadAnimator;
 
+    private EventManager eventManager;
+    private bool isAccepted;
+
     private void Awake()
     {
         eventText = GetComponentInChildren<TMP_Text>();
         TalkingHeadAnimator = GetComponentInChildren<Animator>();
         rectTransform = GetComponent<RectTransform>();
+        eventManager = GameObject.FindObjectOfType<EventManager>();
     }
 
     // Use this for initialization
     void Start () {
         BuildEventString();
+        isAccepted = false;
 	}
 	
 	// Update is called once per frame
@@ -90,26 +95,36 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
     /// <param name="down">true crawls down, false crawls up</param>
     public void MoveEventPosition(bool down)
     {
-        if (down)
+        //crawl down
+        if (down && isAccepted == false)
         {
             //animator.SetTrigger("CrawlDown");
-            gameObject.Tween("move", transform.position, transform.position + Vector3.down * rectTransform.rect.height * 2, 0.5f, TweenScaleFunctions.QuarticEaseInOut, (t) =>
+            gameObject.Tween("move", transform.position, transform.position + (Vector3.down * rectTransform.rect.height / 2), 0.25f, TweenScaleFunctions.QuarticEaseInOut, (t) =>
             {
                 // progress
                 gameObject.transform.position = t.CurrentValue;
-            });
+            }, (t) =>
+            {
+                //completeion
+                eventManager.PushNextEventDown();
+            }
+            );
         }
+        //swipe left
         else
         {
+            isAccepted = true;
             //animator.SetTrigger("CrawlUp");
-            gameObject.Tween("move", transform.position, transform.position + Vector3.left * rectTransform.rect.width * 2, 0.5f, TweenScaleFunctions.QuarticEaseInOut, (t) =>
+            gameObject.Tween("move", transform.position, transform.position + (Vector3.left * rectTransform.rect.width / 2), 0.5f, TweenScaleFunctions.QuarticEaseInOut, (t) =>
             {
                 // progress
                 gameObject.transform.position = t.CurrentValue;
-            }, (t) => Destroy(gameObject));
+            }, (t) =>
+            {
+                //completion
+                eventManager.RemoveEventFromQueue(gameObject);
 
-            //add the event to the event queue
-            
+            });
         }
     }
 
