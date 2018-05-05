@@ -15,6 +15,7 @@ TagManager:
   - PlanterLevel
   - LumberjackLevel
   - Terrain
+  - EventsHolder
   layers:
   - Default
   - TransparentFX

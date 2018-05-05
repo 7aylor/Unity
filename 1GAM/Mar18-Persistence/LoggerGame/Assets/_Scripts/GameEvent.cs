@@ -50,10 +50,12 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
     public int eventLife;
 
     private RectTransform rectTransform;
-
+    private Transform parent;
     private int lumberNeeded;
     private int priceToPay;
     private string eventString;
+    private float screenHeight;
+    private float screenWidth;
 
     private TMP_Text eventText;
     private Animator TalkingHeadAnimator;
@@ -67,6 +69,8 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
         TalkingHeadAnimator = GetComponentInChildren<Animator>();
         rectTransform = GetComponent<RectTransform>();
         eventManager = GameObject.FindObjectOfType<EventManager>();
+        screenHeight = FindObjectOfType<Canvas>().pixelRect.height;
+        screenWidth = FindObjectOfType<Canvas>().pixelRect.width;
     }
 
     // Use this for initialization
@@ -98,11 +102,19 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
         //crawl down
         if (down && isAccepted == false)
         {
-            //animator.SetTrigger("CrawlDown");
-            gameObject.Tween("move", transform.position, transform.position + (Vector3.down * rectTransform.rect.height / 2), 0.25f, TweenScaleFunctions.QuarticEaseInOut, (t) =>
+            //positions that scale
+            float scalar = (screenHeight / 720);
+            Vector3 deltaHeight = rectTransform.rect.height * Vector3.down * scalar;
+
+
+            Vector3 startPos = transform.position;
+            Vector3 endPos = transform.position + deltaHeight;
+
+
+            gameObject.Tween("move", startPos, endPos, 0.25f, TweenScaleFunctions.QuarticEaseInOut, (t) =>
             {
                 // progress
-                gameObject.transform.position = t.CurrentValue;
+                transform.position = t.CurrentValue;
             }, (t) =>
             {
                 //completeion
@@ -113,9 +125,16 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
         //swipe left
         else
         {
+            //positions that scale
+            float scalar = (screenWidth / 1280);
+            Vector3 deltaHeight = rectTransform.rect.width * Vector3.left * scalar;
+
+            Vector3 startPos = transform.position;
+            Vector3 endPos = transform.position + deltaHeight;
+
             isAccepted = true;
             //animator.SetTrigger("CrawlUp");
-            gameObject.Tween("move", transform.position, transform.position + (Vector3.left * rectTransform.rect.width / 2), 0.5f, TweenScaleFunctions.QuarticEaseInOut, (t) =>
+            gameObject.Tween("move", startPos, endPos, 0.5f, TweenScaleFunctions.QuarticEaseInOut, (t) =>
             {
                 // progress
                 gameObject.transform.position = t.CurrentValue;
@@ -123,7 +142,6 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
             {
                 //completion
                 eventManager.RemoveEventFromQueue(gameObject);
-
             });
         }
     }

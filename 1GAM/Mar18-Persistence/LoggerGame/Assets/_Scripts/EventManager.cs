@@ -5,6 +5,7 @@ using UnityEngine;
 public class EventManager : MonoBehaviour {
 
     public GameObject ourEvent;
+    public Transform eventParent;
 
     private List<GameObject> eventQueue;
 
