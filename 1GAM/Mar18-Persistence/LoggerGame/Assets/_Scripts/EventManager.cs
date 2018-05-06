@@ -30,9 +30,19 @@ public class EventManager : MonoBehaviour {
 	void Update () {
         if (CheckTimeElapsed())
         {
-            GameObject newEvent = Instantiate(ourEvent, transform.parent);
-            eventQueue.Add(newEvent);
-            PushNextEventDown();
+            if(eventQueue.Count < 4)
+            {
+                GameObject newEvent = Instantiate(ourEvent, transform);
+                eventQueue.Add(newEvent);
+                //PushNextEventDown();
+            }
+            else
+            {
+                GameObject removedObj = eventQueue[0].gameObject;
+                eventQueue.RemoveAt(0);
+                Destroy(removedObj);
+            }
+
             timeSinceLastEvent = 0;
         }
         else

@@ -8,7 +8,6 @@ public class MapGenerator : MonoBehaviour {
     public int sizeY;
 
     //public int[,] map;
-    public Transform terrainContainer;
 
     [Range(0,5)]
     public int smoothCycles;
@@ -23,6 +22,9 @@ public class MapGenerator : MonoBehaviour {
     public int neighborThreshold;
 
     #region GameObjects
+    public Transform background;
+    public Transform terrain;
+    public GameObject backgroundGrass;
     public GameObject[] grass;
     public GameObject[] trees;
     public GameObject[] rocks;
@@ -52,6 +54,7 @@ public class MapGenerator : MonoBehaviour {
         GameManager.instance.numRiverTiles = 0;
         GameManager.instance.numObstacleTiles = 0;
         GameManager.instance.InstantiateMap(sizeX, sizeY);
+        SpawnInitialGrass();
         GenerateRandomMap();
         SmoothMap();
         CreateRiver();
@@ -569,6 +572,27 @@ public class MapGenerator : MonoBehaviour {
 
         return neighborsOfThisTile;
     }
+
+    /// <summary>
+    /// Use to spawn grass tiles in the background that are not interactable
+    /// </summary>
+    private void SpawnInitialGrass()
+    {
+        for (int x = 0; x < sizeX; x++)
+        {
+            for (int y = 0; y < sizeY; y++)
+            {
+                float xPos = (float)x - sizeX / 2;
+                float yPos = (float)y - sizeY / 2 + 0.8f;
+
+                GameObject newTile = Instantiate(backgroundGrass, new Vector3(xPos, yPos, background.transform.position.z), Quaternion.identity);
+
+                newTile.transform.parent = background;
+            }
+        }
+    }
+
+
     /// <summary>
     /// Loops through the map array and spawns terrain
     /// </summary>
@@ -584,9 +608,9 @@ public class MapGenerator : MonoBehaviour {
                 //float xPos = (float)x / 2 - sizeX / 4 + 0.5f;
                 //float yPos = (float)y / 2 - sizeY / 4 + 0.25f;
 
-                //32 PPU, convery from array coords to game space coords
+                //32 PPU, convert from array coords to game space coords
                 float xPos = (float)x - sizeX / 2;
-                float yPos = (float)y - sizeY / 2 + 1;
+                float yPos = (float)y - sizeY / 2 + 0.8f;
 
                 if (GameManager.instance.map[x,y] == (int)tileType.tree)
                 {
@@ -694,14 +718,14 @@ public class MapGenerator : MonoBehaviour {
                     {
                         grassTileIndex = 2;
                     }
-                    
+
 
                     newTile = Instantiate(grass[grassTileIndex], new Vector3(xPos, yPos, 0), Quaternion.identity);
                 }
 
-                if(newTile != null)
+                if (newTile != null)
                 {
-                    newTile.transform.parent = terrainContainer;
+                    newTile.transform.parent = terrain;
                 }
             }
         }
@@ -746,7 +770,7 @@ public class MapGenerator : MonoBehaviour {
 
     private void DestroyTerrain()
     {
-        foreach(Transform child in terrainContainer)
+        foreach(Transform child in background)
         {
             Destroy(child.gameObject);
         }

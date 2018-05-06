@@ -20,13 +20,14 @@ public class ActionPanel : MonoBehaviour {
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        actionsPanel = transform.GetChild(0).gameObject;
+        //actionsPanel = transform.GetChild(0).gameObject;
     }
 
     // Use this for initialization
     void Start () {
         isUp = false;
         selectedPlayer = SelectedPlayer.none;
+        ActionsButtonClick();
     }
 	
     public void Animate()

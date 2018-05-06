@@ -42,7 +42,7 @@ public class HirePlayer : MonoBehaviour {
         //hire lumberjack
         if(typeOfHire == HireType.lumberjack && GameManager.instance.lumberjackHired == false)
         {
-            GameObject spawn = Instantiate(lumberjack, new Vector3((float)instantiateCoords.x, (float)instantiateCoords.y, 0), Quaternion.identity);
+            GameObject spawn = Instantiate(lumberjack, new Vector3((float)instantiateCoords.x, (float)instantiateCoords.y - 0.2f, 0), Quaternion.identity);
             GameManager.instance.lumberjackHired = true;
             actionPanel.EnableDisableSingleButton(actionPanel.hireButtons[0].gameObject, false);
 
@@ -50,7 +50,7 @@ public class HirePlayer : MonoBehaviour {
         //hire planter
         else if(typeOfHire == HireType.planter && GameManager.instance.planterHired == false)
         {
-            Instantiate(planter, new Vector3((float)instantiateCoords.x, (float)instantiateCoords.y, 0), Quaternion.identity);
+            Instantiate(planter, new Vector3((float)instantiateCoords.x, (float)instantiateCoords.y - 0.2f, 0), Quaternion.identity);
             GameManager.instance.planterHired = true;
             actionPanel.EnableDisableSingleButton(actionPanel.hireButtons[1].gameObject, false);
         }

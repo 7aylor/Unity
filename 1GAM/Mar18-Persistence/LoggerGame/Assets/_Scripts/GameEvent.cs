@@ -106,10 +106,8 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
             float scalar = (screenHeight / 720);
             Vector3 deltaHeight = rectTransform.rect.height * Vector3.down * scalar;
 
-
             Vector3 startPos = transform.position;
             Vector3 endPos = transform.position + deltaHeight;
-
 
             gameObject.Tween("move", startPos, endPos, 0.25f, TweenScaleFunctions.QuarticEaseInOut, (t) =>
             {
@@ -133,7 +131,7 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
             Vector3 endPos = transform.position + deltaHeight;
 
             isAccepted = true;
-            //animator.SetTrigger("CrawlUp");
+
             gameObject.Tween("move", startPos, endPos, 0.5f, TweenScaleFunctions.QuarticEaseInOut, (t) =>
             {
                 // progress
