@@ -51,13 +51,6 @@ public class EventManager : MonoBehaviour {
         }
     }
 
-    private void PushEventsDown()
-    {
-        foreach(GameObject e in eventQueue){
-            e.GetComponent<GameEvent>().MoveEventPosition(true);
-        }
-    }
-
     private bool CheckTimeElapsed()
     {
         return timeSinceLastEvent >= timeToNextEvent;
@@ -77,18 +70,5 @@ public class EventManager : MonoBehaviour {
         currentEvent = eventQueue.Count - eventQueue.FindIndex(@event => @event == obj) - 1;
         eventQueue.Remove(obj);
         Destroy(obj);
-    }
-
-    public void PushNextEventDown()
-    {
-        if(currentEvent < eventQueue.Count)
-        {
-            eventQueue[currentEvent].GetComponent<GameEvent>().MoveEventPosition(true);
-            currentEvent++;
-        }
-        else if(currentEvent >= eventQueue.Count)
-        {
-            currentEvent = 0;
-        }
     }
 }

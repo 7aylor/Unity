@@ -3,44 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
-using System;
-using DigitalRuby.Tween;
-
-//[Serializable] public class DictionaryOfStringAndAnim : SerializableDictionary<string, Animator> { }
-
-//[Serializable]
-//public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
-//{
-//    [SerializeField]
-//    private List<TKey> keys = new List<TKey>();
-
-//    [SerializeField]
-//    private List<TValue> values = new List<TValue>();
-
-//    // save the dictionary to lists
-//    public void OnBeforeSerialize()
-//    {
-//        keys.Clear();
-//        values.Clear();
-//        foreach (KeyValuePair<TKey, TValue> pair in this)
-//        {
-//            keys.Add(pair.Key);
-//            values.Add(pair.Value);
-//        }
-//    }
-
-//    // load dictionary from lists
-//    public void OnAfterDeserialize()
-//    {
-//        this.Clear();
-
-//        if (keys.Count != values.Count)
-//            throw new System.Exception(string.Format("there are {0} keys and {1} values after deserialization. Make sure that both key and value types are serializable."));
-
-//        for (int i = 0; i < keys.Count; i++)
-//            this.Add(keys[i], values[i]);
-//    }
-//}
+using DG.Tweening;
+using UnityEngine.UI;
 
 public class GameEvent : MonoBehaviour, IPointerClickHandler
 {
@@ -77,72 +41,8 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
     void Start () {
         BuildEventString();
         isAccepted = false;
+        DOTween.Init();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            MoveEventPosition(true);
-        }
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            MoveEventPosition(false);
-        }
-    }
-
-    /// <summary>
-    /// animates the event going up and down
-    /// </summary>
-    /// <param name="down">true crawls down, false crawls up</param>
-    public void MoveEventPosition(bool down)
-    {
-        //crawl down
-        if (down && isAccepted == false)
-        {
-            //positions that scale
-            float scalar = (screenHeight / 720);
-            Vector3 deltaHeight = rectTransform.rect.height * Vector3.down * scalar;
-
-            Vector3 startPos = transform.position;
-            Vector3 endPos = transform.position + deltaHeight;
-
-            gameObject.Tween("move", startPos, endPos, 0.25f, TweenScaleFunctions.QuarticEaseInOut, (t) =>
-            {
-                // progress
-                transform.position = t.CurrentValue;
-            }, (t) =>
-            {
-                //completeion
-                eventManager.PushNextEventDown();
-            }
-            );
-        }
-        //swipe left
-        else
-        {
-            //positions that scale
-            float scalar = (screenWidth / 1280);
-            Vector3 deltaHeight = rectTransform.rect.width * Vector3.left * scalar;
-
-            Vector3 startPos = transform.position;
-            Vector3 endPos = transform.position + deltaHeight;
-
-            isAccepted = true;
-
-            gameObject.Tween("move", startPos, endPos, 0.5f, TweenScaleFunctions.QuarticEaseInOut, (t) =>
-            {
-                // progress
-                gameObject.transform.position = t.CurrentValue;
-            }, (t) =>
-            {
-                //completion
-                eventManager.RemoveEventFromQueue(gameObject);
-            });
-        }
-    }
 
     private int GetRandomVal(int min, int max)
     {
@@ -155,8 +55,21 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
     /// <param name="eventData"></param>
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
-        MoveEventPosition(false);
-        //place the event in the event queue
+
+        Debug.Log("Notification Clicked");
+
+        Sequence tweens = DOTween.Sequence();
+
+        foreach(Transform child in transform)
+        {
+            child.GetComponent<Image>().DOFade(0, 1);
+            child.GetComponent<TMP_Text>().DOFade(0, 1);
+        }
+
+        GetComponent<Image>().DOFade(0, 1).OnComplete(() => eventManager.RemoveEventFromQueue(gameObject));
+
+        tweens.Play();
+        
     }
 
     private void BuildEventString()
@@ -171,23 +84,5 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
 
         //assign the text value
         eventText.text = eventString;
-    }
-
-    /// <summary>
-    /// Called at the end of the CrawlDown animation
-    /// </summary>
-    public void HandleEventLife()
-    {
-        StartCoroutine(EventLife());
-    }
-
-    /// <summary>
-    /// triggers a crawl up after eventLife time
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerator EventLife()
-    {
-        yield return new WaitForSeconds(eventLife);
-        MoveEventPosition(false);
     }
 }

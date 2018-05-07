@@ -121,6 +121,20 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             animator.SetBool("Fatigued", true);
         }
 
+        if(isFatigued == true)
+        {
+            if (tag == "Planter")
+            {
+                actionPanel.EnableDisableSingleButton(plantButton.gameObject, false);
+                actionPanel.EnableDisableSingleButton(waterButton.gameObject, false);
+            }
+            else if (tag == "Lumberjack")
+            {
+                actionPanel.EnableDisableSingleButton(chopButton.gameObject, false);
+                actionPanel.EnableDisableSingleButton(digButton.gameObject, false);
+            }
+        }
+
         if(fatigueSlider.value > 0)
         {
             fatigueSlider.value -= recoverFatigueRate;
@@ -128,6 +142,8 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             {
                 isFatigued = false;
                 animator.SetBool("Fatigued", false);
+
+                HandleActionPanelButtons();
             }
         }
     }
@@ -544,7 +560,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     /// </summary>
     public void SowSeeds()
     {
-        if(tag == "Planter" && seedsPlanted++ >= 5)
+        if(tag == "Planter" && seedsPlanted++ >= 2)
         {
             canMove = true;
 

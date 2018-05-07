@@ -461,6 +461,7 @@ MonoBehaviour:
   animatorPlantSpeed: 0
   animatorWaterSpeed: 0
   animatorChopSpeed: 0
+  animatorDigSpeed: 0
   currentRank: 0
   fatigueIncrement: 0.2
   recoverFatigueRate: 0.001
@@ -529,8 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b779d91864fd3494a91b1d09ecafc8b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noAlpha: {r: 0, g: 0, b: 0, a: 0}
-  startColor: {r: 0, g: 0, b: 0, a: 0}
+  startColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &114633710575659466
 MonoBehaviour:
   m_ObjectHideFlags: 1

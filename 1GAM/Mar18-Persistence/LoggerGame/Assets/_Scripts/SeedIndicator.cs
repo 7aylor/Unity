@@ -1,44 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DigitalRuby.Tween;
+using DG.Tweening;
 
 public class SeedIndicator : MonoBehaviour {
 
-    public Color noAlpha;
     public Color startColor;
 
     private Vector3 startPos;
     private SpriteRenderer sprite;
-    private float timeToAnimate = 1;
+    private float timeToTween = 1;
 
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
+    }
+
+    private void Start()
+    {
         startColor = sprite.color;
+        DOTween.Init();
     }
 
     private void OnEnable()
     {
+        //get current position and reset color
         startPos = transform.position;
         sprite.color = startColor;
 
-        //move position
-        gameObject.Tween("move", transform.position, transform.position + Vector3.up * 0.5f, timeToAnimate, TweenScaleFunctions.Linear, (t) =>
-        {
-            // progress
-            gameObject.transform.position = t.CurrentValue;
-        }, (t) => {
-            // completion
-            transform.position = startPos;
-            gameObject.SetActive(false);
-        });
+        //move seed image up
+        transform.DOLocalMoveY(1, timeToTween);
 
-        //change color
-        gameObject.Tween("fade", sprite.color, noAlpha, timeToAnimate, TweenScaleFunctions.Linear, (t) =>
-        {
-            // progress
-            sprite.color = t.CurrentValue;
-        });
+        //fade out, then on complete disable and reset position
+        sprite.DOFade(0, timeToTween).OnComplete(() => { gameObject.SetActive(false); transform.position = startPos; });
     }
 }
