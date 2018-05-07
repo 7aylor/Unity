@@ -13,6 +13,10 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
 
     public int eventLife;
 
+    public AnimatorOverrideController Adam;
+    public AnimatorOverrideController Seth;
+
+
     private RectTransform rectTransform;
     private Transform parent;
     private int lumberNeeded;
@@ -42,11 +46,25 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
         BuildEventString();
         isAccepted = false;
         DOTween.Init();
+        SwitchAnimator();
 	}
 
     private int GetRandomVal(int min, int max)
     {
         return UnityEngine.Random.Range(min, max);
+    }
+
+    private void SwitchAnimator()
+    {
+        if(Random.Range(0, 2) == 1)
+        {
+            TalkingHeadAnimator.runtimeAnimatorController = Adam;
+        }
+        else
+        {
+            TalkingHeadAnimator.runtimeAnimatorController = Seth;
+        }
+        
     }
 
     /// <summary>

@@ -1472,7 +1472,7 @@ MonoBehaviour:
   lumberjack: {fileID: 1745305440513308, guid: 604dcbbd411470947aa4a918e2e4d82f, type: 2}
   planter: {fileID: 0}
   typeOfHire: 0
-  actionPanel: {fileID: 0}
+  actionPanel: {fileID: 1129450713}
 --- !u!114 &205292405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12134,7 +12134,7 @@ MonoBehaviour:
   lumberjack: {fileID: 0}
   planter: {fileID: 1103796138249030, guid: f2938e3017ab8e74daaa175e232dd23e, type: 2}
   typeOfHire: 1
-  actionPanel: {fileID: 0}
+  actionPanel: {fileID: 1129450713}
 --- !u!114 &1227388899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16181,7 +16181,7 @@ Prefab:
     - target: {fileID: 224737187064058262, guid: 953510ffb9083ab4596e49b25956e800,
         type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 224737187064058262, guid: 953510ffb9083ab4596e49b25956e800,
         type: 2}
