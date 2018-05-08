@@ -15,7 +15,7 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
 
     public AnimatorOverrideController Adam;
     public AnimatorOverrideController Seth;
-
+    public AnimatorOverrideController Jared;
 
     private RectTransform rectTransform;
     private Transform parent;
@@ -56,15 +56,18 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
 
     private void SwitchAnimator()
     {
-        if(Random.Range(0, 2) == 1)
+        if(Random.Range(0, 3) == 1)
         {
             TalkingHeadAnimator.runtimeAnimatorController = Adam;
         }
-        else
+        else if(Random.Range(0, 3) == 2)
         {
             TalkingHeadAnimator.runtimeAnimatorController = Seth;
         }
-        
+        else
+        {
+            TalkingHeadAnimator.runtimeAnimatorController = Jared;
+        }
     }
 
     /// <summary>
