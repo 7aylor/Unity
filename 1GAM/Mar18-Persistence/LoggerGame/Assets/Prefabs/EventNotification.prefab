@@ -123,12 +123,16 @@ MonoBehaviour:
   companies:
   - name: Jared Co
     anim: {fileID: 22100000, guid: 6e522d370dabcfb4e9ce7305a7709a96, type: 2}
+    textColor: {r: 0.71323526, g: 0.083910026, b: 0.083910026, a: 1}
   - name: LumberLand
     anim: {fileID: 22100000, guid: 35c9769850a108e4bb3189939b3155d3, type: 2}
+    textColor: {r: 0.12262113, g: 0.7941176, b: 0.7941176, a: 1}
   - name: Simply Houses
     anim: {fileID: 22100000, guid: 9ef4c7d5823dd114fb8347fb6ac89ce4, type: 2}
+    textColor: {r: 0.86764705, g: 0.8276085, b: 0.2870891, a: 1}
   - name: Build Build Inc
     anim: {fileID: 22100000, guid: 7062dd5afc8e17345919d5bd44dad120, type: 2}
+    textColor: {r: 0.7827705, g: 0.08477507, b: 0.8235294, a: 1}
 --- !u!114 &114128280546045984
 MonoBehaviour:
   m_ObjectHideFlags: 1

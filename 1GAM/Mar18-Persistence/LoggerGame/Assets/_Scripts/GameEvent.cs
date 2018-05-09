@@ -109,7 +109,7 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
         priceToPay = lumberNeeded * 5;
 
         //build the string
-        eventString = string.Format("{0} wants {1} lumber for ${2}", selectedCompany.name, lumberNeeded, priceToPay);
+        eventString = string.Format("<color=#{0}><b>{1}</b></color> wants <color=#602D06FF>{2} lumber</color> for <color=#1F5F14FF>${3}</color>", ColorUtility.ToHtmlStringRGB(selectedCompany.textColor), selectedCompany.name, lumberNeeded, priceToPay);
 
         //assign the text value
         eventText.text = eventString;
@@ -121,10 +121,12 @@ public struct NameAnimPair
 {
     public string name;
     public AnimatorOverrideController anim;
+    public Color textColor;
 
-    public NameAnimPair(string myName, AnimatorOverrideController overrider)
+    public NameAnimPair(string myName, AnimatorOverrideController overrider, Color c)
     {
         name = myName;
         anim = overrider;
+        textColor = c;
     }
 }

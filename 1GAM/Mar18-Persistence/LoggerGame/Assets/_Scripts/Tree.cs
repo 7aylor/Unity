@@ -16,6 +16,7 @@ public class Tree : MonoBehaviour {
     public float maxTimeToGrow;
     public int waterCount;
     public GameObject grassTile;
+    public Sprite[] stumps;
 
     public AnimatorOverrideController seedAnim;
     public AnimatorOverrideController tinyAnim;
@@ -224,6 +225,11 @@ public class Tree : MonoBehaviour {
     {
         health = 0;
         animator.SetBool("Swaying", false);
+
+        /////TESTING
+        //Destroy(animator);
+        //sprite.sprite = stumps[(int)treeState];
+
         switch (treeState)
         {
             case maturity.tiny:
