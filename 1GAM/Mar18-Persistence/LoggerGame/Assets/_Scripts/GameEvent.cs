@@ -9,14 +9,7 @@ using UnityEngine.UI;
 public class GameEvent : MonoBehaviour, IPointerClickHandler
 {
     //could replace this with a dictionary defined here
-    public string[] companies;
-
     public int eventLife;
-
-    public AnimatorOverrideController Adam;
-    public AnimatorOverrideController Seth;
-    public AnimatorOverrideController Jared;
-
     private RectTransform rectTransform;
     private Transform parent;
     private int lumberNeeded;
@@ -31,6 +24,14 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
     private EventManager eventManager;
     private bool isAccepted;
 
+    public NameAnimPair[] companies;
+
+    private NameAnimPair selectedCompany;
+
+    private Money money;
+    private Lumber lumber;
+    private IncreaseResource lumberTweenText;
+    
     private void Awake()
     {
         eventText = GetComponentInChildren<TMP_Text>();
@@ -39,34 +40,37 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
         eventManager = GameObject.FindObjectOfType<EventManager>();
         screenHeight = FindObjectOfType<Canvas>().pixelRect.height;
         screenWidth = FindObjectOfType<Canvas>().pixelRect.width;
+        money = FindObjectOfType<Money>();
+        lumber = FindObjectOfType<Lumber>();
+        lumberTweenText = FindObjectOfType<IncreaseResource>();
     }
 
     // Use this for initialization
     void Start () {
-        BuildEventString();
         isAccepted = false;
         DOTween.Init();
-        SwitchAnimator();
-	}
+        AssignRandomCompany();
+        BuildEventString();
+    }
 
     private int GetRandomVal(int min, int max)
     {
         return UnityEngine.Random.Range(min, max);
     }
 
-    private void SwitchAnimator()
+    private void AssignRandomCompany()
     {
-        if(Random.Range(0, 3) == 1)
+        int rand = GetRandomVal(0, companies.Length);
+
+        for (int i = 0; i < companies.Length; i++)
         {
-            TalkingHeadAnimator.runtimeAnimatorController = Adam;
-        }
-        else if(Random.Range(0, 3) == 2)
-        {
-            TalkingHeadAnimator.runtimeAnimatorController = Seth;
-        }
-        else
-        {
-            TalkingHeadAnimator.runtimeAnimatorController = Jared;
+            if(i == rand)
+            {
+                selectedCompany = companies[i];
+                TalkingHeadAnimator.runtimeAnimatorController = companies[i].anim;
+
+                break;
+            }
         }
     }
 
@@ -76,21 +80,26 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
     /// <param name="eventData"></param>
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
-
-        Debug.Log("Notification Clicked");
-
-        Sequence tweens = DOTween.Sequence();
-
-        foreach(Transform child in transform)
+        if(GameManager.instance.lumber >= lumberNeeded)
         {
-            child.GetComponent<Image>().DOFade(0, 1);
-            child.GetComponent<TMP_Text>().DOFade(0, 1);
+            Sequence tweens = DOTween.Sequence();
+
+            foreach (Transform child in transform)
+            {
+                child.GetComponent<Image>().DOFade(0, 1);
+                child.GetComponent<TMP_Text>().DOFade(0, 1);
+            }
+
+            GetComponent<Image>().DOFade(0, 1).OnComplete(() =>
+            {
+                eventManager.RemoveEventFromQueue(gameObject);
+                money.ChangeMoneyAmount(priceToPay);
+                lumber.UpdateLumberCount(-lumberNeeded);
+                lumberTweenText.SetIncreaseResourceText(-lumberNeeded);
+            });
+
+            tweens.Play();
         }
-
-        GetComponent<Image>().DOFade(0, 1).OnComplete(() => eventManager.RemoveEventFromQueue(gameObject));
-
-        tweens.Play();
-        
     }
 
     private void BuildEventString()
@@ -100,10 +109,22 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
         priceToPay = lumberNeeded * 5;
 
         //build the string
-        eventString = string.Format("{0} wants {1} lumber for ${2}",
-            companies[GetRandomVal(0, companies.Length)], lumberNeeded, priceToPay);
+        eventString = string.Format("{0} wants {1} lumber for ${2}", selectedCompany.name, lumberNeeded, priceToPay);
 
         //assign the text value
         eventText.text = eventString;
+    }
+}
+
+[System.Serializable]
+public struct NameAnimPair
+{
+    public string name;
+    public AnimatorOverrideController anim;
+
+    public NameAnimPair(string myName, AnimatorOverrideController overrider)
+    {
+        name = myName;
+        anim = overrider;
     }
 }

@@ -7,7 +7,6 @@ using DG.Tweening;
 public class IncreaseResource : MonoBehaviour {
 
     public Color noAlpha;
-    private Color startColor;
 
     private Vector3 startPos;
     private float timeToAnimate = 2;
@@ -20,8 +19,6 @@ public class IncreaseResource : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        //gameObject.SetActive(false);
-        startColor = text.color;
         text.color = noAlpha;
         startPos = transform.position;
         DOTween.Init();
@@ -29,10 +26,27 @@ public class IncreaseResource : MonoBehaviour {
 
     public void SetIncreaseResourceText(int inceaseAmount)
     {
-        text.text = "+" + inceaseAmount.ToString();
+        string increaseText = "";
+
+        if(inceaseAmount > 0)
+        {
+            increaseText += "+";
+            Color c = Color.green;
+            c.a = 1;
+            text.color = c;
+        }
+        else
+        {
+            Color c = Color.red;
+            c.a = 1;
+            text.color = c;
+        }
+
+        increaseText += inceaseAmount.ToString();
+
+        text.text = increaseText;
 
         transform.position = startPos;
-        text.color = startColor;
 
         transform.DOLocalMoveY(50, 1);
         text.DOFade(0, 1);

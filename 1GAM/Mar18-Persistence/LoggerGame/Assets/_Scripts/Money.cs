@@ -23,7 +23,6 @@ public class Money : MonoBehaviour {
     // Use this for initialization
     void Start () {
         ChangeMoneyAmount(startMoney);
-        UpdateMoneyText();
 	}
 
     private void Update()
@@ -45,9 +44,6 @@ public class Money : MonoBehaviour {
             //decrease money
             ChangeMoneyAmount(-changeAmount);
 
-            //update text
-            UpdateMoneyText();
-
             //reset timer
             timeToNextPayment = 0;
 
@@ -58,13 +54,9 @@ public class Money : MonoBehaviour {
         }
     }
 
-    private void ChangeMoneyAmount(int changeAmount)
+    public void ChangeMoneyAmount(int changeAmount)
     {
         GameManager.instance.money += changeAmount;
-    }
-
-    private void UpdateMoneyText()
-    {
         text.text = GameManager.instance.money.ToString();
     }
 }

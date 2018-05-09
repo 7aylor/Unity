@@ -119,14 +119,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1bc9c51b518b834094683f7eeed0964, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  companies:
-  - aaa
-  - bbb
-  - ccc
   eventLife: 5
-  Adam: {fileID: 22100000, guid: 35c9769850a108e4bb3189939b3155d3, type: 2}
-  Seth: {fileID: 22100000, guid: 9ef4c7d5823dd114fb8347fb6ac89ce4, type: 2}
-  Jared: {fileID: 22100000, guid: 6e522d370dabcfb4e9ce7305a7709a96, type: 2}
+  companies:
+  - name: Jared Co
+    anim: {fileID: 22100000, guid: 6e522d370dabcfb4e9ce7305a7709a96, type: 2}
+  - name: LumberLand
+    anim: {fileID: 22100000, guid: 35c9769850a108e4bb3189939b3155d3, type: 2}
+  - name: Simply Houses
+    anim: {fileID: 22100000, guid: 9ef4c7d5823dd114fb8347fb6ac89ce4, type: 2}
+  - name: Build Build Inc
+    anim: {fileID: 22100000, guid: 7062dd5afc8e17345919d5bd44dad120, type: 2}
 --- !u!114 &114128280546045984
 MonoBehaviour:
   m_ObjectHideFlags: 1
