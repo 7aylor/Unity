@@ -133,6 +133,9 @@ MonoBehaviour:
   - name: Build Build Inc
     anim: {fileID: 22100000, guid: 7062dd5afc8e17345919d5bd44dad120, type: 2}
     textColor: {r: 0.7827705, g: 0.08477507, b: 0.8235294, a: 1}
+  - name: Douglas Fir Co
+    anim: {fileID: 22100000, guid: 8e513ef575065c640bef54185ae6cf0c, type: 2}
+    textColor: {r: 0.08193528, g: 0.35294116, b: 0.05968857, a: 1}
 --- !u!114 &114128280546045984
 MonoBehaviour:
   m_ObjectHideFlags: 1

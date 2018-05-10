@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
+
 public class Tree : MonoBehaviour {
 
     public int health;
@@ -16,7 +16,6 @@ public class Tree : MonoBehaviour {
     public float maxTimeToGrow;
     public int waterCount;
     public GameObject grassTile;
-    public Sprite[] stumps;
 
     public AnimatorOverrideController seedAnim;
     public AnimatorOverrideController tinyAnim;
@@ -58,7 +57,7 @@ public class Tree : MonoBehaviour {
 
     private void Update()
     {
-        if(treeState != maturity.seed && treeState != maturity.large)
+        if(treeState != maturity.seed && treeState != maturity.large && treeState != maturity.stump)
         {
             //check for growth time, then grow and reset timers
             if(timeSinceLastGrowth >= timeToGrow)
@@ -225,10 +224,6 @@ public class Tree : MonoBehaviour {
     {
         health = 0;
         animator.SetBool("Swaying", false);
-
-        /////TESTING
-        //Destroy(animator);
-        //sprite.sprite = stumps[(int)treeState];
 
         switch (treeState)
         {

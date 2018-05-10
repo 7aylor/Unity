@@ -12,6 +12,8 @@ public class IncreaseResource : MonoBehaviour {
     private float timeToAnimate = 2;
     private TMP_Text text;
 
+
+
     private void Awake()
     {
         text = GetComponent<TMP_Text>();
