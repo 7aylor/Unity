@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class EventPanel : MonoBehaviour {
 
+    public GameObject newEventBanner;
+    public bool hide;
+
     private RectTransform rectTransform;
     private float screenHeight;
-    private bool hide;
 
     private void Awake()
     {
@@ -23,18 +26,21 @@ public class EventPanel : MonoBehaviour {
 
     public void HideEventManagerPanel()
     {
-        Sequence mySequence = DOTween.Sequence();
-
         //crawl down
         if (hide == true)
         {
-            mySequence.Append(rectTransform.DOAnchorPosY(0 - (rectTransform.rect.height / 2), 1));
+            rectTransform.DOAnchorPosY(0 - (rectTransform.rect.height / 2), 1).OnComplete(() =>
+            {
+                newEventBanner.GetComponent<Image>().DOFade(0, 0.5f).OnComplete(() =>
+                {
+                    newEventBanner.SetActive(false);
+                });
+            });
             hide = false;
         }
         //swipe left
         else
-        {
-            mySequence.Append(rectTransform.DOAnchorPosY(0 + (rectTransform.rect.height / 2), 1));
+        {rectTransform.DOAnchorPosY(0 + (rectTransform.rect.height / 2), 1);
             hide = true;
         }
     }

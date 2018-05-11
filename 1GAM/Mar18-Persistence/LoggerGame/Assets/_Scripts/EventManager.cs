@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EventManager : MonoBehaviour {
 
     public GameObject ourEvent;
+    public GameObject newEventBanner;
     public Transform eventParent;
 
     private List<GameObject> eventQueue;
