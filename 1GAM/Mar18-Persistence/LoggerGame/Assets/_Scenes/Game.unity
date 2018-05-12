@@ -2981,7 +2981,7 @@ GameObject:
   - component: {fileID: 360056422}
   - component: {fileID: 360056421}
   m_Layer: 5
-  m_Name: TextMeshPro Text (1)
+  m_Name: Banner Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14472,7 +14472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3061b38db00e3b04fbb12f3fa2af161d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newEventBanner: {fileID: 1925313932}
+  hide: 0
 --- !u!1 &1556069134
 GameObject:
   m_ObjectHideFlags: 0
@@ -16726,6 +16726,11 @@ Prefab:
       propertyPath: newEventBanner
       value: 
       objectReference: {fileID: 1925313932}
+    - target: {fileID: 114667127014574862, guid: cb77aeb7dd9b7b84885dd4ad1ee7a50b,
+        type: 2}
+      propertyPath: eventBanner
+      value: 
+      objectReference: {fileID: 1925313932}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb77aeb7dd9b7b84885dd4ad1ee7a50b, type: 2}
   m_IsPrefabParent: 0
@@ -17073,7 +17078,7 @@ GameObject:
   - component: {fileID: 1925313935}
   - component: {fileID: 1925313934}
   m_Layer: 5
-  m_Name: New Event Notification
+  m_Name: New Event Banner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

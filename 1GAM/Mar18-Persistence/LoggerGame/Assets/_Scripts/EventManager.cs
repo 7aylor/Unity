@@ -2,23 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
+using TMPro;
 
 public class EventManager : MonoBehaviour {
 
     public GameObject ourEvent;
-    public GameObject newEventBanner;
     public Transform eventParent;
+    public GameObject eventBanner;
 
     private List<GameObject> eventQueue;
 
     private float timeSinceLastEvent;
     private int timeToNextEvent;
-
     private int currentEvent;
+    private TMP_Text bannerText;
+    private Image bannerImage;
+    private EventPanel eventPanel;
 
     private void Awake()
     {
         eventQueue = new List<GameObject>();
+        bannerText = eventBanner.GetComponentInChildren<TMP_Text>();
+        bannerImage = eventBanner.GetComponent<Image>();
+        eventPanel = FindObjectOfType<EventPanel>();
     }
 
     // Use this for initialization
@@ -26,23 +33,36 @@ public class EventManager : MonoBehaviour {
         timeSinceLastEvent = 0f;
         timeToNextEvent = GetRandomVal(3, 5);
         currentEvent = 0;
+        ChangeBannerImageTextAlpha(0);
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (CheckTimeElapsed())
+        if (CheckTimeElapsed() == true)
         {
             if(eventQueue.Count < 4)
             {
                 GameObject newEvent = Instantiate(ourEvent, transform);
                 eventQueue.Add(newEvent);
-                //PushNextEventDown();
+                if(eventPanel.hide == false)
+                {
+                    FadeBanner(0);
+                }
+                else
+                {
+                    FadeBanner(1);
+                }
             }
             else
             {
-                GameObject removedObj = eventQueue[0].gameObject;
-                eventQueue.RemoveAt(0);
-                Destroy(removedObj);
+                foreach(GameObject obj in eventQueue)
+                {
+                    Destroy(obj);
+                }
+
+                eventQueue.Clear();
+                FadeBanner(0);
+
             }
 
             timeSinceLastEvent = 0;
@@ -51,6 +71,17 @@ public class EventManager : MonoBehaviour {
         {
             timeSinceLastEvent += Time.deltaTime;
         }
+    }
+
+    private void ChangeBannerImageTextAlpha(float alpha)
+    {
+        Color c = bannerImage.color;
+        c.a = alpha;
+        bannerImage.color = c;
+
+        Color tc = bannerText.color;
+        tc.a = alpha;
+        bannerText.color = tc;
     }
 
     private bool CheckTimeElapsed()
@@ -72,5 +103,16 @@ public class EventManager : MonoBehaviour {
         currentEvent = eventQueue.Count - eventQueue.FindIndex(@event => @event == obj) - 1;
         eventQueue.Remove(obj);
         Destroy(obj);
+    }
+
+    public void FadeBanner(float alpha)
+    {
+        bannerText.DOFade(alpha, 0.5f);
+        bannerImage.DOFade(alpha, 0.5f);
+    }
+
+    public bool IsEventQueueEmpty()
+    {
+        return eventQueue.Count == 0;
     }
 }

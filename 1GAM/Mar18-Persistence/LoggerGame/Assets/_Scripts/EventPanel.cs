@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using TMPro;
 
 public class EventPanel : MonoBehaviour {
 
-    public GameObject newEventBanner;
     public bool hide;
 
-    private RectTransform rectTransform;
     private float screenHeight;
+    private RectTransform rectTransform;
+    private EventManager eventManager;
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         screenHeight = FindObjectOfType<Canvas>().pixelRect.height;
+        eventManager = FindObjectOfType<EventManager>();
     }
 
     private void Start()
@@ -31,16 +33,18 @@ public class EventPanel : MonoBehaviour {
         {
             rectTransform.DOAnchorPosY(0 - (rectTransform.rect.height / 2), 1).OnComplete(() =>
             {
-                newEventBanner.GetComponent<Image>().DOFade(0, 0.5f).OnComplete(() =>
+                if(eventManager.IsEventQueueEmpty() == false)
                 {
-                    newEventBanner.SetActive(false);
-                });
+                    eventManager.FadeBanner(0);
+                }
+                
+                hide = false;
             });
-            hide = false;
         }
-        //swipe left
+        //crawl up
         else
-        {rectTransform.DOAnchorPosY(0 + (rectTransform.rect.height / 2), 1);
+        {
+            rectTransform.DOAnchorPosY(0 + (rectTransform.rect.height / 2), 1);
             hide = true;
         }
     }
