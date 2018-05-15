@@ -111,6 +111,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         {
             GameManager.instance.lumberjackHired = true;
         }
+        SelectPlayer(false);
     }
 
     private void Update()
@@ -350,6 +351,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     {
         isSelected = isActive;
         selectionIndicator.SetActive(isActive);
+        fatigueSlider.gameObject.SetActive(isActive);
         if(isActive == true)
         {
             GameManager.instance.selectedPlayer = this;

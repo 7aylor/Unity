@@ -7,8 +7,8 @@ using TMPro;
 
 public class EventPanel : MonoBehaviour {
 
-    public bool hide;
-
+    [SerializeField]
+    private static bool hide;
     private float screenHeight;
     private RectTransform rectTransform;
     private EventManager eventManager;
@@ -38,16 +38,24 @@ public class EventPanel : MonoBehaviour {
                     eventManager.FadeBanner(0);
                 }
                 
-                hide = false;
+                
             });
+            hide = false;
         }
         //crawl up
         else
         {
             rectTransform.DOAnchorPosY(0 + (rectTransform.rect.height / 2), 1).OnComplete(() =>
             {
-                hide = true;
+                
             });
+
+            hide = true;
         }
+    }
+
+    public bool IsPanelHidden()
+    {
+        return hide;
     }
 }

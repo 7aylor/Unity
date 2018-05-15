@@ -53,13 +53,8 @@ public class EventManager : MonoBehaviour {
                 GameObject newEvent = Instantiate(ourEvent, transform);
                 eventQueue.Add(newEvent);
 
-                //if the panel is not hidden, fade out the new event banner
-                if(eventPanel.hide == false)
-                {
-                    FadeBanner(0);
-                }
-                //otherwise, fade in
-                else
+                //if the panel is hidden, fade in the new event banner
+                if (eventPanel.IsPanelHidden() == true)
                 {
                     FadeBanner(1);
                 }
