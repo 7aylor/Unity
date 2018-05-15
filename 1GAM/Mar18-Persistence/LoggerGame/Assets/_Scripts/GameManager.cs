@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour {
     public int lumber;
     public int demand;
 
+    public int lumberInMarket;
+
     public int numTreesInPlay;
     public int numRiverTiles;
     public int numObstacleTiles;

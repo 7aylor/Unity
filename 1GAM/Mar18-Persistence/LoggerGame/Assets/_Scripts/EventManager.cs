@@ -10,6 +10,7 @@ public class EventManager : MonoBehaviour {
     public GameObject ourEvent;
     public Transform eventParent;
     public GameObject eventBanner;
+    public int spawnTime;
 
     private List<GameObject> eventQueue;
 
@@ -31,7 +32,8 @@ public class EventManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         timeSinceLastEvent = 0f;
-        timeToNextEvent = GetRandomVal(3, 5);
+        spawnTime = 100;
+        timeToNextEvent = GetRandomVal(spawnTime, spawnTime + (spawnTime/2));
         currentEvent = 0;
         ChangeBannerImageTextAlpha(0);
     }
@@ -114,5 +116,12 @@ public class EventManager : MonoBehaviour {
     public bool IsEventQueueEmpty()
     {
         return eventQueue.Count == 0;
+    }
+
+    public void UpdateSpawnTime(int newSpawnTime)
+    {
+        timeSinceLastEvent = 0;
+        spawnTime = newSpawnTime;
+        timeToNextEvent = spawnTime;
     }
 }

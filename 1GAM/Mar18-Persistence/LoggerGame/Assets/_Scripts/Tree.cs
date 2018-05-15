@@ -133,7 +133,7 @@ public class Tree : MonoBehaviour {
                 break;
             case maturity.tiny:
                 health = 2;
-                lumberYielded = 3;
+                lumberYielded = 5;
                 canChopDown = false;
                 animator.runtimeAnimatorController = tinyAnim;
 
