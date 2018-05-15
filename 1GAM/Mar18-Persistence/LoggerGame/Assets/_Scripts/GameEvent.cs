@@ -17,6 +17,7 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
     private string eventString;
     private float screenHeight;
     private float screenWidth;
+    private Demand demand;
 
     private TMP_Text eventText;
     private Animator TalkingHeadAnimator;
@@ -43,6 +44,7 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
         money = FindObjectOfType<Money>();
         lumber = FindObjectOfType<Lumber>();
         lumberTweenText = FindObjectOfType<IncreaseResource>();
+        demand = FindObjectOfType<Demand>();
     }
 
     // Use this for initialization
@@ -96,6 +98,8 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
                 money.ChangeMoneyAmount(priceToPay);
                 lumber.UpdateLumberCount(-lumberNeeded);
                 lumberTweenText.SetIncreaseResourceText(-lumberNeeded);
+                GameManager.instance.lumberInMarket += lumberNeeded;
+                demand.UpdateDemand();
             });
 
             tweens.Play();

@@ -14,8 +14,12 @@ public class EventManager : MonoBehaviour {
 
     private List<GameObject> eventQueue;
 
+    [SerializeField]
     private float timeSinceLastEvent;
+
     private int timeToNextEvent;
+
+
     private int currentEvent;
     private TMP_Text bannerText;
     private Image bannerImage;
@@ -120,7 +124,7 @@ public class EventManager : MonoBehaviour {
 
     public void UpdateSpawnTime(int newSpawnTime)
     {
-        timeSinceLastEvent = 0;
+        //timeSinceLastEvent = 0;
         spawnTime = newSpawnTime;
         timeToNextEvent = spawnTime;
     }
