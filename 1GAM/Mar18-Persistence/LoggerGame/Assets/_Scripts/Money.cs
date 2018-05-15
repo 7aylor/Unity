@@ -12,12 +12,18 @@ public class Money : MonoBehaviour {
     public int startMoney;
 
     private TMP_Text text;
+    private IncreaseResource decreaseMoney;
+    private IncreaseResource increaseMoney;
+    private StatsManager stats;
 
     private float timeToNextPayment;
 
     private void Awake()
     {
         text = GetComponent<TMP_Text>();
+        decreaseMoney = GameObject.FindGameObjectWithTag("DecreaseMoney").GetComponent<IncreaseResource>();
+        increaseMoney = GameObject.FindGameObjectWithTag("IncreaseMoney").GetComponent<IncreaseResource>();
+        stats = FindObjectOfType<StatsManager>();
     }
 
     // Use this for initialization
@@ -58,5 +64,18 @@ public class Money : MonoBehaviour {
     {
         GameManager.instance.money += changeAmount;
         text.text = GameManager.instance.money.ToString();
+
+        if (changeAmount < 0)
+        {
+            decreaseMoney.SetIncreaseResourceText(changeAmount);
+            GameManager.instance.totalMoneySpent += changeAmount;
+            stats.UpdateStats(StatsManager.stat.totalMoneySpent);
+        }
+        else
+        {
+            increaseMoney.SetIncreaseResourceText(changeAmount);
+            GameManager.instance.totalMoneyEarned += changeAmount;
+            stats.UpdateStats(StatsManager.stat.totalMoneyEarned);
+        }
     }
 }

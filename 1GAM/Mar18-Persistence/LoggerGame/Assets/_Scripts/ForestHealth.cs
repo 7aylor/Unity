@@ -13,6 +13,7 @@ public class ForestHealth : MonoBehaviour {
     private Image treeImage;
     private bool firstUpdate = true;
     private Demand demand;
+    private StatsManager stats;
 
     public Color good;
     public Color medium;
@@ -28,6 +29,7 @@ public class ForestHealth : MonoBehaviour {
         map = FindObjectOfType<MapGenerator>();
         treeImage = GetComponentInParent<Image>();
         demand = FindObjectOfType<Demand>();
+        stats = FindObjectOfType<StatsManager>();
     }
 
     public void UpdateForestHealth()
@@ -67,6 +69,7 @@ public class ForestHealth : MonoBehaviour {
         {
             Debug.Log("FirstUpdate Called");
             GameManager.instance.lumberInMarket = lumberAmount;
+            stats.UpdateStats(StatsManager.stat.lumberInMarket);
             demand.UpdateDemand();
             firstUpdate = false;
         }

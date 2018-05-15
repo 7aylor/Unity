@@ -44,8 +44,10 @@ public class EventPanel : MonoBehaviour {
         //crawl up
         else
         {
-            rectTransform.DOAnchorPosY(0 + (rectTransform.rect.height / 2), 1);
-            hide = true;
+            rectTransform.DOAnchorPosY(0 + (rectTransform.rect.height / 2), 1).OnComplete(() =>
+            {
+                hide = true;
+            });
         }
     }
 }

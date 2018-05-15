@@ -28,7 +28,6 @@ public class Tree : MonoBehaviour {
     private Animator animator;
     private SpriteRenderer sprite;
     private Lumber lumberCount;
-    private IncreaseResource increaseLumberObj;
     private ForestHealth forestHealth;
 
     private float timeSinceLastGrowth;
@@ -40,7 +39,6 @@ public class Tree : MonoBehaviour {
         animator = GetComponent<Animator>();
         lumberCount = FindObjectOfType<Lumber>();
         sprite = GetComponent<SpriteRenderer>();
-        increaseLumberObj = FindObjectOfType<IncreaseResource>();
         forestHealth = FindObjectOfType<ForestHealth>();
         GameManager.instance.numTreesInPlay++;
         InitializeTree();
@@ -177,7 +175,6 @@ public class Tree : MonoBehaviour {
 
             //update the ui and count of lumber in the bank
             lumberCount.UpdateLumberCount(lumberYielded);
-            increaseLumberObj.SetIncreaseResourceText(lumberYielded);
 
             GameManager.instance.numTreesInPlay--;
 
@@ -207,7 +204,6 @@ public class Tree : MonoBehaviour {
 
             //update the ui and count of lumber in the bank
             lumberCount.UpdateLumberCount(lumberYielded);
-            increaseLumberObj.SetIncreaseResourceText(lumberYielded);
 
             GameObject grass = Instantiate(grassTile, transform);
             grass.transform.parent = GameObject.FindGameObjectWithTag("Terrain").transform;

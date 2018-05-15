@@ -26,6 +26,12 @@ public class Demand : MonoBehaviour {
     public int spawnTimeHigh;
     public int spawnTimeVeryHigh;
 
+    public Color veryLowColor;
+    public Color lowColor;
+    public Color mediumColor;
+    public Color highColor;
+    public Color veryHighColor;
+
     public enum demand { Very_High, High, Medium, Low, Very_Low }
     public demand marketDemand;
 
@@ -97,30 +103,35 @@ public class Demand : MonoBehaviour {
         {
             marketDemand = demand.Very_Low;
             text.text = demand.Very_Low.ToString().Replace('_', ' ');
+            text.color = veryLowColor;
             eventManager.UpdateSpawnTime(spawnTimeVeryLow);
         }
         else if(GameManager.instance.lumberInMarket < 500 && GameManager.instance.lumberInMarket >= 300)
         {
             marketDemand = demand.Low;
             text.text = demand.Low.ToString();
+            text.color = lowColor;
             eventManager.UpdateSpawnTime(spawnTimeLow);
         }
         else if (GameManager.instance.lumberInMarket < 300 && GameManager.instance.lumberInMarket >= 200)
         {
             marketDemand = demand.Medium;
             text.text = demand.Medium.ToString();
+            text.color = mediumColor;
             eventManager.UpdateSpawnTime(spawnTimeMedium);
         }
         else if (GameManager.instance.lumberInMarket < 200 && GameManager.instance.lumberInMarket >= 100)
         {
             marketDemand = demand.High;
             text.text = demand.High.ToString();
+            text.color = highColor;
             eventManager.UpdateSpawnTime(spawnTimeHigh);
         }
         else
         {
             marketDemand = demand.Very_High;
             text.text = demand.Very_High.ToString().Replace('_', ' ');
+            text.color = veryHighColor;
             eventManager.UpdateSpawnTime(spawnTimeVeryHigh);
         }
     }

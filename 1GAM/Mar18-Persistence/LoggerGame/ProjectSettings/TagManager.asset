@@ -16,6 +16,10 @@ TagManager:
   - LumberjackLevel
   - Terrain
   - EventsHolder
+  - IncreaseLumber
+  - DecreaseLumber
+  - IncreaseMoney
+  - DecreaseMoney
   layers:
   - Default
   - TransparentFX

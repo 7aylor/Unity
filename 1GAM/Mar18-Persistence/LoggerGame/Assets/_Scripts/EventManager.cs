@@ -44,21 +44,27 @@ public class EventManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        //Check if time has elapsed to spawn new event
         if (CheckTimeElapsed() == true)
         {
+            //if there are less than 4 events in the queue, spawn
             if(eventQueue.Count < 4)
             {
                 GameObject newEvent = Instantiate(ourEvent, transform);
                 eventQueue.Add(newEvent);
+
+                //if the panel is not hidden, fade out the new event banner
                 if(eventPanel.hide == false)
                 {
                     FadeBanner(0);
                 }
+                //otherwise, fade in
                 else
                 {
                     FadeBanner(1);
                 }
             }
+            //more than 4 events, clear it
             else
             {
                 foreach(GameObject obj in eventQueue)

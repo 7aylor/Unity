@@ -8,10 +8,12 @@ public class MarketManager : MonoBehaviour {
 
     public float timeSinceLastUse;
     private Demand demand;
+    private StatsManager stats;
 
     private void Awake()
     {
         demand = GetComponent<Demand>();
+        stats = FindObjectOfType<StatsManager>();
     }
 	
 	// Update is called once per frame
@@ -22,7 +24,7 @@ public class MarketManager : MonoBehaviour {
         if (timeSinceLastUse <= 0f && GameManager.instance.lumberInMarket > 0)
         {
             GameManager.instance.lumberInMarket -= marketLumberUse;
-            Debug.Log("Market Lumber:" + GameManager.instance.lumberInMarket);
+            stats.UpdateStats(StatsManager.stat.lumberInMarket);
             demand.UpdateDemand();
             timeSinceLastUse = 2;
         }

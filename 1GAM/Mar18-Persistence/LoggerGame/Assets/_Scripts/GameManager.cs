@@ -16,6 +16,11 @@ public class GameManager : MonoBehaviour {
     public int demand;
 
     public int lumberInMarket;
+    public int totalLumberHarvested;
+    public int totalMoneyEarned;
+    public int totalMoneySpent;
+    public int totalNumberOfSales;
+    public int timeInBusiness;
 
     public int numTreesInPlay;
     public int numRiverTiles;
@@ -37,6 +42,15 @@ public class GameManager : MonoBehaviour {
         money = 0;
         lumber = 0;
         demand = 0;
+
+        lumberInMarket = 0;
+        totalLumberHarvested = 0;
+        totalMoneyEarned = 0;
+        totalMoneySpent = 0;
+        totalNumberOfSales = 0;
+        timeInBusiness = 0;
+
+
         lumberjackHired = false;
         planterHired = false;
         rank = new Dictionary<int, int>() { { 1, 1 }, { 2, 1 }, { 3, 1}, { 4, 1 }, { 5, 30 } }; //adjust for testing

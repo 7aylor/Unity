@@ -31,7 +31,7 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
 
     private Money money;
     private Lumber lumber;
-    private IncreaseResource lumberTweenText;
+    private StatsManager stats;
     
     private void Awake()
     {
@@ -43,8 +43,8 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
         screenWidth = FindObjectOfType<Canvas>().pixelRect.width;
         money = FindObjectOfType<Money>();
         lumber = FindObjectOfType<Lumber>();
-        lumberTweenText = FindObjectOfType<IncreaseResource>();
         demand = FindObjectOfType<Demand>();
+        stats = FindObjectOfType<StatsManager>();
     }
 
     // Use this for initialization
@@ -97,8 +97,10 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
                 eventManager.RemoveEventFromQueue(gameObject);
                 money.ChangeMoneyAmount(priceToPay);
                 lumber.UpdateLumberCount(-lumberNeeded);
-                lumberTweenText.SetIncreaseResourceText(-lumberNeeded);
                 GameManager.instance.lumberInMarket += lumberNeeded;
+                stats.UpdateStats(StatsManager.stat.lumberInMarket);
+                GameManager.instance.totalNumberOfSales++;
+                stats.UpdateStats(StatsManager.stat.totalNumberOfSales);
                 demand.UpdateDemand();
             });
 
