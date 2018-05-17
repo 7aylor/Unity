@@ -1,12 +1,11 @@
 fileFormatVersion: 2
-guid: 7c72263b9bcbfdd43a06db47a8466c37
-timeCreated: 1523154909
+guid: d7d71484beab7874c9e9f8dce95e7309
+timeCreated: 1526529198
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Deer Chewing Straight_0
-    21300002: Deer Chewing Straight_1
-    21300004: Deer Chewing Straight_2
+    21300000: Black Bear Waving_0
+    21300002: Black Bear Waving_1
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -49,7 +48,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 96
+  spritePixelsToUnits: 64
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -113,11 +112,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Deer Chewing Straight_0
+      name: Black Bear Waving_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 128
+        y: 0
         width: 64
         height: 64
       alignment: 0
@@ -127,24 +126,10 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Deer Chewing Straight_1
+      name: Black Bear Waving_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Deer Chewing Straight_2
-      rect:
-        serializedVersion: 2
-        x: 0
+        x: 64
         y: 0
         width: 64
         height: 64

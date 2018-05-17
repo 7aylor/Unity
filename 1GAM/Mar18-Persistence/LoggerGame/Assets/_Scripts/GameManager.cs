@@ -50,7 +50,6 @@ public class GameManager : MonoBehaviour {
         totalNumberOfSales = 0;
         timeInBusiness = 0;
 
-
         lumberjackHired = false;
         planterHired = false;
         rank = new Dictionary<int, int>() { { 1, 1 }, { 2, 1 }, { 3, 1}, { 4, 1 }, { 5, 30 } }; //adjust for testing

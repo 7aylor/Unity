@@ -34,7 +34,7 @@ public class MapGenerator : MonoBehaviour {
     public GameObject riverEnd;
     #endregion
 
-    private enum tileType
+    public enum tileType
     {
         grass,
         tree,
@@ -732,6 +732,7 @@ public class MapGenerator : MonoBehaviour {
         
         //updates the UI of the forest health
         FindObjectOfType<ForestHealth>().UpdateForestHealth();
+        FindObjectOfType<BearController>().SpawnBear();
     }
 
     private GameObject isCurvedRiver(int x, int y, float xPos, float yPos)
