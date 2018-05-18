@@ -18,6 +18,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     public AudioClip chopSfx;
     public AudioClip waterSfx;
     public float jumpSpeed;
+    public bool doneJumping;
 
     public float animatorLumberjackJumpSpeed;
     public float animatorPlanterJumpSpeed;
@@ -102,6 +103,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         animatorChopSpeed = 1;
         animatorDigSpeed = 1;
         jumpSpeed = 0.05f;
+        doneJumping = true;
 
         if(tag == "Planter")
         {
@@ -146,6 +148,25 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
                 HandleActionPanelButtons();
             }
+        }
+    }
+
+    public void PlayerRunsFromBear()
+    {
+        StartCoroutine(ChainJumps());
+    }
+
+    private IEnumerator ChainJumps()
+    {
+        for(int i = 0; i < 10; i++)
+        {
+            if (isFatigued)
+            {
+                break;
+            }
+            animator.runtimeAnimatorController = down;
+            yield return StartCoroutine(TravelToTarget(direction.down));
+            //yield return new WaitForSeconds(0.5f);
         }
     }
 
@@ -196,16 +217,6 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                         StartCoroutine(TravelToTarget(direction.up));
                     }
                 }
-
-                if (tag == "Planter")
-                {
-                    animator.SetFloat("JumpSpeed", animatorPlanterJumpSpeed);
-                }
-                else if (tag == "Lumberjack")
-                {
-                    animator.SetFloat("JumpSpeed", animatorLumberjackJumpSpeed);
-                }
-                animator.SetTrigger("Jump");
             }
         }
     }
@@ -217,6 +228,17 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     /// <returns></returns>
     private IEnumerator TravelToTarget(direction dir)
     {
+        doneJumping = false;
+        if (tag == "Planter")
+        {
+            animator.SetFloat("JumpSpeed", animatorPlanterJumpSpeed);
+        }
+        else if (tag == "Lumberjack")
+        {
+            animator.SetFloat("JumpSpeed", animatorLumberjackJumpSpeed);
+        }
+        animator.SetTrigger("Jump");
+
         Vector3 changeVector;
 
         float fatigueVal = (1 - fatigueSlider.value);
@@ -254,6 +276,8 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
         //update the buttons based on the new tile the player is on
         HandleActionPanelButtons();
+
+        doneJumping = true;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -368,6 +392,27 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         collidingTile = collision.gameObject;
         collidingTileAnimator = collidingTile.GetComponent<Animator>();
         HandleActionPanelButtons();
+
+        //if we jump out of the play space, destroy the player and reset values
+        if(collision.tag == "Boundary")
+        {
+            //Trigger Fire/Quit Player notification
+            SelectPlayer(false);
+
+            if (tag == "Lumberjack")
+            {
+                actionPanel.EnableDisableSingleButton(lumberjackHireButton.gameObject, true);
+                GameManager.instance.lumberjackHired = false;
+            }
+            else if(tag == "Planter")
+            {
+                actionPanel.EnableDisableSingleButton(planterHireButton.gameObject, true);
+                GameManager.instance.planterHired = false;
+            }
+
+            Destroy(tempFlag);
+            Destroy(gameObject);
+        }
     }
 
     /// <summary>

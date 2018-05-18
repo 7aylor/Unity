@@ -23,9 +23,10 @@ GameObject:
   - component: {fileID: 95604594338969416}
   - component: {fileID: 61766282053201958}
   - component: {fileID: 50782444625704576}
+  - component: {fileID: 114189214323218852}
   m_Layer: 0
   m_Name: Black Bear
-  m_TagString: Untagged
+  m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,7 +87,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9, y: 0.9}
   m_EdgeRadius: 0
 --- !u!95 &95604594338969416
 Animator:
@@ -105,6 +106,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114189214323218852
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1409313150132948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbbe07f0547aa17498ec0499b310ac88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212782727071248654
 SpriteRenderer:
   m_ObjectHideFlags: 1

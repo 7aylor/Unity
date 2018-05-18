@@ -20,6 +20,8 @@ TagManager:
   - DecreaseLumber
   - IncreaseMoney
   - DecreaseMoney
+  - Animal
+  - Boundary
   layers:
   - Default
   - TransparentFX

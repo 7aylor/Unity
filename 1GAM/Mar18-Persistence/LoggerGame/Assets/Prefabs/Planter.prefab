@@ -456,6 +456,7 @@ MonoBehaviour:
   chopSfx: {fileID: 8300000, guid: e676bcbeb62ec7846abaeb7ecbd74aa7, type: 3}
   waterSfx: {fileID: 8300000, guid: be9f2cfca8007c64994840c57f321bcf, type: 3}
   jumpSpeed: 0
+  doneJumping: 1
   animatorLumberjackJumpSpeed: 0
   animatorPlanterJumpSpeed: 0
   animatorPlantSpeed: 0
@@ -633,7 +634,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: dbdd72c340df4da4688e712030f226a5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
