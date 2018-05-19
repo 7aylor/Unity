@@ -35,6 +35,10 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager instance;
 
+    public int earlyPointsToNextLevel;
+    public int midPointsToNextLevel;
+    public int latePointsToNextLevel;
+
     private void Awake()
     {
         instance = this;
@@ -52,7 +56,9 @@ public class GameManager : MonoBehaviour {
 
         lumberjackHired = false;
         planterHired = false;
-        rank = new Dictionary<int, int>() { { 1, 1 }, { 2, 1 }, { 3, 1}, { 4, 1 }, { 5, 30 } }; //adjust for testing
+        rank = new Dictionary<int, int>() { { 1, earlyPointsToNextLevel }, { 2, earlyPointsToNextLevel }, { 3, earlyPointsToNextLevel}, { 4, earlyPointsToNextLevel }, { 5, earlyPointsToNextLevel },
+                                            { 6, midPointsToNextLevel }, { 7, midPointsToNextLevel }, { 8, midPointsToNextLevel }, { 9, midPointsToNextLevel }, { 10, midPointsToNextLevel },
+                                            { 11, latePointsToNextLevel }, { 12, latePointsToNextLevel }, { 13, latePointsToNextLevel }, { 14, latePointsToNextLevel }, { 15, latePointsToNextLevel }}; //adjust for testing
         skillLevels = new Dictionary<string, int>() { { "ChopSpeed", 1 }, { "DigSpeed", 1},{ "LumberjackJumpSpeed", 1 }, { "LumberjackStamina", 1 }, { "PlantSpeed", 1 }, { "WaterSpeed", 1 }, { "PlanterJumpSpeed", 1 }, { "PlanterStamina", 1 } };
     }
 

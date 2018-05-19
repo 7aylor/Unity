@@ -692,7 +692,7 @@ public class MapGenerator : MonoBehaviour {
                     }
                     else if (y == 0)
                     {
-                        rotation = rotation = Quaternion.Euler(0, 0, 180);
+                        rotation = Quaternion.Euler(0, 0, 180);
                     }
                     else
                     {

@@ -166,14 +166,6 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     {
         SelectPlayer(false);
         StartCoroutine(ChainJumps());
-        //if(tag == "Planter")
-        //{
-        //    SelectPlayer(false);
-        //}
-        //else if(tag == "Lumberjack")
-        //{
-        //    SelectPlayer(false);
-        //}
     }
 
     private IEnumerator ChainJumps()
@@ -307,20 +299,12 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
             if (nextTileRiver)
             {
-                if (isSelected)
-                {
-                    tempFlag = Instantiate(flag, new Vector3(transform.position.x, transform.position.y - 2, 0), Quaternion.identity);
-                }
-                
+                SpawnFlag(transform.position.x, transform.position.y - 2);
                 animator.runtimeAnimatorController = riverDown;
             }
             else
             {
-                if (isSelected)
-                {
-                    tempFlag = Instantiate(flag, new Vector3(transform.position.x, transform.position.y - 1, 0), Quaternion.identity);
-                }
-                
+                SpawnFlag(transform.position.x, transform.position.y - 1);
                 animator.runtimeAnimatorController = down;
             }
 
@@ -333,20 +317,12 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
             if (nextTileRiver)
             {
-                if (isSelected)
-                {
-                    tempFlag = Instantiate(flag, new Vector3(transform.position.x, transform.position.y + 2, 0), Quaternion.identity);
-                }
-                
+                SpawnFlag(transform.position.x, transform.position.y + 2);
                 animator.runtimeAnimatorController = riverUp;
             }
             else
             {
-                if (isSelected)
-                {
-                    tempFlag = Instantiate(flag, new Vector3(transform.position.x, transform.position.y + 1, 0), Quaternion.identity);
-                }
-                
+                SpawnFlag(transform.position.x, transform.position.y + 1);
                 animator.runtimeAnimatorController = up;
             }
             
@@ -358,12 +334,12 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
             if (nextTileRiver)
             {
-                tempFlag = Instantiate(flag, new Vector3(transform.position.x - 2, transform.position.y, 0), Quaternion.identity);
+                SpawnFlag(transform.position.x - 2, transform.position.y);
                 animator.runtimeAnimatorController = riverSide;
             }
             else
             {
-                tempFlag = Instantiate(flag, new Vector3(transform.position.x - 1, transform.position.y, 0), Quaternion.identity);
+                SpawnFlag(transform.position.x - 1, transform.position.y);
                 animator.runtimeAnimatorController = side;
             }
 
@@ -376,12 +352,12 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
             if (nextTileRiver)
             {
-                tempFlag = Instantiate(flag, new Vector3(transform.position.x + 2, transform.position.y, 0), Quaternion.identity);
+                SpawnFlag(transform.position.x + 2, transform.position.y);
                 animator.runtimeAnimatorController = riverSide;
             }
             else
             {
-                tempFlag = Instantiate(flag, new Vector3(transform.position.x + 1, transform.position.y, 0), Quaternion.identity);
+                SpawnFlag(transform.position.x + 1, transform.position.y);
                 animator.runtimeAnimatorController = side;
             }
 
@@ -395,7 +371,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
             float numLoops = (1 / (jumpSpeed / 2));
 
-            animator.speed = 0.4f;
+            animator.speed = 0.35f;
 
             for (int i = 0; i < numLoops; i++)
             {
@@ -428,6 +404,14 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
         //indicate we are done jumping
         doneJumping = true;
+    }
+
+    private void SpawnFlag(float x, float y)
+    {
+        if (isSelected)
+        {
+            tempFlag = Instantiate(flag, new Vector3(x, y, 0), Quaternion.identity);
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)

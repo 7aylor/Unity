@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class ActionPanel : MonoBehaviour {
 
     private Animator animator;
-    private bool isUp;
     private GameObject actionsPanel;
 
     public enum SelectedPlayer { none, planter, lumberjack };
@@ -20,29 +19,14 @@ public class ActionPanel : MonoBehaviour {
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        //actionsPanel = transform.GetChild(0).gameObject;
     }
 
     // Use this for initialization
     void Start () {
-        isUp = false;
         selectedPlayer = SelectedPlayer.none;
         ActionsButtonClick();
     }
 	
-    public void Animate()
-    {
-        if(isUp == true)
-        {
-            animator.SetTrigger("Slide_Down");
-            isUp = false;
-        }
-        else
-        {
-            animator.SetTrigger("Slide_Up");
-            isUp = true;
-        }
-    }
 
     public void ActionsButtonClick()
     {
@@ -50,8 +34,6 @@ public class ActionPanel : MonoBehaviour {
         {
             ActivateButtons(SelectedPlayer.none);
         }
-        
-        Animate();
     }
 
     public void ActivateButtons(SelectedPlayer player)
