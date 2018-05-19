@@ -13,6 +13,11 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     public AnimatorOverrideController up;
     public AnimatorOverrideController down;
     public AnimatorOverrideController side;
+
+    public AnimatorOverrideController riverUp;
+    public AnimatorOverrideController riverDown;
+    public AnimatorOverrideController riverSide;
+
     public GameObject flag;
     public GameObject tree;
     public AudioClip chopSfx;
@@ -58,11 +63,16 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
     private enum direction { up, down, left, right };
     private direction travelDirection;
+
+    [SerializeField]
+    private direction lastDirection;
     private int seedsPlanted;
 
     private int pointTowardsNextRank;
     private bool canMove = true;
     private bool isFatigued = false;
+    [SerializeField]
+    private bool nextTileRiver;
 
     private void Awake()
     {
@@ -104,6 +114,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         animatorDigSpeed = 1;
         jumpSpeed = 0.05f;
         doneJumping = true;
+        nextTileRiver = false;
 
         if(tag == "Planter")
         {
@@ -153,7 +164,16 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
     public void PlayerRunsFromBear()
     {
+        SelectPlayer(false);
         StartCoroutine(ChainJumps());
+        //if(tag == "Planter")
+        //{
+        //    SelectPlayer(false);
+        //}
+        //else if(tag == "Lumberjack")
+        //{
+        //    SelectPlayer(false);
+        //}
     }
 
     private IEnumerator ChainJumps()
@@ -164,8 +184,23 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             {
                 break;
             }
-            animator.runtimeAnimatorController = down;
-            yield return StartCoroutine(TravelToTarget(direction.down));
+
+            switch (lastDirection)
+            {
+                case direction.down:
+                    yield return StartCoroutine(TravelToTarget(direction.up));
+                    break;
+                case direction.up:
+                    yield return StartCoroutine(TravelToTarget(direction.down));
+                    break;
+                case direction.left:
+                    yield return StartCoroutine(TravelToTarget(direction.right));
+                    break;
+                case direction.right:
+                    yield return StartCoroutine(TravelToTarget(direction.left));
+                    break;
+            }
+            
             //yield return new WaitForSeconds(0.5f);
         }
     }
@@ -186,19 +221,13 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                 //travel on X
                 if (Mathf.Abs(distanceToMouse.x) > Mathf.Abs(distanceToMouse.y))
                 {
-                    animator.runtimeAnimatorController = side;
-
                     if (distanceToMouse.x > 0)
                     {
-                        tempFlag = Instantiate(flag, new Vector3(transform.position.x - 1, transform.position.y, 0), Quaternion.identity);
-                        sprite.flipX = true;
-                        StartCoroutine(TravelToTarget(direction.left));
+                        StartCoroutine(TravelToTarget(lastDirection = direction.left));
                     }
                     else
                     {
-                        tempFlag = Instantiate(flag, new Vector3(transform.position.x + 1, transform.position.y, 0), Quaternion.identity);
-                        sprite.flipX = false;
-                        StartCoroutine(TravelToTarget(direction.right));
+                        StartCoroutine(TravelToTarget(lastDirection = direction.right));
                     }
                 }
                 //travel on Y
@@ -206,19 +235,47 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                 {
                     if (distanceToMouse.y > 0)
                     {
-                        tempFlag = Instantiate(flag, new Vector3(transform.position.x, transform.position.y - 1, 0), Quaternion.identity);
-                        animator.runtimeAnimatorController = down;
-                        StartCoroutine(TravelToTarget(direction.down));
+                        StartCoroutine(TravelToTarget(lastDirection = direction.down));
                     }
                     else
                     {
-                        tempFlag = Instantiate(flag, new Vector3(transform.position.x, transform.position.y + 1, 0), Quaternion.identity);
-                        animator.runtimeAnimatorController = up;
-                        StartCoroutine(TravelToTarget(direction.up));
+                        StartCoroutine(TravelToTarget(lastDirection = direction.up));
                     }
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// raycasts to determine if the next tile is a river space
+    /// </summary>
+    /// <param name="direction"></param>
+    private void IsNextTileRiver(direction direction)
+    {
+        RaycastHit2D hit;
+
+        switch (direction)
+        {
+            case direction.down:
+                hit = Physics2D.Raycast(transform.position, Vector2.down, 1, LayerMask.GetMask("River"));
+                break;
+            case direction.up:
+                hit = Physics2D.Raycast(transform.position, Vector2.up, 1, LayerMask.GetMask("River"));
+                break;
+            case direction.left:
+                hit = Physics2D.Raycast(transform.position, Vector2.left, 1, LayerMask.GetMask("River"));
+                break;
+            case direction.right:
+            default:
+                hit = Physics2D.Raycast(transform.position, Vector2.right, 1, LayerMask.GetMask("River"));
+                break;
+        }
+
+        if(hit != false)
+        {
+            nextTileRiver = hit.collider.gameObject.tag == "River" ? true : false;
+        }
+        
     }
 
     /// <summary>
@@ -246,28 +303,120 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         //determine the direction vector
         if (dir == direction.down)
         {
+            IsNextTileRiver(direction.down);
+
+            if (nextTileRiver)
+            {
+                if (isSelected)
+                {
+                    tempFlag = Instantiate(flag, new Vector3(transform.position.x, transform.position.y - 2, 0), Quaternion.identity);
+                }
+                
+                animator.runtimeAnimatorController = riverDown;
+            }
+            else
+            {
+                if (isSelected)
+                {
+                    tempFlag = Instantiate(flag, new Vector3(transform.position.x, transform.position.y - 1, 0), Quaternion.identity);
+                }
+                
+                animator.runtimeAnimatorController = down;
+            }
+
+            
             changeVector = new Vector3(0, -jumpSpeed, 0);
         }
         else if(dir == direction.up)
         {
+            IsNextTileRiver(direction.up);
+
+            if (nextTileRiver)
+            {
+                if (isSelected)
+                {
+                    tempFlag = Instantiate(flag, new Vector3(transform.position.x, transform.position.y + 2, 0), Quaternion.identity);
+                }
+                
+                animator.runtimeAnimatorController = riverUp;
+            }
+            else
+            {
+                if (isSelected)
+                {
+                    tempFlag = Instantiate(flag, new Vector3(transform.position.x, transform.position.y + 1, 0), Quaternion.identity);
+                }
+                
+                animator.runtimeAnimatorController = up;
+            }
+            
             changeVector = new Vector3(0, jumpSpeed, 0);
         }
         else if (dir == direction.left)
         {
+            IsNextTileRiver(direction.left);
+
+            if (nextTileRiver)
+            {
+                tempFlag = Instantiate(flag, new Vector3(transform.position.x - 2, transform.position.y, 0), Quaternion.identity);
+                animator.runtimeAnimatorController = riverSide;
+            }
+            else
+            {
+                tempFlag = Instantiate(flag, new Vector3(transform.position.x - 1, transform.position.y, 0), Quaternion.identity);
+                animator.runtimeAnimatorController = side;
+            }
+
+            sprite.flipX = true;
             changeVector = new Vector3(-jumpSpeed, 0, 0);
         }
         else
         {
+            IsNextTileRiver(direction.right);
+
+            if (nextTileRiver)
+            {
+                tempFlag = Instantiate(flag, new Vector3(transform.position.x + 2, transform.position.y, 0), Quaternion.identity);
+                animator.runtimeAnimatorController = riverSide;
+            }
+            else
+            {
+                tempFlag = Instantiate(flag, new Vector3(transform.position.x + 1, transform.position.y, 0), Quaternion.identity);
+                animator.runtimeAnimatorController = side;
+            }
+
+            sprite.flipX = false;
             changeVector = new Vector3(jumpSpeed, 0, 0);
         }
 
-        float numLoops = (1 / jumpSpeed);
 
-        for (int i = 0; i < numLoops; i++)
+        if(nextTileRiver == true)
         {
-            transform.Translate(changeVector);
-            yield return new WaitForSeconds(0.025f);
+
+            float numLoops = (1 / (jumpSpeed / 2));
+
+            animator.speed = 0.4f;
+
+            for (int i = 0; i < numLoops; i++)
+            {
+                transform.Translate(changeVector);
+                yield return new WaitForSeconds(0.025f);
+            }
+
+            animator.speed = 1;
+            nextTileRiver = false;
         }
+        else
+        {
+            float numLoops = (1 / jumpSpeed);
+
+            for (int i = 0; i < numLoops; i++)
+            {
+                transform.Translate(changeVector);
+                yield return new WaitForSeconds(0.025f);
+            }
+        }
+        
 
         hasTarget = false;
 
@@ -277,6 +426,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         //update the buttons based on the new tile the player is on
         HandleActionPanelButtons();
 
+        //indicate we are done jumping
         doneJumping = true;
     }
 

@@ -366,6 +366,9 @@ MonoBehaviour:
   up: {fileID: 22100000, guid: ec659c05cee685149bb19d07a858cb11, type: 2}
   down: {fileID: 22100000, guid: 739d34b7a51964c428214a757606dd72, type: 2}
   side: {fileID: 22100000, guid: bd1c13a946fbaca49934718b40da0c3e, type: 2}
+  riverUp: {fileID: 22100000, guid: a924430d4712f52408fdeb3ae767107d, type: 2}
+  riverDown: {fileID: 22100000, guid: 5aa57fd5999f32140b8ce949c47141e1, type: 2}
+  riverSide: {fileID: 22100000, guid: cf6636a87285ce244b0afbb00ec07f49, type: 2}
   flag: {fileID: 1548263214518042, guid: 7e40ba269c177a441a05885a59e092b2, type: 2}
   tree: {fileID: 1242716478098746, guid: ac141edbc8efaac40bbcc59f2f524d3c, type: 2}
   chopSfx: {fileID: 8300000, guid: e676bcbeb62ec7846abaeb7ecbd74aa7, type: 3}
@@ -381,6 +384,8 @@ MonoBehaviour:
   currentRank: 0
   fatigueIncrement: 0.2
   recoverFatigueRate: 0.001
+  lastDirection: 0
+  nextTileRiver: 0
 --- !u!114 &114135136822472652
 MonoBehaviour:
   m_ObjectHideFlags: 1

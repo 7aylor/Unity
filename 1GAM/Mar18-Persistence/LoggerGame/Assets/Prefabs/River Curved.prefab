@@ -23,7 +23,8 @@ GameObject:
   - component: {fileID: 61217450509320734}
   - component: {fileID: 95620106859576120}
   - component: {fileID: 114384576473947746}
-  m_Layer: 0
+  - component: {fileID: 114416026066274850}
+  m_Layer: 11
   m_Name: River Curved
   m_TagString: River
   m_Icon: {fileID: 0}
@@ -94,6 +95,17 @@ MonoBehaviour:
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38082d86edb19134a87586f901ecc4b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114416026066274850
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1242716478098746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aafaea204716ba4419205e7d7d91a33e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212879450060890496

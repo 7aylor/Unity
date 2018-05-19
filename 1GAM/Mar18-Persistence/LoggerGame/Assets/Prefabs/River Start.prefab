@@ -23,7 +23,8 @@ GameObject:
   - component: {fileID: 95334250524041202}
   - component: {fileID: 61743385122598528}
   - component: {fileID: 114381519431730334}
-  m_Layer: 0
+  - component: {fileID: 114133151388967794}
+  m_Layer: 11
   m_Name: River Start
   m_TagString: River
   m_Icon: {fileID: 0}
@@ -85,6 +86,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114133151388967794
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1242716478098746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aafaea204716ba4419205e7d7d91a33e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114381519431730334
 MonoBehaviour:
   m_ObjectHideFlags: 1
