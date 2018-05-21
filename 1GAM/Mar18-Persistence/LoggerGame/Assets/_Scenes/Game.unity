@@ -191,7 +191,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1779533180}
-        m_MethodName: ResetPonts
+        m_MethodName: ResetPoints
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -357,6 +357,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f3a37882d5fafe43b4311ddea6a7ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillLevels:
+  - {fileID: 405057020}
+  - {fileID: 642867961}
+  - {fileID: 1697567019}
+  - {fileID: 556991515}
+  - {fileID: 165421956}
+  promotionPoints: {fileID: 1779533180}
 --- !u!1 &40540540
 GameObject:
   m_ObjectHideFlags: 0
@@ -6014,6 +6021,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillType: 2
   promotionPoints: {fileID: 1779533180}
+--- !u!114 &567356154 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114554816952994626, guid: 1de18488c3b73bb4cbb61d984f7560d8,
+    type: 2}
+  m_PrefabInternal: {fileID: 1474430034}
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &568207925
 GameObject:
   m_ObjectHideFlags: 0
@@ -6555,7 +6568,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2033616932}
-        m_MethodName: UpdatePoints
+        m_MethodName: ResetPoints
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10166,6 +10179,7 @@ MonoBehaviour:
   - {fileID: 461254240}
   - {fileID: 1359589496}
   - {fileID: 858057847}
+  fireButton: {fileID: 2098594015}
 --- !u!95 &1129450714
 Animator:
   serializedVersion: 3
@@ -12252,6 +12266,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f3a37882d5fafe43b4311ddea6a7ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillLevels:
+  - {fileID: 1705400130}
+  - {fileID: 1921900926}
+  - {fileID: 1553694673}
+  - {fileID: 1200482627}
+  - {fileID: 509394651}
+  promotionPoints: {fileID: 2033616932}
 --- !u!224 &1395869046 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224737187064058262, guid: 953510ffb9083ab4596e49b25956e800,
@@ -13256,6 +13277,21 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 2067459943}
     m_Modifications:
+    - target: {fileID: 114903725426095658, guid: 1de18488c3b73bb4cbb61d984f7560d8,
+        type: 2}
+      propertyPath: hireButtons.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114903725426095658, guid: 1de18488c3b73bb4cbb61d984f7560d8,
+        type: 2}
+      propertyPath: planterButtons.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114903725426095658, guid: 1de18488c3b73bb4cbb61d984f7560d8,
+        type: 2}
+      propertyPath: lumberjackButtons.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 224095325286265142, guid: 1de18488c3b73bb4cbb61d984f7560d8,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -13640,6 +13676,21 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114903725426095658, guid: 1de18488c3b73bb4cbb61d984f7560d8,
+        type: 2}
+      propertyPath: hireButtons.Array.data[2]
+      value: 
+      objectReference: {fileID: 567356154}
+    - target: {fileID: 114903725426095658, guid: 1de18488c3b73bb4cbb61d984f7560d8,
+        type: 2}
+      propertyPath: planterButtons.Array.data[3]
+      value: 
+      objectReference: {fileID: 2098594015}
+    - target: {fileID: 114903725426095658, guid: 1de18488c3b73bb4cbb61d984f7560d8,
+        type: 2}
+      propertyPath: lumberjackButtons.Array.data[3]
+      value: 
+      objectReference: {fileID: 2098594015}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1de18488c3b73bb4cbb61d984f7560d8, type: 2}
   m_IsPrefabParent: 0
@@ -20454,6 +20505,7 @@ GameObject:
   - component: {fileID: 2098594016}
   - component: {fileID: 2098594015}
   - component: {fileID: 2098594014}
+  - component: {fileID: 2098594018}
   m_Layer: 5
   m_Name: Fire
   m_TagString: Untagged
@@ -20541,8 +20593,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: Hire
+      - m_Target: {fileID: 2098594018}
+        m_MethodName: FireSelectedPlayer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -20589,6 +20641,19 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2098594012}
+--- !u!114 &2098594018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2098594012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f0b03fbce8a47e40bf8d7f217a3446b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lumberJackPromotePanel: {fileID: 32205986}
+  planterPromotePanel: {fileID: 1363379274}
 --- !u!1 &2105437751
 GameObject:
   m_ObjectHideFlags: 0

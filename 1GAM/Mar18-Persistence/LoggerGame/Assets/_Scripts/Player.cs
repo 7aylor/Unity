@@ -56,6 +56,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     private PromotePlanterButton promotePlanterButton;
     private HirePlayer lumberjackHireButton;
     private HirePlayer planterHireButton;
+    private FireButton fireButton;
 
     private AudioSource audioSource;
     private Slider fatigueSlider;
@@ -71,6 +72,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     private int pointTowardsNextRank;
     private bool canMove = true;
     private bool isFatigued = false;
+
     [SerializeField]
     private bool nextTileRiver;
 
@@ -95,6 +97,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         //hire buttons
         lumberjackHireButton = actionPanel.hireButtons[0].GetComponent<HirePlayer>();
         planterHireButton = actionPanel.hireButtons[1].GetComponent<HirePlayer>();
+        fireButton = actionPanel.gameObject.transform.GetChild(8).GetComponent<FireButton>();
 
         selectionIndicator = transform.GetChild(0).gameObject; //Gets the indicator child game object
         fatigueSlider = transform.SearchForChild("FatigueSlider").GetComponent<Slider>();
@@ -510,6 +513,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         isSelected = isActive;
         selectionIndicator.SetActive(isActive);
         fatigueSlider.gameObject.SetActive(isActive);
+        //actionPanel.EnableDisableSingleButton(fireButton.gameObject, isActive);
         if(isActive == true)
         {
             GameManager.instance.selectedPlayer = this;
@@ -558,6 +562,9 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         {
             if (tag == "Lumberjack")
             {
+                Debug.Log("current rank " + currentRank);
+                Debug.Log("point towards next rank " + pointTowardsNextRank);
+
                 //check rank to enable promotion button
                 if (pointTowardsNextRank < GameManager.instance.rank[currentRank])
                 {

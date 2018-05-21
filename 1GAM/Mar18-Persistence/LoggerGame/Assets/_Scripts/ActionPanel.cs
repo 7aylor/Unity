@@ -15,6 +15,7 @@ public class ActionPanel : MonoBehaviour {
     public Button[] hireButtons;
     public Button[] planterButtons;
     public Button[] lumberjackButtons;
+    public Button fireButton;
 
     private void Awake()
     {
@@ -55,18 +56,21 @@ public class ActionPanel : MonoBehaviour {
 
             EnableDisableButtons(planterButtons, false);
             EnableDisableButtons(lumberjackButtons, false);
+            EnableDisableSingleButton(fireButton.gameObject, false);
         }
         else if (selectedPlayer == SelectedPlayer.lumberjack)
         {
             EnableDisableButtons(hireButtons, false);
             EnableDisableButtons(planterButtons, false);
             EnableDisableButtons(lumberjackButtons, true);
+            EnableDisableSingleButton(fireButton.gameObject, true);
         }
         else if (selectedPlayer == SelectedPlayer.planter)
         {
             EnableDisableButtons(hireButtons, false);
             EnableDisableButtons(planterButtons, true);
             EnableDisableButtons(lumberjackButtons, false);
+            EnableDisableSingleButton(fireButton.gameObject, true);
         }
     }
 
