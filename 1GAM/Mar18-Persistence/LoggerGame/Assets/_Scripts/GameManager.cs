@@ -30,8 +30,9 @@ public class GameManager : MonoBehaviour {
     public bool lumberjackHired;
     public bool planterHired;
 
-    public Dictionary<int, int> rank;
-    public Dictionary<string, int> skillLevels;
+    public int[] rank;
+    //public Dictionary<string, int> skillLevels;
+    public List<Skill> skillLevels;
 
     public static GameManager instance;
 
@@ -56,14 +57,31 @@ public class GameManager : MonoBehaviour {
 
         lumberjackHired = false;
         planterHired = false;
-        rank = new Dictionary<int, int>() { { 1, earlyPointsToNextLevel }, { 2, earlyPointsToNextLevel }, { 3, earlyPointsToNextLevel}, { 4, earlyPointsToNextLevel }, { 5, earlyPointsToNextLevel },
-                                            { 6, midPointsToNextLevel }, { 7, midPointsToNextLevel }, { 8, midPointsToNextLevel }, { 9, midPointsToNextLevel }, { 10, midPointsToNextLevel },
-                                            { 11, latePointsToNextLevel }, { 12, latePointsToNextLevel }, { 13, latePointsToNextLevel }, { 14, latePointsToNextLevel }, { 15, latePointsToNextLevel }}; //adjust for testing
-        skillLevels = new Dictionary<string, int>() { { "ChopSpeed", 1 }, { "DigSpeed", 1},{ "LumberjackJumpSpeed", 1 }, { "LumberjackStamina", 1 }, { "PlantSpeed", 1 }, { "WaterSpeed", 1 }, { "PlanterJumpSpeed", 1 }, { "PlanterStamina", 1 } };
+        //skillLevels = new Dictionary<string, int>() { { "ChopSpeed", 1 }, { "DigSpeed", 1},{ "LumberjackJumpSpeed", 1 }, { "LumberjackStamina", 1 }, { "PlantSpeed", 1 }, { "WaterSpeed", 1 }, { "PlanterJumpSpeed", 1 }, { "PlanterStamina", 1 } };
+
+        skillLevels = new List<Skill>() { new Skill("ChopSpeed", 1, "Lumberjack" ), new Skill("DigSpeed", 1, "Lumberjack"), new Skill("LumberjackJumpSpeed", 1, "Lumberjack"), new Skill("LumberjackStamina", 1, "Lumberjack"), new Skill("PlantSpeed", 1, "Planter"), new Skill("WaterSpeed", 1, "Planter"), new Skill("PlanterJumpSpeed", 1, "Planter"), new Skill("PlanterStamina", 1, "Planter")};
+
+        rank = new int[]{ earlyPointsToNextLevel, earlyPointsToNextLevel, earlyPointsToNextLevel, earlyPointsToNextLevel, earlyPointsToNextLevel,
+                          midPointsToNextLevel, midPointsToNextLevel, midPointsToNextLevel, midPointsToNextLevel, midPointsToNextLevel,
+                          latePointsToNextLevel, latePointsToNextLevel, latePointsToNextLevel, latePointsToNextLevel, latePointsToNextLevel};
     }
 
     public void InstantiateMap(int x, int y)
     {
         map = new int[x, y];
+    }
+}
+
+public class Skill
+{
+    public string name;
+    public int level;
+    public string associatedPlayer;
+
+    public Skill(string newName, int newLevel, string newPlayer)
+    {
+        name = newName;
+        level = newLevel;
+        associatedPlayer = newPlayer;
     }
 }

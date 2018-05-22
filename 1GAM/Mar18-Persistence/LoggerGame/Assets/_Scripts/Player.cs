@@ -107,7 +107,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         hasTarget = false;
         isSelected = false;
         seedsPlanted = 0;
-        currentRank = 1;
+        currentRank = 0;
         pointTowardsNextRank = 0;
         animatorLumberjackJumpSpeed = 1;
         animatorPlanterJumpSpeed = 1;
@@ -513,7 +513,6 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         isSelected = isActive;
         selectionIndicator.SetActive(isActive);
         fatigueSlider.gameObject.SetActive(isActive);
-        //actionPanel.EnableDisableSingleButton(fireButton.gameObject, isActive);
         if(isActive == true)
         {
             GameManager.instance.selectedPlayer = this;

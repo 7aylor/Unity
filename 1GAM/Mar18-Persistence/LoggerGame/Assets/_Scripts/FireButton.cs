@@ -20,6 +20,19 @@ public class FireButton : MonoBehaviour {
     {
         if(GameManager.instance.playerSelected == true)
         {
+            //reset
+            foreach (Skill s in GameManager.instance.skillLevels)
+            {
+                if (s.associatedPlayer == "Lumberjack")
+                {
+                    s.level = 1;
+                }
+                if(s.associatedPlayer == "Planter")
+                {
+                    s.level = 1;
+                }
+            }
+
             GameManager.instance.playerSelected = false;
             
             if(GameManager.instance.selectedPlayer.tag == "Lumberjack")

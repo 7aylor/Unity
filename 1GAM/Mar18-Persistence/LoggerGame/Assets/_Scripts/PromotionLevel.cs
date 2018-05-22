@@ -23,8 +23,9 @@ public class PromotionLevel : MonoBehaviour {
         if(promotionPoints.numPoints > 0)
         {
             promotionPoints.UsePoints();
-            GameManager.instance.skillLevels[skillType.ToString()] += 1;
-            text.text = GameManager.instance.skillLevels[skillType.ToString()].ToString();
+            Skill skill = GameManager.instance.skillLevels.Find((s) => s.name == skillType.ToString());
+            skill.level += 1;
+            text.text = skill.level.ToString();
         }
     }
 }

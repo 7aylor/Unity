@@ -30,7 +30,7 @@ public class PromoteButton : MonoBehaviour {
                 planterAnimator = planter.GetComponent<Animator>();
                 planterLevelText = GameObject.FindGameObjectWithTag("PlanterLevel").GetComponent<TMP_Text>();
                 planterPlayer.currentRank++;
-                planterLevelText.text = planterPlayer.currentRank.ToString();
+                planterLevelText.text = (planterPlayer.currentRank + 1).ToString();
             }
             else if (transform.parent.parent.tag == "LumberjackPromote")
             {
@@ -39,7 +39,7 @@ public class PromoteButton : MonoBehaviour {
                 lumberjackAnimator = lumberjack.GetComponent<Animator>();
                 lumberjackLevelText = GameObject.FindGameObjectWithTag("LumberjackLevel").GetComponent<TMP_Text>();
                 lumberjackPlayer.currentRank++;
-                lumberjackLevelText.text = lumberjackPlayer.currentRank.ToString();
+                lumberjackLevelText.text = (lumberjackPlayer.currentRank + 1).ToString();
             }
 
             switch (type)
