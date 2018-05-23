@@ -69,6 +69,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     private direction lastDirection;
     private int seedsPlanted;
 
+    [SerializeField]
     private int pointTowardsNextRank;
     private bool canMove = true;
     private bool isFatigued = false;
@@ -528,7 +529,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     {
         collidingTile = collision.gameObject;
         collidingTileAnimator = collidingTile.GetComponent<Animator>();
-        HandleActionPanelButtons();
+        //HandleActionPanelButtons();
 
         //if we jump out of the play space, destroy the player and reset values
         if(collision.tag == "Boundary")
@@ -567,10 +568,12 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                 //check rank to enable promotion button
                 if (pointTowardsNextRank < GameManager.instance.rank[currentRank])
                 {
+                    Debug.Log("Enabled promotion button from Handle Action Panel Buttons");
                     actionPanel.EnableDisableSingleButton(promoteLumberJackButton.gameObject, false);
                 }
                 else
                 {
+                    Debug.Log("Disabled promotion button from Handle Action Panel Buttons");
                     actionPanel.EnableDisableSingleButton(promoteLumberJackButton.gameObject, true);
                 }
 

@@ -10,28 +10,26 @@ public class ExitPromoteButton : MonoBehaviour {
     public enum PanelType { lumberjack, planter}
     public PanelType type;
 
-    private void Awake()
-    {
-        if(type == PanelType.lumberjack)
-        {
-            lumberjack = GameObject.FindGameObjectWithTag("Lumberjack").GetComponent<Player>();
-        }
-        else
-        {
-            planter = GameObject.FindGameObjectWithTag("Planter").GetComponent<Player>();
-        }
-    }
-
+    /// <summary>
+    /// Called when exit button on lumberjack is clicked. Resets the lumberjack's promotion points and updates UI
+    /// </summary>
     public void ResetLumberjackPromotionPoints()
     {
-        if(lumberjack != null)
+        lumberjack = GameObject.FindGameObjectWithTag("Lumberjack").GetComponent<Player>();
+
+        if (lumberjack != null)
         {
             lumberjack.ResetPoints();
         }
     }
 
+    /// <summary>
+    /// Called when exit button on lumberjack is clicked. Resets the planter's promotion points and updates UI
+    /// </summary>
     public void ResetPlanterPromotionPoints()
     {
+        planter = GameObject.FindGameObjectWithTag("Planter").GetComponent<Player>();
+
         if (planter != null)
         {
             planter.ResetPoints();

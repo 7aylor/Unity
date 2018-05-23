@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour {
     public bool planterHired;
 
     public int[] rank;
-    //public Dictionary<string, int> skillLevels;
     public List<Skill> skillLevels;
 
     public static GameManager instance;
@@ -57,7 +56,6 @@ public class GameManager : MonoBehaviour {
 
         lumberjackHired = false;
         planterHired = false;
-        //skillLevels = new Dictionary<string, int>() { { "ChopSpeed", 1 }, { "DigSpeed", 1},{ "LumberjackJumpSpeed", 1 }, { "LumberjackStamina", 1 }, { "PlantSpeed", 1 }, { "WaterSpeed", 1 }, { "PlanterJumpSpeed", 1 }, { "PlanterStamina", 1 } };
 
         skillLevels = new List<Skill>() { new Skill("ChopSpeed", 1, "Lumberjack" ), new Skill("DigSpeed", 1, "Lumberjack"), new Skill("LumberjackJumpSpeed", 1, "Lumberjack"), new Skill("LumberjackStamina", 1, "Lumberjack"), new Skill("PlantSpeed", 1, "Planter"), new Skill("WaterSpeed", 1, "Planter"), new Skill("PlanterJumpSpeed", 1, "Planter"), new Skill("PlanterStamina", 1, "Planter")};
 
