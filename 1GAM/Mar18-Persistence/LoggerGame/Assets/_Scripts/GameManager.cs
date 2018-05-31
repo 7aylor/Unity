@@ -7,6 +7,12 @@ public class GameManager : MonoBehaviour {
     public int[,] map;
     public int sizeX;
     public int sizeY;
+
+    public float minWorldSpaceX;
+    public float minWorldSpaceY;
+    public float maxWorldSpaceX;
+    public float maxWorldSpaceY;
+
     public bool playerSelected = false;
     public Player selectedPlayer;
 
@@ -54,6 +60,11 @@ public class GameManager : MonoBehaviour {
         totalNumberOfSales = 0;
         timeInBusiness = 0;
 
+        minWorldSpaceX = ArrayCoordToWorldCoordX(0);
+        minWorldSpaceY = ArrayCoordToWorldCoordY(0);
+        maxWorldSpaceX = ArrayCoordToWorldCoordX(sizeX);
+        maxWorldSpaceY = ArrayCoordToWorldCoordX(sizeY);
+
         lumberjackHired = false;
         planterHired = false;
 
@@ -67,6 +78,16 @@ public class GameManager : MonoBehaviour {
     public void InstantiateMap(int x, int y)
     {
         map = new int[x, y];
+    }
+
+    public float ArrayCoordToWorldCoordX(float num)
+    {
+        return (float)num - sizeX / 2;
+    }
+
+    public float ArrayCoordToWorldCoordY(float num)
+    {
+        return (float)num - sizeX / 2 + 0.8f;
     }
 }
 
@@ -83,3 +104,4 @@ public class Skill
         associatedPlayer = newPlayer;
     }
 }
+

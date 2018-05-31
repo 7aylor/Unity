@@ -9,11 +9,12 @@ public class Rabbit : MonoBehaviour {
     public AnimatorOverrideController side;
 
     public float speed;
+    public float raycastDistance;
 
     private Animator animator;
     private SpriteRenderer sprite;
 
-    private enum direction { up, down, left, right}
+    private enum direction { up, down, left, right, none}
 
     [SerializeField]
     private direction myDirection;
@@ -43,15 +44,46 @@ public class Rabbit : MonoBehaviour {
 	void Update () {
         timeSinceLastChange += Time.deltaTime;
 
-        transform.Translate(dirForce * Time.deltaTime);
 
+
+        //move in the direction you are going, unless you have no direction
+        if(myDirection != direction.none)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, dirForce, 0.25f, LayerMask.GetMask("River"));
+
+            Debug.DrawLine(transform.position, transform.position + (Vector3)dirForce * 0.25f, Color.red);
+
+            if (hit)
+            {
+                Debug.Log("River hit");
+
+                //Vector2 tempDir = myDirection;
+                RabbitReset();
+
+            }
+
+            //check for out of bounds
+            //if ()
+            //{
+
+            //}
+
+            transform.Translate(dirForce * Time.deltaTime);
+        }
+
+        //if time has elapsed, pick new direction
         if (timeSinceLastChange >= spawnTime)
         {
-            myDirection = GetRandomDirection();
-            UpdateAnimator();
-            spawnTime = GetRandomFloat();
-            timeSinceLastChange = 0;
+            RabbitReset();
         }
+    }
+
+    private void RabbitReset()
+    {
+        myDirection = GetRandomDirection();
+        UpdateAnimator();
+        spawnTime = GetRandomFloat();
+        timeSinceLastChange = 0;
     }
 
     /// <summary>
@@ -60,7 +92,14 @@ public class Rabbit : MonoBehaviour {
     /// <returns></returns>
     private direction GetRandomDirection()
     {
-        return (direction)Random.Range(0, 4);
+        int rand = Random.Range(0, 10);
+
+        if(rand >= 4)
+        {
+            return direction.none;
+        }
+
+        return (direction)rand;
     }
 
     /// <summary>
@@ -68,6 +107,7 @@ public class Rabbit : MonoBehaviour {
     /// </summary>
     private void UpdateAnimator()
     {
+        animator.SetBool("Idle", false);
         if (myDirection == direction.right)
         {
             animator.runtimeAnimatorController = side;
@@ -89,6 +129,11 @@ public class Rabbit : MonoBehaviour {
         {
             animator.runtimeAnimatorController = up;
             dirForce = Vector2.up * speed;
+        }
+        else if (myDirection == direction.none)
+        {
+            animator.SetBool("Idle", true);
+            dirForce = Vector2.zero;
         }
     }
 

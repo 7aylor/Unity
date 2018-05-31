@@ -1079,6 +1079,7 @@ MonoBehaviour:
   down: {fileID: 22100000, guid: 375e3bbd1ff8afe4d94dd06fadab3561, type: 2}
   side: {fileID: 22100000, guid: e45a562257913ed4d92be04d7a5d1bcd, type: 2}
   speed: 1
+  raycastDistance: 0.25
   myDirection: 0
 --- !u!95 &103258296
 Animator:
@@ -1811,6 +1812,7 @@ MonoBehaviour:
   down: {fileID: 22100000, guid: 375e3bbd1ff8afe4d94dd06fadab3561, type: 2}
   side: {fileID: 22100000, guid: e45a562257913ed4d92be04d7a5d1bcd, type: 2}
   speed: 1
+  raycastDistance: 0.25
   myDirection: 0
 --- !u!95 &168472026
 Animator:
@@ -8800,7 +8802,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 087aba8a1f659744d9612d6728faebf1, type: 3}
+  m_Sprite: {fileID: 21300002, guid: 087aba8a1f659744d9612d6728faebf1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -8838,6 +8840,7 @@ MonoBehaviour:
   down: {fileID: 22100000, guid: 375e3bbd1ff8afe4d94dd06fadab3561, type: 2}
   side: {fileID: 22100000, guid: e45a562257913ed4d92be04d7a5d1bcd, type: 2}
   speed: 1
+  raycastDistance: 0.25
   myDirection: 0
 --- !u!1 &957260448
 GameObject:

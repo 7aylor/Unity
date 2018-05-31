@@ -609,8 +609,8 @@ public class MapGenerator : MonoBehaviour {
                 //float yPos = (float)y / 2 - sizeY / 4 + 0.25f;
 
                 //32 PPU, convert from array coords to game space coords
-                float xPos = (float)x - sizeX / 2;
-                float yPos = (float)y - sizeY / 2 + 0.8f;
+                float xPos = (float)x - sizeX / 2;//GameManager.instance.ArrayCoordToWorldCoordX(x);//
+                float yPos = (float)y - sizeY / 2 + 0.8f; //GameManager.instance.ArrayCoordToWorldCoordY(y);//
 
                 if (GameManager.instance.map[x,y] == (int)tileType.tree)
                 {
