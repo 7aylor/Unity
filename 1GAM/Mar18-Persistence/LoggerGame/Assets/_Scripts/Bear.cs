@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bear : MonoBehaviour {
 
     private SpriteRenderer sprite;
-    private BearController bearController;
+    private AnimalController bearController;
 
     private void Awake()
     {
@@ -14,7 +14,7 @@ public class Bear : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        bearController = transform.parent.GetComponent<BearController>();
+        bearController = transform.parent.GetComponent<AnimalController>();
     }
 
     private void OnTriggerStay2D(Collider2D collision)

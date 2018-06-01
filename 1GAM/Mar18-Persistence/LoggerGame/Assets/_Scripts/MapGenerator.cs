@@ -719,6 +719,7 @@ public class MapGenerator : MonoBehaviour {
                         grassTileIndex = 2;
                     }
 
+                    GameManager.instance.numGrassTiles++;
 
                     newTile = Instantiate(grass[grassTileIndex], new Vector3(xPos, yPos, 0), Quaternion.identity);
                 }
@@ -732,7 +733,10 @@ public class MapGenerator : MonoBehaviour {
         
         //updates the UI of the forest health
         FindObjectOfType<ForestHealth>().UpdateForestHealth();
-        FindObjectOfType<BearController>().SpawnBear();
+
+        AnimalController ac = FindObjectOfType<AnimalController>();
+        ac.SpawnBear();
+        ac.SpawnRabbit();
     }
 
     private GameObject isCurvedRiver(int x, int y, float xPos, float yPos)

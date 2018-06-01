@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour {
     public int numTreesInPlay;
     public int numRiverTiles;
     public int numObstacleTiles;
+    public int numGrassTiles;
     public int numTiles;
 
     public bool lumberjackHired;
@@ -60,10 +61,16 @@ public class GameManager : MonoBehaviour {
         totalNumberOfSales = 0;
         timeInBusiness = 0;
 
-        minWorldSpaceX = ArrayCoordToWorldCoordX(0);
-        minWorldSpaceY = ArrayCoordToWorldCoordY(0);
+        
         maxWorldSpaceX = ArrayCoordToWorldCoordX(sizeX);
         maxWorldSpaceY = ArrayCoordToWorldCoordX(sizeY);
+        minWorldSpaceX = -maxWorldSpaceX;
+        minWorldSpaceY = -maxWorldSpaceY;
+
+        Debug.Log("minWorldSpaceX" + minWorldSpaceX);
+        Debug.Log("minWorldSpaceY" + minWorldSpaceY);
+        Debug.Log("maxWorldSpaceX" + maxWorldSpaceX);
+        Debug.Log("maxWorldSpaceY" + maxWorldSpaceY);
 
         lumberjackHired = false;
         planterHired = false;
@@ -87,7 +94,7 @@ public class GameManager : MonoBehaviour {
 
     public float ArrayCoordToWorldCoordY(float num)
     {
-        return (float)num - sizeX / 2 + 0.8f;
+        return (float)num - sizeY / 2 + 0.8f;
     }
 }
 

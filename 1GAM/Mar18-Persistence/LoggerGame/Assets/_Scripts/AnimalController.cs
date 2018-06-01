@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BearController : MonoBehaviour {
+public class AnimalController : MonoBehaviour {
 
     public GameObject bear;
+    public GameObject rabbit;
 
     private int xPos = 0;
     private int yPos = 0;
@@ -26,7 +27,7 @@ public class BearController : MonoBehaviour {
     public void SpawnBear()
     {
         //pick random tree tile
-        PickTreeTile();
+        PickRespectiveTile((int)MapGenerator.tileType.tree);
 
         //spawn the bear
         ourBear = Instantiate(bear, new Vector3(spawnX, spawnY, 0), Quaternion.identity);
@@ -35,27 +36,35 @@ public class BearController : MonoBehaviour {
         bearSprite.enabled = false;
     }
 
+    public void SpawnRabbit()
+    {
+        Debug.Log("Spawn Rabbit Called");
+
+        int numRabbits = Random.Range(1, GameManager.instance.numGrassTiles / 4 + 1);
+
+        for(int i = 0; i < numRabbits; i++)
+        {
+            PickRespectiveTile((int)MapGenerator.tileType.grass);
+            GameObject ourRabbit = Instantiate(rabbit, new Vector3(spawnX, spawnY, 0), Quaternion.identity);
+            ourRabbit.transform.parent = transform;
+        }
+    }
+
     public void MoveBear()
     {
-        PickTreeTile();
+        PickRespectiveTile((int)MapGenerator.tileType.tree);
         ourBear.transform.position = new Vector3(spawnX, spawnY, 0);
     }
 
-    private void PickTreeTile()
+    private void PickRespectiveTile(int tileType)
     {
         do
         {
             xPos = Random.Range(0, GameManager.instance.sizeX);
             yPos = Random.Range(0, GameManager.instance.sizeY);
-            Debug.Log("xPos: " + xPos + " yPos: " + yPos + " Tile Type: " + GameManager.instance.map[xPos, yPos]);
-        } while (GameManager.instance.map[xPos, yPos] != (int)MapGenerator.tileType.tree);
+        } while (GameManager.instance.map[xPos, yPos] != tileType);
 
-        ConvertMapCoordsToWorldCoords();
-    }
-
-    private void ConvertMapCoordsToWorldCoords()
-    {
-        spawnX = (float)xPos - GameManager.instance.sizeX / 2;
-        spawnY = (float)yPos - GameManager.instance.sizeY / 2 + 0.8f;
+        spawnX = GameManager.instance.ArrayCoordToWorldCoordX(xPos);
+        spawnY = GameManager.instance.ArrayCoordToWorldCoordY(yPos);
     }
 }

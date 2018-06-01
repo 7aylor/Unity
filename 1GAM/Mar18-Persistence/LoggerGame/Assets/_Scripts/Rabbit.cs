@@ -44,8 +44,6 @@ public class Rabbit : MonoBehaviour {
 	void Update () {
         timeSinceLastChange += Time.deltaTime;
 
-
-
         //move in the direction you are going, unless you have no direction
         if(myDirection != direction.none)
         {
@@ -59,14 +57,16 @@ public class Rabbit : MonoBehaviour {
 
                 //Vector2 tempDir = myDirection;
                 RabbitReset();
-
             }
 
             //check for out of bounds
-            //if ()
-            //{
-
-            //}
+            if (transform.position.x > GameManager.instance.maxWorldSpaceX ||
+                transform.position.x < GameManager.instance.minWorldSpaceX ||
+                transform.position.y > GameManager.instance.maxWorldSpaceY ||
+                transform.position.y < GameManager.instance.minWorldSpaceY)
+            {
+                RabbitReset();
+            }
 
             transform.Translate(dirForce * Time.deltaTime);
         }
