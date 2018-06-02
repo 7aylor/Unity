@@ -62,15 +62,7 @@ public class GameManager : MonoBehaviour {
         timeInBusiness = 0;
 
         
-        maxWorldSpaceX = ArrayCoordToWorldCoordX(sizeX);
-        maxWorldSpaceY = ArrayCoordToWorldCoordX(sizeY);
-        minWorldSpaceX = -maxWorldSpaceX;
-        minWorldSpaceY = -maxWorldSpaceY;
-
-        Debug.Log("minWorldSpaceX" + minWorldSpaceX);
-        Debug.Log("minWorldSpaceY" + minWorldSpaceY);
-        Debug.Log("maxWorldSpaceX" + maxWorldSpaceX);
-        Debug.Log("maxWorldSpaceY" + maxWorldSpaceY);
+        
 
         lumberjackHired = false;
         planterHired = false;
@@ -80,6 +72,19 @@ public class GameManager : MonoBehaviour {
         rank = new int[]{ earlyPointsToNextLevel, earlyPointsToNextLevel, earlyPointsToNextLevel, earlyPointsToNextLevel, earlyPointsToNextLevel,
                           midPointsToNextLevel, midPointsToNextLevel, midPointsToNextLevel, midPointsToNextLevel, midPointsToNextLevel,
                           latePointsToNextLevel, latePointsToNextLevel, latePointsToNextLevel, latePointsToNextLevel, latePointsToNextLevel};
+    }
+
+    private void Start()
+    {
+        maxWorldSpaceX = ArrayCoordToWorldCoordX(sizeX);
+        maxWorldSpaceY = ArrayCoordToWorldCoordX(sizeY);
+        minWorldSpaceX = -maxWorldSpaceX;
+        minWorldSpaceY = -maxWorldSpaceY;
+
+        Debug.Log("minWorldSpaceX" + minWorldSpaceX);
+        Debug.Log("minWorldSpaceY" + minWorldSpaceY);
+        Debug.Log("maxWorldSpaceX" + maxWorldSpaceX);
+        Debug.Log("maxWorldSpaceY" + maxWorldSpaceY);
     }
 
     public void InstantiateMap(int x, int y)

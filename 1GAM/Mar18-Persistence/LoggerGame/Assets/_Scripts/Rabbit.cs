@@ -44,8 +44,25 @@ public class Rabbit : MonoBehaviour {
 	void Update () {
         timeSinceLastChange += Time.deltaTime;
 
+        //if(myDirection == direction.down && transform.position.y <= GameManager.instance.minWorldSpaceY && timeSinceLastChange > 1)
+        //{
+        //    RabbitReset(false);
+        //}
+        //else if (myDirection == direction.up && transform.position.y >= GameManager.instance.maxWorldSpaceY && timeSinceLastChange > 1)
+        //{
+        //    RabbitReset(false);
+        //}
+        //else if (myDirection == direction.left && transform.position.x <= GameManager.instance.minWorldSpaceX && timeSinceLastChange > 1)
+        //{
+        //    RabbitReset(false);
+        //}
+        //else if (myDirection == direction.right && transform.position.x >= GameManager.instance.maxWorldSpaceX && timeSinceLastChange > 1)
+        //{
+        //    RabbitReset(false);
+        //}
+
         //move in the direction you are going, unless you have no direction
-        if(myDirection != direction.none)
+        if (myDirection != direction.none)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, dirForce, 0.25f, LayerMask.GetMask("River"));
 
@@ -56,16 +73,7 @@ public class Rabbit : MonoBehaviour {
                 Debug.Log("River hit");
 
                 //Vector2 tempDir = myDirection;
-                RabbitReset();
-            }
-
-            //check for out of bounds
-            if (transform.position.x > GameManager.instance.maxWorldSpaceX ||
-                transform.position.x < GameManager.instance.minWorldSpaceX ||
-                transform.position.y > GameManager.instance.maxWorldSpaceY ||
-                transform.position.y < GameManager.instance.minWorldSpaceY)
-            {
-                RabbitReset();
+                RabbitReset(true);
             }
 
             transform.Translate(dirForce * Time.deltaTime);
@@ -74,16 +82,41 @@ public class Rabbit : MonoBehaviour {
         //if time has elapsed, pick new direction
         if (timeSinceLastChange >= spawnTime)
         {
-            RabbitReset();
+            RabbitReset(true);
         }
     }
 
-    private void RabbitReset()
+    private void RabbitReset(bool random)
     {
-        myDirection = GetRandomDirection();
+        if (random)
+        {
+            myDirection = GetRandomDirection();
+        }
+        else
+        {
+            myDirection = GetOppositeDirection(myDirection);
+        }
+        
         UpdateAnimator();
         spawnTime = GetRandomFloat();
         timeSinceLastChange = 0;
+    }
+
+    private direction GetOppositeDirection(direction currentDirection)
+    {
+        switch (currentDirection)
+        {
+            case direction.up:
+                return direction.down;
+            case direction.down:
+                return direction.up;
+            case direction.left:
+                return direction.right;
+            case direction.right:
+                return direction.left;
+            default:
+                return GetRandomDirection();
+        }
     }
 
     /// <summary>

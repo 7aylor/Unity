@@ -537,16 +537,18 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             //Trigger Fire/Quit Player notification
             SelectPlayer(false);
 
-            if (tag == "Lumberjack")
-            {
-                actionPanel.EnableDisableSingleButton(lumberjackHireButton.gameObject, true);
-                GameManager.instance.lumberjackHired = false;
-            }
-            else if(tag == "Planter")
-            {
-                actionPanel.EnableDisableSingleButton(planterHireButton.gameObject, true);
-                GameManager.instance.planterHired = false;
-            }
+            fireButton.FireSelectedPlayer();
+
+            //if (tag == "Lumberjack")
+            //{
+            //    actionPanel.EnableDisableSingleButton(lumberjackHireButton.gameObject, true);
+            //    GameManager.instance.lumberjackHired = false;
+            //}
+            //else if(tag == "Planter")
+            //{
+            //    actionPanel.EnableDisableSingleButton(planterHireButton.gameObject, true);
+            //    GameManager.instance.planterHired = false;
+            //}
 
             Destroy(tempFlag);
             Destroy(gameObject);
