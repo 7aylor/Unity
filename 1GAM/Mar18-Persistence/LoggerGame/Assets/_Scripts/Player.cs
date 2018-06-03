@@ -564,18 +564,13 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         {
             if (tag == "Lumberjack")
             {
-                Debug.Log("current rank " + currentRank);
-                Debug.Log("point towards next rank " + pointTowardsNextRank);
-
                 //check rank to enable promotion button
                 if (pointTowardsNextRank < GameManager.instance.rank[currentRank])
                 {
-                    Debug.Log("Enabled promotion button from Handle Action Panel Buttons");
                     actionPanel.EnableDisableSingleButton(promoteLumberJackButton.gameObject, false);
                 }
                 else
                 {
-                    Debug.Log("Disabled promotion button from Handle Action Panel Buttons");
                     actionPanel.EnableDisableSingleButton(promoteLumberJackButton.gameObject, true);
                 }
 

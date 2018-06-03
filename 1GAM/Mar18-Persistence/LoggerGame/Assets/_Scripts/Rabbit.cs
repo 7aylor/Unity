@@ -21,8 +21,9 @@ public class Rabbit : MonoBehaviour {
 
     private Vector2 dirForce;
 
-    private int maxTime = 3;
-    private float spawnTime;
+    private int maxTime = 5;
+    private int numHitsInTimePeriod = 0;
+    private float timeToChangeDir;
     private float timeSinceLastChange;
 
     private void Awake()
@@ -37,69 +38,77 @@ public class Rabbit : MonoBehaviour {
         myDirection = GetRandomDirection();
         UpdateAnimator();
         timeSinceLastChange = 0;
-        spawnTime = GetRandomFloat();
+        timeToChangeDir = GetRandomFloat();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        timeSinceLastChange += Time.deltaTime;
-
-        //if(myDirection == direction.down && transform.position.y <= GameManager.instance.minWorldSpaceY && timeSinceLastChange > 1)
-        //{
-        //    RabbitReset(false);
-        //}
-        //else if (myDirection == direction.up && transform.position.y >= GameManager.instance.maxWorldSpaceY && timeSinceLastChange > 1)
-        //{
-        //    RabbitReset(false);
-        //}
-        //else if (myDirection == direction.left && transform.position.x <= GameManager.instance.minWorldSpaceX && timeSinceLastChange > 1)
-        //{
-        //    RabbitReset(false);
-        //}
-        //else if (myDirection == direction.right && transform.position.x >= GameManager.instance.maxWorldSpaceX && timeSinceLastChange > 1)
-        //{
-        //    RabbitReset(false);
-        //}
+        timeSinceLastChange += Time.deltaTime; 
 
         //move in the direction you are going, unless you have no direction
         if (myDirection != direction.none)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, dirForce, 0.25f, LayerMask.GetMask("River"));
+            float distance = 0.1f;
 
-            Debug.DrawLine(transform.position, transform.position + (Vector3)dirForce * 0.25f, Color.red);
+            //check what is in front of the rabbit with a raycast
+            RaycastHit2D hit = Physics2D.Raycast(transform.position + (Vector3)dirForce * distance, dirForce, distance);
 
-            if (hit)
+            Debug.DrawLine(transform.position, transform.position + (Vector3)dirForce * distance, Color.red);
+
+            //if we don't hit a grass tile, change directions
+            if (hit.collider != null && hit.collider.tag != "Grass")
             {
-                Debug.Log("River hit");
+                numHitsInTimePeriod++;
 
-                //Vector2 tempDir = myDirection;
-                RabbitReset(true);
+                if(numHitsInTimePeriod > 2)
+                {
+                    SetDirection(direction.none);
+                }
+                else
+                {
+                    SetRandomDirection();
+                }
+                return;
             }
 
             transform.Translate(dirForce * Time.deltaTime);
         }
 
         //if time has elapsed, pick new direction
-        if (timeSinceLastChange >= spawnTime)
+        if (timeSinceLastChange >= timeToChangeDir)
         {
-            RabbitReset(true);
+            SetRandomDirection();
         }
     }
 
-    private void RabbitReset(bool random)
-    {
-        if (random)
-        {
-            myDirection = GetRandomDirection();
-        }
-        else
-        {
-            myDirection = GetOppositeDirection(myDirection);
-        }
-        
+    /// <summary>
+    /// Resets animator and values when an animation changes. Should be called from direction change methods
+    /// </summary>
+    private void Reset()
+    {   
         UpdateAnimator();
-        spawnTime = GetRandomFloat();
+        timeToChangeDir = GetRandomFloat();
         timeSinceLastChange = 0;
+        numHitsInTimePeriod = 0;
+    }
+
+    /// <summary>
+    /// Set rabbit direction to a random direction
+    /// </summary>
+    private void SetRandomDirection()
+    {
+        myDirection = GetRandomDirection();
+        Reset();
+    }
+
+    /// <summary>
+    /// Set rabbit direction to given argument
+    /// </summary>
+    /// <param name="newDir"></param>
+    private void SetDirection(direction newDir)
+    {
+        myDirection = newDir;
+        Reset();
     }
 
     private direction GetOppositeDirection(direction currentDirection)

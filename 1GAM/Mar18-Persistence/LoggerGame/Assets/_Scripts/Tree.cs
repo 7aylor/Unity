@@ -199,14 +199,16 @@ public class Tree : MonoBehaviour {
                 lumberjack = GameObject.FindGameObjectWithTag("Lumberjack").GetComponent<Player>();
             }
 
-            //stops the lumberjack chop animation
-            lumberjack.ClearLumberjackAnimations();
-
             //update the ui and count of lumber in the bank
             lumberCount.UpdateLumberCount(lumberYielded);
 
+            GetComponent<Collider2D>().enabled = false;
+
             GameObject grass = Instantiate(grassTile, transform);
             grass.transform.parent = GameObject.FindGameObjectWithTag("Terrain").transform;
+
+            //stops the lumberjack chop animation
+            lumberjack.ClearLumberjackAnimations();
 
             //destroy tree
             Destroy(gameObject);
