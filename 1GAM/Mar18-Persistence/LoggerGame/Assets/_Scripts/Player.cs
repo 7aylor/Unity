@@ -527,8 +527,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        collidingTile = collision.gameObject;
-        collidingTileAnimator = collidingTile.GetComponent<Animator>();
+        SetCollidingTile(collision.gameObject);
         //HandleActionPanelButtons();
 
         //if we jump out of the play space, destroy the player and reset values
@@ -560,7 +559,17 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     /// </summary>
     private void HandleActionPanelButtons()
     {
-        if(GameManager.instance.selectedPlayer == this)
+        ////Shows the method that this is called from
+        //System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
+        //int caller = 1;
+
+        //System.Diagnostics.StackFrame frame = trace.GetFrame(caller);
+
+        //string callerName = frame.GetMethod().Name;
+
+        //UnityEngine.Debug.Log(frame);
+
+        if (GameManager.instance.selectedPlayer == this)
         {
             if (tag == "Lumberjack")
             {
@@ -723,7 +732,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     /// </summary>
     public void LumberjackDigAnimation()
     {
-        if (collidingTileAnimator != null)
+        if (collidingTile.tag == "Tree")
         {
             collidingTileAnimator.GetComponent<Tree>().DigOutStump();
         }
@@ -818,5 +827,15 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     public void AddFatigue()
     {
         fatigueSlider.value += fatigueIncrement;
+    }
+
+    /// <summary>
+    /// Used to set the tile and the animation that the Player is colliding with
+    /// </summary>
+    /// <param name="obj"></param>
+    public void SetCollidingTile(GameObject obj)
+    {
+        collidingTile = obj;
+        collidingTileAnimator = collidingTile.GetComponent<Animator>();
     }
 }

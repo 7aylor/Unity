@@ -201,11 +201,12 @@ public class Tree : MonoBehaviour {
 
             //update the ui and count of lumber in the bank
             lumberCount.UpdateLumberCount(lumberYielded);
-
-            GetComponent<Collider2D>().enabled = false;
-
+            
             GameObject grass = Instantiate(grassTile, transform);
             grass.transform.parent = GameObject.FindGameObjectWithTag("Terrain").transform;
+
+            //must set the colliding tile of the player to the grass so that the HandleActionPanel method doesn't think it's still the tree
+            lumberjack.SetCollidingTile(grass);
 
             //stops the lumberjack chop animation
             lumberjack.ClearLumberjackAnimations();
