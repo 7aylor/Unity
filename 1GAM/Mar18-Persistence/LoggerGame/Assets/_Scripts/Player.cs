@@ -536,18 +536,14 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             //Trigger Fire/Quit Player notification
             SelectPlayer(false);
 
-            fireButton.FireSelectedPlayer();
-
-            //if (tag == "Lumberjack")
-            //{
-            //    actionPanel.EnableDisableSingleButton(lumberjackHireButton.gameObject, true);
-            //    GameManager.instance.lumberjackHired = false;
-            //}
-            //else if(tag == "Planter")
-            //{
-            //    actionPanel.EnableDisableSingleButton(planterHireButton.gameObject, true);
-            //    GameManager.instance.planterHired = false;
-            //}
+            if (tag == "Lumberjack")
+            {
+                fireButton.FireSelectedPlayer("Lumberjack");
+            }
+            else if (tag == "Planter")
+            {
+                fireButton.FireSelectedPlayer("Planter");
+            }
 
             Destroy(tempFlag);
             Destroy(gameObject);
@@ -761,7 +757,6 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             canMove = true;
 
             pointTowardsNextRank++;
-            HandleActionPanelButtons();
 
             ////destroy the grass tile
             Destroy(collidingTile);
@@ -770,6 +765,9 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             collidingTile = Instantiate(tree, transform.position, Quaternion.identity);
             collidingTile.transform.parent = terrain;
             collidingTile.GetComponent<Tree>().StartAsSeed();
+
+            //Update buttons in action panel
+            HandleActionPanelButtons();
 
             //resets the seeds planted count
             seedsPlanted = 0;

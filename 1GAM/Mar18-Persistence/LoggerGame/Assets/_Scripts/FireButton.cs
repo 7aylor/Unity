@@ -16,40 +16,48 @@ public class FireButton : MonoBehaviour {
     /// <summary>
     /// Called when Fire button is clicked. Fires selected player and updates UI
     /// </summary>
-    public void FireSelectedPlayer()
+    public void FireSelectedPlayer(string player="")
     {
-        if(GameManager.instance.playerSelected == true)
+        Debug.Log("called fire player");
+
+        //reset
+        foreach (Skill s in GameManager.instance.skillLevels)
         {
-            //reset
-            foreach (Skill s in GameManager.instance.skillLevels)
+            if (s.associatedPlayer == "Lumberjack" && (player == "Lumberjack" || 
+                (GameManager.instance.selectedPlayer != null && 
+                GameManager.instance.selectedPlayer.tag == "Lumberjack")))
             {
-                if (s.associatedPlayer == "Lumberjack")
-                {
-                    s.level = 1;
-                }
-                if(s.associatedPlayer == "Planter")
-                {
-                    s.level = 1;
-                }
+                s.level = 1;
             }
-
-            GameManager.instance.playerSelected = false;
-            
-            if(GameManager.instance.selectedPlayer.tag == "Lumberjack")
+            if(s.associatedPlayer == "Planter" && (player == "Planter" ||
+                (GameManager.instance.selectedPlayer != null && 
+                GameManager.instance.selectedPlayer.tag == "Planter")))
             {
-                GameManager.instance.lumberjackHired = false;
-                lumberJackPromotePanel.ResetSkillLevels();
+                s.level = 1;
             }
-            if (GameManager.instance.selectedPlayer.tag == "Planter")
-            {
-                GameManager.instance.planterHired = false;
-                planterPromotePanel.ResetSkillLevels();
-            }
-
-            Destroy(GameManager.instance.selectedPlayer.gameObject);
-            actionPanel.selectedPlayer = ActionPanel.SelectedPlayer.none;
-            actionPanel.ActionsButtonClick();
-            gameObject.SetActive(false);
         }
+            
+        if(player == "Lumberjack" || (GameManager.instance.selectedPlayer != null &&
+            GameManager.instance.selectedPlayer.tag == "Lumberjack"))
+        {
+            GameManager.instance.lumberjackHired = false;
+            lumberJackPromotePanel.ResetSkillLevels();
+        }
+        if (player == "Planter" || (GameManager.instance.selectedPlayer != null &&
+            GameManager.instance.selectedPlayer.tag == "Planter"))
+        {
+            GameManager.instance.planterHired = false;
+            planterPromotePanel.ResetSkillLevels();
+        }
+
+        if(player == "")
+        {
+            Destroy(GameManager.instance.selectedPlayer.gameObject);
+        }
+
+        GameManager.instance.playerSelected = false;
+        actionPanel.selectedPlayer = ActionPanel.SelectedPlayer.none;
+        actionPanel.ActionsButtonClick();
+        gameObject.SetActive(false);
     }
 }

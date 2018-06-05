@@ -368,8 +368,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f3a37882d5fafe43b4311ddea6a7ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillLevels: []
-  promotionPoints: {fileID: 0}
+  skillLevels:
+  - {fileID: 405057020}
+  - {fileID: 642867961}
+  - {fileID: 1697567019}
+  - {fileID: 556991515}
+  - {fileID: 165421956}
+  promotionPoints: {fileID: 1779533180}
 --- !u!1 &40540540
 GameObject:
   m_ObjectHideFlags: 0
@@ -1508,7 +1513,7 @@ GameObject:
   - component: {fileID: 165421956}
   - component: {fileID: 165421958}
   m_Layer: 5
-  m_Name: Level
+  m_Name: Level Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5775,7 +5780,7 @@ GameObject:
   - component: {fileID: 509394651}
   - component: {fileID: 509394653}
   m_Layer: 5
-  m_Name: Level
+  m_Name: Level Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5942,7 +5947,7 @@ GameObject:
   - component: {fileID: 556991515}
   - component: {fileID: 556991517}
   m_Layer: 5
-  m_Name: Level
+  m_Name: Level Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6433,7 +6438,7 @@ GameObject:
   - component: {fileID: 642867961}
   - component: {fileID: 642867963}
   m_Layer: 5
-  m_Name: Level
+  m_Name: Level Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10451,7 +10456,7 @@ GameObject:
   - component: {fileID: 1200482627}
   - component: {fileID: 1200482629}
   m_Layer: 5
-  m_Name: Level
+  m_Name: Level Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12511,8 +12516,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f3a37882d5fafe43b4311ddea6a7ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillLevels: []
-  promotionPoints: {fileID: 0}
+  skillLevels:
+  - {fileID: 1705400130}
+  - {fileID: 1921900926}
+  - {fileID: 1553694673}
+  - {fileID: 1200482627}
+  - {fileID: 509394651}
+  promotionPoints: {fileID: 2033616932}
 --- !u!224 &1395869046 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224737187064058262, guid: 953510ffb9083ab4596e49b25956e800,
@@ -14425,7 +14435,7 @@ GameObject:
   - component: {fileID: 1553694673}
   - component: {fileID: 1553694675}
   m_Layer: 5
-  m_Name: Level
+  m_Name: Level Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15709,7 +15719,7 @@ GameObject:
   - component: {fileID: 1697567019}
   - component: {fileID: 1697567018}
   m_Layer: 5
-  m_Name: Level
+  m_Name: Level Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18139,7 +18149,7 @@ GameObject:
   - component: {fileID: 1921900926}
   - component: {fileID: 1921900928}
   m_Layer: 5
-  m_Name: Level
+  m_Name: Level Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20924,7 +20934,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2098594018}
         m_MethodName: FireSelectedPlayer
-        m_Mode: 1
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
