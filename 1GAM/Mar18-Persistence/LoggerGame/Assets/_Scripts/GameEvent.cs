@@ -22,7 +22,7 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
     private TMP_Text eventText;
     private Animator TalkingHeadAnimator;
 
-    private EventManager eventManager;
+    private BidManager bidManager;
     private bool isAccepted;
 
     public NameAnimPair[] companies;
@@ -38,7 +38,7 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
         eventText = GetComponentInChildren<TMP_Text>();
         TalkingHeadAnimator = GetComponentInChildren<Animator>();
         rectTransform = GetComponent<RectTransform>();
-        eventManager = GameObject.FindObjectOfType<EventManager>();
+        bidManager = GameObject.FindObjectOfType<BidManager>();
         screenHeight = FindObjectOfType<Canvas>().pixelRect.height;
         screenWidth = FindObjectOfType<Canvas>().pixelRect.width;
         money = FindObjectOfType<Money>();
@@ -94,7 +94,7 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
 
             GetComponent<Image>().DOFade(0, 1).OnComplete(() =>
             {
-                eventManager.RemoveEventFromQueue(gameObject);
+                bidManager.RemoveEventFromQueue(gameObject);
                 money.ChangeMoneyAmount(priceToPay);
                 lumber.UpdateLumberCount(-lumberNeeded);
                 GameManager.instance.lumberInMarket += lumberNeeded;

@@ -28,6 +28,7 @@ public class LevelManager : MonoBehaviour {
     /// <param name="sceneIndex"></param>
     public void LoadScene(int sceneIndex)
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(sceneIndex);
     }
 
@@ -37,6 +38,7 @@ public class LevelManager : MonoBehaviour {
     /// <param name="sceneName"></param>
     public void LoadScene(string sceneName)
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(sceneName);
     }
 

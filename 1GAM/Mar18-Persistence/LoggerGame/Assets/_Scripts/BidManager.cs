@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 
-public class EventManager : MonoBehaviour {
+public class BidManager : MonoBehaviour {
 
     public GameObject ourEvent;
     public Transform eventParent;
@@ -23,14 +23,14 @@ public class EventManager : MonoBehaviour {
     private int currentEvent;
     private TMP_Text bannerText;
     private Image bannerImage;
-    private EventPanel eventPanel;
+    private BidPanel bidPanel;
 
     private void Awake()
     {
         eventQueue = new List<GameObject>();
         bannerText = eventBanner.GetComponentInChildren<TMP_Text>();
         bannerImage = eventBanner.GetComponent<Image>();
-        eventPanel = FindObjectOfType<EventPanel>();
+        bidPanel = FindObjectOfType<BidPanel>();
     }
 
     // Use this for initialization
@@ -54,7 +54,7 @@ public class EventManager : MonoBehaviour {
                 eventQueue.Add(newEvent);
 
                 //if the panel is hidden, fade in the new event banner
-                if (eventPanel.IsPanelHidden() == true)
+                if (bidPanel.IsPanelHidden() == true)
                 {
                     FadeBanner(1);
                 }

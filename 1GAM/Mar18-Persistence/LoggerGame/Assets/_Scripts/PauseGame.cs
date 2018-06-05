@@ -5,9 +5,9 @@ using UnityEngine;
 public class PauseGame : MonoBehaviour {
 
     /// <summary>
-    /// When in the menu panel, pause the game
+    /// Pauses the Game
     /// </summary>
-    /// <param name="isPaused"></param>
+    /// <param name="isPaused">true to pause, false to unpause</param>
     public void Pause(bool isPaused)
     {
         if (isPaused)

@@ -5,19 +5,19 @@ using DG.Tweening;
 using UnityEngine.UI;
 using TMPro;
 
-public class EventPanel : MonoBehaviour {
+public class BidPanel : MonoBehaviour {
 
     [SerializeField]
     private static bool hide;
     private float screenHeight;
     private RectTransform rectTransform;
-    private EventManager eventManager;
+    private BidManager bidManager;
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         screenHeight = FindObjectOfType<Canvas>().pixelRect.height;
-        eventManager = FindObjectOfType<EventManager>();
+        bidManager = FindObjectOfType<BidManager>();
     }
 
     private void Start()
@@ -33,9 +33,9 @@ public class EventPanel : MonoBehaviour {
         {
             rectTransform.DOAnchorPosY(0 - (rectTransform.rect.height / 2), 1).OnComplete(() =>
             {
-                if(eventManager.IsEventQueueEmpty() == false)
+                if(bidManager.IsEventQueueEmpty() == false)
                 {
-                    eventManager.FadeBanner(0);
+                    bidManager.FadeBanner(0);
                 }
                 
                 

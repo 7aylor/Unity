@@ -36,7 +36,7 @@ public class Demand : MonoBehaviour {
     public demand marketDemand;
 
     private TMP_Text text;
-    private EventManager eventManager;
+    private BidManager bidManager;
 
     //private float timeToNextDemandIncrease;
     //private float timeSinceLastIncrease;
@@ -44,7 +44,7 @@ public class Demand : MonoBehaviour {
     private void Awake()
     {
         text = GetComponent<TMP_Text>();
-        eventManager = FindObjectOfType<EventManager>();
+        bidManager = FindObjectOfType<BidManager>();
     }
 
     // Use this for initialization
@@ -104,35 +104,35 @@ public class Demand : MonoBehaviour {
             marketDemand = demand.Very_Low;
             text.text = demand.Very_Low.ToString().Replace('_', ' ');
             text.color = veryLowColor;
-            eventManager.UpdateSpawnTime(spawnTimeVeryLow);
+            bidManager.UpdateSpawnTime(spawnTimeVeryLow);
         }
         else if(GameManager.instance.lumberInMarket < 500 && GameManager.instance.lumberInMarket >= 300)
         {
             marketDemand = demand.Low;
             text.text = demand.Low.ToString();
             text.color = lowColor;
-            eventManager.UpdateSpawnTime(spawnTimeLow);
+            bidManager.UpdateSpawnTime(spawnTimeLow);
         }
         else if (GameManager.instance.lumberInMarket < 300 && GameManager.instance.lumberInMarket >= 200)
         {
             marketDemand = demand.Medium;
             text.text = demand.Medium.ToString();
             text.color = mediumColor;
-            eventManager.UpdateSpawnTime(spawnTimeMedium);
+            bidManager.UpdateSpawnTime(spawnTimeMedium);
         }
         else if (GameManager.instance.lumberInMarket < 200 && GameManager.instance.lumberInMarket >= 100)
         {
             marketDemand = demand.High;
             text.text = demand.High.ToString();
             text.color = highColor;
-            eventManager.UpdateSpawnTime(spawnTimeHigh);
+            bidManager.UpdateSpawnTime(spawnTimeHigh);
         }
         else
         {
             marketDemand = demand.Very_High;
             text.text = demand.Very_High.ToString().Replace('_', ' ');
             text.color = veryHighColor;
-            eventManager.UpdateSpawnTime(spawnTimeVeryHigh);
+            bidManager.UpdateSpawnTime(spawnTimeVeryHigh);
         }
     }
 }
