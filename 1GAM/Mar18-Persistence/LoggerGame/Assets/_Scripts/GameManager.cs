@@ -61,9 +61,6 @@ public class GameManager : MonoBehaviour {
         totalNumberOfSales = 0;
         timeInBusiness = 0;
 
-        
-        
-
         lumberjackHired = false;
         planterHired = false;
 
@@ -101,6 +98,18 @@ public class GameManager : MonoBehaviour {
     {
         return (float)num - sizeY / 2 + 0.8f;
     }
+
+    public int WorldCoordToArrayCoordX(float num)
+    {
+        return (int)(num + (sizeX / 2));
+    }
+
+    public int WorldCoordToArrayCoordY(float num)
+    {
+        return (int)(num + (sizeY / 2));
+    }
+
+
 }
 
 public class Skill

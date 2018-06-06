@@ -34,6 +34,9 @@ public class Tree : MonoBehaviour {
     private float timeToGrow;
     private int stumpHealth;
 
+    [SerializeField]
+    private Vector2Int pos;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -51,6 +54,9 @@ public class Tree : MonoBehaviour {
         timeSinceLastGrowth = 0;
         timeToGrow = GetNewGrowthTime();
         waterCount = 0;
+        pos.x = GameManager.instance.WorldCoordToArrayCoordX(transform.position.x);
+        pos.y = GameManager.instance.WorldCoordToArrayCoordY(transform.position.y);
+        GameManager.instance.map[pos.x, pos.y] = (int)MapGenerator.tileType.tree;
     }
 
     private void Update()
