@@ -42,7 +42,8 @@ public class MapGenerator : MonoBehaviour {
         startRiver,
         straightRiver,
         curveRiver,
-        endRiver
+        endRiver,
+        house
     }
 
     private void Start()

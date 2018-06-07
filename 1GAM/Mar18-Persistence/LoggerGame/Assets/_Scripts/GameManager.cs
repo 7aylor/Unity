@@ -108,8 +108,6 @@ public class GameManager : MonoBehaviour {
     {
         return (int)(num + (sizeY / 2));
     }
-
-
 }
 
 public class Skill

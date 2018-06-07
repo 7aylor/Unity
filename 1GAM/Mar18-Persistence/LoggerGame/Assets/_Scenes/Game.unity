@@ -565,7 +565,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4927552949661726, guid: 403040152766a1b4b8d2d4837ae61e91, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 403040152766a1b4b8d2d4837ae61e91, type: 2}
@@ -6610,6 +6610,34 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 568207925}
+--- !u!1 &575451682
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 575451683}
+  m_Layer: 0
+  m_Name: Houses
+  m_TagString: Houses
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &575451683
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 575451682}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.888469, y: -1.666749, z: -0.56211567}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &581040260
 Prefab:
   m_ObjectHideFlags: 0
@@ -10197,7 +10225,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 269bf2df21693ff43bc989f85df08fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  house: []
+  houses:
+  - {fileID: 1940373264568484, guid: 72ac6a8a26fa5a24983526506c33fd09, type: 2}
 --- !u!1 &1015088750
 GameObject:
   m_ObjectHideFlags: 0

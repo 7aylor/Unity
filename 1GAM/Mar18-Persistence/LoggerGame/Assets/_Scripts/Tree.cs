@@ -211,6 +211,9 @@ public class Tree : MonoBehaviour {
             GameObject grass = Instantiate(grassTile, transform);
             grass.transform.parent = GameObject.FindGameObjectWithTag("Terrain").transform;
 
+            //update the map at the position to now be grass
+            GameManager.instance.map[pos.x, pos.y] = (int)MapGenerator.tileType.grass;
+
             //must set the colliding tile of the player to the grass so that the HandleActionPanel method doesn't think it's still the tree
             lumberjack.SetCollidingTile(grass);
 
