@@ -14,12 +14,6 @@ using TMPro;
 /// </summary>
 public class Demand : MonoBehaviour {
 
-    //public float minTimeToIncrease;
-    //public float maxTimeToIncrease;
-    //public int minDemand;
-    //public int maxDemand;
-
-
     public int spawnTimeVeryLow;
     public int spawnTimeLow;
     public int spawnTimeMedium;
@@ -32,107 +26,78 @@ public class Demand : MonoBehaviour {
     public Color highColor;
     public Color veryHighColor;
 
-    public enum demand { Very_High, High, Medium, Low, Very_Low }
+    public enum demand { Very_High = 0, High = 100, Medium = 200, Low = 300, Very_Low = 500 }
     public demand marketDemand;
 
-    private TMP_Text text;
+    private TMP_Text marketDemandText;
     private BidManager bidManager;
-
-    //private float timeToNextDemandIncrease;
-    //private float timeSinceLastIncrease;
 
     private void Awake()
     {
-        text = GetComponent<TMP_Text>();
+        marketDemandText = GetComponent<TMP_Text>();
         bidManager = FindObjectOfType<BidManager>();
     }
 
-    // Use this for initialization
-    void Start()
+    private void Start()
     {
-        //UpdateDemandText();
-        //timeSinceLastIncrease = 0;
-        //timeToNextDemandIncrease = GetNewTimeToIncrease();
+        Debug.Log("Very Low " + (int)demand.Very_Low);
+    }
 
-        //marketDemand = demand.medium;
-    } 
-
-    //private void Update()
-    //{
-    //    //check if it is time to increase the demand
-    //    if(timeSinceLastIncrease >= timeToNextDemandIncrease)
-    //    {
-    //        //increase demand
-    //        GameManager.instance.demand += GetNewDemand();
-
-    //        //update text
-    //        UpdateDemandText();
-
-    //        //get new time
-    //        timeToNextDemandIncrease = GetNewTimeToIncrease();
-
-    //        //reset the timer
-    //        timeSinceLastIncrease = 0;
-
-    //        //maybe throw an event here?
-    //    }
-    //    else
-    //    {
-    //        timeSinceLastIncrease += Time.deltaTime;
-    //    }
-    //}
-
-    //private float GetNewTimeToIncrease()
-    //{
-    //    return Random.Range(minTimeToIncrease, maxTimeToIncrease);
-    //}
-
-    //private int GetNewDemand()
-    //{
-    //    return Random.Range(minDemand, maxDemand);
-    //}
-
-    //private void UpdateDemandText()
-    //{
-    //    text.text = GameManager.instance.demand.ToString();
-    //}
 
     public void UpdateDemand()
     {
-        if(GameManager.instance.lumberInMarket >= 500)
+        //very low demand
+        if(GameManager.instance.lumberInMarket >= (int)demand.Very_Low)
         {
-            marketDemand = demand.Very_Low;
-            text.text = demand.Very_Low.ToString().Replace('_', ' ');
-            text.color = veryLowColor;
-            bidManager.UpdateSpawnTime(spawnTimeVeryLow);
+            SetDemandVarsAndText(demand.Very_Low, demand.Very_Low.ToString().Replace('_', ' '), veryLowColor, spawnTimeVeryLow);
+            //marketDemand = demand.Very_Low;
+            //marketDemandText.text = demand.Very_Low.ToString().Replace('_', ' ');
+            //marketDemandText.color = veryLowColor;
+            //bidManager.UpdateSpawnTime(spawnTimeVeryLow);
         }
-        else if(GameManager.instance.lumberInMarket < 500 && GameManager.instance.lumberInMarket >= 300)
+        //low demand
+        else if(GameManager.instance.lumberInMarket < (int)demand.Very_Low && GameManager.instance.lumberInMarket >= (int)demand.Low)
         {
-            marketDemand = demand.Low;
-            text.text = demand.Low.ToString();
-            text.color = lowColor;
-            bidManager.UpdateSpawnTime(spawnTimeLow);
+            SetDemandVarsAndText(demand.Low, demand.Low.ToString(), lowColor, spawnTimeLow);
+            //marketDemand = demand.Low;
+            //marketDemandText.text = demand.Low.ToString();
+            //marketDemandText.color = lowColor;
+            //bidManager.UpdateSpawnTime(spawnTimeLow);
         }
-        else if (GameManager.instance.lumberInMarket < 300 && GameManager.instance.lumberInMarket >= 200)
+        //medium demand
+        else if (GameManager.instance.lumberInMarket < (int)demand.Low && GameManager.instance.lumberInMarket >= (int)demand.Medium)
         {
-            marketDemand = demand.Medium;
-            text.text = demand.Medium.ToString();
-            text.color = mediumColor;
-            bidManager.UpdateSpawnTime(spawnTimeMedium);
+            SetDemandVarsAndText(demand.Medium, demand.Medium.ToString(), mediumColor, spawnTimeMedium);
+            //marketDemand = demand.Medium;
+            //marketDemandText.text = demand.Medium.ToString();
+            //marketDemandText.color = mediumColor;
+            //bidManager.UpdateSpawnTime(spawnTimeMedium);
         }
-        else if (GameManager.instance.lumberInMarket < 200 && GameManager.instance.lumberInMarket >= 100)
+        //high demand
+        else if (GameManager.instance.lumberInMarket < (int)demand.Medium && GameManager.instance.lumberInMarket >= (int)demand.High)
         {
-            marketDemand = demand.High;
-            text.text = demand.High.ToString();
-            text.color = highColor;
-            bidManager.UpdateSpawnTime(spawnTimeHigh);
+            SetDemandVarsAndText(demand.High, demand.High.ToString(), highColor, spawnTimeHigh);
+            //marketDemand = demand.High;
+            //marketDemandText.text = demand.High.ToString();
+            //marketDemandText.color = highColor;
+            //bidManager.UpdateSpawnTime(spawnTimeHigh);
         }
+        //very high demand
         else
         {
-            marketDemand = demand.Very_High;
-            text.text = demand.Very_High.ToString().Replace('_', ' ');
-            text.color = veryHighColor;
-            bidManager.UpdateSpawnTime(spawnTimeVeryHigh);
+            SetDemandVarsAndText(demand.Very_High, demand.Very_High.ToString().Replace('_', ' '), veryHighColor, spawnTimeVeryHigh);
+            //marketDemand = demand.Very_High;
+            //marketDemandText.text = demand.Very_High.ToString().Replace('_', ' ');
+            //marketDemandText.color = veryHighColor;
+            //bidManager.UpdateSpawnTime(spawnTimeVeryHigh);
         }
+    }
+
+    private void SetDemandVarsAndText(demand newDemand, string newDemandText, Color newDemandColor, int newBidTime)
+    {
+        marketDemand = newDemand;
+        marketDemandText.text = newDemandText;
+        marketDemandText.color = newDemandColor;
+        bidManager.UpdateSpawnTime(newBidTime);
     }
 }

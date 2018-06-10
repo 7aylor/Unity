@@ -123,6 +123,10 @@ public class BidManager : MonoBehaviour {
         return eventQueue.Count == 0;
     }
 
+    /// <summary>
+    /// Sets the amount of time it takes for a new bid to be pitched
+    /// </summary>
+    /// <param name="newSpawnTime">new bid time</param>
     public void UpdateSpawnTime(int newSpawnTime)
     {
         //timeSinceLastEvent = 0;

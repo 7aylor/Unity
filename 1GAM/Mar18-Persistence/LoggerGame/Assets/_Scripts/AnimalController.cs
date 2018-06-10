@@ -38,8 +38,6 @@ public class AnimalController : MonoBehaviour {
 
     public void SpawnRabbit()
     {
-        Debug.Log("Spawn Rabbit Called");
-
         int numRabbits = Random.Range(0, 1 + GameManager.instance.numGrassTiles / 6);
 
         for(int i = 0; i < numRabbits; i++)

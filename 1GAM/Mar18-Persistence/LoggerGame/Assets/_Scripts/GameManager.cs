@@ -78,10 +78,10 @@ public class GameManager : MonoBehaviour {
         minWorldSpaceX = -maxWorldSpaceX;
         minWorldSpaceY = -maxWorldSpaceY;
 
-        Debug.Log("minWorldSpaceX" + minWorldSpaceX);
-        Debug.Log("minWorldSpaceY" + minWorldSpaceY);
-        Debug.Log("maxWorldSpaceX" + maxWorldSpaceX);
-        Debug.Log("maxWorldSpaceY" + maxWorldSpaceY);
+        //Debug.Log("minWorldSpaceX" + minWorldSpaceX);
+        //Debug.Log("minWorldSpaceY" + minWorldSpaceY);
+        //Debug.Log("maxWorldSpaceX" + maxWorldSpaceX);
+        //Debug.Log("maxWorldSpaceY" + maxWorldSpaceY);
     }
 
     public void InstantiateMap(int x, int y)

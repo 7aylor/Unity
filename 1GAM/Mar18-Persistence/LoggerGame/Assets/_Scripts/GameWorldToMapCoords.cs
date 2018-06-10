@@ -7,7 +7,7 @@ public class GameWorldToMapCoords : MonoBehaviour, IPointerClickHandler {
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log(Input.mousePosition);
+        //Debug.Log(Input.mousePosition);
     }
 
     // Use this for initialization

@@ -43,7 +43,7 @@ public class MapGenerator : MonoBehaviour {
         straightRiver,
         curveRiver,
         endRiver,
-        house
+        building
     }
 
     private void Start()
@@ -212,19 +212,19 @@ public class MapGenerator : MonoBehaviour {
             //check if we have hit the end
             if (x <= 0)
             {
-                Debug.Log("Hit left edge, created endRiver tile");
+                //Debug.Log("Hit left edge, created endRiver tile");
                 GameManager.instance.map[x, y] = (int)tileType.endRiver;
                 return;
             }
             if (y <= 0)
             {
-                Debug.Log("Hit top edge, created endRiver tile");
+                //Debug.Log("Hit top edge, created endRiver tile");
                 GameManager.instance.map[x, y] = (int)tileType.endRiver;
                 return;
             }
             if (y >= sizeY - 1)
             {
-                Debug.Log("Hit bottom edge, created endRiver tile");
+                //Debug.Log("Hit bottom edge, created endRiver tile");
                 GameManager.instance.map[x, y] = (int)tileType.endRiver;
                 return;
             }
@@ -283,19 +283,19 @@ public class MapGenerator : MonoBehaviour {
             //check if we have hit the end
             if (x >= sizeX - 1)
             {
-                Debug.Log("Hit left edge, created endRiver tile");
+                //Debug.Log("Hit left edge, created endRiver tile");
                 GameManager.instance.map[x, y] = (int)tileType.endRiver;
                 return;
             }
             if (y <= 0)
             {
-                Debug.Log("Hit top edge, created endRiver tile");
+                //Debug.Log("Hit top edge, created endRiver tile");
                 GameManager.instance.map[x, y] = (int)tileType.endRiver;
                 return;
             }
             if (y >= sizeY - 1)
             {
-                Debug.Log("Hit bottom edge, created endRiver tile");
+                //Debug.Log("Hit bottom edge, created endRiver tile");
                 GameManager.instance.map[x, y] = (int)tileType.endRiver;
                 return;
             }
@@ -354,19 +354,19 @@ public class MapGenerator : MonoBehaviour {
             //check if we have hit the end
             if (x >= sizeX - 1)
             {
-                Debug.Log("Hit left edge, created endRiver tile");
+                //Debug.Log("Hit left edge, created endRiver tile");
                 GameManager.instance.map[x, y] = (int)tileType.endRiver;
                 return;
             }
             if (x <= 0)
             {
-                Debug.Log("Hit top edge, created endRiver tile");
+                //Debug.Log("Hit top edge, created endRiver tile");
                 GameManager.instance.map[x, y] = (int)tileType.endRiver;
                 return;
             }
             if (y <= 0)
             {
-                Debug.Log("Hit bottom edge, created endRiver tile");
+                //Debug.Log("Hit bottom edge, created endRiver tile");
                 GameManager.instance.map[x, y] = (int)tileType.endRiver;
                 return;
             }
@@ -425,19 +425,19 @@ public class MapGenerator : MonoBehaviour {
             //check if we have hit the end
             if (x >= sizeX - 1)
             {
-                Debug.Log("Hit left edge, created endRiver tile");
+                //Debug.Log("Hit left edge, created endRiver tile");
                 GameManager.instance.map[x, y] = (int)tileType.endRiver;
                 return;
             }
             if (x <= 0)
             {
-                Debug.Log("Hit top edge, created endRiver tile");
+                //Debug.Log("Hit top edge, created endRiver tile");
                 GameManager.instance.map[x, y] = (int)tileType.endRiver;
                 return;
             }
             if (y >= sizeY - 1)
             {
-                Debug.Log("Hit bottom edge, created endRiver tile");
+                //Debug.Log("Hit bottom edge, created endRiver tile");
                 GameManager.instance.map[x, y] = (int)tileType.endRiver;
                 return;
             }
@@ -745,7 +745,7 @@ public class MapGenerator : MonoBehaviour {
         List<int> riverTiles = new List<int> { (int)tileType.curveRiver, (int)tileType.endRiver,
                                                (int)tileType.startRiver, (int)tileType.straightRiver};
 
-        Debug.Log("isCurvedRiver called");
+        //Debug.Log("isCurvedRiver called");
 
         if (x > 0 && x < sizeX && y > 0 && y < sizeY)
         {

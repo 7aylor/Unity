@@ -34,7 +34,7 @@ public class PromotionPoints : MonoBehaviour {
 
     public void ResetPoints()
     {
-        Debug.Log("Reset points");
+        //Debug.Log("Reset points");
         numPoints = 1;
         text.text = numPoints.ToString();
     }

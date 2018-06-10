@@ -36,7 +36,7 @@ public class ForestHealth : MonoBehaviour {
     {
         numSpaces = GameManager.instance.numTiles - GameManager.instance.numRiverTiles - GameManager.instance.numObstacleTiles;
         forestHealth = Mathf.RoundToInt(((float)GameManager.instance.numTreesInPlay / numSpaces) * 100);
-        Debug.Log("Tree count: " + GameManager.instance.numTreesInPlay + " Num Spaces: " + numSpaces + " Forest Health: " + forestHealth);
+        //Debug.Log("Tree count: " + GameManager.instance.numTreesInPlay + " Num Spaces: " + numSpaces + " Forest Health: " + forestHealth);
         text.text = forestHealth.ToString();
 
         if (forestHealth > 66)
@@ -64,10 +64,8 @@ public class ForestHealth : MonoBehaviour {
 
     private void IsFirstUpdate(int lumberAmount)
     {
-        Debug.Log("Outside FirstUpdate");
         if(firstUpdate == true)
         {
-            Debug.Log("FirstUpdate Called");
             GameManager.instance.lumberInMarket = lumberAmount;
             stats.UpdateStats(StatsManager.stat.lumberInMarket);
             demand.UpdateDemand();

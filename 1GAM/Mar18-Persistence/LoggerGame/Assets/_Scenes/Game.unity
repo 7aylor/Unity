@@ -6619,8 +6619,8 @@ GameObject:
   m_Component:
   - component: {fileID: 575451683}
   m_Layer: 0
-  m_Name: Houses
-  m_TagString: Houses
+  m_Name: Buildings
+  m_TagString: Buildings
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10225,9 +10225,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 269bf2df21693ff43bc989f85df08fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  houses:
+  buildings:
   - {fileID: 1940373264568484, guid: 72ac6a8a26fa5a24983526506c33fd09, type: 2}
-  housePositions: []
+  buildingPositions: []
 --- !u!1 &1015088750
 GameObject:
   m_ObjectHideFlags: 0
@@ -13789,7 +13789,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   marketLumberUse: 1
-  timeSinceLastUse: 1
+  timeBetweenMarketLumberUse: 1
+  timeBetweenBuildingBuilds: 3
+  timeSinceLastMarketUse: 0
+  timeSinceLastBuilding: 0
 --- !u!1 &1427295072
 GameObject:
   m_ObjectHideFlags: 0
@@ -19075,11 +19078,6 @@ Prefab:
       propertyPath: eventParent
       value: 
       objectReference: {fileID: 1395869046}
-    - target: {fileID: 114667127014574862, guid: cb77aeb7dd9b7b84885dd4ad1ee7a50b,
-        type: 2}
-      propertyPath: newEventBanner
-      value: 
-      objectReference: {fileID: 1925313932}
     - target: {fileID: 114667127014574862, guid: cb77aeb7dd9b7b84885dd4ad1ee7a50b,
         type: 2}
       propertyPath: eventBanner

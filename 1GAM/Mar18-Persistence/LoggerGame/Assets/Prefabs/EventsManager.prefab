@@ -106,6 +106,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ourEvent: {fileID: 1686421624726234, guid: 258d49a2ed46b404ba668825e0cdc104, type: 2}
   eventParent: {fileID: 0}
+  eventBanner: {fileID: 0}
+  spawnTime: 0
+  timeSinceLastEvent: 0
 --- !u!222 &222130247444233018
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -127,6 +130,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -480, y: 565.4}
+  m_AnchoredPosition: {x: 110, y: -215}
   m_SizeDelta: {x: 220, y: 430}
   m_Pivot: {x: 0.5, y: 0.5}

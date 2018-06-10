@@ -486,7 +486,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                     if(p.gameObject != this)
                     {
                         p.SelectPlayer(false);
-                        Debug.Log("Deselecting other player");
+                        //Debug.Log("Deselecting other player");
                     }
                 }
 
@@ -622,7 +622,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                     Tree tree = collidingTile.GetComponent<Tree>();
                     if (tree != null && tree.treeState == Tree.maturity.seed)
                     {
-                        Debug.Log("Can watter");
+                        //Debug.Log("Can watter");
                         actionPanel.EnableDisableSingleButton(waterButton.gameObject, true);
                     }
                     else

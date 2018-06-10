@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 222057076562775650}
   - component: {fileID: 114128280546045984}
   m_Layer: 5
-  m_Name: Event Text
+  m_Name: Bid Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 61093556882107406}
   - component: {fileID: 114286485813968134}
   m_Layer: 5
-  m_Name: EventNotification
+  m_Name: Bid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

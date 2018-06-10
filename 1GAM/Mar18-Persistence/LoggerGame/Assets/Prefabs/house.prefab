@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114251808432359198}
   - component: {fileID: 61415551478555986}
   m_Layer: 0
-  m_Name: house
+  m_Name: House
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

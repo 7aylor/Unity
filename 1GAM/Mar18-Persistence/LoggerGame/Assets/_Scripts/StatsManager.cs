@@ -30,7 +30,7 @@ public class StatsManager : MonoBehaviour {
     {
         foreach (stat s in Enum.GetValues(typeof(stat)))
         {
-            Debug.Log("Called on " + s);
+            //Debug.Log("Called on " + s);
             UpdateStats(s);
         }
     }

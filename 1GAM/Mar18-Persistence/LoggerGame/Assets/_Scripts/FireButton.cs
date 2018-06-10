@@ -18,8 +18,6 @@ public class FireButton : MonoBehaviour {
     /// </summary>
     public void FireSelectedPlayer(string player="")
     {
-        Debug.Log("called fire player");
-
         //reset
         foreach (Skill s in GameManager.instance.skillLevels)
         {

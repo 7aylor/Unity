@@ -59,7 +59,7 @@ public class PromoteButton : MonoBehaviour {
                     //more here
                     break;
                 case PromoteType.plant:
-                    Debug.Log("Planting Speed Upgraded");
+                    //Debug.Log("Planting Speed Upgraded");
                     planterPlayer.animatorPlantSpeed += 0.25f;
                     planterAnimator.SetFloat("PlantSpeed", planterPlayer.animatorPlantSpeed);
                     break;

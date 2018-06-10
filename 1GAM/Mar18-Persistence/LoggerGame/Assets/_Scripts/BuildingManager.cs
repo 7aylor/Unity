@@ -4,40 +4,40 @@ using UnityEngine;
 
 public class BuildingManager : MonoBehaviour {
 
-    public GameObject[] houses;
-    private int houseCount;
-    private Vector2Int startPos; //holds the first house start position in array coords
-    private Vector2Int lastHousePos; //holds the position of the last house spawned
-    private Transform housesParent; //houses container gameobject
-    private List<Vector2> mapSides; //holds the possible sides
+    public GameObject[] buildings;
+    private int buildingCount;
+    private Vector2Int startPos; //holds the first building start position in array coords
+    private Vector2Int lastBuildingPos; //holds the position of the last building spawned
+    private Transform buildingsParent; //buildings container gameobject
+    private List<Vector2> mapSides; //holds the possible sides of the map
     private Vector2 side;
-    [SerializeField]private List<Vector2Int> housePositions; //all house positions on the map in array coords
+    [SerializeField]private List<Vector2Int> buildingPositions; //all building positions on the map in array coords
 
     private void Awake()
     {
-        housesParent = GameObject.FindGameObjectWithTag("Houses").transform;
+        buildingsParent = GameObject.FindGameObjectWithTag("Buildings").transform;
     }
 
     private void Start()
     {
         mapSides = new List<Vector2> { Vector2.left, Vector2.right, Vector2.up, Vector2.down };
-        housePositions = new List<Vector2Int>();
+        buildingPositions = new List<Vector2Int>();
         startPos = new Vector2Int(0, 0);
-        lastHousePos = startPos;
-        houseCount = 0;
+        lastBuildingPos = startPos;
+        buildingCount = 0;
 
         //temporarily call here
-        FindSuitableSpawnPos();
-        Invoke("FindSuitableSpawnPos", 1);
-        Invoke("FindSuitableSpawnPos", 1);
-        Invoke("FindSuitableSpawnPos", 1);
-        Invoke("FindSuitableSpawnPos", 1);
+        //FindSuitableSpawnPos();
+        //Invoke("FindSuitableSpawnPos", 1);
+        //Invoke("FindSuitableSpawnPos", 1);
+        //Invoke("FindSuitableSpawnPos", 1);
+        //Invoke("FindSuitableSpawnPos", 1);
     }
 
     /// <summary>
     /// Called from MarketManager to spawn a house
     /// </summary>
-    public void SpawnHouseFromMarket()
+    public void BuildFromMarket()
     {
         //find a suitable position on the edge of the world
         FindSuitableSpawnPos();
@@ -48,16 +48,16 @@ public class BuildingManager : MonoBehaviour {
     /// </summary>
     private void FindSuitableSpawnPos()
     {
-        startPos = lastHousePos;
+        startPos = lastBuildingPos;
         //pick random edge then spawn house in grass position
-        if(houseCount < 1)
+        if(buildingCount < 1)
         {
             do
             {
                 PickRandomSideTile();
             } while (GameManager.instance.map[startPos.x, startPos.y] != (int)MapGenerator.tileType.grass);
 
-            SpawnHouse();
+            SpawnBuilding();
         }
         else
         {
@@ -72,11 +72,11 @@ public class BuildingManager : MonoBehaviour {
                     for (int y = startPos.y; y < GameManager.instance.sizeY && y > 0; y += distanceFromStartTile)
                     {
 
-                        if(y + distanceFromStartTile == GameManager.instance.sizeY)
+                        if (y + distanceFromStartTile == GameManager.instance.sizeY)
                         {
                             distanceFromStartTile = startPos.y - 1;
                         }
-                        else if(y + distanceFromStartTile == 0)
+                        else if (y + distanceFromStartTile == 0)
                         {
                             distanceFromStartTile = startPos.y + 1;
                         }
@@ -100,7 +100,7 @@ public class BuildingManager : MonoBehaviour {
                     }
                 }
 
-                SpawnHouse();
+                SpawnBuilding();
             }
             else if (side == Vector2.left)
             {
@@ -140,12 +140,12 @@ public class BuildingManager : MonoBehaviour {
                     }
                 }
 
-                SpawnHouse();
+                SpawnBuilding();
             }
             else if (side == Vector2.up || side == Vector2.down)
             {
                 startPos.x += 1;
-                SpawnHouse();
+                SpawnBuilding();
             }
         }
     }
@@ -153,27 +153,31 @@ public class BuildingManager : MonoBehaviour {
     /// <summary>
     /// Spawns house in the new position and deletes grass tile
     /// </summary>
-    private void SpawnHouse()
+    private void SpawnBuilding()
     {
+        
+        Debug.Log("Building a Building");
+
         //update the map
-        GameManager.instance.map[startPos.x, startPos.y] = (int)MapGenerator.tileType.house;
-        housePositions.Add(startPos);
+        GameManager.instance.map[startPos.x, startPos.y] = (int)MapGenerator.tileType.building;
+        buildingPositions.Add(startPos);
 
         //spawn the house and update its parent
-        GameObject house = Instantiate(houses[0].gameObject, new Vector3(GameManager.instance.ArrayCoordToWorldCoordX(startPos.x),
+        GameObject building = Instantiate(buildings[0].gameObject, new Vector3(GameManager.instance.ArrayCoordToWorldCoordX(startPos.x),
             GameManager.instance.ArrayCoordToWorldCoordY(startPos.y), 0), Quaternion.identity);
-        house.transform.parent = housesParent;
+        building.transform.parent = buildingsParent;
 
         //delete the grass tile
-        RaycastHit2D ray = Physics2D.Raycast(house.transform.position, Vector2.zero);
+        RaycastHit2D ray = Physics2D.Raycast(building.transform.position, Vector2.zero);
 
         if (ray.collider.gameObject.tag == "Grass")
         {
             Destroy(ray.collider.gameObject);
         }
 
-        houseCount++;
-        lastHousePos = startPos;
+        buildingCount++;
+        lastBuildingPos = startPos;
+        GameManager.instance.lumberInMarket -= 50;
     }
 
     /// <summary>

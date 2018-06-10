@@ -22,7 +22,7 @@ TagManager:
   - DecreaseMoney
   - Animal
   - Boundary
-  - Houses
+  - Buildings
   layers:
   - Default
   - TransparentFX

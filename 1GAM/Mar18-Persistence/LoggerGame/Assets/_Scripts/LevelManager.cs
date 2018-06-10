@@ -15,7 +15,7 @@ public class LevelManager : MonoBehaviour {
         }
         else
         {
-            Debug.Log(gameObject.name + " Destroyed on Load");
+            //Debug.Log(gameObject.name + " Destroyed on Load");
             Destroy(gameObject);
         }
 
