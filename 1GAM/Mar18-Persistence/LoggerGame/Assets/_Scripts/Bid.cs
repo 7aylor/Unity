@@ -6,20 +6,20 @@ using TMPro;
 using DG.Tweening;
 using UnityEngine.UI;
 
-public class GameEvent : MonoBehaviour, IPointerClickHandler
+public class Bid : MonoBehaviour, IPointerClickHandler
 {
     //could replace this with a dictionary defined here
-    public int eventLife;
+    public int bidLife;
     private RectTransform rectTransform;
     private Transform parent;
     private int lumberNeeded;
     private int priceToPay;
-    private string eventString;
+    private string bidString;
     private float screenHeight;
     private float screenWidth;
     private Demand demand;
 
-    private TMP_Text eventText;
+    private TMP_Text bidText;
     private Animator TalkingHeadAnimator;
 
     private BidManager bidManager;
@@ -35,7 +35,7 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
     
     private void Awake()
     {
-        eventText = GetComponentInChildren<TMP_Text>();
+        bidText = GetComponentInChildren<TMP_Text>();
         TalkingHeadAnimator = GetComponentInChildren<Animator>();
         rectTransform = GetComponent<RectTransform>();
         bidManager = GameObject.FindObjectOfType<BidManager>();
@@ -52,7 +52,7 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
         isAccepted = false;
         DOTween.Init();
         AssignRandomCompany();
-        BuildEventString();
+        BuildBidString();
     }
 
     private int GetRandomVal(int min, int max)
@@ -77,7 +77,7 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
     }
 
     /// <summary>
-    /// Used to animate the event going up and placing an event in the event queue
+    /// Used to animate the bid going up and placing an bid in the bid queue
     /// </summary>
     /// <param name="eventData"></param>
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
@@ -94,7 +94,7 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
 
             GetComponent<Image>().DOFade(0, 1).OnComplete(() =>
             {
-                bidManager.RemoveEventFromQueue(gameObject);
+                bidManager.RemoveBidFromQueue(gameObject);
                 money.ChangeMoneyAmount(priceToPay);
                 lumber.UpdateLumberCount(-lumberNeeded);
                 GameManager.instance.lumberInMarket += lumberNeeded;
@@ -108,17 +108,17 @@ public class GameEvent : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    private void BuildEventString()
+    private void BuildBidString()
     {
         //Get random values
         lumberNeeded = GetRandomVal(10, 50);
         priceToPay = lumberNeeded * 5;
 
         //build the string
-        eventString = string.Format("<color=#{0}><b>{1}</b></color> wants <color=#602D06FF>{2} lumber</color> for <color=#1F5F14FF>${3}</color>", ColorUtility.ToHtmlStringRGB(selectedCompany.textColor), selectedCompany.name, lumberNeeded, priceToPay);
+        bidString = string.Format("<color=#{0}><b>{1}</b></color> wants <color=#602D06FF>{2} lumber</color> for <color=#1F5F14FF>${3}</color>", ColorUtility.ToHtmlStringRGB(selectedCompany.textColor), selectedCompany.name, lumberNeeded, priceToPay);
 
         //assign the text value
-        eventText.text = eventString;
+        bidText.text = bidString;
     }
 }
 

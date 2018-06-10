@@ -43,7 +43,9 @@ public class Demand : MonoBehaviour {
         Debug.Log("Very Low " + (int)demand.Very_Low);
     }
 
-
+    /// <summary>
+    /// Updates the Demand variables and text. Called from MarketManager, 
+    /// </summary>
     public void UpdateDemand()
     {
         //very low demand

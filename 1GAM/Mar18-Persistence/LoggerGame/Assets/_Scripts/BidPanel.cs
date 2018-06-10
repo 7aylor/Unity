@@ -33,7 +33,7 @@ public class BidPanel : MonoBehaviour {
         {
             rectTransform.DOAnchorPosY(0 - (rectTransform.rect.height / 2), 1).OnComplete(() =>
             {
-                if(bidManager.IsEventQueueEmpty() == false)
+                if(bidManager.IsBidQueueEmpty() == false)
                 {
                     bidManager.FadeBanner(0);
                 }

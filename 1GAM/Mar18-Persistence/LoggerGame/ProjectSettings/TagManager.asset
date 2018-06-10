@@ -15,7 +15,6 @@ TagManager:
   - PlanterLevel
   - LumberjackLevel
   - Terrain
-  - EventsHolder
   - IncreaseLumber
   - DecreaseLumber
   - IncreaseMoney

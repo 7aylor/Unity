@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114244283306877742}
   - component: {fileID: 114667127014574862}
   m_Layer: 5
-  m_Name: EventsManager
+  m_Name: BidManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,11 +104,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3541ac75edd4e0448bdcdf67bb712857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ourEvent: {fileID: 1686421624726234, guid: 258d49a2ed46b404ba668825e0cdc104, type: 2}
-  eventParent: {fileID: 0}
-  eventBanner: {fileID: 0}
+  ourBid: {fileID: 1686421624726234, guid: 258d49a2ed46b404ba668825e0cdc104, type: 2}
+  newBidBanner: {fileID: 0}
   spawnTime: 0
-  timeSinceLastEvent: 0
+  timeSinceLastBid: 0
 --- !u!222 &222130247444233018
 CanvasRenderer:
   m_ObjectHideFlags: 1

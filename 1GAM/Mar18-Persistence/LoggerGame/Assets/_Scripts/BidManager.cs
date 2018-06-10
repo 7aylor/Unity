@@ -7,120 +7,145 @@ using TMPro;
 
 public class BidManager : MonoBehaviour {
 
-    public GameObject ourEvent;
-    public Transform eventParent;
-    public GameObject eventBanner;
+    [Tooltip("Bid prefab")]
+    public GameObject ourBid;
+    public GameObject newBidBanner;
+
+    [Tooltip("How long to wait between bid spawns")] //set when the demand changes
     public int spawnTime;
 
-    private List<GameObject> eventQueue;
+    //holds all of the bids in the queue
+    private List<GameObject> bidQueue;
 
     [SerializeField]
-    private float timeSinceLastEvent;
-
-    private int timeToNextEvent;
+    private float timeSinceLastBid;
 
 
-    private int currentEvent;
-    private TMP_Text bannerText;
-    private Image bannerImage;
+    private int timeToNextBid;
+
+    private int currentBid; //holds the number in the bid queue to determine where the next bid will be spawned
+    private TMP_Text newBidBannerText;
+    private Image newBidBannerImage;
     private BidPanel bidPanel;
 
     private void Awake()
     {
-        eventQueue = new List<GameObject>();
-        bannerText = eventBanner.GetComponentInChildren<TMP_Text>();
-        bannerImage = eventBanner.GetComponent<Image>();
+        bidQueue = new List<GameObject>();
+        newBidBannerText = newBidBanner.GetComponentInChildren<TMP_Text>();
+        newBidBannerImage = newBidBanner.GetComponent<Image>();
         bidPanel = FindObjectOfType<BidPanel>();
     }
 
     // Use this for initialization
     void Start () {
-        timeSinceLastEvent = 0f;
+        timeSinceLastBid = 0f;
         spawnTime = 100;
-        timeToNextEvent = GetRandomVal(spawnTime, spawnTime + (spawnTime/2));
-        currentEvent = 0;
-        ChangeBannerImageTextAlpha(0);
+        timeToNextBid = GetRandomVal(spawnTime, spawnTime + (spawnTime/2));
+        currentBid = 0;
+        SetNewBidBannerImageTextAlpha(0);
     }
 	
 	// Update is called once per frame
 	void Update () {
-        //Check if time has elapsed to spawn new event
+        //Check if time has elapsed to spawn new bid
         if (CheckTimeElapsed() == true)
         {
-            //if there are less than 4 events in the queue, spawn
-            if(eventQueue.Count < 4)
+            //if there are less than 4 bids in the queue, spawn
+            if(bidQueue.Count < 4)
             {
-                GameObject newEvent = Instantiate(ourEvent, transform);
-                eventQueue.Add(newEvent);
+                GameObject newBid = Instantiate(ourBid, transform);
+                bidQueue.Add(newBid);
 
-                //if the panel is hidden, fade in the new event banner
+                //if the panel is hidden, fade in the new bid banner
                 if (bidPanel.IsPanelHidden() == true)
                 {
                     FadeBanner(1);
                 }
             }
-            //more than 4 events, clear it
+            //more than 4 bids, clear it
             else
             {
-                foreach(GameObject obj in eventQueue)
+                foreach(GameObject obj in bidQueue)
                 {
                     Destroy(obj);
                 }
 
-                eventQueue.Clear();
+                bidQueue.Clear();
                 FadeBanner(0);
 
             }
 
-            timeSinceLastEvent = 0;
+            timeSinceLastBid = 0;
         }
         else
         {
-            timeSinceLastEvent += Time.deltaTime;
+            timeSinceLastBid += Time.deltaTime;
         }
     }
 
-    private void ChangeBannerImageTextAlpha(float alpha)
+    /// <summary>
+    /// Set the alpha and color of the new bid banner to alpha amount
+    /// </summary>
+    /// <param name="alpha"></param>
+    private void SetNewBidBannerImageTextAlpha(float alpha)
     {
-        Color c = bannerImage.color;
+        Color c = newBidBannerImage.color;
         c.a = alpha;
-        bannerImage.color = c;
+        newBidBannerImage.color = c;
 
-        Color tc = bannerText.color;
+        Color tc = newBidBannerText.color;
         tc.a = alpha;
-        bannerText.color = tc;
+        newBidBannerText.color = tc;
     }
 
+    /// <summary>
+    /// Check if time has elapsed between now and when we last spawned a bid
+    /// </summary>
+    /// <returns></returns>
     private bool CheckTimeElapsed()
     {
-        return timeSinceLastEvent >= timeToNextEvent;
+        return timeSinceLastBid >= timeToNextBid;
     }
 
+    /// <summary>
+    /// Get a random value between min and max
+    /// </summary>
+    /// <param name="min"></param>
+    /// <param name="max"></param>
+    /// <returns></returns>
     private int GetRandomVal(int min, int max)
     {
         return UnityEngine.Random.Range(min, max);
     }
 
     /// <summary>
-    /// Remove an event object from the Queue
+    /// Remove a bid object from the Queue
     /// </summary>
     /// <param name="obj"></param>
-    public void RemoveEventFromQueue(GameObject obj)
+    public void RemoveBidFromQueue(GameObject obj)
     {
-        currentEvent = eventQueue.Count - eventQueue.FindIndex(@event => @event == obj) - 1;
-        eventQueue.Remove(obj);
+        currentBid = bidQueue.Count - bidQueue.FindIndex(bid => bid == obj) - 1;
+        bidQueue.Remove(obj);
         Destroy(obj);
     }
 
+    /// <summary>
+    /// Fade out the Banner Text and Color
+    /// </summary>
+    /// <param name="alpha"></param>
     public void FadeBanner(float alpha)
     {
-        bannerText.DOFade(alpha, 0.5f);
-        bannerImage.DOFade(alpha, 0.5f);
+        newBidBannerText.DOFade(alpha, 0.5f);
+        newBidBannerImage.DOFade(alpha, 0.5f);
     }
 
-    public bool IsEventQueueEmpty()
+    /// <summary>
+    /// Check if the bid queue is empty
+    /// </summary>
+    /// <returns></returns>
+    public bool IsBidQueueEmpty()
     {
-        return eventQueue.Count == 0;
+        return bidQueue.Count == 0;
     }
 
     /// <summary>
@@ -129,8 +154,7 @@ public class BidManager : MonoBehaviour {
     /// <param name="newSpawnTime">new bid time</param>
     public void UpdateSpawnTime(int newSpawnTime)
     {
-        //timeSinceLastEvent = 0;
         spawnTime = newSpawnTime;
-        timeToNextEvent = spawnTime;
+        timeToNextBid = spawnTime;
     }
 }
