@@ -470,6 +470,7 @@ MonoBehaviour:
   fatigueIncrement: 0.2
   recoverFatigueRate: 0.001
   lastDirection: 0
+  pointTowardsNextRank: 0
   nextTileRiver: 0
 --- !u!114 &114311166380874406
 MonoBehaviour:

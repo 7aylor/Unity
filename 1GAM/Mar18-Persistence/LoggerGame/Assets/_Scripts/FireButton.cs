@@ -18,7 +18,7 @@ public class FireButton : MonoBehaviour {
     /// </summary>
     public void FireSelectedPlayer(string player="")
     {
-        //reset
+        //reset skills
         foreach (Skill s in GameManager.instance.skillLevels)
         {
             if (s.associatedPlayer == "Lumberjack" && (player == "Lumberjack" || 
@@ -26,6 +26,7 @@ public class FireButton : MonoBehaviour {
                 GameManager.instance.selectedPlayer.tag == "Lumberjack")))
             {
                 s.level = 1;
+                
             }
             if(s.associatedPlayer == "Planter" && (player == "Planter" ||
                 (GameManager.instance.selectedPlayer != null && 
@@ -34,25 +35,31 @@ public class FireButton : MonoBehaviour {
                 s.level = 1;
             }
         }
-            
+        
+        //reset lumberjack hired, and action panel stats
         if(player == "Lumberjack" || (GameManager.instance.selectedPlayer != null &&
             GameManager.instance.selectedPlayer.tag == "Lumberjack"))
         {
             GameManager.instance.lumberjackHired = false;
             lumberJackPromotePanel.ResetSkillLevels();
+            lumberJackPromotePanel.gameObject.SetActive(false);
         }
+        //reset planter hired, and action panel stats
         if (player == "Planter" || (GameManager.instance.selectedPlayer != null &&
             GameManager.instance.selectedPlayer.tag == "Planter"))
         {
             GameManager.instance.planterHired = false;
             planterPromotePanel.ResetSkillLevels();
+            planterPromotePanel.gameObject.SetActive(false);
         }
 
+        //no player is passed to the method, ie, when the player runs away from the bear, destroy the player
         if(player == "")
         {
             Destroy(GameManager.instance.selectedPlayer.gameObject);
         }
 
+        //reset the rest and update ui
         GameManager.instance.playerSelected = false;
         actionPanel.selectedPlayer = ActionPanel.SelectedPlayer.none;
         actionPanel.ActionsButtonClick();

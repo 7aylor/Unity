@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1bc9c51b518b834094683f7eeed0964, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventLife: 5
+  bidLife: 0
   companies:
   - name: Jared Co
     anim: {fileID: 22100000, guid: 6e522d370dabcfb4e9ce7305a7709a96, type: 2}

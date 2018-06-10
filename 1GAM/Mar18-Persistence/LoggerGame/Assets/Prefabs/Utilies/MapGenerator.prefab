@@ -53,15 +53,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sizeX: 15
   sizeY: 9
-  terrainContainer: {fileID: 0}
   smoothCycles: 1
   treeSpawnThreshold: 50
   rockSpawnThreshold: 85
   neighborThreshold: 3
-  grass: {fileID: 1272982007471352, guid: 7c583826f0e024349915926082e87a34, type: 2}
+  background: {fileID: 0}
+  terrain: {fileID: 0}
+  backgroundGrass: {fileID: 0}
+  grass:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   trees:
   - {fileID: 1242716478098746, guid: ac141edbc8efaac40bbcc59f2f524d3c, type: 2}
-  rock: {fileID: 1242716478098746, guid: 615299f68cb775247ac1c337faa2c6f2, type: 2}
+  rocks: []
   riverStraight: {fileID: 1242716478098746, guid: c001939f7bb303449a1ddeaef0edb167,
     type: 2}
   riverCurve: {fileID: 1242716478098746, guid: 98e30c70ff8014a4cbc3841937933a23, type: 2}

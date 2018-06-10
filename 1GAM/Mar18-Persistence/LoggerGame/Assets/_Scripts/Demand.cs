@@ -7,10 +7,9 @@ using TMPro;
 /// The demand should start at a point that is dependant on the health of the forest. If there are a lot of tree,
 /// the demand should be high because there is not as much lumber in the market. This should also be dependant on the
 /// type of terrain. For instance, arid terrain will have higher demand always because there are fewer trees. Demand 
-/// influences how often an event is fired. The higher the demand, the more events occur. When the demand is lower, fewer
-/// events will fire. This should give the player more reason to balance how quickly they chop down trees. 
+/// influences how often an bid is fired. The higher the demand, the more bids occur. When the demand is lower, fewer
+/// bids will fire. This should give the player more reason to balance how quickly they chop down trees. 
 /// THINGS TO CONSIDER: How does planting trees influence demand? Keep track of number of sales and lumber in the market.
-/// Should add a closer look at the market by click on the demand icon
 /// </summary>
 public class Demand : MonoBehaviour {
 
@@ -95,6 +94,13 @@ public class Demand : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Updates the necessary vrabiles for the market demand components
+    /// </summary>
+    /// <param name="newDemand">sets the demand type, ie medium, high, etc.</param>
+    /// <param name="newDemandText">sets the market demand text to the demand type</param>
+    /// <param name="newDemandColor">sets the new color of the demand text</param>
+    /// <param name="newBidTime">sets the new time between bid spawns</param>
     private void SetDemandVarsAndText(demand newDemand, string newDemandText, Color newDemandColor, int newBidTime)
     {
         marketDemand = newDemand;
