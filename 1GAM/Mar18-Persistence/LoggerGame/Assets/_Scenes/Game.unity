@@ -9065,7 +9065,7 @@ MonoBehaviour:
   planterCost: 25
   paymentTime: 10
   startMoney: 10000
-  losePanel: {fileID: 1282211919}
+  losePanel: {fileID: 0}
 --- !u!1 &894945172
 GameObject:
   m_ObjectHideFlags: 0
@@ -10227,6 +10227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   houses:
   - {fileID: 1940373264568484, guid: 72ac6a8a26fa5a24983526506c33fd09, type: 2}
+  housePositions: []
 --- !u!1 &1015088750
 GameObject:
   m_ObjectHideFlags: 0
