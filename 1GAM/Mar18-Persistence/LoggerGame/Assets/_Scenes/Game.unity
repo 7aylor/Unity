@@ -10226,8 +10226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildings:
-  - {fileID: 1925321996673158, guid: e98ecac7a07e9b94cacd3c5e016f93df, type: 2}
-  buildingPositions: []
+  - {fileID: 1925321996673158, guid: 46688c3760f9ecc4183de3f2f7f6963d, type: 2}
 --- !u!1 &1015088750
 GameObject:
   m_ObjectHideFlags: 0
