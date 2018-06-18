@@ -119,8 +119,10 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         jumpSpeed = 0.05f;
         doneJumping = true;
         nextTileRiver = false;
+        selectionIndicator.SetActive(false);
+        fatigueSlider.gameObject.SetActive(false);
 
-        if(tag == "Planter")
+        if (tag == "Planter")
         {
             GameManager.instance.planterHired = true;
         }
@@ -128,7 +130,6 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         {
             GameManager.instance.lumberjackHired = true;
         }
-        SelectPlayer(false);
     }
 
     private void Update()

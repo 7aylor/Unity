@@ -18,48 +18,34 @@ public class HirePlayer : MonoBehaviour {
         actionPanel = GetComponentInParent<ActionPanel>();
     }
 
-
-    //int count = 0;
-
-    //private void Update()
-    //{
-    //    if(count < 1000)
-    //    {
-    //        Hire();
-    //        count++;
-    //    }
-
-    //}
-
     /// <summary>
     /// When you click the button to hire player
     /// </summary>
     public void Hire()
     {
+        Debug.Log("Hired!");
         //get coordinates
-        IntVector2 instantiateCoords = GetCoordinates();
+        Vector2Int instantiateCoords = GetCoordinates();
 
-        //hire lumberjack
-        if(typeOfHire == HireType.lumberjack && GameManager.instance.lumberjackHired == false)
+        //if hire lumberjack is clicked and there is no lumberjack in the game, hire lumberjack
+        if (typeOfHire == HireType.lumberjack && GameManager.instance.lumberjackHired == false)
         {
             GameObject spawn = Instantiate(lumberjack, new Vector3((float)instantiateCoords.x, (float)instantiateCoords.y - 0.2f, 0), Quaternion.identity);
             GameManager.instance.lumberjackHired = true;
             actionPanel.EnableDisableSingleButton(actionPanel.hireButtons[0].gameObject, false);
-            if (GameManager.instance.playerSelected == true)
-            {
-                actionPanel.EnableDisableSingleButton(actionPanel.fireButton.gameObject, true);
-            }
         }
-        //hire planter
-        else if(typeOfHire == HireType.planter && GameManager.instance.planterHired == false)
+        //if hire planter is clicked and there is no planter in the game, hire planter
+        else if (typeOfHire == HireType.planter && GameManager.instance.planterHired == false)
         {
             Instantiate(planter, new Vector3((float)instantiateCoords.x, (float)instantiateCoords.y - 0.2f, 0), Quaternion.identity);
             GameManager.instance.planterHired = true;
             actionPanel.EnableDisableSingleButton(actionPanel.hireButtons[1].gameObject, false);
-            if (GameManager.instance.playerSelected == true)
-            {
-                actionPanel.EnableDisableSingleButton(actionPanel.fireButton.gameObject, true);
-            }
+        }
+
+        //if a player is already selected, keep the fire button active
+        if (GameManager.instance.playerSelected == true)
+        {
+            actionPanel.EnableDisableSingleButton(actionPanel.fireButton.gameObject, true);
         }
     }
 
@@ -67,9 +53,9 @@ public class HirePlayer : MonoBehaviour {
     /// returns integer coordinates that do not fall on a river or obstacle tile
     /// </summary>
     /// <returns></returns>
-    private IntVector2 GetCoordinates()
+    private Vector2Int GetCoordinates()
     {
-        IntVector2 coord = new IntVector2();
+        Vector2Int coord = new Vector2Int();
         int mapX;
         int mapY;
 
@@ -90,16 +76,4 @@ public class HirePlayer : MonoBehaviour {
         return coord;
     }
 
-}
-
-//vector2 that is int values
-struct IntVector2
-{
-    public int x, y;
-
-    public IntVector2(int newX, int newY)
-    {
-        x = newX;
-        y = newY;
-    }
 }
