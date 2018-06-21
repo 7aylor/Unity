@@ -10228,6 +10228,9 @@ MonoBehaviour:
   buildings:
   - {fileID: 1925321996673158, guid: 46688c3760f9ecc4183de3f2f7f6963d, type: 2}
   - {fileID: 1925321996673158, guid: e98ecac7a07e9b94cacd3c5e016f93df, type: 2}
+  - {fileID: 1925321996673158, guid: 1989b70ce508a1942a28f40cc4bc45c5, type: 2}
+  - {fileID: 1925321996673158, guid: fd4f032392012c74591dc67d9c4471c6, type: 2}
+  - {fileID: 1925321996673158, guid: 3fdb33bb9eb447845b516c42a632f91d, type: 2}
   spawnDirection:
     canSpawnUp: 0
     canSpawnDown: 0
