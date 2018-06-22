@@ -10231,6 +10231,8 @@ MonoBehaviour:
   - {fileID: 1925321996673158, guid: 1989b70ce508a1942a28f40cc4bc45c5, type: 2}
   - {fileID: 1925321996673158, guid: fd4f032392012c74591dc67d9c4471c6, type: 2}
   - {fileID: 1925321996673158, guid: 3fdb33bb9eb447845b516c42a632f91d, type: 2}
+  - {fileID: 1925321996673158, guid: 694beebece5b9134e86d18949f5c39f3, type: 2}
+  - {fileID: 1925321996673158, guid: ac28eeb19ff08c546a16c12ed7e1d630, type: 2}
   spawnDirection:
     canSpawnUp: 0
     canSpawnDown: 0

@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114228352352600062}
   - component: {fileID: 61874818837425930}
   m_Layer: 0
-  m_Name: Office
+  m_Name: Office2
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,10 +91,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 21300000, guid: 4b7a7500b12884e41ad457ff7616b63d, type: 3}
-  - {fileID: 21300002, guid: 4b7a7500b12884e41ad457ff7616b63d, type: 3}
-  - {fileID: 21300004, guid: 4b7a7500b12884e41ad457ff7616b63d, type: 3}
-  - {fileID: 21300006, guid: 4b7a7500b12884e41ad457ff7616b63d, type: 3}
+  - {fileID: 21300000, guid: fcdc1e6db56262f448f6f35d1a513104, type: 3}
+  - {fileID: 21300002, guid: fcdc1e6db56262f448f6f35d1a513104, type: 3}
+  - {fileID: 21300004, guid: fcdc1e6db56262f448f6f35d1a513104, type: 3}
+  - {fileID: 21300006, guid: fcdc1e6db56262f448f6f35d1a513104, type: 3}
 --- !u!212 &212991847592419220
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -129,7 +129,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300006, guid: 4b7a7500b12884e41ad457ff7616b63d, type: 3}
+  m_Sprite: {fileID: 21300006, guid: fcdc1e6db56262f448f6f35d1a513104, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
