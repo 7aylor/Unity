@@ -43,9 +43,9 @@ public class BuildingManager : MonoBehaviour {
     /// </summary>
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
-            FindSuitableSpawnPos();
+            Build();
         }
     }
 
@@ -55,13 +55,13 @@ public class BuildingManager : MonoBehaviour {
     public void BuildFromMarket()
     {
         //find a suitable position on the edge of the world
-        FindSuitableSpawnPos();
+        Build();
     }
 
     /// <summary>
     /// 
     /// </summary>
-    private void FindSuitableSpawnPos()
+    private void Build()
     { 
         //pick random edge then spawn first building in grass position
         if(buildingCount < 1)
@@ -71,17 +71,17 @@ public class BuildingManager : MonoBehaviour {
             //    PickRandomSideTile();
             //} while (GameManager.instance.map[lastBuildingPos.x, lastBuildingPos.y] != (int)MapGenerator.tileType.grass);
 
-            lastBuildingPos.x = GameManager.instance.sizeX - 1;
+            lastBuildingPos.x = 0;
             lastBuildingPos.y = 5;
 
             greaterNeighbor = lastBuildingPos;
             lesserNeighbor = lastBuildingPos;
-
-            side = Vector2.right;
+            //PickRandomSideTile();
+            side = Vector2.left;
 
             SpawnBuilding();
         }
-        else
+        else if(buildingCount < 150)
         {
             if (side == Vector2.left)
             {
@@ -128,7 +128,7 @@ public class BuildingManager : MonoBehaviour {
             do
             {
                 y++;
-            } while (y > 0 && y < GameManager.instance.sizeY && TileNotRiver(lastBuildingPos.x, y) == false);
+            } while (y >= 0 && y < GameManager.instance.sizeY && TileNotRiver(lastBuildingPos.x, y) == false);
 
             //if it is in bounds, spawn it and update relevant vars
             if (y <= GameManager.instance.sizeY - 1)
@@ -156,7 +156,7 @@ public class BuildingManager : MonoBehaviour {
             do
             {
                 y--;
-            } while (TileNotRiver(lastBuildingPos.x, y) == false);
+            } while (y >= 0 && y < GameManager.instance.sizeY && TileNotRiver(lastBuildingPos.x, y) == false);
 
             //if it is in bounds, spawn it and update relevant vars
             if (y >= 0)
@@ -179,16 +179,17 @@ public class BuildingManager : MonoBehaviour {
         //if we have made it this far, we can't go up or down. 
         //TODO: might need to tweak this
         spawnRounds++;
-        PickRandomSideTile();
-
+        
         if(goLeft == true)
         {
-            lastBuildingPos.x -= spawnRounds;
+            lastBuildingPos.x -= 1;
         }
         else
         {
-            lastBuildingPos.x += spawnRounds;
+            lastBuildingPos.x += 1;
         }
+
+        PickRandomSideTile(lastBuildingPos.x);
 
         //reset the values and spawn a tile in the new position
         greaterNeighbor = lastBuildingPos;
@@ -199,13 +200,15 @@ public class BuildingManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// Returns if the give tile coordinate is a river tile or not
+    /// Returns if the given tile coordinate is a river tile or not
     /// </summary>
     /// <param name="x">x position in map array</param>
     /// <param name="y">y position in map array</param>
     /// <returns></returns>
     private bool TileNotRiver(int x, int y)
     {
+        Debug.Log("x: " + " y: " + y);
+
         return (GameManager.instance.map[x, y] != (int)MapGenerator.tileType.startRiver &&
                 GameManager.instance.map[x, y] != (int)MapGenerator.tileType.straightRiver &&
                 GameManager.instance.map[x, y] != (int)MapGenerator.tileType.curveRiver &&
@@ -267,116 +270,239 @@ public class BuildingManager : MonoBehaviour {
     /// <summary>
     /// picks a random side and picks a random tile on that side
     /// </summary>
+    /// <param name="overrideVal">override gives an offset value if the houses aren't on an edge of the screen, -1 means edge</param>
     private void PickRandomSideTile(int overrideVal = -1)
     {
         //TODO: Clean up the Up and Down sides. Also, fix index out of bounds error when spawning many houses
-        int count = 0;
-        //pick left side of the map
-        if (side == Vector2.left)
+        if (side == Vector2.left || side == Vector2.right)
         {
-            if(overrideVal == -1)
+            //no value provided so its the first side
+            if (overrideVal == -1)
             {
-                lastBuildingPos.x = 0;
+                //set left
+                if (side == Vector2.left)
+                {
+                    lastBuildingPos.x = 0;
+                }
+                //set right
+                else if (side == Vector2.right)
+                {
+                    lastBuildingPos.x = GameManager.instance.sizeX - 1;
+                }
             }
+            //otherwise, set x to the override value
             else
             {
                 lastBuildingPos.x = overrideVal;
             }
 
-            do
+            //FindSuitableSpawnPos(lastBuildingPos.y, GameManager.instance.sizeY);
+
+            //get random y start position, then store that value in startY, and use hitTop to see if we have hit the top of the map
+            lastBuildingPos.y = Random.Range(0, GameManager.instance.sizeY);
+            int startY = lastBuildingPos.y;
+            bool hitTop = false;
+
+            //loop sizeY times to check if we hit a river
+            for (int i = 0; i < GameManager.instance.sizeY; i++)
             {
-                lastBuildingPos.y = Random.Range(0, GameManager.instance.sizeY);
-
-                count++;
-
-                if(TileNotRiver(lastBuildingPos.x, lastBuildingPos.y) == true)
-                {
-                    return;
-                }
-            } while (TileNotRiver(lastBuildingPos.x, lastBuildingPos.y) == false && count < 100);
-
-            PickRandomSideTile(lastBuildingPos.x + 1);
-        }
-        //pick right side of the map
-        else if (side == Vector2.right)
-        {
-            if(overrideVal == -1)
-            {
-                lastBuildingPos.x = GameManager.instance.sizeX - 1;
-            }
-            else
-            {
-                lastBuildingPos.x = overrideVal;
-            }
-
-            lastBuildingPos.y = 0;
-
-            do
-            {
-                lastBuildingPos.y = Random.Range(0, GameManager.instance.sizeY);
-
-                count++;
-
-                if (TileNotRiver(lastBuildingPos.x, lastBuildingPos.y) == true)
-                {
-                    return;
-                }
-            } while (TileNotRiver(lastBuildingPos.x, lastBuildingPos.y) == false && count < 100);
-
-            PickRandomSideTile(lastBuildingPos.x + 1);
-        }
-        //pick top of the map
-        else if (side == Vector2.up)
-        {
-            if (overrideVal == -1)
-            {
-                lastBuildingPos.y = GameManager.instance.sizeY - 1;
-            }
-            else
-            {
-                lastBuildingPos.y = overrideVal;
-            }
-
-            for (int i = 0; i < GameManager.instance.sizeX; i++)
-            {
-                lastBuildingPos.x = Random.Range(0, GameManager.instance.sizeX);
-
+                //if this tile is not a river, use these coords
                 if (TileNotRiver(lastBuildingPos.x, lastBuildingPos.y))
                 {
+                    //set neighbor tiles to this first tile in the column and return
+                    greaterNeighbor = lastBuildingPos;
+                    lesserNeighbor = lastBuildingPos;
                     return;
                 }
+                //if we hit a river tile
+                else
+                {
+                    //if we hit top, go down
+                    if (hitTop)
+                    {
+                        lastBuildingPos.y--;
+                    }
+                    //if we haven't hit top, go up
+                    else
+                    {
+                        lastBuildingPos.y++;
+                        //if we hit top now, reset to startY and go down
+                        if (lastBuildingPos.y >= GameManager.instance.sizeY)
+                        {
+                            lastBuildingPos.y = startY;
+                            lastBuildingPos.y--;
+                        }
+                    }
+                }
+
             }
 
-            PickRandomSideTile(overrideVal + 1);
-        }
-        //pick bottom of the map
-        else
-        {
-
-            if (overrideVal == -1)
+            if (side == Vector2.up || side == Vector2.down)
             {
-                lastBuildingPos.y = 0;
+                //no value provided so its the first side
+                if (overrideVal == -1)
+                {
+                    //set up
+                    if (side == Vector2.up)
+                    {
+                        lastBuildingPos.y = 0;
+                    }
+                    //set down
+                    else if (side == Vector2.down)
+                    {
+                        lastBuildingPos.y = GameManager.instance.sizeY - 1;
+                    }
+                }
+                //otherwise, set y to the override value
+                else
+                {
+                    lastBuildingPos.y = overrideVal;
+                }
+
+                //FindSuitableSpawnPos(lastBuildingPos.y, GameManager.instance.sizeY);
+
+                //get random y start position, then store that value in startY, and use hitTop to see if we have hit the top of the map
+                lastBuildingPos.x = Random.Range(0, GameManager.instance.sizeX);
+                int startPos = lastBuildingPos.x;
+                bool hitSide = false;
+
+                //loop sizeX times to check if we hit a river
+                for (int i = 0; i < GameManager.instance.sizeX; i++)
+                {
+                    //if this tile is not a river, use these coords
+                    if (TileNotRiver(lastBuildingPos.x, lastBuildingPos.y))
+                    {
+                        //set neighbor tiles to this first tile in the column and return
+                        greaterNeighbor = lastBuildingPos;
+                        lesserNeighbor = lastBuildingPos;
+                        return;
+                    }
+                    //if we hit a river tile
+                    else
+                    {
+                        //if we hit top, go down
+                        if (hitSide)
+                        {
+                            lastBuildingPos.x--;
+                        }
+                        //if we haven't hit top, go up
+                        else
+                        {
+                            lastBuildingPos.x++;
+                            //if we hit top now, reset to startY and go down
+                            if (lastBuildingPos.x >= GameManager.instance.sizeX)
+                            {
+                                lastBuildingPos.x = startPos;
+                                lastBuildingPos.x--;
+                            }
+                        }
+                    }
+
+                }
+
+
+                //if we made it here, this entire column is a river, so move to the next column
+                if (side == Vector2.right)
+                {
+                    PickRandomSideTile(lastBuildingPos.x + 1);
+                }
+                else if (side == Vector2.left)
+                {
+                    PickRandomSideTile(lastBuildingPos.x - 1);
+                }
             }
+        }
+        ////pick top of the map
+        //else if (side == Vector2.up)
+        //{
+        //    if (overrideVal == -1)
+        //    {
+        //        lastBuildingPos.y = GameManager.instance.sizeY - 1;
+        //    }
+        //    else
+        //    {
+        //        lastBuildingPos.y = overrideVal;
+        //    }
+
+        //    for (int i = 0; i < GameManager.instance.sizeX; i++)
+        //    {
+        //        lastBuildingPos.x = Random.Range(0, GameManager.instance.sizeX);
+
+        //        if (TileNotRiver(lastBuildingPos.x, lastBuildingPos.y))
+        //        {
+        //            return;
+        //        }
+        //    }
+
+        //    PickRandomSideTile(overrideVal + 1);
+        //}
+        ////pick bottom of the map
+        //else
+        //{
+
+        //    if (overrideVal == -1)
+        //    {
+        //        lastBuildingPos.y = 0;
+        //    }
+        //    else
+        //    {
+        //        lastBuildingPos.y = overrideVal;
+        //    }
+
+        //    for (int i = 0; i < GameManager.instance.sizeX; i++)
+        //    {
+        //        lastBuildingPos.x = Random.Range(0, GameManager.instance.sizeX);
+
+        //        if (TileNotRiver(lastBuildingPos.x, lastBuildingPos.y))
+        //        {
+        //            return;
+        //        }
+        //    }
+
+        //    PickRandomSideTile(overrideVal + 1);
+        //}
+    }
+
+    private void FindSuitableSpawnPos(int pos, int maxSize)
+    {
+        //get random y start position, then store that value in startY, and use hitTop to see if we have hit the top of the map
+        pos = Random.Range(0, GameManager.instance.sizeY);
+        int startPos = pos;
+        bool hitTop = false;
+
+        //loop sizeY times to check if we hit a river
+        for (int i = 0; i < maxSize; i++)
+        {
+            //if this tile is not a river, use these coords
+            if (TileNotRiver(lastBuildingPos.x, lastBuildingPos.y))
+            {
+                //set neighbor tiles to this first tile in the column and return
+                greaterNeighbor = lastBuildingPos;
+                lesserNeighbor = lastBuildingPos;
+                return;
+            }
+            //if we hit a river tile
             else
             {
-                lastBuildingPos.y = overrideVal;
-            }
-
-            for (int i = 0; i < GameManager.instance.sizeX; i++)
-            {
-                lastBuildingPos.x = Random.Range(0, GameManager.instance.sizeX);
-
-                if (TileNotRiver(lastBuildingPos.x, lastBuildingPos.y))
+                //if we hit top, go down
+                if (hitTop)
                 {
-                    return;
+                    pos--;
+                }
+                //if we haven't hit top, go up
+                else
+                {
+                    pos++;
+                    //if we hit top now, reset to startY and go down
+                    if (pos >= maxSize)
+                    {
+                        pos = startPos;
+                        pos--;
+                    }
                 }
             }
 
-            PickRandomSideTile(overrideVal + 1);
         }
-
-        greaterNeighbor = lastBuildingPos;
-        lesserNeighbor = lastBuildingPos;
     }
 }
 
