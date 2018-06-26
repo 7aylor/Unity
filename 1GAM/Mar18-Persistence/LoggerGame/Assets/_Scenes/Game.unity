@@ -14401,7 +14401,7 @@ Prefab:
     - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
         type: 2}
       propertyPath: grass.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4823850287400002, guid: 66bb6308a5a62c74b991525243bf4512, type: 2}
       propertyPath: m_LocalPosition.x
@@ -14529,6 +14529,12 @@ Prefab:
       propertyPath: smoothCycles
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
+        type: 2}
+      propertyPath: grass.Array.data[3]
+      value: 
+      objectReference: {fileID: 1994602091918454, guid: b695a73ccf768ab489686a221080ea83,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 66bb6308a5a62c74b991525243bf4512, type: 2}
   m_IsPrefabParent: 0

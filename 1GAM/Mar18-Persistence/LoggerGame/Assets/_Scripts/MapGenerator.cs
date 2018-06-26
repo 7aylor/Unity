@@ -711,6 +711,7 @@ public class MapGenerator : MonoBehaviour {
                     int grassTileIndex = 0;
                     float tileVal = Random.Range(0, 1.0f);
 
+                    //low percentage of spawning flowers
                     if (tileVal > 0.97f)
                     {
                         grassTileIndex = 1;
@@ -718,6 +719,10 @@ public class MapGenerator : MonoBehaviour {
                     else if (tileVal > 0.93f)
                     {
                         grassTileIndex = 2;
+                    }
+                    else if(tileVal > 0.88f)
+                    {
+                        grassTileIndex = 3;
                     }
 
                     GameManager.instance.numGrassTiles++;
