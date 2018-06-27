@@ -76,7 +76,7 @@ public class BuildingManager : MonoBehaviour {
 
             greaterNeighbor = lastBuildingPos;
             lesserNeighbor = lastBuildingPos;
-            //PickRandomSideTile();
+            ////PickRandomSideTile();
             side = Vector2.left;
 
             SpawnBuilding();
@@ -104,10 +104,13 @@ public class BuildingManager : MonoBehaviour {
                 VerticalSpawns(true);
             }
             //TODO: Horizontal building spawns
-            else if (side == Vector2.up || side == Vector2.down)
+            else if (side == Vector2.up)
             {
-                lastBuildingPos.x += 1;
-                SpawnBuilding();
+                HorizontalSpawns(false);
+            }
+            else if(side == Vector2.down)
+            {
+                HorizontalSpawns(true);
             }
         }
     }
@@ -115,8 +118,8 @@ public class BuildingManager : MonoBehaviour {
     /// <summary>
     /// Used to Spawn buildings vertically. Checks to see if we have chosen a river tile or have gone out of bounds
     /// </summary>
-    /// <param name="goLeft">true if we start on the right, false if we start on the left</param>
-    private void VerticalSpawns(bool goLeft)
+    /// <param name="startOnRight">true if we start on the right, false if we start on the left</param>
+    private void VerticalSpawns(bool startOnRight)
     {
         //spawn up
         if (spawnDirection.canSpawnUp)
@@ -180,7 +183,7 @@ public class BuildingManager : MonoBehaviour {
         //TODO: might need to tweak this
         spawnRounds++;
         
-        if(goLeft == true)
+        if(startOnRight == true)
         {
             lastBuildingPos.x -= 1;
         }
@@ -198,6 +201,94 @@ public class BuildingManager : MonoBehaviour {
         spawnDirection.canSpawnDown = true;
         SpawnBuilding();
     }
+
+    /// <summary>
+    /// Used to Spawn buildings horizontally. Checks to see if we have chosen a river tile or have gone out of bounds
+    /// </summary>
+    /// <param name="startOnBot">true if we start on the bottom edge, false if we start on the top</param>
+    private void HorizontalSpawns(bool startOnBot)
+    {
+        //spawn up
+        if (spawnDirection.canSpawnUp)
+        {
+            //y is a temporary var
+            int x = greaterNeighbor.x;
+
+            //loops through tiles going up to verify it isn't a river and it isn't out of bounds
+            do
+            {
+                x++;
+            } while (x >= 0 && x < GameManager.instance.sizeX && TileNotRiver(x, lastBuildingPos.y) == false);
+
+            //if it is in bounds, spawn it and update relevant vars
+            if (x <= GameManager.instance.sizeX - 1)
+            {
+                lastBuildingPos.x = x;
+                greaterNeighbor = lastBuildingPos;
+                SpawnBuilding();
+            }
+            //else, we can't spawn up anymore
+            else
+            {
+                spawnDirection.canSpawnRight = false;
+            }
+
+            //exit method
+            return;
+        }
+        //spawn down
+        else if (spawnDirection.canSpawnDown)
+        {
+            //y is a temporary var
+            int x = lesserNeighbor.x;
+
+            //loops through tiles going up to verify it isn't a river and it isn't out of bounds
+            do
+            {
+                x--;
+            } while (x >= 0 && x < GameManager.instance.sizeX && TileNotRiver(x, lastBuildingPos.y) == false);
+
+            //if it is in bounds, spawn it and update relevant vars
+            if (x >= 0)
+            {
+                lastBuildingPos.x = x;
+                lesserNeighbor = lastBuildingPos;
+                SpawnBuilding();
+            }
+            //else, we can't spawn down anymore
+            else
+            {
+                spawnDirection.canSpawnLeft = false;
+            }
+
+            //exit method
+            return;
+        }
+
+
+        //if we have made it this far, we can't go up or down. 
+        //TODO: might need to tweak this
+        spawnRounds++;
+
+        if (startOnBot == true)
+        {
+            lastBuildingPos.x -= 1;
+        }
+        else
+        {
+            lastBuildingPos.x += 1;
+        }
+
+        PickRandomSideTile(lastBuildingPos.x);
+
+        //reset the values and spawn a tile in the new position
+        greaterNeighbor = lastBuildingPos;
+        lesserNeighbor = lastBuildingPos;
+        spawnDirection.canSpawnUp = true;
+        spawnDirection.canSpawnDown = true;
+        SpawnBuilding();
+    }
+
 
     /// <summary>
     /// Returns if the given tile coordinate is a river tile or not
@@ -400,7 +491,6 @@ public class BuildingManager : MonoBehaviour {
 
                 }
 
-
                 //if we made it here, this entire column is a river, so move to the next column
                 if (side == Vector2.right)
                 {
@@ -412,7 +502,7 @@ public class BuildingManager : MonoBehaviour {
                 }
             }
         }
-        ////pick top of the map
+        //pick top of the map
         //else if (side == Vector2.up)
         //{
         //    if (overrideVal == -1)
