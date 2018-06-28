@@ -165,7 +165,7 @@ public class Tree : MonoBehaviour {
     /// <summary>
     /// Deal damage to the tree when the lumberjack chops
     /// </summary>
-    private void DealDamage()
+    public void DealDamage()
     {
         health -= 1;
 
@@ -190,6 +190,19 @@ public class Tree : MonoBehaviour {
 
             //stops the lumberjack chop animation
             lumberjack.ClearLumberjackAnimations();
+        }
+    }
+
+    public void DealDamage(int damage)
+    {
+        health -= damage;
+
+        if(health <= 0)
+        {
+            animator.SetTrigger("Falling");
+            GameManager.instance.numTreesInPlay--;
+            forestHealth.UpdateForestHealth();
+            InitializeStump();
         }
     }
 
