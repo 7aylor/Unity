@@ -203,7 +203,13 @@ public class Tree : MonoBehaviour {
             GameManager.instance.numTreesInPlay--;
             forestHealth.UpdateForestHealth();
             InitializeStump();
+            Invoke("DestroyTree", 1);
         }
+    }
+
+    public void DestroyTree()
+    {
+        Destroy(gameObject);
     }
 
     public void DigOutStump()

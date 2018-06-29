@@ -326,6 +326,7 @@ public class BuildingManager : MonoBehaviour {
         }
         else if (ray.collider.gameObject.tag == "Tree")
         {
+            Debug.Log("Called from " + transform.position.x + " " + transform.position.y);
             ray.collider.GetComponent<Tree>().DealDamage(10);
         }
 
