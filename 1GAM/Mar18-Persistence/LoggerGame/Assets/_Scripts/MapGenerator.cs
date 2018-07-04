@@ -32,6 +32,7 @@ public class MapGenerator : MonoBehaviour {
     public GameObject riverCurve;
     public GameObject riverStart;
     public GameObject riverEnd;
+    public GameObject turtle;
     #endregion
 
     public enum tileType
@@ -701,6 +702,12 @@ public class MapGenerator : MonoBehaviour {
                     }
 
                     newTile = Instantiate(riverEnd, new Vector3(xPos, yPos, 0), rotation);
+
+                    //only spawn turtle half the time
+                    if(Random.Range(0,1f) <0.5f)
+                    {
+                        GameObject t = Instantiate(turtle, newTile.transform.position, Quaternion.identity);
+                    }
 
                     GameManager.instance.numRiverTiles++;
                 }
