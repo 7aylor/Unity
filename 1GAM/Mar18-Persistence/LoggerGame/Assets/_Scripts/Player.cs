@@ -71,11 +71,14 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
     [SerializeField]
     private int pointTowardsNextRank;
+    [SerializeField]
     private bool canMove = true;
     private bool isFatigued = false;
 
     [SerializeField]
     private bool nextTileRiver;
+
+    private Stack<direction> moves;
 
     private void Awake()
     {
@@ -102,6 +105,8 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
         selectionIndicator = transform.GetChild(0).gameObject; //Gets the indicator child game object
         fatigueSlider = transform.SearchForChild("FatigueSlider").GetComponent<Slider>();
+
+        moves = new Stack<direction>();
     }
 
     void Start () {
@@ -206,65 +211,141 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     {
         if (isSelected == true && hasTarget == false && canMove == true && isFatigued == false)
         {
-            //get the distance between the mouse and the player
-            Vector3 distanceToMouse = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            canMove = false;
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            hasTarget = true;
-            targetXY = Input.mousePosition;
+            mousePos.x = Mathf.Round(mousePos.x);
+            mousePos.y = Mathf.Round(mousePos.y);
 
-            //check if we haven't clicked the player again
-            if (Mathf.Abs(distanceToMouse.x) >= 0.5f || Mathf.Abs(distanceToMouse.y) >= 0.5f)
+            if(GameManager.instance.IsRiverTile(mousePos.x, mousePos.y) == false)
             {
-                //travel on X
-                if (Mathf.Abs(distanceToMouse.x) > Mathf.Abs(distanceToMouse.y))
-                {
-                    if (distanceToMouse.x > 0)
-                    {
-                        StartCoroutine(TravelToTarget(lastDirection = direction.left));
-                    }
-                    else
-                    {
-                        StartCoroutine(TravelToTarget(lastDirection = direction.right));
-                    }
-                }
-                //travel on Y
-                else
-                {
-                    if (distanceToMouse.y > 0)
-                    {
-                        StartCoroutine(TravelToTarget(lastDirection = direction.down));
-                    }
-                    else
-                    {
-                        StartCoroutine(TravelToTarget(lastDirection = direction.up));
-                    }
-                }
+                SetMoves(mousePos.x, mousePos.y);
+                SpawnFlag(mousePos.x, mousePos.y);
+                StartCoroutine(TravelToTarget(moves.Pop()));
+            }
+
+            ////get the distance between the mouse and the player
+            //Vector3 distanceToMouse = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            //hasTarget = true;
+            //targetXY = Input.mousePosition;
+
+            ////check if we haven't clicked the player again
+            //if (Mathf.Abs(distanceToMouse.x) >= 0.5f || Mathf.Abs(distanceToMouse.y) >= 0.5f)
+            //{
+            //    //travel on X
+            //    if (Mathf.Abs(distanceToMouse.x) > Mathf.Abs(distanceToMouse.y))
+            //    {
+            //        if (distanceToMouse.x > 0)
+            //        {
+            //            StartCoroutine(TravelToTarget(lastDirection = direction.left));
+            //        }
+            //        else
+            //        {
+            //            StartCoroutine(TravelToTarget(lastDirection = direction.right));
+            //        }
+            //    }
+            //    //travel on Y
+            //    else
+            //    {
+            //        if (distanceToMouse.y > 0)
+            //        {
+            //            StartCoroutine(TravelToTarget(lastDirection = direction.down));
+            //        }
+            //        else
+            //        {
+            //            StartCoroutine(TravelToTarget(lastDirection = direction.up));
+            //        }
+            //    }
+            //}
+        }
+    }
+
+    private void SetMoves(float targetX, float targetY)
+    {
+        float playerX = transform.position.x;
+        float playerY = transform.position.y;
+
+        //x
+        while(Mathf.Abs(playerX - targetX) > 0.5f)
+        {
+            //right
+           if(playerX < targetX)
+            {
+                playerX++;
+                //if(GameManager.instance.IsRiverTile(playerX, playerY) == false)
+                //{
+                //    moves.Push(direction.right);
+                //}
+                moves.Push(direction.right);
+            }
+            //left
+            else if(playerX > targetX)
+            {
+                playerX--;
+                //if (GameManager.instance.IsRiverTile(playerX, playerY) == false)
+                //{
+                //    moves.Push(direction.left);
+                //}
+                moves.Push(direction.left);
             }
         }
+
+        //y
+        while (Mathf.Abs(playerY - targetY) > 0.5f)
+        {
+            //up
+            if (playerY < targetY)
+            {
+                playerY++;
+                //if (GameManager.instance.IsRiverTile(playerX, playerY) == false)
+                //{
+                //    moves.Push(direction.up);
+                //}
+                moves.Push(direction.up);
+            }
+            //down
+            else if (playerY > targetY)
+            {
+                playerY--;
+                //if (GameManager.instance.IsRiverTile(playerX, playerY) == false)
+                //{
+                //    moves.Push(direction.down);
+                //}
+                moves.Push(direction.down);
+            }
+        }
+
+        foreach(direction d in moves)
+        {
+            print(d);
+        }
+        Debug.Log("targetX: " + targetX);
+        Debug.Log("targetY: " + targetY);
     }
 
     /// <summary>
     /// raycasts to determine if the next tile is a river space
     /// </summary>
     /// <param name="direction"></param>
-    private void IsNextTileRiver(direction direction)
+    private void IsNextTileRiver(direction direction, int offset=0)
     {
         RaycastHit2D hit;
 
         switch (direction)
         {
             case direction.down:
-                hit = Physics2D.Raycast(transform.position, Vector2.down, 1, LayerMask.GetMask("River"));
+                hit = Physics2D.Raycast(transform.position, Vector2.down + Vector2.down * offset, 1, LayerMask.GetMask("River"));
                 break;
             case direction.up:
-                hit = Physics2D.Raycast(transform.position, Vector2.up, 1, LayerMask.GetMask("River"));
+                hit = Physics2D.Raycast(transform.position, Vector2.up + Vector2.up * offset, 1, LayerMask.GetMask("River"));
                 break;
             case direction.left:
-                hit = Physics2D.Raycast(transform.position, Vector2.left, 1, LayerMask.GetMask("River"));
+                hit = Physics2D.Raycast(transform.position, Vector2.left + Vector2.left * offset, 1, LayerMask.GetMask("River"));
                 break;
             case direction.right:
             default:
-                hit = Physics2D.Raycast(transform.position, Vector2.right, 1, LayerMask.GetMask("River"));
+                hit = Physics2D.Raycast(transform.position, Vector2.right + Vector2.right * offset, 1, LayerMask.GetMask("River"));
                 break;
         }
 
@@ -282,127 +363,153 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     /// <returns></returns>
     private IEnumerator TravelToTarget(direction dir)
     {
-        doneJumping = false;
-        if (tag == "Planter")
+        if(fatigueSlider.value < 1 && !isFatigued)
         {
-            animator.SetFloat("JumpSpeed", animatorPlanterJumpSpeed);
-        }
-        else if (tag == "Lumberjack")
-        {
-            animator.SetFloat("JumpSpeed", animatorLumberjackJumpSpeed);
-        }
-        animator.SetTrigger("Jump");
+            Vector3 changeVector;
 
-        Vector3 changeVector;
-
-        float fatigueVal = (1 - fatigueSlider.value);
-
-        //determine the direction vector
-        if (dir == direction.down)
-        {
-            IsNextTileRiver(direction.down);
-
-            if (nextTileRiver)
+            //determine the direction vector
+            if (dir == direction.down)
             {
-                SpawnFlag(transform.position.x, transform.position.y - 2);
-                animator.runtimeAnimatorController = riverDown;
+                HandleNextTileRiverJumps(dir);
+                changeVector = new Vector3(0, -jumpSpeed, 0);
+            }
+            else if (dir == direction.up)
+            {
+                HandleNextTileRiverJumps(direction.up);
+                changeVector = new Vector3(0, jumpSpeed, 0);
+            }
+            else if (dir == direction.left)
+            {
+                HandleNextTileRiverJumps(direction.left);
+                sprite.flipX = true;
+                changeVector = new Vector3(-jumpSpeed, 0, 0);
             }
             else
             {
-                SpawnFlag(transform.position.x, transform.position.y - 1);
-                animator.runtimeAnimatorController = down;
+                HandleNextTileRiverJumps(direction.right);
+                sprite.flipX = false;
+                changeVector = new Vector3(jumpSpeed, 0, 0);
             }
 
-            
-            changeVector = new Vector3(0, -jumpSpeed, 0);
-        }
-        else if(dir == direction.up)
-        {
-            IsNextTileRiver(direction.up);
-
-            if (nextTileRiver)
+            doneJumping = false;
+            if (tag == "Planter")
             {
-                SpawnFlag(transform.position.x, transform.position.y + 2);
-                animator.runtimeAnimatorController = riverUp;
+                animator.SetFloat("JumpSpeed", animatorPlanterJumpSpeed);
+            }
+            else if (tag == "Lumberjack")
+            {
+                animator.SetFloat("JumpSpeed", animatorLumberjackJumpSpeed);
+            }
+            animator.SetTrigger("Jump");
+
+
+            float fatigueVal = (1 - fatigueSlider.value);
+
+
+            if (nextTileRiver == true)
+            {
+
+                float numLoops = (1 / (jumpSpeed / 2));
+
+                animator.speed = 0.35f;
+
+                for (int i = 0; i < numLoops; i++)
+                {
+                    transform.Translate(changeVector);
+                    yield return new WaitForSeconds(0.025f);
+                }
+
+                animator.speed = 1;
+                nextTileRiver = false;
             }
             else
             {
-                SpawnFlag(transform.position.x, transform.position.y + 1);
-                animator.runtimeAnimatorController = up;
-            }
-            
-            changeVector = new Vector3(0, jumpSpeed, 0);
-        }
-        else if (dir == direction.left)
-        {
-            IsNextTileRiver(direction.left);
+                float numLoops = (1 / jumpSpeed);
 
-            if (nextTileRiver)
-            {
-                SpawnFlag(transform.position.x - 2, transform.position.y);
-                animator.runtimeAnimatorController = riverSide;
-            }
-            else
-            {
-                SpawnFlag(transform.position.x - 1, transform.position.y);
-                animator.runtimeAnimatorController = side;
+                for (int i = 0; i < numLoops; i++)
+                {
+                    transform.Translate(changeVector);
+                    yield return new WaitForSeconds(0.025f);
+                }
             }
 
-            sprite.flipX = true;
-            changeVector = new Vector3(-jumpSpeed, 0, 0);
+            EndTravelToTarget();
         }
         else
         {
-            IsNextTileRiver(direction.right);
-
-            if (nextTileRiver)
-            {
-                SpawnFlag(transform.position.x + 2, transform.position.y);
-                animator.runtimeAnimatorController = riverSide;
-            }
-            else
-            {
-                SpawnFlag(transform.position.x + 1, transform.position.y);
-                animator.runtimeAnimatorController = side;
-            }
-
-            sprite.flipX = false;
-            changeVector = new Vector3(jumpSpeed, 0, 0);
+            moves.Clear();
+            canMove = true;
         }
 
-
-        if(nextTileRiver == true)
+        if (moves.Count > 0)
         {
-
-            float numLoops = (1 / (jumpSpeed / 2));
-
-            animator.speed = 0.35f;
-
-            for (int i = 0; i < numLoops; i++)
-            {
-                transform.Translate(changeVector);
-                yield return new WaitForSeconds(0.025f);
-            }
-
-            animator.speed = 1;
-            nextTileRiver = false;
+            StartCoroutine(TravelToTarget(moves.Pop()));
         }
         else
         {
-            float numLoops = (1 / jumpSpeed);
-
-            for (int i = 0; i < numLoops; i++)
-            {
-                transform.Translate(changeVector);
-                yield return new WaitForSeconds(0.025f);
-            }
+            //destroy the marker flag that shows the tile they are landing on
+            Destroy(tempFlag);
+            canMove = true;
         }
-        
+    }
 
+    /// <summary>
+    /// Called from TravelToTarget and handles which animators to use for each jump type
+    /// </summary>
+    /// <param name="d">direction</param>
+    private void HandleNextTileRiverJumps(direction d)
+    {
+        IsNextTileRiver(d);
+
+        if (nextTileRiver)
+        {
+            switch (d)
+            {
+                case direction.left:
+                case direction.right:
+                    animator.runtimeAnimatorController = riverSide;
+                    break;
+                case direction.down:
+                    animator.runtimeAnimatorController = riverDown;
+                    break;
+                case direction.up:
+                    animator.runtimeAnimatorController = riverUp;
+                    break;
+            }
+            moves.Pop();
+            //IsNextTileRiver(direction.down, 1);
+            //if (nextTileRiver)
+            //{
+            //    EndTravelToTarget();
+            //    StopAllCoroutines();
+            //}
+
+            //SpawnFlag(transform.position.x, transform.position.y - 2);
+            
+        }
+        else
+        {
+            //SpawnFlag(transform.position.x, transform.position.y - 1);
+            switch (d)
+            {
+                case direction.left:
+                case direction.right:
+                    animator.runtimeAnimatorController = side;
+                    break;
+                case direction.down:
+                    animator.runtimeAnimatorController = down;
+                    break;
+                case direction.up:
+                    animator.runtimeAnimatorController = up;
+                    break;
+            }
+            
+        }
+    }
+
+    private void EndTravelToTarget()
+    {
         hasTarget = false;
-
-        //destroy the marker flag that shows they tile they are landing on
-        Destroy(tempFlag);
 
         //update the buttons based on the new tile the player is on
         HandleActionPanelButtons();

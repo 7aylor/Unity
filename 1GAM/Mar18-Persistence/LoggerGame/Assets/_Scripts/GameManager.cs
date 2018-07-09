@@ -108,6 +108,27 @@ public class GameManager : MonoBehaviour {
     {
         return (int)(num + (sizeY / 2));
     }
+
+    /// <summary>
+    /// Checks if the world space coordinate is a river tile
+    /// </summary>
+    /// <param name="worldX">x position in world space</param>
+    /// <param name="worldY">y position in world space</param>
+    /// <returns>Return true if river tile, false if not river tile</returns>
+    public bool IsRiverTile(float worldX, float worldY)
+    {
+        int x = GameManager.instance.WorldCoordToArrayCoordX(worldX);
+        int y = GameManager.instance.WorldCoordToArrayCoordY(worldY);
+        if (map[x,y] == (int)MapGenerator.tileType.startRiver ||
+            map[x, y] == (int)MapGenerator.tileType.curveRiver ||
+            map[x, y] == (int)MapGenerator.tileType.straightRiver ||
+            map[x, y] == (int)MapGenerator.tileType.endRiver)
+        {
+            return true;
+        }
+
+        return false;    
+    }
 }
 
 public class Skill
