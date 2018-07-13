@@ -39,6 +39,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     private ActionPanel actionPanel;
 
     private bool isSelected;
+    private bool canSelect;
     private bool hasTarget; //used to determine if the lumberjack is walking toward a tree
     private Vector3 targetXY; //the target location of the next tree;
     private Animator animator;
@@ -112,6 +113,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     void Start () {
         hasTarget = false;
         isSelected = false;
+        canSelect = true;
         seedsPlanted = 0;
         currentRank = 0;
         pointTowardsNextRank = 0;
@@ -221,6 +223,8 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             {
                 SetMoves(mousePos.x, mousePos.y);
                 SpawnFlag(mousePos.x, mousePos.y);
+                OnPointerClick(null);
+                canSelect = false;
                 StartCoroutine(TravelToTarget(moves.Pop()));
             }
 
@@ -450,6 +454,11 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             //destroy the marker flag that shows the tile they are landing on
             Destroy(tempFlag);
             canMove = true;
+            canSelect = true;
+            if(GameManager.instance.selectedPlayer == null)
+            {
+                OnPointerClick(null);
+            }
         }
     }
 
@@ -528,92 +537,95 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        //if there is no currently selected player
-        if(GameManager.instance.playerSelected == false)
+        if(canSelect == true)
         {
-            GameManager.instance.playerSelected = true;
-            SelectPlayer(true);
-
-            //toggle which buttons are active on the actions panel
-            if (tag == "Lumberjack")
+            //if there is no currently selected player
+            if (GameManager.instance.playerSelected == false)
             {
-                actionPanel.ActivateButtons(ActionPanel.SelectedPlayer.lumberjack);
-                if(GameManager.instance.planterHired == false)
-                {
-                    actionPanel.EnableDisableSingleButton(planterHireButton.gameObject, true);
-                }
-            }
-            else if (tag == "Planter")
-            {
-                actionPanel.ActivateButtons(ActionPanel.SelectedPlayer.planter);
-                if (GameManager.instance.lumberjackHired == false)
-                {
-                    actionPanel.EnableDisableSingleButton(lumberjackHireButton.gameObject, true);
-                }
-            }
-            HandleActionPanelButtons();
-        }
-        //the player is selected when clicked
-        else
-        {
-            //if this player is selected already, deactivate
-            if (isSelected == true)
-            {
+                GameManager.instance.playerSelected = true;
+                SelectPlayer(true);
 
-               actionPanel.ActivateButtons(ActionPanel.SelectedPlayer.none);
-
-                if (tag == "Lumberjack" && chopButton.chopping == true)
-                {
-                    animator.SetBool("Chop", false);
-                    animator.runtimeAnimatorController = down;
-                    chopButton.chopping = false;
-                }
-                else if (tag == "Planter" && plantButton.planting == true)
-                {
-                    animator.SetBool("Plant", false);
-                    plantButton.planting = false;
-                    animator.runtimeAnimatorController = down;
-                }
-                else if (tag == "Planter" && waterButton.watering == true)
-                {
-                    animator.SetBool("Water", false);
-                    waterButton.watering = false;
-                    animator.runtimeAnimatorController = down;
-                }
-
-                GameManager.instance.playerSelected = false;
-                hasTarget = false;
-                SelectPlayer(false);
-            }
-            //otherwise we are selecting the other player
-            else
-            {
-                //find the other player
-                foreach(Player p in FindObjectsOfType<Player>())
-                {
-                    if(p.gameObject != this)
-                    {
-                        p.SelectPlayer(false);
-                        //Debug.Log("Deselecting other player");
-                    }
-                }
-
+                //toggle which buttons are active on the actions panel
                 if (tag == "Lumberjack")
                 {
                     actionPanel.ActivateButtons(ActionPanel.SelectedPlayer.lumberjack);
+                    if (GameManager.instance.planterHired == false)
+                    {
+                        actionPanel.EnableDisableSingleButton(planterHireButton.gameObject, true);
+                    }
                 }
                 else if (tag == "Planter")
                 {
                     actionPanel.ActivateButtons(ActionPanel.SelectedPlayer.planter);
+                    if (GameManager.instance.lumberjackHired == false)
+                    {
+                        actionPanel.EnableDisableSingleButton(lumberjackHireButton.gameObject, true);
+                    }
+                }
+                HandleActionPanelButtons();
+            }
+            //the player is selected when clicked
+            else
+            {
+                //if this player is selected already, deactivate
+                if (isSelected == true)
+                {
+
+                    actionPanel.ActivateButtons(ActionPanel.SelectedPlayer.none);
+
+                    if (tag == "Lumberjack" && chopButton.chopping == true)
+                    {
+                        animator.SetBool("Chop", false);
+                        animator.runtimeAnimatorController = down;
+                        chopButton.chopping = false;
+                    }
+                    else if (tag == "Planter" && plantButton.planting == true)
+                    {
+                        animator.SetBool("Plant", false);
+                        plantButton.planting = false;
+                        animator.runtimeAnimatorController = down;
+                    }
+                    else if (tag == "Planter" && waterButton.watering == true)
+                    {
+                        animator.SetBool("Water", false);
+                        waterButton.watering = false;
+                        animator.runtimeAnimatorController = down;
+                    }
+
+                    GameManager.instance.playerSelected = false;
+                    hasTarget = false;
+                    SelectPlayer(false);
+                }
+                //otherwise we are selecting the other player
+                else
+                {
+                    //find the other player
+                    foreach (Player p in FindObjectsOfType<Player>())
+                    {
+                        if (p.gameObject != this)
+                        {
+                            p.SelectPlayer(false);
+                            //Debug.Log("Deselecting other player");
+                        }
+                    }
+
+                    if (tag == "Lumberjack")
+                    {
+                        actionPanel.ActivateButtons(ActionPanel.SelectedPlayer.lumberjack);
+                    }
+                    else if (tag == "Planter")
+                    {
+                        actionPanel.ActivateButtons(ActionPanel.SelectedPlayer.planter);
+                    }
+
+
+
+                    GameManager.instance.playerSelected = true;
+                    SelectPlayer(true);
                 }
 
-                
-
-                GameManager.instance.playerSelected = true;
-                SelectPlayer(true);
+                HandleActionPanelButtons();
             }
-
-            HandleActionPanelButtons();
         }
     }
 
