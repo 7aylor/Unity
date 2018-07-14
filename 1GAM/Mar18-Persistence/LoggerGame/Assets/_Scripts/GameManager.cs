@@ -46,9 +46,9 @@ public class GameManager : MonoBehaviour {
     public int midPointsToNextLevel;
     public int latePointsToNextLevel;
 
-    public enum planter_UI_State { Tree, Stump, Other, None }
+    public enum planter_UI_State { Grass, Seed, Other, None }
     public enum lumberjack_UI_State { Tree, Stump, Other, None }
-
+    public enum promote_UI_State { Promote_lumberjack, Promote_Planter, None}
 
     private void Awake()
     {

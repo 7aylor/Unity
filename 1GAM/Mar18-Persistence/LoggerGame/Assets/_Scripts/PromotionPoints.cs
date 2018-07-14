@@ -7,10 +7,12 @@ public class PromotionPoints : MonoBehaviour {
 
     public int numPoints;
     TMP_Text text;
+    private UIActions uIActions;
 
     private void Awake()
     {
         text = GetComponent<TMP_Text>();
+        uIActions = FindObjectOfType<UIActions>();
     }
 
     private void Start()
@@ -35,6 +37,7 @@ public class PromotionPoints : MonoBehaviour {
     public void ResetPoints()
     {
         //Debug.Log("Reset points");
+        uIActions.PromoteState = GameManager.promote_UI_State.None;
         numPoints = 1;
         text.text = numPoints.ToString();
     }

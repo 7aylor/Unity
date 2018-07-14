@@ -69,15 +69,15 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_GenerateMotionCurves: 0
   m_Events:
-  - time: 1
-    functionName: SowSeeds
+  - time: 0.5
+    functionName: AddFatigue
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 1
-    functionName: AddFatigue
+    functionName: SowSeeds
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

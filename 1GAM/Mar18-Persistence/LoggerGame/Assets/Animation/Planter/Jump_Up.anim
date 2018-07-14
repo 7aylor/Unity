@@ -191,7 +191,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_GenerateMotionCurves: 0
   m_Events:
-  - time: 0.5
+  - time: 0.48333332
     functionName: AddFatigue
     data: 
     objectReferenceParameter: {fileID: 0}

@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class FireButton : MonoBehaviour {
 
-    private ActionPanel actionPanel;
     public PromotePanel lumberJackPromotePanel;
     public PromotePanel planterPromotePanel;
 
+    private UIActions uIActions;
+
     private void Awake()
     {
-        actionPanel = FindObjectOfType<ActionPanel>();
+        uIActions = FindObjectOfType<UIActions>();
     }
 
     /// <summary>
@@ -43,6 +44,7 @@ public class FireButton : MonoBehaviour {
             GameManager.instance.lumberjackHired = false;
             lumberJackPromotePanel.ResetSkillLevels();
             lumberJackPromotePanel.gameObject.SetActive(false);
+            uIActions.LumberjackState = GameManager.lumberjack_UI_State.None;
         }
         //reset planter hired, and action panel stats
         if (player == "Planter" || (GameManager.instance.selectedPlayer != null &&
@@ -51,6 +53,7 @@ public class FireButton : MonoBehaviour {
             GameManager.instance.planterHired = false;
             planterPromotePanel.ResetSkillLevels();
             planterPromotePanel.gameObject.SetActive(false);
+            uIActions.PlanterState = GameManager.planter_UI_State.None;
         }
 
         //no player is passed to the method, ie, when the player runs away from the bear, destroy the player
@@ -61,8 +64,6 @@ public class FireButton : MonoBehaviour {
 
         //reset the rest and update ui
         GameManager.instance.playerSelected = false;
-        actionPanel.selectedPlayer = ActionPanel.SelectedPlayer.none;
-        actionPanel.ActionsButtonClick();
         gameObject.SetActive(false);
     }
 }

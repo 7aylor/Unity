@@ -212,17 +212,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 858057843}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 32205982}
         m_MethodName: SetActive
         m_Mode: 6
@@ -8298,7 +8287,6 @@ GameObject:
   - component: {fileID: 811178061}
   - component: {fileID: 811178060}
   - component: {fileID: 811178059}
-  - component: {fileID: 811178058}
   - component: {fileID: 811178057}
   m_Layer: 5
   m_Name: Planter Promote
@@ -8347,18 +8335,6 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &811178058
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114826428923598454, guid: 1de18488c3b73bb4cbb61d984f7560d8,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 811178055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ce4202a9d6093f489b40807c9ef78fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &811178059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8764,7 +8740,6 @@ GameObject:
   - component: {fileID: 858057849}
   - component: {fileID: 858057848}
   - component: {fileID: 858057847}
-  - component: {fileID: 858057846}
   - component: {fileID: 858057845}
   m_Layer: 5
   m_Name: Lumberjack Promote
@@ -8813,18 +8788,6 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &858057846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114513166392911106, guid: 1de18488c3b73bb4cbb61d984f7560d8,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 858057843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b6b65dc8f9129e4b99cdc458c268ee2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &858057847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11333,19 +11296,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 921c25bac1aff3448b80703dca4e65be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedPlayer: 0
-  hireButtons:
-  - {fileID: 205292406}
-  - {fileID: 1227388900}
-  planterButtons:
-  - {fileID: 357689088}
-  - {fileID: 1032909414}
-  - {fileID: 811178059}
-  lumberjackButtons:
-  - {fileID: 461254240}
-  - {fileID: 1359589496}
-  - {fileID: 858057847}
-  fireButton: {fileID: 2098594015}
+  lumberjack_hire: {fileID: 205292402}
+  lumberjack_chop: {fileID: 461254236}
+  lumberjack_dig: {fileID: 1359589492}
+  lumberjack_promote: {fileID: 858057843}
+  planter_hire: {fileID: 1227388896}
+  planter_plant: {fileID: 357689084}
+  planter_water: {fileID: 1032909410}
+  planter_promote: {fileID: 811178055}
+  fire: {fileID: 2098594012}
 --- !u!95 &1129450714
 Animator:
   serializedVersion: 3

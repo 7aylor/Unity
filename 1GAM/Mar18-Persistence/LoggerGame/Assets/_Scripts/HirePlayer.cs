@@ -8,14 +8,13 @@ public class HirePlayer : MonoBehaviour {
     public GameObject planter;
 
     public enum HireType { lumberjack, planter}
-    public HireType typeOfHire;
+    public HireType typeOfHire; //chosen in the editor
 
-    [SerializeField]
-    private ActionPanel actionPanel;
+    private UIActions uIActions;
 
     private void Awake()
     {
-        actionPanel = GetComponentInParent<ActionPanel>();
+        uIActions = FindObjectOfType<UIActions>();
     }
 
     /// <summary>
@@ -32,21 +31,16 @@ public class HirePlayer : MonoBehaviour {
         {
             GameObject spawn = Instantiate(lumberjack, new Vector3((float)instantiateCoords.x, (float)instantiateCoords.y - 0.2f, 0), Quaternion.identity);
             GameManager.instance.lumberjackHired = true;
-            actionPanel.EnableDisableSingleButton(actionPanel.hireButtons[0].gameObject, false);
         }
         //if hire planter is clicked and there is no planter in the game, hire planter
         else if (typeOfHire == HireType.planter && GameManager.instance.planterHired == false)
         {
             Instantiate(planter, new Vector3((float)instantiateCoords.x, (float)instantiateCoords.y - 0.2f, 0), Quaternion.identity);
             GameManager.instance.planterHired = true;
-            actionPanel.EnableDisableSingleButton(actionPanel.hireButtons[1].gameObject, false);
         }
 
-        //if a player is already selected, keep the fire button active
-        if (GameManager.instance.playerSelected == true)
-        {
-            actionPanel.EnableDisableSingleButton(actionPanel.fireButton.gameObject, true);
-        }
+        //disable this Hire button
+        gameObject.SetActive(false);
     }
 
     /// <summary>

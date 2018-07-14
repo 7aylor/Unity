@@ -82,15 +82,15 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1
-    functionName: HandleWatering
+  - time: 0.75
+    functionName: AddFatigue
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 1
-    functionName: AddFatigue
+    functionName: HandleWatering
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
