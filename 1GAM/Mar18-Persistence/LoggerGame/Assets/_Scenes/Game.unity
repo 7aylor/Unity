@@ -2315,7 +2315,7 @@ GameObject:
   - component: {fileID: 205292405}
   - component: {fileID: 205292404}
   m_Layer: 5
-  m_Name: Hire LumberJack
+  m_Name: LumberJack Hire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4349,7 +4349,7 @@ RectTransform:
   m_Children:
   - {fileID: 1773588526}
   m_Father: {fileID: 1129450709}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5804,7 +5804,7 @@ RectTransform:
   m_Children:
   - {fileID: 254610623}
   m_Father: {fileID: 1129450709}
-  m_RootOrder: 5
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -8320,7 +8320,7 @@ RectTransform:
   m_Children:
   - {fileID: 743376811}
   m_Father: {fileID: 1129450709}
-  m_RootOrder: 4
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -8786,7 +8786,7 @@ RectTransform:
   m_Children:
   - {fileID: 89875512}
   m_Father: {fileID: 1129450709}
-  m_RootOrder: 7
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -10545,7 +10545,7 @@ RectTransform:
   m_Children:
   - {fileID: 1475754511}
   m_Father: {fileID: 1129450709}
-  m_RootOrder: 3
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -11232,6 +11232,7 @@ GameObject:
   - component: {fileID: 1129450712}
   - component: {fileID: 1129450714}
   - component: {fileID: 1129450713}
+  - component: {fileID: 1129450716}
   m_Layer: 5
   m_Name: Actions
   m_TagString: Untagged
@@ -11250,13 +11251,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 205292403}
+  - {fileID: 461254237}
+  - {fileID: 1359589493}
+  - {fileID: 858057844}
   - {fileID: 1227388897}
   - {fileID: 357689085}
   - {fileID: 1032909411}
   - {fileID: 811178056}
-  - {fileID: 461254237}
-  - {fileID: 1359589493}
-  - {fileID: 858057844}
   - {fileID: 2098594013}
   m_Father: {fileID: 568207926}
   m_RootOrder: 2
@@ -11352,7 +11353,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1129450708}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
@@ -11362,6 +11363,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1129450716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1129450708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a3b3b9475e41204b84f2ffe3e6d5ab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1162311912
 GameObject:
   m_ObjectHideFlags: 0
@@ -12344,7 +12356,7 @@ GameObject:
   - component: {fileID: 1227388899}
   - component: {fileID: 1227388898}
   m_Layer: 5
-  m_Name: Hire Planter
+  m_Name: Planter Hire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12363,7 +12375,7 @@ RectTransform:
   m_Children:
   - {fileID: 1938917395}
   m_Father: {fileID: 1129450709}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -13469,7 +13481,7 @@ RectTransform:
   m_Children:
   - {fileID: 187143206}
   m_Father: {fileID: 1129450709}
-  m_RootOrder: 6
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
