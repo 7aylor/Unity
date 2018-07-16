@@ -707,6 +707,7 @@ public class MapGenerator : MonoBehaviour {
                     if(Random.Range(0,1f) <0.5f)
                     {
                         GameObject t = Instantiate(turtle, newTile.transform.position, Quaternion.identity);
+                        t.transform.parent = FindObjectOfType<AnimalController>().transform;
                     }
 
                     GameManager.instance.numRiverTiles++;

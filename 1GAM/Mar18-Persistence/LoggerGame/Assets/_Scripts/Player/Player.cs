@@ -193,66 +193,25 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         }
     }
 
-    public void HandleMovePlayer()
+    /// <summary>
+    /// Called from EnvironmentClick.cs, Builds the move stack and starts the player movement
+    /// </summary>
+    /// <param name="tileX">World Position X of the tile that is clicked</param>
+    /// <param name="tileY">World Position Y of the tile that is clicked</param>
+    public void HandleMovePlayer(float tileX, float tileY)
     {
         if (isSelected == true && hasTarget == false && canMove == true && isFatigued == false)
         {
             canMove = false;
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector3.forward);
-
-            if (hit)
+            if (GameManager.instance.IsRiverTile(tileX, tileY) == false)
             {
-                float tileX = hit.collider.transform.position.x;
-                float tileY = hit.collider.transform.position.y;
-
-                if (GameManager.instance.IsRiverTile(tileX, tileY) == false)
-                {
-                    SetMoves(tileX, tileY);
-                    SpawnFlag(tileX, tileY);
-                    OnPointerClick(null);
-                    canSelect = false;
-                    StartCoroutine(TravelToTarget(moves.Pop()));
-                }
+                SetMoves(tileX, tileY);
+                SpawnFlag(tileX, tileY);
+                OnPointerClick(null);
+                canSelect = false;
+                StartCoroutine(TravelToTarget(moves.Pop()));
             }
-
-
-
-            ////get the distance between the mouse and the player
-            //Vector3 distanceToMouse = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            //hasTarget = true;
-            //targetXY = Input.mousePosition;
-
-            ////check if we haven't clicked the player again
-            //if (Mathf.Abs(distanceToMouse.x) >= 0.5f || Mathf.Abs(distanceToMouse.y) >= 0.5f)
-            //{
-            //    //travel on X
-            //    if (Mathf.Abs(distanceToMouse.x) > Mathf.Abs(distanceToMouse.y))
-            //    {
-            //        if (distanceToMouse.x > 0)
-            //        {
-            //            StartCoroutine(TravelToTarget(lastDirection = direction.left));
-            //        }
-            //        else
-            //        {
-            //            StartCoroutine(TravelToTarget(lastDirection = direction.right));
-            //        }
-            //    }
-            //    //travel on Y
-            //    else
-            //    {
-            //        if (distanceToMouse.y > 0)
-            //        {
-            //            StartCoroutine(TravelToTarget(lastDirection = direction.down));
-            //        }
-            //        else
-            //        {
-            //            StartCoroutine(TravelToTarget(lastDirection = direction.up));
-            //        }
-            //    }
-            //}
         }
     }
 
@@ -262,27 +221,49 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         float playerY = transform.position.y;
 
         //x
-        while(Mathf.Abs(playerX - targetX) > 0.5f)
+        while (Mathf.Abs(playerX - targetX) > 0.5f)
         {
             //right
-           if(playerX < targetX)
+            if (playerX < targetX)
             {
-                playerX++;
-                //if(GameManager.instance.IsRiverTile(playerX, playerY) == false)
-                //{
-                //    moves.Push(direction.right);
-                //}
-                moves.Push(direction.right);
+                if (GameManager.instance.IsRiverTile(playerX + 1, playerY) == false)
+                {
+                    moves.Push(direction.right);
+                    playerX++;
+                }
+                else
+                {
+                    if (GameManager.instance.IsRiverTile(playerX + 2, playerY) == false)
+                    {
+                        moves.Push(direction.right);
+                        playerX++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
             }
             //left
-            else if(playerX > targetX)
+            else if (playerX > targetX)
             {
-                playerX--;
-                //if (GameManager.instance.IsRiverTile(playerX, playerY) == false)
-                //{
-                //    moves.Push(direction.left);
-                //}
-                moves.Push(direction.left);
+                if (GameManager.instance.IsRiverTile(playerX - 1, playerY) == false)
+                {
+                    moves.Push(direction.left);
+                    playerX--;
+                }
+                else
+                {
+                    if (GameManager.instance.IsRiverTile(playerX - 2, playerY) == false)
+                    {
+                        moves.Push(direction.left);
+                        playerX--;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
             }
         }
 
@@ -292,22 +273,46 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             //up
             if (playerY < targetY)
             {
-                playerY++;
-                //if (GameManager.instance.IsRiverTile(playerX, playerY) == false)
-                //{
-                //    moves.Push(direction.up);
-                //}
-                moves.Push(direction.up);
+                if (GameManager.instance.IsRiverTile(playerX, playerY + 1) == false)
+                {
+                    moves.Push(direction.up);
+                    playerY++;
+                }
+                else
+                {
+                    if (GameManager.instance.IsRiverTile(playerX, playerY + 2) == false)
+                    {
+                        moves.Push(direction.up);
+                        playerY++;
+                    }
+                    else
+                    {
+                        HandleMovePlayer(playerX, playerY);
+                        break;
+                    }
+                }
             }
             //down
             else if (playerY > targetY)
             {
-                playerY--;
-                //if (GameManager.instance.IsRiverTile(playerX, playerY) == false)
-                //{
-                //    moves.Push(direction.down);
-                //}
-                moves.Push(direction.down);
+                if (GameManager.instance.IsRiverTile(playerX, playerY - 1) == false)
+                {
+                    moves.Push(direction.down);
+                    playerY--;
+                }
+                else
+                {
+                    if (GameManager.instance.IsRiverTile(playerX, playerY - 2) == false)
+                    {
+                        moves.Push(direction.down);
+                        playerY--;
+                    }
+                    else
+                    {
+                        HandleMovePlayer(playerX, playerY);
+                        break;
+                    }
+                }
             }
         }
 
@@ -318,6 +323,8 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         Debug.Log("targetX: " + targetX);
         Debug.Log("targetY: " + targetY);
     }
+
+
 
     /// <summary>
     /// raycasts to determine if the next tile is a river space
@@ -397,9 +404,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             }
             animator.SetTrigger("Jump");
 
-
             float fatigueVal = (1 - fatigueSlider.value);
-
 
             if (nextTileRiver == true)
             {
@@ -886,6 +891,8 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         if (fatigueSlider.value == 1)
         {
             isFatigued = true;
+
+            //set UI to reflect being fully fatigued
             if (tag == "Planter")
             {
                 uIActions.PlanterState = GameManager.planter_UI_State.Other;
@@ -894,11 +901,15 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             {
                 uIActions.LumberjackState = GameManager.lumberjack_UI_State.Other;
             }
-            animator.SetBool("Fatigued", true);
+            
             StartCoroutine(HandleFatigued());
         }
     }
 
+    /// <summary>
+    /// if player is at all fatigued, rejuvinate until full
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator Rejuvinate()
     {
         rejuvinating = true;
@@ -911,9 +922,14 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         rejuvinating = false;
     }
 
+    /// <summary>
+    /// if player has become fully fatigued, stop player from moving and wait until fully recovered
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator HandleFatigued()
     {
-        while(fatigueSlider.value > 0)
+        animator.SetBool("Fatigued", true);
+        while (fatigueSlider.value > 0)
         {
             fatigueSlider.value -= recoverFatigueRate;
             yield return new WaitForEndOfFrame();

@@ -12,7 +12,7 @@ public class EnvironmentClick : MonoBehaviour, IPointerClickHandler
     {
         if(GameManager.instance.selectedPlayer != null)
         {
-            GameManager.instance.selectedPlayer.HandleMovePlayer();
+            GameManager.instance.selectedPlayer.HandleMovePlayer(transform.position.x, transform.position.y);
         }
     }
 }
