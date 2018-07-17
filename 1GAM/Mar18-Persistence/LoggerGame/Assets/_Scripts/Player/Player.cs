@@ -210,7 +210,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                 SpawnFlag(tileX, tileY);
                 OnPointerClick(null);
                 canSelect = false;
-                StartCoroutine(TravelToTarget(moves.Pop()));
+                StartCoroutine(TravelToTarget(moves.Peek()));
             }
         }
     }
@@ -220,8 +220,13 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         float playerX = transform.position.x;
         float playerY = transform.position.y;
 
+        Debug.Log("playerX: " + playerX);
+        Debug.Log("playerY: " + playerY);
+        Debug.Log("targetX: " + targetX);
+        Debug.Log("targetY: " + targetY);
+
         //x
-        while (Mathf.Abs(playerX - targetX) > 0.5f)
+        while (Mathf.Abs(playerX - targetX) > 0.25)
         {
             //right
             if (playerX < targetX)
@@ -235,8 +240,12 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                 {
                     if (GameManager.instance.IsRiverTile(playerX + 2, playerY) == false)
                     {
+                        if ((playerX + 2) > targetX)
+                        {
+                            break;
+                        }
                         moves.Push(direction.right);
-                        playerX++;
+                        playerX += 2;
                     }
                     else
                     {
@@ -256,8 +265,12 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                 {
                     if (GameManager.instance.IsRiverTile(playerX - 2, playerY) == false)
                     {
+                        if ((playerX - 2) < targetX)
+                        {
+                            break;
+                        }
                         moves.Push(direction.left);
-                        playerX--;
+                        playerX -= 2;
                     }
                     else
                     {
@@ -268,7 +281,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         }
 
         //y
-        while (Mathf.Abs(playerY - targetY) > 0.5f)
+        while (Mathf.Abs(playerY - targetY) > 0.25)
         {
             //up
             if (playerY < targetY)
@@ -282,12 +295,17 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                 {
                     if (GameManager.instance.IsRiverTile(playerX, playerY + 2) == false)
                     {
+                        if ((playerY + 2) > targetY)
+                        {
+                            break;
+                        }
                         moves.Push(direction.up);
-                        playerY++;
+                        playerY += 2;
                     }
                     else
                     {
-                        HandleMovePlayer(playerX, playerY);
+                        SetMoves(playerX, playerY);
+                        //HandleMovePlayer(playerX, playerY);
                         break;
                     }
                 }
@@ -304,24 +322,27 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                 {
                     if (GameManager.instance.IsRiverTile(playerX, playerY - 2) == false)
                     {
+                        if ((playerY - 2) < targetY)
+                        {
+                            break;
+                        }
                         moves.Push(direction.down);
-                        playerY--;
+                        playerY -= 2;
                     }
                     else
                     {
-                        HandleMovePlayer(playerX, playerY);
+                        SetMoves(playerX, playerY);
                         break;
                     }
                 }
             }
         }
 
-        foreach(direction d in moves)
+        foreach (direction d in moves)
         {
             print(d);
         }
-        Debug.Log("targetX: " + targetX);
-        Debug.Log("targetY: " + targetY);
+
     }
 
 
@@ -421,6 +442,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
                 animator.speed = 1;
                 nextTileRiver = false;
+                //moves.Pop();
             }
             else
             {
@@ -433,6 +455,10 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                 }
             }
 
+            if(moves != null && moves.Count > 0)
+            {
+                moves.Pop();
+            }
             EndTravelToTarget();
         }
         else
@@ -443,14 +469,20 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
         if (moves.Count > 0)
         {
-            StartCoroutine(TravelToTarget(moves.Pop()));
+
+            StartCoroutine(TravelToTarget(moves.Peek()));
         }
         else
         {
             //destroy the marker flag that shows the tile they are landing on
+            moves.Clear();
             Destroy(tempFlag);
             canMove = true;
             canSelect = true;
+
+            //Ensure that the player ends exactly on a tile instead of being off by a tiny fraction
+            transform.position = new Vector3(Mathf.Round(transform.position.x * 10) / 10, 
+                                             Mathf.Round(transform.position.y * 10) / 10, transform.position.z);
             if(GameManager.instance.selectedPlayer == null)
             {
                 OnPointerClick(null);
@@ -481,7 +513,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                     animator.runtimeAnimatorController = riverUp;
                     break;
             }
-            moves.Pop();
+            
             //IsNextTileRiver(direction.down, 1);
             //if (nextTileRiver)
             //{
