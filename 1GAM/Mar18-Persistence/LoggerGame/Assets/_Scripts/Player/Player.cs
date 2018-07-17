@@ -240,7 +240,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                 {
                     if (GameManager.instance.IsRiverTile(playerX + 2, playerY) == false)
                     {
-                        if ((playerX + 2) > targetX)
+                        if (Mathf.Abs((playerX + 2) - targetX) > 0.25)
                         {
                             break;
                         }
@@ -265,7 +265,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                 {
                     if (GameManager.instance.IsRiverTile(playerX - 2, playerY) == false)
                     {
-                        if ((playerX - 2) < targetX)
+                        if (Mathf.Abs((playerX - 2) - targetX) < 0.25)
                         {
                             break;
                         }
@@ -295,7 +295,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                 {
                     if (GameManager.instance.IsRiverTile(playerX, playerY + 2) == false)
                     {
-                        if ((playerY + 2) > targetY)
+                        if (Mathf.Abs((playerY + 2) - targetY) > 0.25)
                         {
                             break;
                         }
@@ -322,7 +322,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                 {
                     if (GameManager.instance.IsRiverTile(playerX, playerY - 2) == false)
                     {
-                        if ((playerY - 2) < targetY)
+                        if (Mathf.Abs((playerY - 2) - targetY) < 0.25)
                         {
                             break;
                         }
