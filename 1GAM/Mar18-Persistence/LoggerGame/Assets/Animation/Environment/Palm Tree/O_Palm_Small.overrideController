@@ -1,0 +1,12 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: O_Palm_Small
+  m_Controller: {fileID: 9100000, guid: b20670bb33fc118468de50cc1b5eb4d8, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: d4063eda40eb51646ac230a86d75dd9e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: fe013dd0d52ab5e448505ee98b005f7a, type: 2}

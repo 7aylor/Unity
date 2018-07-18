@@ -9,34 +9,32 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1242716478098746}
+  m_RootGameObject: {fileID: 1272982007471352}
   m_IsPrefabParent: 1
---- !u!1 &1242716478098746
+--- !u!1 &1272982007471352
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4699363228839310}
-  - component: {fileID: 212879450060890496}
-  - component: {fileID: 95851357467491252}
-  - component: {fileID: 61534394842584890}
-  - component: {fileID: 114598334969851468}
-  - component: {fileID: 114109155081197910}
+  - component: {fileID: 4962932607954634}
+  - component: {fileID: 212459510769542684}
+  - component: {fileID: 61429391416079590}
+  - component: {fileID: 114136851290955004}
   m_Layer: 0
-  m_Name: Palm
-  m_TagString: Tree
+  m_Name: Sand
+  m_TagString: Grass
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4699363228839310
+--- !u!4 &4962932607954634
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1242716478098746}
+  m_GameObject: {fileID: 1272982007471352}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -44,12 +42,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &61534394842584890
+--- !u!61 &61429391416079590
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1242716478098746}
+  m_GameObject: {fileID: 1272982007471352}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -61,7 +59,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
-    newSize: {x: 0.64, y: 0.64}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -69,68 +67,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!95 &95851357467491252
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1242716478098746}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b20670bb33fc118468de50cc1b5eb4d8, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114109155081197910
+--- !u!114 &114136851290955004
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1242716478098746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0517155edcc8e434c92ee59063ebb10e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 2
-  treeState: 0
-  lumberYielded: 0
-  canChopDown: 0
-  deathChance: 0.00001
-  minTimeToGrow: 60
-  maxTimeToGrow: 90
-  waterCount: 0
-  grassTile: {fileID: 1272982007471352, guid: 7c583826f0e024349915926082e87a34, type: 2}
-  mapX: 0
-  mapY: 0
-  seedAnim: {fileID: 22100000, guid: 59444c54e9e39f94e800503f30278eb6, type: 2}
-  tinyAnim: {fileID: 22100000, guid: e42b62cc5b148234190c39d97ef71bb6, type: 2}
-  smallAnim: {fileID: 22100000, guid: 71b6f876cf350cf468f67988996bb06e, type: 2}
-  mediumAnim: {fileID: 22100000, guid: 12a9a00d1428c6b4ea2e3c1d8a242ad6, type: 2}
-  largeAnim: {fileID: 22100000, guid: 46e0b8b3fd7d4a74a990cb5c8158640f, type: 2}
-  pos: {x: 0, y: 0}
---- !u!114 &114598334969851468
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1242716478098746}
+  m_GameObject: {fileID: 1272982007471352}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aafaea204716ba4419205e7d7d91a33e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!212 &212879450060890496
+--- !u!212 &212459510769542684
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1242716478098746}
+  m_GameObject: {fileID: 1272982007471352}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -158,13 +111,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 185803a58f4da444eb32ab1f732a4b17, type: 3}
+  m_SortingOrder: -50
+  m_Sprite: {fileID: 21300000, guid: 6895c26291aa7c349a42c689baf46f49, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.64, y: 0.64}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
