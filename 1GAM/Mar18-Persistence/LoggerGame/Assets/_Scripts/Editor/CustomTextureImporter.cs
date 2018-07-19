@@ -17,5 +17,8 @@ public class CustomTextureImporter : AssetPostprocessor
     //    importer.filterMode = FilterMode.Point;
     //    importer.textureCompression = TextureImporterCompression.Uncompressed;
     //    importer.spritePixelsPerUnit = 32;
+    //    importer.spritePivot = new Vector2(0, 1);
+
     //}
+
 }
