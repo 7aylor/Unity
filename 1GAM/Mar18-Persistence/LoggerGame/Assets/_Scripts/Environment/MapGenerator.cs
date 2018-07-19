@@ -32,7 +32,6 @@ public class MapGenerator : MonoBehaviour {
     public GameObject riverCurve;
     public GameObject riverStart;
     public GameObject riverEnd;
-    public GameObject turtle;
     #endregion
 
     public enum tileType
@@ -59,7 +58,12 @@ public class MapGenerator : MonoBehaviour {
         SpawnInitialGrass();
         GenerateRandomMap();
         SmoothMap();
-        CreateRiver();
+
+        if(GameManager.instance.currentLevel == LevelManager.level.Hills)
+        {
+            CreateRiver();
+        }
+        //CreateRiver();
         SpawnTerrain();
     }
 
@@ -703,13 +707,6 @@ public class MapGenerator : MonoBehaviour {
 
                     newTile = Instantiate(riverEnd, new Vector3(xPos, yPos, 0), rotation);
 
-                    //only spawn turtle half the time
-                    if(Random.Range(0,1f) <0.5f)
-                    {
-                        GameObject t = Instantiate(turtle, newTile.transform.position, Quaternion.identity);
-                        t.transform.parent = FindObjectOfType<AnimalController>().transform;
-                    }
-
                     GameManager.instance.numRiverTiles++;
                 }
                 else
@@ -717,21 +714,12 @@ public class MapGenerator : MonoBehaviour {
                     ///////
 
                     int grassTileIndex = 0;
-                    float tileVal = Random.Range(0, 1.0f);
 
-                    //low percentage of spawning flowers
-                    if (tileVal > 0.97f)
+                    if(grass.Length > 1)
                     {
-                        grassTileIndex = 1;
+                        grassTileIndex = GetRandomGrassTile();
                     }
-                    else if (tileVal > 0.93f)
-                    {
-                        grassTileIndex = 2;
-                    }
-                    else if(tileVal > 0.88f)
-                    {
-                        grassTileIndex = 3;
-                    }
+
 
                     GameManager.instance.numGrassTiles++;
 
@@ -749,8 +737,31 @@ public class MapGenerator : MonoBehaviour {
         FindObjectOfType<ForestHealth>().UpdateForestHealth();
 
         AnimalController ac = FindObjectOfType<AnimalController>();
-        ac.SpawnBear();
-        ac.SpawnRabbit();
+
+        switch (GameManager.instance.currentLevel)
+        {
+            case LevelManager.level.Hills:
+                ac.SpawnBear();
+                ac.SpawnRabbit();
+                ac.SpawnTurtle();
+                break;
+        }
+        
+    }
+
+    private int GetRandomGrassTile()
+    {
+        for (int i = 1; i < grass.Length; i++)
+        {
+            float tileVal = Random.Range(0, 1.0f);
+
+            if(tileVal <= 0.05f)
+            {
+                return i;
+            }
+        }
+
+        return 0;
     }
 
     private GameObject isCurvedRiver(int x, int y, float xPos, float yPos)

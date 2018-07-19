@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour {
 
+    public enum level { Title, Overworld, Hills, Desert, Swamp, Mountains }
+
     public static LevelManager instance = null;
 
     private void Awake()
@@ -39,7 +41,17 @@ public class LevelManager : MonoBehaviour {
     public void LoadScene(string sceneName)
     {
         Time.timeScale = 1;
+        GameManager.instance.currentLevel = GetCurrentLevel();
         SceneManager.LoadScene(sceneName);
+    }
+
+    /// <summary>
+    /// Gets the current level that is loaded based on the level enum
+    /// </summary>
+    /// <returns></returns>
+    public level GetCurrentLevel()
+    {
+        return (level)SceneManager.GetActiveScene().buildIndex;
     }
 
     public void Exit()

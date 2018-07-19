@@ -6,8 +6,20 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Scenes/Title.unity
+    path: Assets/_Scenes/01_Title.unity
     guid: bfbc6aa9ed9db0f4ab43e452a589af1c
   - enabled: 1
-    path: Assets/_Scenes/Game.unity
+    path: Assets/_Scenes/02_Overworld.unity
+    guid: f1fcf74696b552e418cded2e7346b99a
+  - enabled: 1
+    path: Assets/_Scenes/03_Hills.unity
     guid: b8efd048f7541994ea468694c94763d7
+  - enabled: 1
+    path: Assets/_Scenes/04_Desert.unity
+    guid: 5c87772b215666a44969abc0ee07ccec
+  - enabled: 1
+    path: Assets/_Scenes/05_Swamp.unity
+    guid: da0444e7712ea3b4880dcb6e029f21a8
+  - enabled: 1
+    path: Assets/_Scenes/06_Mountains.unity
+    guid: ccd2d90147674314dae88b54757c9b94

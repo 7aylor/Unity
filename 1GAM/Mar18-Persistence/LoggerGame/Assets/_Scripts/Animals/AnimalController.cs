@@ -6,6 +6,7 @@ public class AnimalController : MonoBehaviour {
 
     public GameObject bear;
     public GameObject rabbit;
+    public GameObject turtle;
 
     private int xPos = 0;
     private int yPos = 0;
@@ -52,6 +53,19 @@ public class AnimalController : MonoBehaviour {
     {
         PickRespectiveTile((int)MapGenerator.tileType.tree);
         ourBear.transform.position = new Vector3(spawnX, spawnY, 0);
+    }
+
+    public void SpawnTurtle()
+    {
+        //only spawn turtle half the time
+        if (Random.Range(0, 1f) < 0.5f)
+        {
+            //find river end
+            Vector3 riverEndPos = GameObject.Find("River End(Clone)").transform.position;
+
+            GameObject t = Instantiate(turtle, riverEndPos, Quaternion.identity);
+            t.transform.parent = FindObjectOfType<AnimalController>().transform;
+        }
     }
 
     private void PickRespectiveTile(int tileType)

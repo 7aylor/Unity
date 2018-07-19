@@ -50,6 +50,8 @@ public class GameManager : MonoBehaviour {
     public enum lumberjack_UI_State { Tree, Stump, Other, None }
     public enum promote_UI_State { Promote_lumberjack, Promote_Planter, None}
 
+    public LevelManager.level currentLevel;
+
     private void Awake()
     {
         instance = this;
@@ -73,6 +75,9 @@ public class GameManager : MonoBehaviour {
         rank = new int[]{ earlyPointsToNextLevel, earlyPointsToNextLevel, earlyPointsToNextLevel, earlyPointsToNextLevel, earlyPointsToNextLevel,
                           midPointsToNextLevel, midPointsToNextLevel, midPointsToNextLevel, midPointsToNextLevel, midPointsToNextLevel,
                           latePointsToNextLevel, latePointsToNextLevel, latePointsToNextLevel, latePointsToNextLevel, latePointsToNextLevel};
+
+        currentLevel = LevelManager.instance.GetCurrentLevel();
+        Debug.Log(currentLevel);
     }
 
     private void Start()
@@ -86,6 +91,7 @@ public class GameManager : MonoBehaviour {
         //Debug.Log("minWorldSpaceY" + minWorldSpaceY);
         //Debug.Log("maxWorldSpaceX" + maxWorldSpaceX);
         //Debug.Log("maxWorldSpaceY" + maxWorldSpaceY);
+        
     }
 
     public void InstantiateMap(int x, int y)
