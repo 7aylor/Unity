@@ -14365,7 +14365,12 @@ Prefab:
     - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
         type: 2}
       propertyPath: grass.Array.size
-      value: 1
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
+        type: 2}
+      propertyPath: cactus.Array.size
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4823850287400002, guid: 66bb6308a5a62c74b991525243bf4512, type: 2}
       propertyPath: m_LocalPosition.x
@@ -14449,13 +14454,13 @@ Prefab:
         type: 2}
       propertyPath: grass.Array.data[1]
       value: 
-      objectReference: {fileID: 1272982007471352, guid: aad8f1c2eceb1ab4693b9f1fefa913af,
+      objectReference: {fileID: 1242716478098746, guid: 3083828da2db6fc44b633fe690fc4c7c,
         type: 2}
     - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
         type: 2}
       propertyPath: grass.Array.data[2]
       value: 
-      objectReference: {fileID: 1272982007471352, guid: bec12c88699af5849b5170422a13fac1,
+      objectReference: {fileID: 1242716478098746, guid: bda9be30b3e2ad84ab2e3ad4263e7639,
         type: 2}
     - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
         type: 2}
@@ -14486,7 +14491,7 @@ Prefab:
     - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
         type: 2}
       propertyPath: treeSpawnThreshold
-      value: 25
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
         type: 2}
@@ -14497,7 +14502,7 @@ Prefab:
         type: 2}
       propertyPath: grass.Array.data[3]
       value: 
-      objectReference: {fileID: 1994602091918454, guid: b695a73ccf768ab489686a221080ea83,
+      objectReference: {fileID: 1242716478098746, guid: 23d47fd7c9e375d43b34e3f175f4cfba,
         type: 2}
     - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
         type: 2}
@@ -14516,6 +14521,36 @@ Prefab:
       propertyPath: neighborThreshold
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
+        type: 2}
+      propertyPath: cactus.Array.data[0]
+      value: 
+      objectReference: {fileID: 1242716478098746, guid: 3083828da2db6fc44b633fe690fc4c7c,
+        type: 2}
+    - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
+        type: 2}
+      propertyPath: cactus.Array.data[1]
+      value: 
+      objectReference: {fileID: 1242716478098746, guid: bda9be30b3e2ad84ab2e3ad4263e7639,
+        type: 2}
+    - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
+        type: 2}
+      propertyPath: cactus.Array.data[2]
+      value: 
+      objectReference: {fileID: 1242716478098746, guid: 23d47fd7c9e375d43b34e3f175f4cfba,
+        type: 2}
+    - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
+        type: 2}
+      propertyPath: cactus.Array.data[3]
+      value: 
+      objectReference: {fileID: 1242716478098746, guid: ec453574b6831794188377caeb80f966,
+        type: 2}
+    - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
+        type: 2}
+      propertyPath: grass.Array.data[4]
+      value: 
+      objectReference: {fileID: 1242716478098746, guid: ec453574b6831794188377caeb80f966,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 66bb6308a5a62c74b991525243bf4512, type: 2}
   m_IsPrefabParent: 0
@@ -20119,7 +20154,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &2032327153
 SpriteRenderer:
   m_ObjectHideFlags: 0

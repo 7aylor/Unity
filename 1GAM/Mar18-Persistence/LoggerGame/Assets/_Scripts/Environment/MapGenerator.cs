@@ -28,6 +28,7 @@ public class MapGenerator : MonoBehaviour {
     public GameObject[] grass;
     public GameObject[] trees;
     public GameObject[] rocks;
+    //public GameObject[] cactus;
     public GameObject riverStraight;
     public GameObject riverCurve;
     public GameObject riverStart;

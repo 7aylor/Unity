@@ -22,6 +22,7 @@ TagManager:
   - Animal
   - Boundary
   - Buildings
+  - Cactus
   layers:
   - Default
   - TransparentFX
