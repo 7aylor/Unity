@@ -11,7 +11,9 @@ public class LevelManager : MonoBehaviour {
 
     private void Awake()
     {
-        if(instance == null)
+        Input.backButtonLeavesApp = true;
+
+        if (instance == null)
         {
             instance = this;
         }
@@ -56,6 +58,19 @@ public class LevelManager : MonoBehaviour {
 
     public void Exit()
     {
-        Application.Quit();
+        //if (Application.platform == RuntimePlatform.Android)
+        //{
+        //    AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
+        //    activity.Call<bool>("moveTaskToBack", true);
+        //}
+        //else
+        //{
+        //    Application.Quit();
+        //}
+        #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            System.Diagnostics.Process.GetCurrentProcess().Kill();
+        #endif
     }
 }

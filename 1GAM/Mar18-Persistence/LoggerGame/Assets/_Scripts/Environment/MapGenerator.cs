@@ -24,7 +24,6 @@ public class MapGenerator : MonoBehaviour {
     #region GameObjects
     public Transform background;
     public Transform terrain;
-    public GameObject backgroundGrass;
     public GameObject[] grass;
     public GameObject[] trees;
     public GameObject[] rocks;
@@ -592,7 +591,7 @@ public class MapGenerator : MonoBehaviour {
                 float xPos = (float)x - sizeX / 2;
                 float yPos = (float)y - sizeY / 2 + 0.8f;
 
-                GameObject newTile = Instantiate(backgroundGrass, new Vector3(xPos, yPos, background.transform.position.z), Quaternion.identity);
+                GameObject newTile = Instantiate(grass[GetRandomGrassTile()], new Vector3(xPos, yPos, background.transform.position.z), Quaternion.identity);
 
                 newTile.transform.parent = background;
             }
@@ -745,6 +744,7 @@ public class MapGenerator : MonoBehaviour {
                 ac.SpawnBear();
                 ac.SpawnRabbit();
                 ac.SpawnTurtle();
+                ac.SpawnSnake();
                 break;
         }
         
@@ -756,7 +756,7 @@ public class MapGenerator : MonoBehaviour {
         {
             float tileVal = Random.Range(0, 1.0f);
 
-            if(tileVal <= 0.05f)
+            if(tileVal <= 0.10f)
             {
                 return i;
             }

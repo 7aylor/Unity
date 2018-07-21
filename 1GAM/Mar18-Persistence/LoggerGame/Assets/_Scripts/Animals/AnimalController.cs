@@ -7,6 +7,7 @@ public class AnimalController : MonoBehaviour {
     public GameObject bear;
     public GameObject rabbit;
     public GameObject turtle;
+    public GameObject snake;
 
     private int xPos = 0;
     private int yPos = 0;
@@ -65,6 +66,18 @@ public class AnimalController : MonoBehaviour {
 
             GameObject t = Instantiate(turtle, riverEndPos, Quaternion.identity);
             t.transform.parent = FindObjectOfType<AnimalController>().transform;
+        }
+    }
+
+    public void SpawnSnake()
+    {
+        int numSnakes = Random.Range(0, 1 + GameManager.instance.numGrassTiles / 6);
+
+        for (int i = 0; i < numSnakes; i++)
+        {
+            PickRespectiveTile((int)MapGenerator.tileType.grass);
+            GameObject ourSnakes = Instantiate(snake, new Vector3(spawnX, spawnY, 0), Quaternion.identity);
+            ourSnakes.transform.parent = transform;
         }
     }
 

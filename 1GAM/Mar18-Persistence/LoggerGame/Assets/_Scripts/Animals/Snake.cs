@@ -7,12 +7,15 @@ public class Snake : MonoBehaviour {
     private Animator animator;
     private float waitToSpawn;
     private float timeKeeper;
+    private SpriteRenderer sprite;
 
 	// Use this for initialization
 	void Start () {
         animator = GetComponent<Animator>();
+        sprite = GetComponent<SpriteRenderer>();
         waitToSpawn = GetRandomTime();
         timeKeeper = 0f;
+        FlipSprite();
 	}
 	
 	// Update is called once per frame
@@ -26,6 +29,14 @@ public class Snake : MonoBehaviour {
         }
         timeKeeper += Time.deltaTime;
 	}
+
+    private void FlipSprite()
+    {
+        if(Random.Range(0f,1f) < 0.5f)
+        {
+            sprite.flipX = true;
+        }
+    }
 
     private float GetRandomTime()
     {

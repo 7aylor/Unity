@@ -3129,9 +3129,9 @@ MonoBehaviour:
   good: {r: 0.121568635, g: 0.36862746, b: 0.07450981, a: 1}
   medium: {r: 0.88235295, g: 0.85886234, b: 0.071366794, a: 1}
   bad: {r: 0.8161765, g: 0.10202206, b: 0.10202206, a: 1}
-  goodTree: {fileID: 21300000, guid: 4c416875159024d44b0c5e0b64e3f37f, type: 3}
-  mediumTree: {fileID: 21300000, guid: 1528781c8bcdbc54fb229b3c781fd6fa, type: 3}
-  badTree: {fileID: 21300000, guid: 6dcc96ade45bc8942a4eea52134600a1, type: 3}
+  goodTree: {fileID: 21300000, guid: 185803a58f4da444eb32ab1f732a4b17, type: 3}
+  mediumTree: {fileID: 21300000, guid: 797d86acd7d45d844966e8be8f26a11d, type: 3}
+  badTree: {fileID: 21300000, guid: f3ebaf2161458f244999c215cc02dcb9, type: 3}
 --- !u!1 &254610622
 GameObject:
   m_ObjectHideFlags: 0
@@ -3866,7 +3866,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300004, guid: 4c416875159024d44b0c5e0b64e3f37f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 185803a58f4da444eb32ab1f732a4b17, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

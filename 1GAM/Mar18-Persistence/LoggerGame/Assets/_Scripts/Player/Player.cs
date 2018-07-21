@@ -746,7 +746,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         {
             if(playAnimation == true)
             {
-                ChangeSpriteOrder(-1000);
+                ChangeSpriteOrder(-10);
             }
             else
             {
