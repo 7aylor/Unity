@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
+    [SerializeField]
     public int[,] map;
     public int sizeX;
     public int sizeY;

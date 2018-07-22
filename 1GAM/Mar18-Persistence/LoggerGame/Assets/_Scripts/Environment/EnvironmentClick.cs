@@ -10,6 +10,7 @@ public class EnvironmentClick : MonoBehaviour, IPointerClickHandler
 {
     public void OnPointerClick(PointerEventData eventData)
     {
+        //Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if(GameManager.instance.selectedPlayer != null)
         {
             GameManager.instance.selectedPlayer.HandleMovePlayer(transform.position.x, transform.position.y);
