@@ -79,6 +79,9 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
     private Stack<direction> moves;
 
+    [SerializeField]
+    private Vector2Int mapPos;
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -129,6 +132,16 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         {
             GameManager.instance.lumberjackHired = true;
         }
+
+        GetMapPos();
+        Debug.Log("MapPosX: " + mapPos.x);
+        Debug.Log("MapPosY: " + mapPos.y);
+    }
+
+    private void GetMapPos()
+    {
+        mapPos.x = GameManager.instance.WorldCoordToArrayCoordX(transform.position.x);
+        mapPos.y = GameManager.instance.WorldCoordToArrayCoordY(transform.position.y);
     }
 
     public void PlayerRunsFromBear()
@@ -169,7 +182,6 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     {
         for(int i = 0; i < 10; i++)
         {
-
             if (isFatigued)
             {
                 break;
@@ -202,29 +214,38 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     {
         if (isSelected == true && hasTarget == false && canMove == true && isFatigued == false)
         {
-            canMove = false;
-
             if (GameManager.instance.IsRiverTile(tileX, tileY) == false)
             {
                 SetMoves(tileX, tileY);
-                SpawnFlag(tileX, tileY);
-                OnPointerClick(null);
-                canSelect = false;
-                StartCoroutine(TravelToTarget(moves.Peek()));
+                if (moves.Count > 0)
+                {
+                    SpawnFlag(tileX, tileY);
+                    OnPointerClick(null);
+                    canSelect = false;
+                    canMove = false;
+                    StartCoroutine(TravelToTarget(moves.Peek()));
+                }
             }
         }
     }
 
     private void SetMoves(float targetX, float targetY)
     {
+        #region old
+        /*
+        //targetX = GameManager.instance.WorldCoordToArrayCoordX(targetX);
+        //targetY = GameManager.instance.WorldCoordToArrayCoordY(targetY);
+
+
         float playerX = transform.position.x;
         float playerY = transform.position.y;
 
-        Debug.Log("playerX: " + playerX);
-        Debug.Log("playerY: " + playerY);
-        Debug.Log("targetX: " + targetX);
-        Debug.Log("targetY: " + targetY);
+        //Debug.Log("playerX: " + playerX);
+        //Debug.Log("playerY: " + playerY);
+        //Debug.Log("targetX: " + targetX);
+        //Debug.Log("targetY: " + targetY);
 
+        
         //x
         while (Mathf.Abs(playerX - targetX) > 0.25)
         {
@@ -286,6 +307,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             //up
             if (playerY < targetY)
             {
+                //if next tile up is not a river, add move up
                 if (GameManager.instance.IsRiverTile(playerX, playerY + 1) == false)
                 {
                     moves.Push(direction.up);
@@ -293,6 +315,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                 }
                 else
                 {
+                    //if next tile is river but two tiles up is not a river, add move up
                     if (GameManager.instance.IsRiverTile(playerX, playerY + 2) == false)
                     {
                         if (Mathf.Abs((playerY + 2) - targetY) > 0.25)
@@ -304,8 +327,9 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                     }
                     else
                     {
-                        SetMoves(playerX, playerY);
+                        //SetMoves(playerX, playerY);
                         //HandleMovePlayer(playerX, playerY);
+                        Debug.Log("Broke out of Set Moves");
                         break;
                     }
                 }
@@ -338,14 +362,117 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             }
         }
 
+        int count = 0;
         foreach (direction d in moves)
         {
-            print(d);
+            print(count + " " + d);
+            count++;
         }
+        */
+        #endregion
 
+        //targetX = GameManager.instance.WorldCoordToArrayCoordX(targetX);
+        //targetY = GameManager.instance.WorldCoordToArrayCoordY(targetY);
+
+        int newTargetX = GameManager.instance.WorldCoordToArrayCoordX(targetX);
+        int newTargetY = GameManager.instance.WorldCoordToArrayCoordY(targetY);
+        int playerX = GameManager.instance.WorldCoordToArrayCoordX(transform.position.x);
+        int playerY = GameManager.instance.WorldCoordToArrayCoordY(transform.position.y);
+
+        Debug.Log("playerX: " + playerX);
+        Debug.Log("playerY: " + playerY);
+        Debug.Log("targetX: " + newTargetX);
+        Debug.Log("targetY: " + newTargetY);
+
+        int maxMoves = (Mathf.Abs(playerX - newTargetX)) + (Mathf.Abs(playerY - newTargetY));
+
+        for(int i = 0; i <= maxMoves; i++)
+        {
+            //check if we hit target
+            if(playerY == newTargetX && playerY == newTargetY)
+            {
+                break;
+            }
+
+            //right
+            if (playerX < newTargetX)
+            {
+                if (GameManager.instance.IsRiverTile(playerX + 1, playerY) == false)
+                {
+                    moves.Push(direction.right);
+                    playerX++;
+                }
+                else
+                {
+                    if (GameManager.instance.IsRiverTile(playerX + 2, playerY) == false)
+                    {
+                        moves.Push(direction.right);
+                        playerX += 2;
+                    }
+                }
+            }
+            //left
+            if (playerX > newTargetX)
+            {
+                if (GameManager.instance.IsRiverTile(playerX - 1, playerY) == false)
+                {
+                    moves.Push(direction.left);
+                    playerX--;
+                }
+                else
+                {
+                    if (GameManager.instance.IsRiverTile(playerX - 2, playerY) == false)
+                    {
+                        moves.Push(direction.left);
+                        playerX -= 2;
+                    }
+                }
+            }
+            //up
+            if (playerY < newTargetY)
+            {
+                //if next tile up is not a river, add move up
+                if (GameManager.instance.IsRiverTile(playerX, playerY + 1) == false)
+                {
+                    moves.Push(direction.up);
+                    playerY++;
+                }
+                else
+                {
+                    //if next tile is river but two tiles up is not a river, add move up
+                    if (GameManager.instance.IsRiverTile(playerX, playerY + 2) == false)
+                    {
+                        moves.Push(direction.up);
+                        playerY += 2;
+                    }
+                }
+            }
+            //down
+            if (playerY > newTargetY)
+            {
+                if (GameManager.instance.IsRiverTile(playerX, playerY - 1) == false)
+                {
+                    moves.Push(direction.down);
+                    playerY--;
+                }
+                else
+                {
+                    if (GameManager.instance.IsRiverTile(playerX, playerY - 2) == false)
+                    {
+                        moves.Push(direction.down);
+                        playerY -= 2;
+                    }
+                }
+            }
+            }
+
+        int count = 0;
+        foreach (direction d in moves)
+        {
+            print(count + " " + d);
+            count++;
+        }
     }
-
-
 
     /// <summary>
     /// raycasts to determine if the next tile is a river space
@@ -353,30 +480,34 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     /// <param name="direction"></param>
     private void IsNextTileRiver(direction direction, int offset=0)
     {
-        RaycastHit2D hit;
+        //RaycastHit2D hit;
 
         switch (direction)
         {
             case direction.down:
-                hit = Physics2D.Raycast(transform.position, Vector2.down + Vector2.down * offset, 1, LayerMask.GetMask("River"));
+                //hit = Physics2D.Raycast(transform.position, Vector2.down + Vector2.down * offset, 1, LayerMask.GetMask("River"));
+                nextTileRiver = GameManager.instance.IsRiverTile(transform.position.x, transform.position.y - 1);
                 break;
             case direction.up:
-                hit = Physics2D.Raycast(transform.position, Vector2.up + Vector2.up * offset, 1, LayerMask.GetMask("River"));
+                //hit = Physics2D.Raycast(transform.position, Vector2.up + Vector2.up * offset, 1, LayerMask.GetMask("River"));
+                nextTileRiver = GameManager.instance.IsRiverTile(transform.position.x, transform.position.y + 1);
                 break;
             case direction.left:
-                hit = Physics2D.Raycast(transform.position, Vector2.left + Vector2.left * offset, 1, LayerMask.GetMask("River"));
+                //hit = Physics2D.Raycast(transform.position, Vector2.left + Vector2.left * offset, 1, LayerMask.GetMask("River"));
+                nextTileRiver = GameManager.instance.IsRiverTile(transform.position.x - 1, transform.position.y);
                 break;
             case direction.right:
             default:
-                hit = Physics2D.Raycast(transform.position, Vector2.right + Vector2.right * offset, 1, LayerMask.GetMask("River"));
+                //hit = Physics2D.Raycast(transform.position, Vector2.right + Vector2.right * offset, 1, LayerMask.GetMask("River"));
+                nextTileRiver = GameManager.instance.IsRiverTile(transform.position.x + 1, transform.position.y);
                 break;
         }
 
-        if(hit != false)
-        {
-            nextTileRiver = hit.collider.gameObject.tag == "River" ? true : false;
-        }
-        
+        //if (hit != false)
+        //{
+        //    nextTileRiver = hit.collider.gameObject.tag == "River" ? true : false;
+        //}
+
     }
 
     /// <summary>
@@ -393,23 +524,23 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             //determine the direction vector
             if (dir == direction.down)
             {
-                HandleNextTileRiverJumps(dir);
+                HandleRiverJumpAnimations(dir);
                 changeVector = new Vector3(0, -jumpSpeed, 0);
             }
             else if (dir == direction.up)
             {
-                HandleNextTileRiverJumps(direction.up);
+                HandleRiverJumpAnimations(direction.up);
                 changeVector = new Vector3(0, jumpSpeed, 0);
             }
             else if (dir == direction.left)
             {
-                HandleNextTileRiverJumps(direction.left);
+                HandleRiverJumpAnimations(direction.left);
                 sprite.flipX = true;
                 changeVector = new Vector3(-jumpSpeed, 0, 0);
             }
             else
             {
-                HandleNextTileRiverJumps(direction.right);
+                HandleRiverJumpAnimations(direction.right);
                 sprite.flipX = false;
                 changeVector = new Vector3(jumpSpeed, 0, 0);
             }
@@ -432,12 +563,14 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
                 float numLoops = (1 / (jumpSpeed / 2));
 
+                //TODO: make these frame independent
+
                 animator.speed = 0.35f;
 
                 for (int i = 0; i < numLoops; i++)
                 {
                     transform.Translate(changeVector);
-                    yield return new WaitForSeconds(0.025f);
+                    yield return new WaitForSeconds(1 * Time.deltaTime);
                 }
 
                 animator.speed = 1;
@@ -451,7 +584,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                 for (int i = 0; i < numLoops; i++)
                 {
                     transform.Translate(changeVector);
-                    yield return new WaitForSeconds(0.025f);
+                    yield return new WaitForSeconds(1*Time.deltaTime);
                 }
             }
 
@@ -494,7 +627,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     /// Called from TravelToTarget and handles which animators to use for each jump type
     /// </summary>
     /// <param name="d">direction</param>
-    private void HandleNextTileRiverJumps(direction d)
+    private void HandleRiverJumpAnimations(direction d)
     {
         IsNextTileRiver(d);
 

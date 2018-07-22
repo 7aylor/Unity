@@ -129,6 +129,9 @@ public class GameManager : MonoBehaviour {
     {
         int x = GameManager.instance.WorldCoordToArrayCoordX(worldX);
         int y = GameManager.instance.WorldCoordToArrayCoordY(worldY);
+        //Debug.Log("worldX: " + worldX + " worldY: " + worldY);
+        //Debug.Log("x: " + x + " y: " + y);
+
         if (map[x,y] == (int)MapGenerator.tileType.startRiver ||
             map[x, y] == (int)MapGenerator.tileType.curveRiver ||
             map[x, y] == (int)MapGenerator.tileType.straightRiver ||
@@ -139,6 +142,26 @@ public class GameManager : MonoBehaviour {
 
         return false;    
     }
+
+    /// <summary>
+    /// Checks if the world space coordinate is a river tile
+    /// </summary>
+    /// <param name="worldX">x position in world space</param>
+    /// <param name="worldY">y position in world space</param>
+    /// <returns>Return true if river tile, false if not river tile</returns>
+    public bool IsRiverTile(int x, int y)
+    {
+        if (map[x, y] == (int)MapGenerator.tileType.startRiver ||
+            map[x, y] == (int)MapGenerator.tileType.curveRiver ||
+            map[x, y] == (int)MapGenerator.tileType.straightRiver ||
+            map[x, y] == (int)MapGenerator.tileType.endRiver)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
 }
 
 public class Skill
