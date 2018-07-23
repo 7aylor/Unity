@@ -47,8 +47,10 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     private SpriteRenderer sprite;
     private GameObject selectionIndicator;
     private GameObject tempFlag;
+
+    [SerializeField]
     private GameObject collidingTile;
-    private Animator collidingTileAnimator;
+    private Animator collidingTreeAnimator;
 
     private ChopButton chopButton;
     private DigButton digButton;
@@ -123,6 +125,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         nextTileRiver = false;
         selectionIndicator.SetActive(false);
         fatigueSlider.gameObject.SetActive(false);
+        lastDirection = direction.none;
 
         if (tag == "Planter")
         {
@@ -134,10 +137,11 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         }
 
         GetMapPos();
-        Debug.Log("MapPosX: " + mapPos.x);
-        Debug.Log("MapPosY: " + mapPos.y);
     }
 
+    /// <summary>
+    /// converts player's worldspace position to map, and sets the player's map position
+    /// </summary>
     private void GetMapPos()
     {
         mapPos.x = GameManager.instance.WorldCoordToArrayCoordX(transform.position.x);
@@ -146,6 +150,13 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
     public void PlayerRunsFromBear()
     {
+        //if the player is fatigued, give them a rush of energy to escape
+        if(isFatigued == true || fatigueSlider.value > 0.75)
+        {
+            fatigueSlider.value = 0.5f;
+            isFatigued = false;
+            animator.SetBool("Fatigued", false);
+        }
         SelectPlayer(false);
         StartCoroutine(ChainJumps());
     }
@@ -163,14 +174,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             SelectPlayer(false);
         }
 
-        if (tag == "Lumberjack")
-        {
-            fireButton.FireSelectedPlayer("Lumberjack");
-        }
-        else if (tag == "Planter")
-        {
-            fireButton.FireSelectedPlayer("Planter");
-        }
+        fireButton.FireSelectedPlayer(tag);
 
         if (tempFlag != null)
         {
@@ -238,17 +242,20 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
         int maxMoves = (Mathf.Abs(playerX - newTargetX)) + (Mathf.Abs(playerY - newTargetY));
 
-        direction lastDir = direction.none;
+        Debug.Log("Before While in SetMoves");
 
-        while(playerX != newTargetX || playerY != newTargetY)
+        int count = 0;
+
+        while((playerX != newTargetX || playerY != newTargetY) && count < 1000)
         {
+            count++;
             //right
-            if (playerX < newTargetX && lastDir != direction.left)
+            if (playerX < newTargetX && lastDirection != direction.left)
             {
                 //if right tile is not a river, add move right
                 if (GameManager.instance.IsRiverTile(playerX + 1, playerY) == false)
                 {
-                    UpdateMovesAndPlayerPos(direction.right, ref lastDir, ref playerX, 1);
+                    UpdateMovesAndPlayerPos(direction.right, ref lastDirection, ref playerX, 1);
                     continue;
                 }
                 else
@@ -256,36 +263,36 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                     //if next tile is river, and next next tile is not, move right, add 2
                     if (GameManager.instance.IsRiverTile(playerX + 2, playerY) == false)
                     {
-                        UpdateMovesAndPlayerPos(direction.right, ref lastDir, ref playerX, 2);
+                        UpdateMovesAndPlayerPos(direction.right, ref lastDirection, ref playerX, 2);
                         continue;
                     }
                 }
             }
             //left
-            if (playerX > newTargetX && lastDir != direction.right)
+            if (playerX > newTargetX && lastDirection != direction.right)
             {
                 if (GameManager.instance.IsRiverTile(playerX - 1, playerY) == false)
                 {
-                    UpdateMovesAndPlayerPos(direction.left, ref lastDir, ref playerX, -1);
+                    UpdateMovesAndPlayerPos(direction.left, ref lastDirection, ref playerX, -1);
                     continue;
                 }
                 else
                 {
                     if (GameManager.instance.IsRiverTile(playerX - 2, playerY) == false)
                     {
-                        UpdateMovesAndPlayerPos(direction.left, ref lastDir, ref playerX, -2);
+                        UpdateMovesAndPlayerPos(direction.left, ref lastDirection, ref playerX, -2);
                         continue;
                     }
                 }
             }
             //up
-            if (playerY < newTargetY && lastDir != direction.down)
+            if (playerY < newTargetY && lastDirection != direction.down)
             {
                 
                 //if next tile up is not a river, add move up
                 if (GameManager.instance.IsRiverTile(playerX, playerY + 1) == false)
                 {
-                    UpdateMovesAndPlayerPos(direction.up, ref lastDir, ref playerY, 1);
+                    UpdateMovesAndPlayerPos(direction.up, ref lastDirection, ref playerY, 1);
                     continue;
                 }
                 else
@@ -293,23 +300,23 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                     //if next tile is river but two tiles up is not a river, add move up
                     if (GameManager.instance.IsRiverTile(playerX, playerY + 2) == false)
                     {
-                        UpdateMovesAndPlayerPos(direction.up, ref lastDir, ref playerY, 2);
+                        UpdateMovesAndPlayerPos(direction.up, ref lastDirection, ref playerY, 2);
                         continue;
                     }
                 }
             }
             //down
-            if (playerY > newTargetY && lastDir != direction.up)
+            if (playerY > newTargetY && lastDirection != direction.up)
                 if (GameManager.instance.IsRiverTile(playerX, playerY - 1) == false)
                 {
-                    UpdateMovesAndPlayerPos(direction.down, ref lastDir, ref playerY, -1);
+                    UpdateMovesAndPlayerPos(direction.down, ref lastDirection, ref playerY, -1);
                     continue;
                 }
                 else
                 {
                     if (GameManager.instance.IsRiverTile(playerX, playerY - 2) == false)
                     {
-                        UpdateMovesAndPlayerPos(direction.down, ref lastDir, ref playerY, -2);
+                        UpdateMovesAndPlayerPos(direction.down, ref lastDirection, ref playerY, -2);
                         continue;
                     }
                 }
@@ -419,6 +426,12 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                     yield return new WaitForSeconds(0.025f);
                 }
 
+                if(transform.position.x >= 9 || transform.position.x <= -9 ||
+                   transform.position.y >= 5.6 || transform.position.y <= -4)
+                {
+                    fireButton.FireSelectedPlayer(tag);
+                }
+
                 animator.speed = 1;
                 nextTileRiver = false;
             }
@@ -442,7 +455,6 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         else
         {
             moves.Clear();
-            canMove = true;
         }
 
         if (moves.Count > 0)
@@ -455,10 +467,10 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             //destroy the marker flag that shows the tile they are landing on
             moves.Clear();
             Destroy(tempFlag);
+            GetMapPos();
+            RoundPlayerPosition();
             canMove = true;
             canSelect = true;
-
-            RoundPlayerPosition();
             if (GameManager.instance.selectedPlayer == null)
             {
                 OnPointerClick(null);
@@ -555,6 +567,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                 {
                     uIActions.PlanterState = GameManager.planter_UI_State.Other;
                     uIActions.LumberjackState = GameManager.lumberjack_UI_State.Other;
+                    uIActions.PromoteState = GameManager.promote_UI_State.None;
                     GameManager.instance.playerSelected = false;
                     hasTarget = false;
                     SelectPlayer(false);
@@ -596,10 +609,14 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         fatigueSlider.gameObject.SetActive(isActive);
         if(isActive == true)
         {
+            //a player is selected, so activate the fire button
+            fireButton.gameObject.SetActive(true);
             GameManager.instance.selectedPlayer = this;
         }
         else
         {
+            //a player is selected, so activate the fire button
+            fireButton.gameObject.SetActive(false);
             GameManager.instance.selectedPlayer = null;
         }
         
@@ -623,8 +640,6 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     {
         if (GameManager.instance.selectedPlayer == this)
         {
-            //a player is selected, so activate the fire button
-            fireButton.gameObject.SetActive(true);
             if (tag == "Lumberjack")
             {
                 //if the planter is hired, turn off it's buttons by changing its UI state
@@ -636,32 +651,34 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                 //check rank to enable promotion button
                 if (pointTowardsNextRank < GameManager.instance.rank[currentRank])
                 {
-                    //actionPanel.EnableDisableSingleButton(promoteLumberJackButton.gameObject, false);
                     uIActions.PromoteState = GameManager.promote_UI_State.None;
                 }
                 else
                 {
-                    //actionPanel.EnableDisableSingleButton(promoteLumberJackButton.gameObject, true);
                     uIActions.PromoteState = GameManager.promote_UI_State.Promote_lumberjack;
                 }
 
-                //check colliding tile is a tree and enable chop button/dig button
-                if (collidingTile.tag == "Tree")
+                //make sure player is not fatigued before setting interactable buttons
+                if (isFatigued == false)
                 {
-                    Tree t = collidingTile.GetComponent<Tree>();
-                    if (t.treeState != Tree.maturity.stump)
+                    //check colliding tile is a tree and enable chop button/dig button
+                    if (collidingTile.tag == "Tree")
                     {
-                        uIActions.LumberjackState = GameManager.lumberjack_UI_State.Tree;
+                        Tree t = collidingTile.GetComponent<Tree>();
+                        if (t.treeState != Tree.maturity.stump)
+                        {
+                            uIActions.LumberjackState = GameManager.lumberjack_UI_State.Tree;
+                        }
+                        else
+                        {
+                            uIActions.LumberjackState = GameManager.lumberjack_UI_State.Stump;
+                        }
                     }
+                    //grass, disable chop and dig buttons
                     else
                     {
-                        uIActions.LumberjackState = GameManager.lumberjack_UI_State.Stump;
+                        uIActions.LumberjackState = GameManager.lumberjack_UI_State.Other;
                     }
-                }
-                //grass, disable chop and dig buttons
-                else
-                {
-                    uIActions.LumberjackState = GameManager.lumberjack_UI_State.Other;
                 }
             }
             else if (tag == "Planter")
@@ -675,33 +692,35 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                 //check rank to enable promotion button
                 if (pointTowardsNextRank < GameManager.instance.rank[currentRank])
                 {
-                    //actionPanel.EnableDisableSingleButton(promotePlanterButton.gameObject, false);
                     uIActions.PromoteState = GameManager.promote_UI_State.None;
                 }
                 else
                 {
-                    //actionPanel.EnableDisableSingleButton(promotePlanterButton.gameObject, true);
                     uIActions.PromoteState = GameManager.promote_UI_State.Promote_Planter;
                 }
 
-                //check tiles we collide with
-                if (collidingTile.tag == "Tree" || collidingTile.tag == "Obstacle" || collidingTile.tag == "River")
+                //make sure player is not fatigued before setting interactable buttons
+                if (isFatigued == false)
                 {
-                    //check if tree is a seed to activate water button
-                    Tree tree = collidingTile.GetComponent<Tree>();
-                    if (tree != null && tree.treeState == Tree.maturity.seed)
+                    //check tiles we collide with
+                    if (collidingTile.tag == "Tree" || collidingTile.tag == "Obstacle" || collidingTile.tag == "River")
                     {
-                        uIActions.PlanterState = GameManager.planter_UI_State.Seed;
+                        //check if tree is a seed to activate water button
+                        Tree tree = collidingTile.GetComponent<Tree>();
+                        if (tree != null && tree.treeState == Tree.maturity.seed)
+                        {
+                            uIActions.PlanterState = GameManager.planter_UI_State.Seed;
+                        }
+                        else
+                        {
+                            uIActions.PlanterState = GameManager.planter_UI_State.Other;
+                        }
                     }
+                    //if not a tree, or obstacle, or river
                     else
                     {
-                        uIActions.PlanterState = GameManager.planter_UI_State.Other;
+                        uIActions.PlanterState = GameManager.planter_UI_State.Grass;
                     }
-                }
-                //if not a tree, or obstacle, or river
-                else
-                {
-                    uIActions.PlanterState = GameManager.planter_UI_State.Grass;
                 }
             }
         }
@@ -714,16 +733,27 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     public void PlayLumberjackAnimation(bool playAnimation, string animation)
     {
         canMove = !playAnimation;
-
+        Tree tree = collidingTile.GetComponent<Tree>();
+        
         if (tag == "Lumberjack")
         {
             if(playAnimation == true)
             {
                 ChangeSpriteOrder(-10);
+
+                //allows the player to be clicked on when behind the tree
+                if (tree != null)
+                {
+                    tree.EnableCollider(false);
+                }
             }
             else
             {
                 ChangeSpriteOrder(1);
+                if (tree != null)
+                {
+                    tree.EnableCollider(true);
+                }
             }
             animator.SetBool(animation, playAnimation);
             animator.runtimeAnimatorController = down;
@@ -772,9 +802,9 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     /// </summary>
     public void LumberjackChopAnimation()
     {
-        if (collidingTileAnimator != null)
+        if (collidingTreeAnimator != null)
         {
-            collidingTileAnimator.SetTrigger("Chop");
+            collidingTreeAnimator.SetTrigger("Chop");
             if (sprite.flipX == true)
             {
                 collidingTile.GetComponent<SpriteRenderer>().flipX = false;
@@ -793,7 +823,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     {
         if (collidingTile.tag == "Tree")
         {
-            collidingTileAnimator.GetComponent<Tree>().DigOutStump();
+            collidingTreeAnimator.GetComponent<Tree>().DigOutStump();
         }
     }
 
@@ -918,7 +948,9 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     private IEnumerator Rejuvinate()
     {
         rejuvinating = true;
-        while(fatigueSlider.value > 0)
+
+        Debug.Log("Before While in Rejuvinate");
+        while (fatigueSlider.value > 0)
         {
             fatigueSlider.value -= recoverFatigueRate;
             yield return new WaitForEndOfFrame();
@@ -934,6 +966,8 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     private IEnumerator HandleFatigued()
     {
         animator.SetBool("Fatigued", true);
+
+        Debug.Log("Before While in HandleFatigued");
         while (fatigueSlider.value > 0)
         {
             fatigueSlider.value -= recoverFatigueRate;
@@ -953,6 +987,9 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     public void SetCollidingTile(GameObject obj)
     {
         collidingTile = obj;
-        collidingTileAnimator = collidingTile.GetComponent<Animator>();
+        if(collidingTile.tag == "Tree")
+        {
+            collidingTreeAnimator = collidingTile.GetComponent<Animator>();
+        }
     }
 }

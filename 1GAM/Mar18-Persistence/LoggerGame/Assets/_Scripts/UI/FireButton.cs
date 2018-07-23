@@ -17,19 +17,20 @@ public class FireButton : MonoBehaviour {
     /// <summary>
     /// Called when Fire button is clicked. Fires selected player and updates UI
     /// </summary>
-    public void FireSelectedPlayer(string player="")
+    public void FireSelectedPlayer(string playerType="")
     {
         //reset skills
         foreach (Skill s in GameManager.instance.skillLevels)
         {
-            if (s.associatedPlayer == "Lumberjack" && (player == "Lumberjack" || 
+            //if this skill is a lumberjack skill and we are firing the lumberjack, clear it
+            if (s.associatedPlayer == "Lumberjack" && (playerType == "Lumberjack" || 
                 (GameManager.instance.selectedPlayer != null && 
                 GameManager.instance.selectedPlayer.tag == "Lumberjack")))
             {
                 s.level = 1;
-                
             }
-            if(s.associatedPlayer == "Planter" && (player == "Planter" ||
+            //if this skill is a planter skill and we are firing the planter, clear it
+            if (s.associatedPlayer == "Planter" && (playerType == "Planter" ||
                 (GameManager.instance.selectedPlayer != null && 
                 GameManager.instance.selectedPlayer.tag == "Planter")))
             {
@@ -38,7 +39,7 @@ public class FireButton : MonoBehaviour {
         }
         
         //reset lumberjack hired, and action panel stats
-        if(player == "Lumberjack" || (GameManager.instance.selectedPlayer != null &&
+        if(playerType == "Lumberjack" || (GameManager.instance.selectedPlayer != null &&
             GameManager.instance.selectedPlayer.tag == "Lumberjack"))
         {
             GameManager.instance.lumberjackHired = false;
@@ -47,7 +48,7 @@ public class FireButton : MonoBehaviour {
             uIActions.LumberjackState = GameManager.lumberjack_UI_State.None;
         }
         //reset planter hired, and action panel stats
-        if (player == "Planter" || (GameManager.instance.selectedPlayer != null &&
+        if (playerType == "Planter" || (GameManager.instance.selectedPlayer != null &&
             GameManager.instance.selectedPlayer.tag == "Planter"))
         {
             GameManager.instance.planterHired = false;
@@ -57,12 +58,12 @@ public class FireButton : MonoBehaviour {
         }
 
         //no player is passed to the method, ie, when the player runs away from the bear, destroy the player
-        if(player == "")
+        if(playerType == "")
         {
             Destroy(GameManager.instance.selectedPlayer.gameObject);
         }
 
-        //reset the rest and update ui
+        //reset the rest and disable fire button
         GameManager.instance.playerSelected = false;
         gameObject.SetActive(false);
     }

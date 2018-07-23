@@ -55,6 +55,7 @@ public class ActionPanel : MonoBehaviour {
             case GameManager.lumberjack_UI_State.Tree:
                 SetButtonState(lumberjack_chop, true);
                 SetButtonState(lumberjack_dig, false);
+                Debug.Log("Tree State");
                 break;
             case GameManager.lumberjack_UI_State.Stump:
                 SetButtonState(lumberjack_chop, false);
@@ -64,6 +65,7 @@ public class ActionPanel : MonoBehaviour {
             case GameManager.lumberjack_UI_State.None:
                 SetButtonState(lumberjack_chop, false);
                 SetButtonState(lumberjack_dig, false);
+                Debug.Log("Other State");
                 break;
         }
 

@@ -34,6 +34,7 @@ public class Tree : MonoBehaviour {
     private SpriteRenderer sprite;
     private Lumber lumberCount;
     private ForestHealth forestHealth;
+    private Collider2D treeCollider;
 
     private float timeSinceLastGrowth;
     private float timeToGrow;
@@ -45,6 +46,7 @@ public class Tree : MonoBehaviour {
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        treeCollider = GetComponent<Collider2D>();
         lumberCount = FindObjectOfType<Lumber>();
         sprite = GetComponent<SpriteRenderer>();
         forestHealth = FindObjectOfType<ForestHealth>();
@@ -210,6 +212,7 @@ public class Tree : MonoBehaviour {
             animator.SetTrigger("Falling");
             GameManager.instance.numTreesInPlay--;
             forestHealth.UpdateForestHealth();
+            EnableCollider(true);
             InitializeStump();
             Invoke("DestroyTree", 1);
         }
@@ -307,5 +310,10 @@ public class Tree : MonoBehaviour {
         {
             forestHealth.UpdateForestHealth();
         }
+    }
+
+    public void EnableCollider(bool enable)
+    {
+        treeCollider.enabled = enable;
     }
 }

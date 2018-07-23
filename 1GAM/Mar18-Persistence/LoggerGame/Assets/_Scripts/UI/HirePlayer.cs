@@ -30,12 +30,14 @@ public class HirePlayer : MonoBehaviour {
         {
             GameObject spawn = Instantiate(lumberjack, new Vector3((float)instantiateCoords.x, (float)instantiateCoords.y - 0.2f, 0), Quaternion.identity);
             GameManager.instance.lumberjackHired = true;
+            uIActions.LumberjackState = GameManager.lumberjack_UI_State.Other;
         }
         //if hire planter is clicked and there is no planter in the game, hire planter
         else if (typeOfHire == HireType.planter && GameManager.instance.planterHired == false)
         {
             Instantiate(planter, new Vector3((float)instantiateCoords.x, (float)instantiateCoords.y - 0.2f, 0), Quaternion.identity);
             GameManager.instance.planterHired = true;
+            uIActions.PlanterState = GameManager.planter_UI_State.Other;
         }
 
         //disable this Hire button

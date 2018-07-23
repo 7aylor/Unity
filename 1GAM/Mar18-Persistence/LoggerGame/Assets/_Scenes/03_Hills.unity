@@ -14341,6 +14341,11 @@ Prefab:
       propertyPath: grass.Array.size
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
+        type: 2}
+      propertyPath: backgroundGrass.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4823850287400002, guid: 66bb6308a5a62c74b991525243bf4512, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -14440,8 +14445,7 @@ Prefab:
         type: 2}
       propertyPath: backgroundGrass
       value: 
-      objectReference: {fileID: 1272982007471352, guid: 16e678e9f0af1c848ad5302011116c90,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
         type: 2}
       propertyPath: terrain
@@ -14490,6 +14494,42 @@ Prefab:
       propertyPath: grass.Array.data[5]
       value: 
       objectReference: {fileID: 1994602091918454, guid: b695a73ccf768ab489686a221080ea83,
+        type: 2}
+    - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
+        type: 2}
+      propertyPath: backgroundGrass.Array.data[0]
+      value: 
+      objectReference: {fileID: 1272982007471352, guid: 7c583826f0e024349915926082e87a34,
+        type: 2}
+    - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
+        type: 2}
+      propertyPath: backgroundGrass.Array.data[1]
+      value: 
+      objectReference: {fileID: 1272982007471352, guid: ae443a50de7e4b94e84b2dc7a18e13d0,
+        type: 2}
+    - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
+        type: 2}
+      propertyPath: backgroundGrass.Array.data[2]
+      value: 
+      objectReference: {fileID: 1272982007471352, guid: 6c37ff6ae2d54014fabb711e6040f2f7,
+        type: 2}
+    - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
+        type: 2}
+      propertyPath: backgroundGrass.Array.data[3]
+      value: 
+      objectReference: {fileID: 1272982007471352, guid: aad8f1c2eceb1ab4693b9f1fefa913af,
+        type: 2}
+    - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
+        type: 2}
+      propertyPath: backgroundGrass.Array.data[4]
+      value: 
+      objectReference: {fileID: 1272982007471352, guid: bec12c88699af5849b5170422a13fac1,
+        type: 2}
+    - target: {fileID: 114855880823109408, guid: 66bb6308a5a62c74b991525243bf4512,
+        type: 2}
+      propertyPath: interactiveGrass
+      value: 
+      objectReference: {fileID: 1272982007471352, guid: 5044e1641216bcf4b931f1a40350445a,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 66bb6308a5a62c74b991525243bf4512, type: 2}

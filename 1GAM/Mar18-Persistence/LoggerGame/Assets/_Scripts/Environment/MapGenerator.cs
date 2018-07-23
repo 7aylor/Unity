@@ -7,8 +7,6 @@ public class MapGenerator : MonoBehaviour {
     public int sizeX;
     public int sizeY;
 
-    //public int[,] map;
-
     [Range(0,5)]
     public int smoothCycles;
 
@@ -24,10 +22,11 @@ public class MapGenerator : MonoBehaviour {
     #region GameObjects
     public Transform background;
     public Transform terrain;
-    public GameObject[] grass;
+    public GameObject[] backgroundGrass;
     public GameObject[] trees;
     public GameObject[] rocks;
     //public GameObject[] cactus;
+    public GameObject interactiveGrass;
     public GameObject riverStraight;
     public GameObject riverCurve;
     public GameObject riverStart;
@@ -591,7 +590,7 @@ public class MapGenerator : MonoBehaviour {
                 float xPos = (float)x - sizeX / 2;
                 float yPos = (float)y - sizeY / 2 + 0.8f;
 
-                GameObject newTile = Instantiate(grass[GetRandomGrassTile()], new Vector3(xPos, yPos, background.transform.position.z), Quaternion.identity);
+                GameObject newTile = Instantiate(backgroundGrass[GetRandomGrassTile()], new Vector3(xPos, yPos, background.transform.position.z), Quaternion.identity);
 
                 newTile.transform.parent = background;
             }
@@ -615,14 +614,12 @@ public class MapGenerator : MonoBehaviour {
                 //float yPos = (float)y / 2 - sizeY / 4 + 0.25f;
 
                 //32 PPU, convert from array coords to game space coords
-                float xPos = (float)x - sizeX / 2;//GameManager.instance.ArrayCoordToWorldCoordX(x);//
-                float yPos = (float)y - sizeY / 2 + 0.8f; //GameManager.instance.ArrayCoordToWorldCoordY(y);//
+                float xPos = GameManager.instance.ArrayCoordToWorldCoordX(x);//
+                float yPos = GameManager.instance.ArrayCoordToWorldCoordY(y);//
 
                 if (GameManager.instance.map[x,y] == (int)tileType.tree)
                 {
-                    //Instantiate(black, new Vector3(-sizeX/2 + x + 0.5f, -sizeY/2 + y + 0.5f, 0), Quaternion.identity);
                     GameObject tree = trees[Random.Range(0, trees.Length)];
-
                     newTile = Instantiate(tree, new Vector3(xPos, yPos, 0), Quaternion.identity);
                 }
                 else if(GameManager.instance.map[x, y] == (int)tileType.rock)
@@ -711,19 +708,9 @@ public class MapGenerator : MonoBehaviour {
                 }
                 else
                 {
-                    ///////
-
-                    int grassTileIndex = 0;
-
-                    if(grass.Length > 1)
-                    {
-                        grassTileIndex = GetRandomGrassTile();
-                    }
-
-
                     GameManager.instance.numGrassTiles++;
 
-                    newTile = Instantiate(grass[grassTileIndex], new Vector3(xPos, yPos, 0), Quaternion.identity);
+                    newTile = Instantiate(interactiveGrass, new Vector3(xPos, yPos, 0), Quaternion.identity);
                 }
 
                 if (newTile != null)
@@ -752,7 +739,7 @@ public class MapGenerator : MonoBehaviour {
 
     private int GetRandomGrassTile()
     {
-        for (int i = 1; i < grass.Length; i++)
+        for (int i = 1; i < backgroundGrass.Length; i++)
         {
             float tileVal = Random.Range(0, 1.0f);
 
