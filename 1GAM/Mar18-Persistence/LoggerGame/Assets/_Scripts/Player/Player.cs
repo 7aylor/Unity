@@ -8,7 +8,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(AudioSource))]
-public class Player : MonoBehaviour, IPointerClickHandler {
+public class Player : MonoBehaviour, IPointerClickHandler
+{
 
     public AnimatorOverrideController up;
     public AnimatorOverrideController down;
@@ -106,7 +107,8 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         moves = new List<direction>();
     }
 
-    void Start () {
+    void Start()
+    {
         hasTarget = false;
         isSelected = false;
         canSelect = true;
@@ -131,7 +133,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         {
             GameManager.instance.planterHired = true;
         }
-        else if(tag == "Lumberjack")
+        else if (tag == "Lumberjack")
         {
             GameManager.instance.lumberjackHired = true;
         }
@@ -151,7 +153,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     public void PlayerRunsFromBear()
     {
         //if the player is fatigued, give them a rush of energy to escape
-        if(isFatigued == true || fatigueSlider.value > 0.75)
+        if (isFatigued == true || fatigueSlider.value > 0.75)
         {
             fatigueSlider.value = 0.5f;
             isFatigued = false;
@@ -184,7 +186,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
     private IEnumerator ChainJumps()
     {
-        for(int i = 0; i < 10; i++)
+        for (int i = 0; i < 10; i++)
         {
             if (isFatigued)
             {
@@ -246,7 +248,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
         int count = 0;
 
-        while((playerX != newTargetX || playerY != newTargetY) && count < 1000)
+        while ((playerX != newTargetX || playerY != newTargetY) && count < 1000)
         {
             count++;
             //right
@@ -288,7 +290,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             //up
             if (playerY < newTargetY && lastDirection != direction.down)
             {
-                
+
                 //if next tile up is not a river, add move up
                 if (GameManager.instance.IsRiverTile(playerX, playerY + 1) == false)
                 {
@@ -341,7 +343,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     /// raycasts to determine if the next tile is a river space
     /// </summary>
     /// <param name="direction"></param>
-    private void IsNextTileRiver(direction direction, int offset=0)
+    private void IsNextTileRiver(direction direction, int offset = 0)
     {
         switch (direction)
         {
@@ -368,7 +370,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     /// <returns></returns>
     private IEnumerator TravelToTarget(direction dir)
     {
-        if(fatigueSlider.value < 1 && !isFatigued)
+        if (fatigueSlider.value < 1 && !isFatigued)
         {
             Vector3 changeVector;
 
@@ -426,7 +428,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                     yield return new WaitForSeconds(0.025f);
                 }
 
-                if(transform.position.x >= 9 || transform.position.x <= -9 ||
+                if (transform.position.x >= 9 || transform.position.x <= -9 ||
                    transform.position.y >= 5.6 || transform.position.y <= -4)
                 {
                     fireButton.FireSelectedPlayer(tag);
@@ -446,7 +448,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
                 }
             }
 
-            if(moves != null && moves.Count > 0)
+            if (moves != null && moves.Count > 0)
             {
                 moves.RemoveAt(0);
             }
@@ -550,7 +552,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(canSelect == true)
+        if (canSelect == true)
         {
             //if there is no currently selected player
             if (GameManager.instance.playerSelected == false)
@@ -607,7 +609,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         isSelected = isActive;
         selectionIndicator.SetActive(isActive);
         fatigueSlider.gameObject.SetActive(isActive);
-        if(isActive == true)
+        if (isActive == true)
         {
             //a player is selected, so activate the fire button
             fireButton.gameObject.SetActive(true);
@@ -619,7 +621,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             fireButton.gameObject.SetActive(false);
             GameManager.instance.selectedPlayer = null;
         }
-        
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -627,7 +629,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         SetCollidingTile(collision.gameObject);
         HandleActionPanelButtons();
 
-        if(collision.tag == "Boundary")
+        if (collision.tag == "Boundary")
         {
             DestroyPlayer();
         }
@@ -643,11 +645,11 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             if (tag == "Lumberjack")
             {
                 //if the planter is hired, turn off it's buttons by changing its UI state
-                if(uIActions.PlanterState != GameManager.planter_UI_State.None)
+                if (uIActions.PlanterState != GameManager.planter_UI_State.None)
                 {
                     uIActions.PlanterState = GameManager.planter_UI_State.Other;
                 }
-                
+
                 //check rank to enable promotion button
                 if (pointTowardsNextRank < GameManager.instance.rank[currentRank])
                 {
@@ -734,10 +736,10 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     {
         canMove = !playAnimation;
         Tree tree = collidingTile.GetComponent<Tree>();
-        
+
         if (tag == "Lumberjack")
         {
-            if(playAnimation == true)
+            if (playAnimation == true)
             {
                 ChangeSpriteOrder(-10);
 
@@ -776,7 +778,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     public void PlayPlantAnimation(bool playAnimation)
     {
         canMove = false;
-        if(tag == "Planter")
+        if (tag == "Planter")
         {
             animator.SetBool("Plant", playAnimation);
             animator.runtimeAnimatorController = down;
@@ -845,7 +847,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     /// </summary>
     public void SowSeeds()
     {
-        if(tag == "Planter" && seedsPlanted++ >= 2)
+        if (tag == "Planter" && seedsPlanted++ >= 2)
         {
             canMove = true;
 
@@ -881,7 +883,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
         Tree collidingTree = collidingTile.GetComponent<Tree>();
 
         //check if the tree has been watered five times, then adjust stats, handle animations, and update the buttons
-        if(collidingTree.waterCount++ >= 5)
+        if (collidingTree.waterCount++ >= 5)
         {
             canMove = true;
             pointTowardsNextRank++;
@@ -918,7 +920,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     public void AddFatigue()
     {
         fatigueSlider.value += fatigueIncrement;
-        if(rejuvinating == false)
+        if (rejuvinating == false)
         {
             StartCoroutine(Rejuvinate());
         }
@@ -936,7 +938,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
             {
                 uIActions.LumberjackState = GameManager.lumberjack_UI_State.Other;
             }
-            
+
             StartCoroutine(HandleFatigued());
         }
     }
@@ -987,7 +989,7 @@ public class Player : MonoBehaviour, IPointerClickHandler {
     public void SetCollidingTile(GameObject obj)
     {
         collidingTile = obj;
-        if(collidingTile.tag == "Tree")
+        if (collidingTile.tag == "Tree")
         {
             collidingTreeAnimator = collidingTile.GetComponent<Animator>();
         }
