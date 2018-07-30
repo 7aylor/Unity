@@ -25,7 +25,7 @@ public class MapGenerator : MonoBehaviour {
     public GameObject[] backgroundGrass;
     public GameObject[] trees;
     public GameObject[] rocks;
-    //public GameObject[] cactus;
+    public GameObject[] cacti;
     public GameObject interactiveGrass;
     public GameObject riverStraight;
     public GameObject riverCurve;
@@ -42,7 +42,8 @@ public class MapGenerator : MonoBehaviour {
         straightRiver,
         curveRiver,
         endRiver,
-        building
+        building,
+        cactus
     }
 
     private void Start()
@@ -61,9 +62,13 @@ public class MapGenerator : MonoBehaviour {
         if(GameManager.instance.currentLevel == LevelManager.level.Hills)
         {
             CreateRiver();
+            SpawnTerrain();
         }
-        //CreateRiver();
-        SpawnTerrain();
+        else if (GameManager.instance.currentLevel == LevelManager.level.Desert)
+        {
+            SpawnTerrain();
+            SpawnCacti();
+        }
     }
 
     private void Update()
@@ -734,7 +739,32 @@ public class MapGenerator : MonoBehaviour {
                 ac.SpawnSnake();
                 break;
         }
-        
+    }
+
+    /// <summary>
+    /// If desert level, spawn cacti over grass after terrain has spawned
+    /// </summary>
+    private void SpawnCacti()
+    {
+        int numCacti = Random.Range((int)GameManager.instance.numGrassTiles / 8, (int)GameManager.instance.numGrassTiles/4);
+
+        int x = 0;
+        int y = 0;
+
+        for (int i = 0; i < numCacti; i++)
+        {
+            do
+            {
+                x = Random.Range(0, sizeX);
+                y = Random.Range(0, sizeY);
+            } while (GameManager.instance.map[x, y] != (int)tileType.grass);
+
+            GameManager.instance.map[x, y] = (int)tileType.rock;
+
+            GameObject cactus = Instantiate(cacti[Random.Range(0, cacti.Length)],
+                                            new Vector3(GameManager.instance.ArrayCoordToWorldCoordX(x),
+                                                        GameManager.instance.ArrayCoordToWorldCoordY(y), 0), Quaternion.identity);
+        }
     }
 
     private int GetRandomGrassTile()
