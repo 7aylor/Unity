@@ -764,6 +764,7 @@ public class MapGenerator : MonoBehaviour {
             GameObject cactus = Instantiate(cacti[Random.Range(0, cacti.Length)],
                                             new Vector3(GameManager.instance.ArrayCoordToWorldCoordX(x),
                                                         GameManager.instance.ArrayCoordToWorldCoordY(y), 0), Quaternion.identity);
+            cactus.transform.parent = terrain;
         }
     }
 

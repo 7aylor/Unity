@@ -218,6 +218,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
     /// <param name="tileY">World Position Y of the tile that is clicked</param>
     public void HandleMovePlayer(float tileX, float tileY)
     {
+        Debug.Log("HandleMovePlayer called");
         if (isSelected == true && hasTarget == false && canMove == true && isFatigued == false)
         {
             if (GameManager.instance.IsRiverTile(tileX, tileY) == false)
@@ -245,11 +246,16 @@ public class Player : MonoBehaviour, IPointerClickHandler
         int maxMoves = (Mathf.Abs(playerX - newTargetX)) + (Mathf.Abs(playerY - newTargetY));
 
         Debug.Log("Before While in SetMoves");
+        Debug.Log(newTargetX);
+        Debug.Log(newTargetY);
+        Debug.Log(playerX);
+        Debug.Log(playerY);
 
         int count = 0;
 
         while ((playerX != newTargetX || playerY != newTargetY) && count < 1000)
         {
+            Debug.Log("While in SetMoves Executed");
             count++;
             //right
             if (playerX < newTargetX && lastDirection != direction.left)
