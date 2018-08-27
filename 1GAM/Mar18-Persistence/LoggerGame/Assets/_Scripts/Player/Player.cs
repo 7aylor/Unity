@@ -10,7 +10,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(AudioSource))]
 public class Player : MonoBehaviour, IPointerClickHandler
 {
-
     public AnimatorOverrideController up;
     public AnimatorOverrideController down;
     public AnimatorOverrideController side;
@@ -296,7 +295,6 @@ public class Player : MonoBehaviour, IPointerClickHandler
             //up
             if (playerY < newTargetY && lastDirection != direction.down)
             {
-
                 //if next tile up is not a river, add move up
                 if (GameManager.instance.IsRiverTile(playerX, playerY + 1) == false)
                 {
